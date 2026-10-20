@@ -96,7 +96,7 @@ para filtros y agrupaciones en tableros.
 | `mv_daily_attendance` (vista materializada) | accountId, date, locationId, departmentId, scheduled, present, late, absent, workedMinutes, overtimeMinutes — refresco incremental en cola |
 | `consents` | id, identityId, accountId, kind (geolocation/biometric/privacy_notice), version, grantedAt, revokedAt, ip |
 | `audit_log` | id, accountId, actorType (user/employee/system), actorId, entity, entityId, action, before JSONB, after JSONB, at — append-only |
-| `account_settings` | accountId (PK), weekStartsOn, payPeriodFrequency, defaultPolicyId, branding, retentionYears (default 5 tras la baja; mínimo legal 1 año, LFT arts. 804–805), geofenceMode default (alert|block), featureFlags |
+| `account_settings` | accountId (PK), weekStartsOn, payPeriodFrequency, defaultPolicyId, branding, retentionYears (default 5 tras la baja; mínimo legal 1 año, LFT arts. 804–805), geofenceMode default (alert / block), featureFlags |
 
 ## Índices críticos
 - `punches (accountId, employmentId, serverAt DESC)`

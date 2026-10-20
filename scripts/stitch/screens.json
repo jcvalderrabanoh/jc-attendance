@@ -1,0 +1,209 @@
+{
+  "projectTitle": "Checador — Registro de entradas y salidas",
+  "promptPrefix": "Diseña una pantalla para \"Checador\", un SaaS de control de asistencia para PyMEs en México. Estilo: Material 3, limpio, profesional, color primario azul petróleo (#0F4C5C), acento ámbar (#F2A541) para alertas, verde (#2E7D32) para \"a tiempo\", rojo (#C62828) para faltas. Tipografía Inter. Textos en español de México. Accesible (contraste AA, objetivos táctiles ≥ 48 px).",
+  "screens": [
+    {
+      "id": "A1",
+      "name": "Alta por liga",
+      "route": "/unirse/:token",
+      "deviceType": "MOBILE",
+      "prompt": "Pantalla móvil de registro por invitación. Encabezado con logo y nombre de la empresa que invita (\"Te invitó Panadería La Espiga\"). Formulario por pasos (stepper de 3): 1) nombre, apellidos, teléfono WhatsApp, email opcional; 2) datos laborales: CURP, RFC, NSS y campos personalizados de la empresa (un select \"Talla de uniforme\", un campo fecha); 3) aviso de privacidad con casillas separadas para consentir geolocalización y biometría, y subir foto de INE. Botón \"Enviar para validación\". Mensaje final: \"Tu alta está en revisión\"."
+    },
+    {
+      "id": "A2",
+      "name": "Acceso por OTP",
+      "route": "/entrar",
+      "deviceType": "MOBILE",
+      "prompt": "Login móvil sin contraseña: campo de teléfono con prefijo +52, botón \"Enviarme código por WhatsApp\", enlace \"Usar email\". Segunda vista con 6 casillas de código OTP y temporizador de reenvío."
+    },
+    {
+      "id": "A3",
+      "name": "Selector de patrón",
+      "route": "/cuentas",
+      "deviceType": "MOBILE",
+      "prompt": "Lista de empresas donde trabaja el empleado, cada tarjeta con logo, nombre, sucursal y estado de hoy (\"Entrada 08:58\"). Opción de fijar la predeterminada."
+    },
+    {
+      "id": "A4",
+      "name": "Checar",
+      "route": "/",
+      "deviceType": "MOBILE",
+      "prompt": "Pantalla principal móvil: saludo, reloj grande con hora actual, botón circular gigante \"Registrar entrada\" (cambia a \"Registrar salida\" en rojo cuando está dentro), chip de ubicación \"Sucursal Centro · dentro de la geocerca\", contador de horas trabajadas hoy en vivo, turno de hoy (08:00–17:00) y mini resumen de la semana (barras por día). Banner discreto \"Sin conexión: se enviará al reconectar\"."
+    },
+    {
+      "id": "A5",
+      "name": "Verificación",
+      "route": "/checar/confirmar",
+      "deviceType": "MOBILE",
+      "prompt": "Verificación de marcaje: vista de cámara frontal con óvalo guía para selfie y texto \"Parpadea para verificar\", mini mapa con círculo de geocerca y punto del usuario, alternativa \"Escanear QR del kiosco\". Botón confirmar."
+    },
+    {
+      "id": "A6",
+      "name": "Mis registros",
+      "route": "/historial",
+      "deviceType": "MOBILE",
+      "prompt": "Historial: selector de semana, total de horas vs. objetivo con barra de progreso, lista por día con entrada/salida, horas, etiquetas \"Retardo\", \"Hora extra\", \"Pendiente de revisión\"."
+    },
+    {
+      "id": "A7",
+      "name": "Solicitudes",
+      "route": "/solicitudes",
+      "deviceType": "MOBILE",
+      "prompt": "Solicitudes: pestañas Pendientes/Resueltas, botón flotante \"Nueva solicitud\" con tipos (Vacaciones, Permiso, Incapacidad, Corregir marcaje), saldo de días de vacaciones visible."
+    },
+    {
+      "id": "A8",
+      "name": "Mi perfil",
+      "route": "/perfil",
+      "deviceType": "MOBILE",
+      "prompt": "Perfil: foto, datos personales, campos personalizados, sección \"Privacidad\" con interruptores de consentimientos y enlace a aviso de privacidad, \"Cerrar sesión\"."
+    },
+    {
+      "id": "B1",
+      "name": "Kiosco",
+      "route": "/kiosco",
+      "deviceType": "TABLET",
+      "prompt": "Pantalla horizontal de tablet: a la izquierda QR grande que se renueva cada 30 s con barra de tiempo; a la derecha cámara para reconocimiento facial y teclado numérico para PIN. Arriba nombre de la sucursal y reloj. Al checar, tarjeta de confirmación con foto, nombre y \"Entrada registrada 08:57 · A tiempo\"."
+    },
+    {
+      "id": "B2",
+      "name": "Activar kiosco",
+      "route": "/kiosco/activar",
+      "deviceType": "TABLET",
+      "prompt": "Activación: campo de código de 8 caracteres generado desde la consola, selección de sucursal, botón \"Activar este dispositivo\"."
+    },
+    {
+      "id": "C1",
+      "name": "Tablero",
+      "route": "/tablero",
+      "deviceType": "DESKTOP",
+      "prompt": "Dashboard web desktop con barra lateral (Tablero, En vivo, Empleados, Marcajes, Hojas de horas, Incidencias, Turnos, Ubicaciones, Reportes, Analítica, Configuración) y selector de cuenta arriba. Fila de 6 tarjetas KPI: Presentes ahora (84/96), Puntualidad hoy 91 %, Ausentismo del mes 3.2 %, Horas extra semana 126 h, Marcajes por revisar 7, Altas pendientes 3. Debajo: gráfico de líneas de asistencia 30 días, mapa de calor de entradas por hora y día, barras de horas extra por sucursal, tabla \"Retardos de hoy\"."
+    },
+    {
+      "id": "C2",
+      "name": "Asistencia en vivo",
+      "route": "/en-vivo",
+      "deviceType": "DESKTOP",
+      "prompt": "Vista en vivo: mapa con pines por sucursal y contador, lista lateral agrupada por sucursal con avatar, hora de entrada y estado (Dentro, En descanso, Salió, No ha llegado). Filtros por departamento."
+    },
+    {
+      "id": "C3",
+      "name": "Empleados",
+      "route": "/empleados",
+      "deviceType": "DESKTOP",
+      "prompt": "Tabla de empleados con búsqueda, filtros (sucursal, departamento, estado, campos personalizados), columnas configurables, acciones masivas, botones \"Invitar por liga\", \"Importar Excel\", \"Agregar\"."
+    },
+    {
+      "id": "C4",
+      "name": "Ficha de empleado",
+      "route": "/empleados/:id",
+      "deviceType": "DESKTOP",
+      "prompt": "Ficha: encabezado con foto y datos, pestañas Resumen (horas del periodo, puntualidad, saldo vacaciones), Asistencia (calendario mensual con colores por estado), Marcajes, Solicitudes, Documentos, Campos personalizados."
+    },
+    {
+      "id": "C5",
+      "name": "Ligas de alta",
+      "route": "/invitaciones",
+      "deviceType": "DESKTOP",
+      "prompt": "Ligas de alta: tabla de ligas con nombre, sucursal/departamento por defecto, usos (12/50), vence, requiere aprobación; diálogo \"Nueva liga\" con esas opciones; botón copiar liga, mostrar QR y compartir por WhatsApp."
+    },
+    {
+      "id": "C6",
+      "name": "Validación de altas",
+      "route": "/validaciones",
+      "deviceType": "DESKTOP",
+      "prompt": "Cola de validación tipo bandeja: lista a la izquierda, detalle a la derecha con datos enviados, documentos, y checklist de reglas con ✓/⚠/✗ (CURP válida, teléfono único, posible duplicado de rostro). Botones Aprobar, Pedir información, Rechazar con motivo."
+    },
+    {
+      "id": "C7",
+      "name": "Marcajes",
+      "route": "/marcajes",
+      "deviceType": "DESKTOP",
+      "prompt": "Tabla de marcajes con filtros por fecha, sucursal, banderas; cada fila muestra selfie miniatura, hora, tipo, distancia a geocerca, chips de riesgo; panel lateral con mapa y foto para aprobar/rechazar; botón \"Agregar marcaje manual\" con motivo obligatorio."
+    },
+    {
+      "id": "C8",
+      "name": "Hojas de horas",
+      "route": "/hojas-de-horas",
+      "deviceType": "DESKTOP",
+      "prompt": "Hojas de horas: selector de periodo de pago, tabla por empleado con horas normales, extra dobles, extra triples, nocturnas, retardos, faltas, estado de aprobación; botón \"Cerrar periodo\" y \"Exportar prenómina\"."
+    },
+    {
+      "id": "C9",
+      "name": "Incidencias y solicitudes",
+      "route": "/incidencias",
+      "deviceType": "DESKTOP",
+      "prompt": "Bandeja de incidencias y solicitudes con pestañas, tarjetas con tipo, empleado, fechas, adjuntos, aprobación en un clic y comentario."
+    },
+    {
+      "id": "C10",
+      "name": "Turnos",
+      "route": "/turnos",
+      "deviceType": "DESKTOP",
+      "prompt": "Calendario semanal tipo planner: filas empleados, columnas días, bloques de turno de colores arrastrables, plantillas de turno a la izquierda, indicador de horas semanales por persona con alerta si excede 48 h."
+    },
+    {
+      "id": "C11",
+      "name": "Ubicaciones",
+      "route": "/ubicaciones",
+      "deviceType": "DESKTOP",
+      "prompt": "Ubicaciones: lista de sucursales y mapa grande donde se dibuja la geocerca (círculo con slider de radio o polígono), sección de kioscos vinculados y restricciones Wi-Fi/IP."
+    },
+    {
+      "id": "C12",
+      "name": "Reportes",
+      "route": "/reportes",
+      "deviceType": "DESKTOP",
+      "prompt": "Galería de reportes como tarjetas (Asistencia diaria, Hoja de horas por empleado, Horas extra, Incidencias, Prenómina, Puntualidad por sucursal), cada una con filtros y formato PDF/Excel; tabla de reportes generados con estado y descarga."
+    },
+    {
+      "id": "C13",
+      "name": "Analítica",
+      "route": "/analitica",
+      "deviceType": "DESKTOP",
+      "prompt": "Constructor de gráficos: elegir métrica (horas, retardos, faltas, horas extra), dimensión (sucursal, departamento, campo personalizado, día de la semana), tipo de gráfico y periodo; vista previa grande; guardar en tablero."
+    },
+    {
+      "id": "C14",
+      "name": "Políticas",
+      "route": "/configuracion/politicas",
+      "deviceType": "DESKTOP",
+      "prompt": "Formulario de política: tolerancia de entrada/salida, redondeo, retardo a partir de, falta a partir de, salida automática, requisitos de verificación (selfie, geocerca, QR), modo de horas extra (LFT México: dobles las primeras 9 semanales, triples después), aprobación de horas extra; vista previa con un ejemplo de jornada calculada."
+    },
+    {
+      "id": "C15",
+      "name": "Campos personalizados",
+      "route": "/configuracion/campos",
+      "deviceType": "DESKTOP",
+      "prompt": "Lista de campos personalizados arrastrable con tipo, obligatorio, visible/editable por el empleado, usar en reportes y gráficos; diálogo para crear campo con opciones."
+    },
+    {
+      "id": "C16",
+      "name": "Reglas de validación",
+      "route": "/configuracion/reglas-alta",
+      "deviceType": "DESKTOP",
+      "prompt": "Reglas de validación de alta con interruptores y configuración: CURP/RFC/NSS válidos, teléfono y CURP únicos, dominio de email permitido, edad mínima, documentos requeridos, detección de rostro duplicado; severidad Bloquear/Advertir."
+    },
+    {
+      "id": "C17",
+      "name": "General",
+      "route": "/configuracion/general",
+      "deviceType": "DESKTOP",
+      "prompt": "Configuración general: periodicidad de pago, inicio de semana, días festivos (precargados LFT), zona horaria, aviso de privacidad, retención de datos, marca (logo/colores)."
+    },
+    {
+      "id": "C18",
+      "name": "Bitácora",
+      "route": "/auditoria",
+      "deviceType": "DESKTOP",
+      "prompt": "Bitácora: tabla cronológica con actor, acción, entidad y diff antes/después expandible."
+    },
+    {
+      "id": "D1",
+      "name": "D1",
+      "route": "",
+      "deviceType": "DESKTOP",
+      "prompt": "Documento carta vertical: encabezado con logo y datos del patrón (razón social, RFC, registro patronal), datos del empleado, tabla diaria (fecha, turno, entrada, salida, descanso, horas, extra, incidencia), totales, y líneas de firma de empleado y RH. Pie con folio y hash de verificación."
+    }
+  ]
+}

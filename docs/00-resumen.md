@@ -34,7 +34,7 @@ Las referencias globales más cercanas son Connecteam (liga con aprobación) y J
 | [04 · Modelo de datos](04-modelo-de-datos.md) | Esquema `attendance` |
 | [05 · Reglas y validaciones](05-reglas-y-validaciones.md) | Alta, marcaje, motor LFT |
 | [06 · Cumplimiento legal](06-cumplimiento-legal.md) | LFT 2026, LFPDPPP, NOM-035, checklist |
-| [07 · Pantallas y Stitch](07-pantallas-y-stitch.md) | 30 pantallas con su prompt para Stitch |
+| [07 · Pantallas y Stitch](07-pantallas-y-stitch.md) | 29 pantallas con su prompt para Stitch (A1–A8, B1–B2, C1–C18, D1) |
 | [08 · Plan de acción](08-plan-de-accion.md) | Fases, sprints, riesgos, precios |
 | [09 · Fuentes](09-fuentes.md) | 401 URLs de 252 dominios |
 | `investigacion/` | Anexos A (global), B (LatAm y legal), C (técnica, UX y Stitch) |

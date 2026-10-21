@@ -19,8 +19,18 @@ export interface AttendanceEntitlement {
   hasAttendanceApp(accountId: string): Promise<boolean>;
 }
 
-/** Claim `app` que exige este servicio en los tokens de jc-core. */
+/** Identificador del Checador en `account_apps` de jc-core. */
 export const ATTENDANCE_APP = 'attendance';
+
+/**
+ * Apps de jc-core cuyas sesiones se aceptan. El mismo usuario entra desde
+ * lumen-view (las pantallas del Checador viven en core-front), anestesia o la
+ * propia app; lo que decide el acceso es que la CUENTA tenga contratado el
+ * Checador (fila activa en `account_apps`), no desde qué app inició sesión.
+ */
+export function acceptedCoreApps(): string[] {
+  return (process.env.ATTENDANCE_ACCEPTED_APPS || 'attendance,lumen-view,anesthesia').split(',').map((a) => a.trim());
+}
 
 /** Permisos de jc-core que dan un rol dentro del Checador. */
 export const ATTENDANCE_PERMISSIONS = {
@@ -116,8 +126,10 @@ export class AttendanceAuthGuard implements CanActivate {
   }
 
   private toCoreContext(payload: any): CoreUserContext {
-    if (payload.app !== ATTENDANCE_APP) {
-      throw new ForbiddenException('La sesión no es del Checador (app != attendance)');
+    // Tokens antiguos de lumen-view no traen `app`: jc-core asume lumen-view.
+    const app = payload.app ?? 'lumen-view';
+    if (!acceptedCoreApps().includes(app)) {
+      throw new ForbiddenException(`Las sesiones de ${app} no pueden usar el Checador`);
     }
     if (!payload.userId || !payload.accountId) {
       throw new UnauthorizedException('Invalid token');

@@ -11,6 +11,8 @@ export enum GeofenceKindEnum {
 /** Sucursal / centro de trabajo. La geocerca va embebida (una por sucursal en el MVP). */
 @Entity({ name: 'locations' })
 @Index(['accountId', 'status'])
+// GIN jsonb_path_ops creado a mano en la migración inicial: TypeORM no debe tocarlo.
+@Index('IDX_locations_custom_fields', { synchronize: false })
 export class Location extends BaseTenantEntity {
   @Column({ type: 'varchar', length: 120 })
   name: string;

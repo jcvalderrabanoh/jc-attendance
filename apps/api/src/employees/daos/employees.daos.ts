@@ -71,6 +71,11 @@ export class EmploymentDao extends TenantDao<Employment> {
     return this.repository.find({ where: { identityId, status: StatusForEntityEnum.Active }, order: { createdAt: 'ASC' } });
   }
 
+  /** Usuario de jc-core que también checa (mismo login para lumen-view y el Checador). */
+  findByCoreUser(accountId: string, coreUserId: string): Promise<Employment | null> {
+    return this.repository.findOne({ where: { accountId, coreUserId, status: StatusForEntityEnum.Active } });
+  }
+
   findByEmployeeNumber(accountId: string, employeeNumber: string): Promise<Employment | null> {
     return this.repository.findOne({ where: { accountId, employeeNumber, ...this.notDeleted() } });
   }

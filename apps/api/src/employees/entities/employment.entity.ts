@@ -15,6 +15,8 @@ export enum PayTypeEnum {
 /** Relación laboral de una identidad con una cuenta (patrón). */
 @Entity({ name: 'employments' })
 @Index(['accountId', 'status'])
+// GIN jsonb_path_ops creado a mano en la migración inicial: TypeORM no debe tocarlo.
+@Index('IDX_employments_custom_fields', { synchronize: false })
 @Index(['accountId', 'identityId'], { unique: true, where: "status != 'deleted'" })
 @Index(['accountId', 'employeeNumber'], { unique: true, where: "\"employeeNumber\" IS NOT NULL AND status != 'deleted'" })
 export class Employment extends BaseTenantEntity {

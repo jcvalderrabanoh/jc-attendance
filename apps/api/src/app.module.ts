@@ -15,6 +15,7 @@ import { SchedulesModule } from './schedules';
 import { EmployeesModule } from './employees';
 import { EmployeeAuthModule } from './employee-auth';
 import { OnboardingModule } from './onboarding';
+import { PunchesModule } from './punches';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { OnboardingModule } from './onboarding';
     EmployeesModule,
     EmployeeAuthModule,
     OnboardingModule,
+    PunchesModule,
   ],
   controllers: [HealthController],
 })

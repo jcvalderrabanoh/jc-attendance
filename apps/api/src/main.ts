@@ -14,7 +14,10 @@ async function bootstrap() {
     .build();
   SwaggerModule.setup('docs', app, SwaggerModule.createDocument(app, config));
   const port = parseInt(process.env.PORT || '3100', 10);
+  app.enableShutdownHooks();
   await app.listen(port);
   Logger.log(`jc-attendance escuchando en :${port}`, 'Bootstrap');
+  // PM2 en cluster + wait_ready: el worker viejo se apaga solo cuando este avisa.
+  if (process.send) process.send('ready');
 }
 bootstrap();

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>C18 · Bitácora y Auditoría de Cambios - Checador Pro</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with forms/container plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim from Design System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface-variant": "#40484b",
+            "inverse-surface": "#263143",
+            "inverse-on-surface": "#ecf1ff",
+            "on-secondary-container": "#3a6977",
+            "surface-container-lowest": "#ffffff",
+            "outline-variant": "#c0c8cb",
+            "surface-tint": "#306576",
+            "secondary-fixed": "#baeafa",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#114d5d",
+            "on-primary-fixed": "#001f28",
+            "on-secondary-fixed": "#001f27",
+            "background": "#f9f9ff",
+            "surface-bright": "#f9f9ff",
+            "surface-container": "#e7eeff",
+            "primary-container": "#0f4c5c",
+            "surface-variant": "#d8e3fb",
+            "secondary-fixed-dim": "#9ecedd",
+            "on-background": "#111c2d",
+            "surface": "#f9f9ff",
+            "on-primary-container": "#87bbce",
+            "surface-container-high": "#dee8ff",
+            "inverse-primary": "#9acee1",
+            "surface-dim": "#cfdaf2",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "secondary": "#356572",
+            "outline": "#70787c",
+            "tertiary-fixed-dim": "#ffb963",
+            "surface-container-low": "#f0f3ff",
+            "on-surface": "#111c2d",
+            "tertiary-container": "#653d00",
+            "on-tertiary-fixed-variant": "#663e00",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-error-container": "#93000a",
+            "primary": "#003441",
+            "on-tertiary-container": "#f1a440",
+            "primary-fixed-dim": "#9acee1",
+            "primary-fixed": "#b6ebfe",
+            "surface-container-highest": "#d8e3fb",
+            "on-tertiary-fixed": "#2b1700",
+            "tertiary-fixed": "#ffddb9",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "secondary-container": "#b7e7f7",
+            "on-secondary": "#ffffff",
+            "tertiary": "#462900"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "gutter-mobile": "0.75rem",
+            "space-2xl": "3rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "margin": "1.5rem",
+            "space-lg": "1.5rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "title-md": ["Inter"],
+            "body-md": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-clock": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-background text-on-surface antialiased overflow-x-hidden font-body-md text-body-md">
+<!-- ==================== SIDE NAVIGATION BAR (SHARED COMPONENT) ==================== -->
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col justify-between p-4 z-40 bg-surface-container-low dark:bg-inverse-surface shadow-sm border-r border-outline-variant dark:border-outline">
+<!-- Top Branding & Navigation Items -->
+<div class="flex flex-col gap-4">
+<!-- App Header / Logo -->
+<div class="flex items-center gap-3 px-2 py-1">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-surface-container-lowest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="verified_user">verified_user</span>
+</div>
+<div>
+<h1 class="text-title-lg font-title-lg text-primary dark:text-inverse-primary leading-tight tracking-tight">Checador Pro</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant dark:text-surface-variant">SaaS de Asistencia PyME</p>
+</div>
+</div>
+<!-- Quick Action Button / CTA from JSON -->
+<button class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary-container transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span>Pase de Lista Rápido</span>
+</button>
+<!-- Tab Items (11 Items from JSON, Active: Auditoría) -->
+<nav class="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-280px)] pr-1">
+<!-- 1. Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- 2. En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="sensors">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- 3. Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="badge">badge</span>
+<span>Empleados</span>
+</a>
+<!-- 4. Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="schedule">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- 5. Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="date_range">date_range</span>
+<span>Hojas de horas</span>
+</a>
+<!-- 6. Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="warning">warning</span>
+<span>Incidencias</span>
+</a>
+<!-- 7. Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_month">calendar_month</span>
+<span>Turnos</span>
+</a>
+<!-- 8. Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="location_on">location_on</span>
+<span>Ubicaciones</span>
+</a>
+<!-- 9. Reportes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="bar_chart">bar_chart</span>
+<span>Reportes</span>
+</a>
+<!-- 10. Auditoría (ACTIVE TAB - EXACT MATCH) -->
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-label-lg text-label-lg shadow-sm" href="#">
+<span class="material-symbols-outlined text-[20px] text-primary" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-primary font-semibold">Auditoría</span>
+</a>
+<!-- 11. Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-body-md text-body-md hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span>Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer Support & Logout from JSON -->
+<div class="pt-3 border-t border-outline-variant flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-body-md text-body-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+<span>Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-error hover:bg-error-container font-body-md text-body-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+</div>
+</aside>
+<!-- ==================== TOP NAVIGATION BAR (SHARED COMPONENT) ==================== -->
+<header class="fixed top-0 right-0 left-64 h-16 flex justify-between items-center px-6 z-30 bg-surface dark:bg-inverse-surface shadow-sm border-b border-outline-variant dark:border-outline">
+<!-- Left Section: Search & Institutional Tags from JSON -->
+<div class="flex items-center gap-5">
+<!-- Search Bar -->
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 text-body-md font-body-md bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-on-surface" placeholder="Buscar por actor, RFC, IP, folio #AUD..." type="text"/>
+</div>
+<!-- Institutional Chips from JSON -->
+<div class="hidden xl:flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-label-sm bg-surface-container-high text-on-surface-variant border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="location_on">location_on</span>
+<span>Matriz CDMX - Central</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-label-sm bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9]">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]" data-icon="cloud_done">cloud_done</span>
+<span>Sincronizado LFT/SAT</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-label-sm bg-[#E0F2F1] text-primary-container border border-secondary-container">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span>Sello Digital SHA-256 Validador Activo</span>
+</span>
+</div>
+</div>
+<!-- Right Section: Trailing Actions, Icons & Profile -->
+<div class="flex items-center gap-3">
+<!-- Secondary Action from JSON -->
+<button class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-outline text-primary font-label-md text-label-md hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="file_download">file_download</span>
+<span>Descargar Reporte</span>
+</button>
+<!-- Primary Action: Exportar Bitácora Foliada -->
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-surface-container-lowest font-label-md text-label-md hover:bg-primary shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified">verified</span>
+<span>Exportar Bitácora Foliada (Excel / PDF)</span>
+</button>
+<!-- Icon Actions -->
+<div class="flex items-center gap-1 border-l border-outline-variant pl-3 ml-1">
+<button class="relative p-2 rounded-full hover:bg-surface-container text-on-surface-variant transition-colors" title="Notificaciones" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant transition-colors" title="Ayuda" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="help">help</span>
+</button>
+</div>
+<!-- User Profile Avatar and Info -->
+<div class="flex items-center gap-3 pl-2">
+<img class="w-9 h-9 rounded-full object-cover ring-2 ring-primary-container/20" data-alt="Corporate headshot portrait of Licenciado Roberto Morales, a senior Mexican HR and Legal Director wearing formal navy executive attire in a modern architectural office setting with warm professional ambient lighting and crisp digital clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBit3dcUdsL1aLZwNlf55zcZ7fJq77Bajmv_t8vLPU3ercVAYKbUKaX_6T1pwtWZ_o-r5BV-pUMSqnu1gAmcYtriFkHHURcv7T-7o2Lj00SnW-OeuR1MNU24f7Rwu8nkjvQ-VKE3hG4hQR4FhVrBP1Y1bJfD0u6X9NxWrVkvPbK9JDxOoeQg-WS4XbtQXio_-HHLtjbT8JqCXfbvVyiFdgU9HPybwQh1uGj-dQ3yGGevv82Oa9ZIFAuC0dNTLbslY9fH2uwC_DA8k5m"/>
+<div class="hidden 2xl:block text-left">
+<div class="text-label-md font-label-md text-on-surface leading-tight">Lic. Roberto Morales</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Admin RH &amp; Legal</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN CONTENT CANVAS ==================== -->
+<main class="ml-64 pt-20 pb-12 px-8 min-h-screen">
+<!-- Breadcrumb & Header Title Area -->
+<div class="mb-6">
+<nav class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant mb-1">
+<span class="text-secondary hover:underline cursor-pointer">Inicio</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span>Control Jurídico y Nómina</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-semibold">/auditoria · Trazabilidad Inmutable e Inspección STPS / LFT</span>
+</nav>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mt-2">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Bitácora Oficial de Auditoría y Cambios de Sistema</h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-4xl mt-1">
+            Registro criptográfico cronológico e inalterable de modificaciones manuales, justificaciones de asistencia, reasignación de turnos y ajustes de parámetros con cumplimiento NOM-037 y Art. 132 LFT.
+          </p>
+</div>
+<!-- Action Buttons Group -->
+<div class="flex flex-wrap items-center gap-2 self-start lg:self-center">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface hover:bg-surface-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary" data-icon="date_range">date_range</span>
+<span>Período Nómina (Q20)</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 bg-surface-container-lowest border border-secondary text-secondary rounded-lg text-label-md font-label-md hover:bg-secondary-container/30 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="enhanced_encryption">enhanced_encryption</span>
+<span>Verificación Hash</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#0F4C5C] text-surface-container-lowest rounded-lg text-label-md font-label-md hover:bg-primary transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed" data-icon="gavel">gavel</span>
+<span>Anexo Inspector STPS</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== KPI TRAZABILIDAD CARDS ==================== -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<!-- Card 1: Eventos Auditados -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-outline-variant/70 shadow-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant">Eventos Auditados (Mes)</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-headline-md font-headline-md text-primary font-bold tracking-tight">1,482</span>
+<span class="inline-flex items-center text-label-sm font-label-sm text-[#2E7D32]">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span>
+<span>+12% vs Q19</span>
+</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2">Cero omisiones registradas</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+<!-- Card 2: Modificaciones Manuales RH -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-outline-variant/70 shadow-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant">Modificaciones Manuales RH</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-headline-md font-headline-md text-primary font-bold tracking-tight">28</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">ajustes legales</span>
+</div>
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm text-[#2E7D32] mt-2 font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+<span>100% justificación obligatoria</span>
+</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-[#E0F2F1] flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="edit_note">edit_note</span>
+</div>
+</div>
+<!-- Card 3: Eventos Críticos / Alta Severidad -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-[#FFCDD2] shadow-sm flex items-start justify-between relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-[#FFEBEE] rounded-bl-full -z-0 opacity-40"></div>
+<div class="flex flex-col z-10">
+<span class="text-label-md font-label-md text-[#C62828] font-semibold">Eventos Críticos / Alta Severidad</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-headline-md font-headline-md text-[#C62828] font-bold tracking-tight">3</span>
+<span class="text-label-sm font-label-sm text-error font-medium">alertas activas</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2">Geocerca, tolerancia y biometría</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-[#FFEBEE] flex items-center justify-center text-[#C62828] z-10">
+<span class="material-symbols-outlined text-[24px]" data-icon="warning">warning</span>
+</div>
+</div>
+<!-- Card 4: Índice de Integridad Criptográfica -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-outline-variant/70 shadow-sm flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface-variant">Índice Integridad Criptográfica</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-headline-md font-headline-md text-primary font-bold tracking-tight">100%</span>
+<span class="inline-flex items-center text-label-sm font-label-sm text-[#2E7D32] font-semibold">SHA-256</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary" data-icon="alarm">alarm</span>
+<span>Estampa tiempo CENAM válida</span>
+</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-[#E8F5E9] flex items-center justify-center text-[#2E7D32]">
+<span class="material-symbols-outlined text-[24px]" data-icon="shield">shield</span>
+</div>
+</div>
+</div>
+<!-- ==================== FILTERS AND SEARCH TOOLBAR ==================== -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-outline-variant/70 shadow-sm mb-6 flex flex-col gap-3">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
+<!-- Search Input -->
+<div class="relative xl:col-span-2">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]" data-icon="search">search</span>
+<input class="w-full pl-10 pr-3 py-2 text-body-md font-body-md bg-surface border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-on-surface" placeholder="Buscar por actor, RFC, IP, folio #AUD o colaborador..." type="text" value="Carlos E. Hernández"/>
+</div>
+<!-- Module / Entity Filter -->
+<div>
+<select class="w-full py-2 px-3 text-body-md font-body-md bg-surface border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-on-surface">
+<option>Todas las Entidades (Marcajes, Turnos, Empleados...)</option>
+<option>Marcajes Biométricos</option>
+<option>Geocercas y Sucursales</option>
+<option>Reglas de Tolerancia LFT</option>
+<option>Turnos y Horarios</option>
+</select>
+</div>
+<!-- Actor Filter -->
+<div>
+<select class="w-full py-2 px-3 text-body-md font-body-md bg-surface border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-on-surface">
+<option>Todos los Actores</option>
+<option selected="">Lic. Roberto Morales (Admin RH)</option>
+<option>Sistema Automático (Engine V3)</option>
+<option>Supervisor de Turno Matutino</option>
+<option>Kiosco Biométrico 04</option>
+</select>
+</div>
+<!-- Date Range Filter -->
+<div>
+<select class="w-full py-2 px-3 text-body-md font-body-md bg-surface border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-on-surface font-medium">
+<option>Últimos 15 días (10 - 24 Octubre 2024)</option>
+<option>Quincena Anterior (Q19)</option>
+<option>Mes Actual (Octubre 2024)</option>
+<option>Personalizado (Rango LFT)</option>
+</select>
+</div>
+</div>
+<!-- Secondary filter line: Severity Chips & Toggle -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-outline-variant/40">
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Filtrar Severidad:</span>
+<button class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-primary text-on-primary" type="button">Todas (1,482)</button>
+<button class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-[#FFEBEE] text-[#C62828] font-semibold border border-[#FFCDD2] hover:bg-[#FFCDD2]" type="button">Crítica (3)</button>
+<button class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-[#FFF8E1] text-[#B78103] font-semibold border border-[#FFE082] hover:bg-[#FFE082]" type="button">Advertencia (25)</button>
+<button class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant hover:bg-surface-container-high" type="button">Informativa (1,454)</button>
+</div>
+<div class="flex items-center gap-4">
+<label class="inline-flex items-center gap-2 cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-primary-container border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="text-label-sm font-label-sm text-on-surface font-medium">Mostrar únicamente registros con Diff antes/después</span>
+</label>
+<button class="text-label-sm font-label-sm text-secondary hover:underline flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="restart_alt">restart_alt</span>
+<span>Limpiar filtros</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== MAIN AUDIT LOG TABLE ==================== -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/70 shadow-sm overflow-hidden mb-6">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant text-label-md font-label-md text-on-surface-variant">
+<th class="py-3 px-4">Fecha y Hora Oficial (CENAM)</th>
+<th class="py-3 px-4">Actor / Usuario</th>
+<th class="py-3 px-4">Acción Realizada</th>
+<th class="py-3 px-4">Entidad Afectada</th>
+<th class="py-3 px-4">Severidad</th>
+<th class="py-3 px-4">Motivo / Justificación LFT</th>
+<th class="py-3 px-4 text-right">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<!-- ROW 1 (EXPANDED DIFF ROW) -->
+<tr class="bg-surface-container-high/30 hover:bg-surface-container transition-colors">
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-on-surface font-semibold">24 Oct 2024</div>
+<div class="text-label-sm font-label-sm text-secondary font-mono">09:14:22 CST</div>
+<span class="text-[10px] text-outline font-mono">HASH: 7f8a3d...b492</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="flex items-center gap-2.5">
+<img class="w-8 h-8 rounded-full object-cover ring-1 ring-primary" data-alt="Portrait of human resources legal auditor Licenciado Roberto Morales in business attire looking forward with an authoritative yet approachable expression against a soft studio office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIyjrxvRPYcgnCT3hnKHaCC9OEIAacEXwI3rPATYZiCbpy9HX0cq23enB4kDd79r0Lun0WxK2aMUmnz4QNU-9sPyX0V-1wJMB9uolU1NqSg0cqbCj6vSpOMddjeayhC7koX_nTl3HXILzfTSTcQh_OOtjEURUEFfDRDTx56OoU1XmVx_ZHXxB5D22QrgIqZh6zW7ci5GkEl2zN4xN_SX7bJu7Sle_QMKw-sSXmMaSYlmSwgDJJsfU-TSI4vmK3eTSjCO7rH75PSUPz"/>
+<div>
+<div class="text-label-md font-label-md text-on-surface font-semibold">Lic. Roberto Morales</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Admin RH &amp; Legal</div>
+<div class="text-[11px] text-outline font-mono">IP: 189.210.45.12 (MacBook Pro)</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-label-sm font-label-sm bg-secondary-container text-on-secondary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="edit">edit</span>
+<span>EDICIÓN MANUAL</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-primary font-semibold hover:underline cursor-pointer">
+                  Marcaje #MC-89421
+                </div>
+<div class="text-label-sm font-label-sm text-on-surface">Carlos E. Hernández</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Puesto: Panadero Hornos</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-[#FFF8E1] text-[#B78103] font-semibold border border-[#FFE082]">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+<span>Precaución</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top max-w-xs">
+<p class="text-body-sm font-body-sm text-on-surface leading-tight">
+                  Justificación médica IMSS por incapacidad temporal inicial. Validado con bitácora interna de hornos.
+                </p>
+<span class="text-label-sm font-label-sm text-secondary font-medium">Art. 134 Fracc. XII LFT</span>
+</td>
+<td class="py-3.5 px-4 align-top text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm font-label-sm shadow-sm hover:bg-primary transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="unfold_less">unfold_less</span>
+<span>Ocultar Diff</span>
+</button>
+</td>
+</tr>
+<!-- EXPANDED DIFF CONTAINER FOR ROW 1 -->
+<tr>
+<td class="p-0 bg-surface-container-low/60 border-y border-outline-variant" colspan="7">
+<div class="p-5 border-l-4 border-primary">
+<!-- Diff Header -->
+<div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-outline-variant/60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-[22px]" data-icon="compare_arrows">compare_arrows</span>
+<div>
+<h4 class="text-title-md font-title-md text-primary">Comparador de Trazabilidad e Integridad de Registro (Diff)</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Comparativa criptográfica antes y después de la modificación de bitácora.</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Folio Inspección: <strong class="font-mono text-on-surface">#LFT-2024-MC89421</strong></span>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface-container-lowest border border-outline-variant text-label-sm font-label-sm text-on-surface hover:bg-surface-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>Descargar Comprobante Foliado PDF</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-secondary text-surface-container-lowest text-label-sm font-label-sm hover:bg-primary-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="open_in_new">open_in_new</span>
+<span>Ver Marcaje Original en C7</span>
+</button>
+</div>
+</div>
+<!-- Side-by-side Git/Diff Style Panels -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Left: Estado Anterior (Antes) -->
+<div class="bg-[#FFF5F5] border border-[#FFCDD2] rounded-lg p-4 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-2 mb-3 border-b border-[#FFCDD2]">
+<span class="inline-flex items-center gap-1.5 text-label-md font-label-md text-[#C62828] font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="remove_circle">remove_circle</span>
+<span>ESTADO ANTERIOR (Antes)</span>
+</span>
+<span class="text-label-sm font-label-sm text-[#C62828] font-mono">Registro Original Kiosco</span>
+</div>
+<div class="space-y-2 text-body-sm font-body-sm">
+<div class="p-2 bg-surface-container-lowest/80 rounded border border-[#FFCDD2] font-mono line-through text-[#C62828]">
+<strong>Hora Marcaje:</strong> 09:42:10 hrs (Retardo Grave +42 min)
+                          </div>
+<div class="p-2 bg-surface-container-lowest/80 rounded border border-[#FFCDD2] text-[#C62828]">
+<strong>Estatus de Incidencia:</strong> No justificado / Descuento automático programado
+                          </div>
+<div class="p-2 bg-surface-container-lowest/80 rounded border border-[#FFCDD2] text-[#C62828]">
+<strong>Sanción Aplicada:</strong> Aplica descuento de medio día ($245.00 MXN)
+                          </div>
+<div class="p-2 bg-surface-container-lowest/80 rounded border border-[#FFCDD2] text-[#C62828]">
+<strong>Validación Biométrica:</strong> Reconocimiento facial 94% (Kiosco Hornos 04)
+                          </div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-[#FFCDD2] text-[11px] text-on-surface-variant flex items-center justify-between font-mono">
+<span>Marca tiempo original: 24/10/2024 09:42:10</span>
+<span>Captura: Biométrico</span>
+</div>
+</div>
+<!-- Right: Estado Modificado (Después) -->
+<div class="bg-[#F0FDF4] border border-[#A7F3D0] rounded-lg p-4 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-2 mb-3 border-b border-[#A7F3D0]">
+<span class="inline-flex items-center gap-1.5 text-label-md font-label-md text-[#2E7D32] font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span>
+<span>ESTADO MODIFICADO (Después)</span>
+</span>
+<span class="text-label-sm font-label-sm text-[#2E7D32] font-mono">Ajuste Legal Aplicado</span>
+</div>
+<div class="space-y-2 text-body-sm font-body-sm">
+<div class="p-2 bg-surface-container-lowest/90 rounded border border-[#A7F3D0] font-mono text-[#2E7D32] font-bold">
+<strong>Hora Marcaje:</strong> 08:10:00 hrs (Dentro de tolerancia estipulada)
+                          </div>
+<div class="p-2 bg-surface-container-lowest/90 rounded border border-[#A7F3D0] text-[#2E7D32]">
+<strong>Estatus de Incidencia:</strong> Justificado por Carta Médica IMSS Folio #ST-789
+                          </div>
+<div class="p-2 bg-surface-container-lowest/90 rounded border border-[#A7F3D0] text-[#2E7D32]">
+<strong>Sanción Quincenal:</strong> $0.00 MXN (Sin descuento en nómina quincena 20)
+                          </div>
+<div class="p-2 bg-surface-container-lowest/90 rounded border border-[#A7F3D0] text-primary-container">
+<strong>Observación Jurídica:</strong> Colaborador presentó comprobante médico oficial IMSS Unidad #24
+                          </div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-[#A7F3D0] text-[11px] text-on-surface-variant flex items-center justify-between font-mono">
+<span>Marca tiempo ajuste: 24/10/2024 09:14:22</span>
+<span class="text-[#2E7D32] font-semibold">Validado por RH</span>
+</div>
+</div>
+</div>
+<!-- Metadata Legal Footer inside Diff -->
+<div class="mt-4 p-3 bg-surface-container rounded-lg border border-outline-variant flex flex-wrap items-center justify-between text-label-sm font-label-sm text-on-surface-variant gap-2">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="gavel">gavel</span>
+<span>Autorizado bajo Art. 47 y 134 LFT</span>
+</span>
+<span class="font-mono text-outline">
+                        Hash SHA-256: <span class="text-on-surface font-semibold">7f8a3d902e1c45ff89012a9bc77810ea341b492</span>
+</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[#2E7D32] font-semibold">
+<span class="material-symbols-outlined text-[16px]" data-icon="fingerprint">fingerprint</span>
+<span>Firma electrónica vinculada (RFC: MORR790412HR0)</span>
+</span>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<!-- ROW 2: CRITICAL (CAMBIO DE GEOCERCA) -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-on-surface font-semibold">24 Oct 2024</div>
+<div class="text-label-sm font-label-sm text-secondary font-mono">08:02:11 CST</div>
+<span class="text-[10px] text-outline font-mono">HASH: 3b1c94...e881</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-label-sm">
+                    SYS
+                  </div>
+<div>
+<div class="text-label-md font-label-md text-on-surface font-semibold">Sistema Automático</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Motor de Políticas GPS</div>
+<div class="text-[11px] text-outline font-mono">IP: 10.0.4.1 (Servidor Central)</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-label-sm font-label-sm bg-tertiary-fixed text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="policy">policy</span>
+<span>CAMBIO DE POLÍTICA</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-primary font-semibold hover:underline cursor-pointer">
+                  Geocerca Sucursal Reforma
+                </div>
+<div class="text-label-sm font-label-sm text-on-surface font-mono">ID: #SUC-02</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Radio ampliado: 50m → 85m</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-[#FFEBEE] text-[#C62828] font-semibold border border-[#FFCDD2]">
+<span class="material-symbols-outlined text-[14px]" data-icon="error">error</span>
+<span>Crítica</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top max-w-xs">
+<p class="text-body-sm font-body-sm text-on-surface leading-tight">
+                  Ajuste de geovalla por obras viales en Paseo de la Reforma afectando señal GPS en acceso peatonal.
+                </p>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Aprobado por Dirección Operativa</span>
+</td>
+<td class="py-3.5 px-4 align-top text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline text-primary font-label-sm font-label-sm hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="unfold_more">unfold_more</span>
+<span>Ver Diff</span>
+</button>
+</td>
+</tr>
+<!-- ROW 3: REASIGNACIÓN DE TURNO -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-on-surface font-semibold">23 Oct 2024</div>
+<div class="text-label-sm font-label-sm text-secondary font-mono">19:40:05 CST</div>
+<span class="text-[10px] text-outline font-mono">HASH: 99a41f...7c20</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="flex items-center gap-2.5">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a Mexican shift manager in corporate industrial uniform holding a tablet in a production plant environment with crisp natural warehouse lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCa41oJIRZJ28H4qtGmuHjwRZnW4nGkkh4uX8ZKem851XpBKl-TDiOlye9-M4Mkme2lpUVdMfXjs5TeKaTzE2Qny3B30LcUZT4ZBG18EI-cgVhcvb2z3xD1UoCnX9BAfpi2vu0TLFyMmNPpuX2BPLcnNPzW8DHHCymSNYeTmJBHBpbspMJDeyw9ExRsUC63yA40CaNld7LB9lcm8d7kxHEA_IsYFUt2YjL4a57q5P429xNe3RSOMdA-qR2_xKMMXSN-OR58fykxVzwq"/>
+<div>
+<div class="text-label-md font-label-md text-on-surface font-semibold">Ing. Marcos Treviño</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Supervisor Turno B</div>
+<div class="text-[11px] text-outline font-mono">IP: 189.215.12.89 (Terminal Móvil)</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-label-sm font-label-sm bg-surface-container-high text-on-surface font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_month">calendar_month</span>
+<span>REASIGNACIÓN DE TURNO</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-primary font-semibold hover:underline cursor-pointer">
+                  Turno Nocturno Mixto
+                </div>
+<div class="text-label-sm font-label-sm text-on-surface">Elena Ramírez Ramos</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Empacadora Central</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+<span>Informativa</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top max-w-xs">
+<p class="text-body-sm font-body-sm text-on-surface leading-tight">
+                  Permuta voluntaria de rol por cuidado materno conforme a NOM-037 y mutuo acuerdo de partes.
+                </p>
+<span class="text-label-sm font-label-sm text-secondary font-medium">Cumplimiento NOM-037 STPS</span>
+</td>
+<td class="py-3.5 px-4 align-top text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline text-primary font-label-sm font-label-sm hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="unfold_more">unfold_more</span>
+<span>Ver Diff</span>
+</button>
+</td>
+</tr>
+<!-- ROW 4: APROBACIÓN EXCEPCIONAL -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-on-surface font-semibold">23 Oct 2024</div>
+<div class="text-label-sm font-label-sm text-secondary font-mono">14:15:33 CST</div>
+<span class="text-[10px] text-outline font-mono">HASH: 12d8aa...4490</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="flex items-center gap-2.5">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait photo of Licenciado Roberto Morales in light-blue business shirt against a well-lit corporate office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_JRiLLhG9jn6_nV-GwymSgXQIfCLYyXRtkh93gWv2VY-jinUJ2cWE74RATpWC5FZGyYsQEjX-29GqDKQR98fcs46y4QeRBKKNTYYrSapDW8L4qIWAon7LgfULD68hSCeY3Q211vjZQJSl_iNIZiaEeElyJJbtIrvYMxTHECAMKCZyGj9Ggt3-Z7_LhwvbMSlwWxuhZYmMbioej5gQ0_9zKe95J9wPGtiaq6HBJ358SrI-oa5visAo5XI2aHH5tfUxevzHOuWUX_ss"/>
+<div>
+<div class="text-label-md font-label-md text-on-surface font-semibold">Lic. Roberto Morales</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Admin RH &amp; Legal</div>
+<div class="text-[11px] text-outline font-mono">IP: 189.210.45.12 (Desktop)</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-label-sm font-label-sm bg-[#E8F5E9] text-[#2E7D32] font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified">verified</span>
+<span>APROBACIÓN EXCEPCIONAL</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-primary font-semibold hover:underline cursor-pointer">
+                  Marcaje #MC-89310
+                </div>
+<div class="text-label-sm font-label-sm text-on-surface">Guillermo Soto Ruiz</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Chofer Repartidor Ruta 3</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-[#FFF8E1] text-[#B78103] font-semibold border border-[#FFE082]">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+<span>Precaución</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top max-w-xs">
+<p class="text-body-sm font-body-sm text-on-surface leading-tight">
+                  Tráfico extraordinario por cierre de Calzada de Tlalpan; validado con reporte C5 y GPS de unidad.
+                </p>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Tolerancia extraordinaria 30 min</span>
+</td>
+<td class="py-3.5 px-4 align-top text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline text-primary font-label-sm font-label-sm hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="unfold_more">unfold_more</span>
+<span>Ver Diff</span>
+</button>
+</td>
+</tr>
+<!-- ROW 5: ANULACIÓN DE RETARDO -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-on-surface font-semibold">22 Oct 2024</div>
+<div class="text-label-sm font-label-sm text-secondary font-mono">11:05:19 CST</div>
+<span class="text-[10px] text-outline font-mono">HASH: 4e990b...5521</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary text-surface-container-lowest flex items-center justify-center font-bold text-label-sm">
+                    RH
+                  </div>
+<div>
+<div class="text-label-md font-label-md text-on-surface font-semibold">Lic. Roberto Morales</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Admin RH &amp; Legal</div>
+<div class="text-[11px] text-outline font-mono">IP: 189.210.45.12</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-label-sm font-label-sm bg-[#FFF8E1] text-[#B78103] font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="alarm_off">alarm_off</span>
+<span>ANULACIÓN DE RETARDO</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top">
+<div class="text-label-md font-label-md text-primary font-semibold hover:underline cursor-pointer">
+                  Marcaje #MC-88912
+                </div>
+<div class="text-label-sm font-label-sm text-on-surface">Adriana Méndez Salas</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Atención Mostrador</div>
+</td>
+<td class="py-3.5 px-4 align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+<span>Informativa</span>
+</span>
+</td>
+<td class="py-3.5 px-4 align-top max-w-xs">
+<p class="text-body-sm font-body-sm text-on-surface leading-tight">
+                  Falla eléctrica en terminal Kiosco 04, validado con bitácora técnica de mantenimiento.
+                </p>
+<span class="text-label-sm font-label-sm text-secondary font-medium">Art. 132 Fracc. I LFT</span>
+</td>
+<td class="py-3.5 px-4 align-top text-right">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline text-primary font-label-sm font-label-sm hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="unfold_more">unfold_more</span>
+<span>Ver Diff</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Toolbar -->
+<div class="p-4 bg-surface-container-low/80 border-t border-outline-variant flex flex-wrap items-center justify-between gap-4">
+<div class="text-label-sm font-label-sm text-on-surface-variant">
+          Mostrando <span class="font-semibold text-on-surface">1 a 5</span> de <span class="font-semibold text-on-surface">1,482</span> registros de auditoría inmutables
+        </div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded-md border border-outline-variant bg-surface-container-lowest text-on-surface hover:bg-surface-container disabled:opacity-40" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-3 py-1 text-label-sm font-label-sm rounded-md bg-primary text-on-primary font-semibold" type="button">1</button>
+<button class="px-3 py-1 text-label-sm font-label-sm rounded-md bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container" type="button">2</button>
+<button class="px-3 py-1 text-label-sm font-label-sm rounded-md bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container" type="button">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="px-3 py-1 text-label-sm font-label-sm rounded-md bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container" type="button">247</button>
+<button class="p-1.5 rounded-md border border-outline-variant bg-surface-container-lowest text-on-surface hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== LEGAL COMPLIANCE FOOTER BANNER ==================== -->
+<div class="bg-surface-container p-4 rounded-lg border border-outline-variant flex items-start gap-3.5 shadow-sm">
+<div class="p-2 rounded-lg bg-primary-container text-surface-container-lowest shrink-0">
+<span class="material-symbols-outlined text-[24px]" data-icon="gavel">gavel</span>
+</div>
+<div class="flex flex-col">
+<h4 class="text-title-md font-title-md text-primary">Cumplimiento Legal y Validez Probatoria ante STPS / Tribunales Laborales</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+          Conforme al <strong class="text-on-surface">Art. 804 de la Ley Federal del Trabajo</strong>, estos registros de asistencia, incidencias y sus modificaciones se conservan cifrados durante un mínimo de 1 año para cotejo en juicio individual, inspección federal del trabajo por la STPS o validación de nómina deducible ante el SAT.
+        </p>
+<div class="flex flex-wrap items-center gap-4 mt-2 text-label-sm font-label-sm text-secondary font-mono">
+<span>• Algoritmo: SHA-256 / RSA-2048</span>
+<span>• Tiempo Oficial: Sincronizado CENAM Quinto Patio</span>
+<span>• NOM-037-STPS-2023 Trazabilidad Remota</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

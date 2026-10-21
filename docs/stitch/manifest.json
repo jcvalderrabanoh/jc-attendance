@@ -129,6 +129,21 @@
       "name": "Reglas de validación",
       "screen": "projects/17859620597435208577/screens/7461744ea37c4b81bb28020fa67b6e50",
       "generatedAt": "2026-10-21T01:08:09.214Z"
+    },
+    "C17": {
+      "name": "General",
+      "screen": "projects/17859620597435208577/screens/58180b57a28c410ebc09499d7db84ce6",
+      "generatedAt": "2026-10-21T01:10:34.377Z"
+    },
+    "C18": {
+      "name": "Bitácora",
+      "screen": "projects/17859620597435208577/screens/325ffc6b1c8e4a898c15565f72275b11",
+      "generatedAt": "2026-10-21T01:13:11.912Z"
+    },
+    "D1": {
+      "name": "D1",
+      "screen": "projects/17859620597435208577/screens/4c2852eb489746f583520b6ceb195bfc",
+      "generatedAt": "2026-10-21T01:15:34.652Z"
     }
   },
   "projectId": "17859620597435208577",

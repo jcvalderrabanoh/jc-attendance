@@ -5,3 +5,4 @@ export * from './guards';
 export * from './decorators';
 export * from './helpers';
 export * from './daos';
+export * from './geo';

@@ -16,3 +16,14 @@ export function unwrap<T>(result: CheckRulesAndProcessInterfaceResult<T>): T {
   if (/ya existe|duplicad|ya está/i.test(message)) throw new ConflictException(message);
   throw new BadRequestException(message || 'Operación inválida');
 }
+
+/** Igual que `unwrap` para el resultado de un process. */
+export function unwrapProcess<T>(result: ProcessInterfaceResult<T>): T {
+  return unwrap(result.success ? ok(result.data as T) : fail<T>(result.error ?? 'Operación inválida'));
+}
+
+/** Lanza 404 si no hay registro. */
+export function found<T>(value: T | null | undefined, message = 'El registro no existe'): T {
+  if (value == null) throw new NotFoundException(message);
+  return value;
+}

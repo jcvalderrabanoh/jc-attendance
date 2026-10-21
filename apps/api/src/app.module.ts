@@ -8,7 +8,11 @@ import { AuditModule } from './audit';
 import { buildDataSourceOptions } from './config';
 import { CoreLinkModule } from './core-link';
 import { HealthController } from './health.controller';
+import { LocationsModule } from './locations';
 import { OrganizationModule } from './organization';
+import { CustomFieldsModule } from './custom-fields';
+import { SchedulesModule } from './schedules';
+import { EmployeesModule } from './employees';
 
 @Module({
   imports: [
@@ -21,6 +25,10 @@ import { OrganizationModule } from './organization';
     CoreLinkModule,
     AuditModule,
     OrganizationModule,
+    LocationsModule,
+    CustomFieldsModule,
+    SchedulesModule,
+    EmployeesModule,
   ],
   controllers: [HealthController],
 })

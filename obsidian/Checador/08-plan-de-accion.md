@@ -77,6 +77,8 @@ Duración estimada al MVP: **~12 semanas** con 1 dev full-stack + Claude Code. C
 | 0.4 Auth patrón (JWT jc-core, cualquier app) + empleado (OTP) + kiosco | ✅ |
 | Motor LFT (`libs/rules-engine`) | ✅ 184 pruebas |
 | API S1–S5: organización, sucursales/geocercas/kioscos, campos personalizados, horarios/políticas/festivos, empleados, ligas + reglas + cola de validación, marcajes (PWA/QR/PIN/manual/self) con riesgo y hash, jornadas + horas extra + incidencias + periodos + tareas programadas, solicitudes, analítica + constructor de gráficos, reportes PDF/Excel/CSV (incl. registro LFT 132-XXXIV), bitácora | ✅ 62 pruebas unitarias + 16 de punta a punta |
-| Consola del patrón en core-front | 🚧 en curso |
-| PWA del empleado + kiosco | 🚧 en curso |
-| Propuestas de Stitch (29 pantallas) | 🚧 generándose; ver docs/stitch |
+| Consola del patrón en core-front (17 pantallas: C1, C3–C9, C11–C18) | ✅ rama `claude/time-tracking-system-vb9i4l` de core-front; 6197 pruebas en verde |
+| PWA del empleado + kiosco (A1–A8, B1–B2), offline-first | ✅ `apps/pwa`; 63 pruebas; probada en navegador contra el API real (ver `docs/capturas/`) |
+| Propuestas de Stitch (29 pantallas) | ✅ `docs/stitch/` |
+| Permisos `attendance.*` en jc-core + pantallas en el asistente de ayuda | ✅ |
+| Pendiente | C2 En vivo (mapa), C10 planificador de turnos, editor de geocercas de polígono en mapa, reconocimiento facial (Rekognition), apps nativas |

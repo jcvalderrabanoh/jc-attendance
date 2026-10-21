@@ -13,7 +13,7 @@ describe('AttendanceAuthGuard', () => {
   });
   afterAll(() => (process.env = env));
 
-  const core = (claims: object) => jwt.sign({ userId: 'u1', accountId: 'a1', email: 'x@y.z', role: 'staff', permissions: [], ...claims }, 'core');
+  const core = (claims: object) => jwt.sign({ userId: 'u1', accountId: 'a1', email: 'x@y.z', role: 'admin', permissions: [], ...claims }, 'core');
   const guardWith = (entitled: boolean) =>
     new AttendanceAuthGuard(new Reflector(), { hasAttendanceApp: async () => entitled });
 
@@ -37,10 +37,16 @@ describe('AttendanceAuthGuard', () => {
     expect(() => guard.decode(jwt.sign({ scope: 'employee', identityId: 'i1' }, 'otra'))).toThrow(UnauthorizedException);
   });
 
-  it('mapea roles de jc-core a roles del Checador', () => {
+  it('mapea permisos de producto de jc-core a roles del Checador', () => {
     expect(resolveAttendanceRole('admin', [])).toBe(ActorRoleEnum.Admin);
-    expect(resolveAttendanceRole('staff', ['attendance:rh'])).toBe(ActorRoleEnum.Rh);
-    expect(resolveAttendanceRole('staff', ['attendance:inspector'])).toBe(ActorRoleEnum.Inspector);
-    expect(resolveAttendanceRole('staff', [])).toBe(ActorRoleEnum.Supervisor);
+    expect(resolveAttendanceRole('staff', ['attendance.read', 'attendance.manage'])).toBe(ActorRoleEnum.Rh);
+    expect(resolveAttendanceRole('staff', ['attendance.supervise'])).toBe(ActorRoleEnum.Supervisor);
+    expect(resolveAttendanceRole('staff', ['attendance.inspect'])).toBe(ActorRoleEnum.Inspector);
+    expect(resolveAttendanceRole('staff', ['attendance.read'])).toBe(ActorRoleEnum.Inspector);
+    expect(resolveAttendanceRole('staff', ['studies.read'])).toBeNull();
+  });
+
+  it('un usuario sin permisos del Checador no entra aunque la cuenta lo tenga', () => {
+    expect(() => guardWith(true).decode(core({ role: 'staff', permissions: ['studies.read'] }))).toThrow(ForbiddenException);
   });
 });

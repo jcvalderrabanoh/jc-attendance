@@ -32,20 +32,26 @@ export function acceptedCoreApps(): string[] {
   return (process.env.ATTENDANCE_ACCEPTED_APPS || 'attendance,lumen-view,anesthesia').split(',').map((a) => a.trim());
 }
 
-/** Permisos de jc-core que dan un rol dentro del Checador. */
+/**
+ * Permisos de producto del Checador en jc-core (`PRODUCT_PERMISSIONS`). No se
+ * conceden por rol; el admin de la cuenta no los necesita.
+ */
 export const ATTENDANCE_PERMISSIONS = {
-  rh: 'attendance:rh',
-  supervisor: 'attendance:supervisor',
-  inspector: 'attendance:inspector',
+  manage: 'attendance.manage',
+  supervise: 'attendance.supervise',
+  inspect: 'attendance.inspect',
+  read: 'attendance.read',
 } as const;
 
-export function resolveAttendanceRole(role: string, permissions: string[]): ActorRoleEnum {
+/** Rol dentro del Checador, o `null` si el usuario no tiene acceso al Checador. */
+export function resolveAttendanceRole(role: string, permissions: string[]): ActorRoleEnum | null {
   if (role === 'admin') return ActorRoleEnum.Admin;
-  if (permissions.includes(ATTENDANCE_PERMISSIONS.rh)) return ActorRoleEnum.Rh;
-  if (permissions.includes(ATTENDANCE_PERMISSIONS.inspector)) return ActorRoleEnum.Inspector;
-  // Por defecto un usuario de jc-core con la app contratada supervisa: ve y
-  // aprueba, pero no configura la cuenta.
-  return ActorRoleEnum.Supervisor;
+  if (permissions.includes(ATTENDANCE_PERMISSIONS.manage)) return ActorRoleEnum.Rh;
+  if (permissions.includes(ATTENDANCE_PERMISSIONS.supervise)) return ActorRoleEnum.Supervisor;
+  if (permissions.includes(ATTENDANCE_PERMISSIONS.inspect) || permissions.includes(ATTENDANCE_PERMISSIONS.read)) {
+    return ActorRoleEnum.Inspector;
+  }
+  return null;
 }
 
 /**
@@ -135,6 +141,10 @@ export class AttendanceAuthGuard implements CanActivate {
       throw new UnauthorizedException('Invalid token');
     }
     const permissions: string[] = Array.isArray(payload.permissions) ? payload.permissions : [];
+    const attendanceRole = resolveAttendanceRole(payload.role ?? 'staff', permissions);
+    if (!attendanceRole) {
+      throw new ForbiddenException('Tu usuario no tiene permisos del Checador (attendance.*)');
+    }
     return {
       kind: 'core',
       userId: payload.userId,
@@ -142,7 +152,7 @@ export class AttendanceAuthGuard implements CanActivate {
       accountId: payload.accountId,
       role: payload.role ?? 'staff',
       permissions,
-      attendanceRole: resolveAttendanceRole(payload.role ?? 'staff', permissions),
+      attendanceRole,
     };
   }
 }

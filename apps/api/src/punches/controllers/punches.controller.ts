@@ -17,6 +17,12 @@ export class PunchesController {
     return this.service.list(accountId, query);
   }
 
+  @Get('self/status')
+  @Auth()
+  selfStatus(@CurrentAuth() user: CoreUserContext) {
+    return this.service.selfStatus(user);
+  }
+
   /** Usuario de jc-core enlazado a un empleo checa desde core-front. */
   @Post('self')
   @Auth()

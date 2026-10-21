@@ -296,4 +296,22 @@ describe('Checador de punta a punta', () => {
     expect(group.body.accounts.map((a: { accountName: string }) => a.accountName)).toEqual(['Panadería La Espiga']);
     expect(group.body.totals.activeEmployees).toBeGreaterThanOrEqual(2);
   });
+
+  it('core-front: selector de usuarios de jc-core, enlace y marcaje con el mismo login', async () => {
+    const users = await http.get(api('/core-users?search=rosa')).set('Authorization', admin).expect(200);
+    expect(users.body[0].email).toBe('rosa@espiga.mx');
+    expect((await http.get(api('/punches/self/status')).set('Authorization', admin).expect(200)).body.linked).toBe(false);
+    await http.put(api(`/employees/${employmentId}`)).set('Authorization', admin).send({ coreUserId: users.body[0].id }).expect(200);
+    const status = await http.get(api('/punches/self/status')).set('Authorization', admin).expect(200);
+    expect(status.body).toMatchObject({ linked: true, employmentId });
+    const list = await http.get(api('/punches?flaggedOnly=false')).set('Authorization', admin).expect(200);
+    expect(list.body.items.length).toBeGreaterThan(1);
+    expect(list.body.items.every((p: { hasPhoto: boolean }) => p.hasPhoto === false)).toBe(true);
+  });
+
+  it('un usuario de jc-core sin permisos del Checador recibe 403', async () => {
+    const { coreToken } = await import('./helpers');
+    const staff = `Bearer ${coreToken(accountId, '00000000-0000-0000-0000-000000000001', 'staff')}`;
+    await http.get(api('/settings')).set('Authorization', staff).expect(403);
+  });
 });

@@ -61,6 +61,16 @@ export class CoreAccountDao {
     );
   }
 
+  listAccountUsers(accountId: string, search?: string): Promise<CoreUser[]> {
+    return this.dataSource.query(
+      `SELECT "id", "firstName", "lastName", "email", "accountId" FROM public.users
+        WHERE "accountId" = $1 AND "status" = 'active'
+          AND ($2::text IS NULL OR lower("firstName" || ' ' || "lastName" || ' ' || "email") LIKE '%' || lower($2) || '%')
+        ORDER BY "firstName", "lastName" LIMIT 50`,
+      [accountId, search?.trim() || null],
+    );
+  }
+
   async findUsers(accountId: string, userIds: string[]): Promise<CoreUser[]> {
     if (userIds.length === 0) return [];
     return this.dataSource.query(

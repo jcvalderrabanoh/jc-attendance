@@ -96,6 +96,14 @@ export class PunchesService {
     return { ...result, employeeName: identity ? `${identity.firstName} ${identity.lastName}` : null };
   }
 
+  /** ¿El usuario de jc-core está enlazado a un empleo? Si sí, su estado de hoy (botón Checar en core-front). */
+  async selfStatus(user: CoreUserContext) {
+    const employment = await this.employmentDao.findByCoreUser(user.accountId, user.userId);
+    if (!employment) return { linked: false as const };
+    const status = await this.myStatus({ kind: 'employee', identityId: employment.identityId, accountId: user.accountId, employmentId: employment.id });
+    return { linked: true as const, employmentId: employment.id, ...status };
+  }
+
   async manual(user: CoreUserContext, dto: ManualPunchDto) {
     found(await this.employmentDao.findById(user.accountId, dto.employmentId), 'El empleado no existe');
     if (dto.replacesPunchId) found(await this.punchDao.findById(user.accountId, dto.replacesPunchId), 'El marcaje a corregir no existe');
@@ -127,7 +135,12 @@ export class PunchesService {
         return [e.id, i ? `${i.firstName} ${i.lastName}` : '—'];
       }),
     );
-    return { ...page, items: page.items.map((p) => ({ ...p, employeeName: nameOf.get(p.employmentId) ?? '—' })), pendingReview: await this.punchDao.countPendingReview(accountId) };
+    const withPhoto = await this.punchPhotoDao.punchIdsWithPhoto(accountId, page.items.map((p) => p.id));
+    return {
+      ...page,
+      items: page.items.map((p) => ({ ...p, employeeName: nameOf.get(p.employmentId) ?? '—', hasPhoto: withPhoto.has(p.id) })),
+      pendingReview: await this.punchDao.countPendingReview(accountId),
+    };
   }
 
   async review(user: CoreUserContext, id: string, dto: ReviewPunchDto) {

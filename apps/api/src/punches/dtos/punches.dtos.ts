@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDateString,
@@ -78,7 +78,7 @@ export class ListPunchesQueryDto {
   @ApiPropertyOptional() @IsOptional() @IsUUID() employmentId?: string;
   @ApiPropertyOptional() @IsOptional() @IsUUID() locationId?: string;
   @ApiPropertyOptional({ enum: PunchReviewStatusEnum }) @IsOptional() @IsEnum(PunchReviewStatusEnum) reviewStatus?: PunchReviewStatusEnum;
-  @ApiPropertyOptional() @IsOptional() @Type(() => Boolean) @IsBoolean() flaggedOnly?: boolean;
+  @ApiPropertyOptional() @IsOptional() @Transform(({ value }) => value === true || value === 'true' || value === '1') @IsBoolean() flaggedOnly?: boolean;
   @ApiPropertyOptional() @IsOptional() @Type(() => Number) @IsInt() page?: number;
   @ApiPropertyOptional() @IsOptional() @Type(() => Number) @IsInt() limit?: number;
 }

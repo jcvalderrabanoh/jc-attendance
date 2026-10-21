@@ -95,6 +95,12 @@ export class PunchPhotoDao {
     return this.repository.save(this.repository.create(data));
   }
 
+  async punchIdsWithPhoto(accountId: string, punchIds: string[]): Promise<Set<string>> {
+    if (punchIds.length === 0) return new Set();
+    const rows = await this.repository.find({ select: { punchId: true }, where: { accountId, punchId: In(punchIds) } });
+    return new Set(rows.map((r) => r.punchId));
+  }
+
   findByPunch(accountId: string, punchId: string): Promise<PunchPhoto | null> {
     return this.repository.findOne({ where: { accountId, punchId } });
   }

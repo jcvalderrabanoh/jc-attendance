@@ -1,0 +1,12 @@
+.balance { display: flex; align-items: center; gap: 12px; color: var(--att-primary-dark); flex-wrap: wrap; }
+.big { font-size: 1.6rem; }
+.list { list-style: none; padding: 12px 0 96px; margin: 0; }
+.item { display: flex; gap: 12px; align-items: flex-start; }
+.ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--att-primary-soft); color: var(--att-primary); flex: none; }
+.side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.small { font-size: 0.85rem; margin-top: 2px; }
+.decision { color: var(--att-primary-dark); }
+.fab {
+  position: fixed; right: 16px; bottom: calc(88px + env(safe-area-inset-bottom)); z-index: 11;
+  background-color: var(--att-accent) !important; color: #3d2700 !important;
+}

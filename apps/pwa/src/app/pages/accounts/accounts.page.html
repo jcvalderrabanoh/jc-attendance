@@ -1,0 +1,53 @@
+<att-brand-header tagline="Elige tu empresa" />
+@if (loading()) { <mat-progress-bar mode="indeterminate" aria-label="Cargando empresas" /> }
+<div class="page">
+  <h1 class="page-title">{{ firstName() ? '¡Hola, ' + firstName() + '!' : 'Mis empresas' }}</h1>
+  <p class="muted">¿Para qué empresa vas a checar?</p>
+
+  @if (error(); as e) {
+    <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p>
+  }
+
+  <ul class="list" role="list">
+    @for (e of employments(); track e.employmentId) {
+      <li class="card account" [class.disabled]="e.onboardingStatus !== 'approved'" [class.current]="e.employmentId === currentId()">
+        <button type="button" class="choose" (click)="choose(e)" [disabled]="e.onboardingStatus !== 'approved' || busyId() !== null"
+                [attr.aria-label]="'Checar para ' + e.accountName">
+          <span class="logo" aria-hidden="true">{{ e.accountName.charAt(0) }}</span>
+          <span class="info">
+            <span class="name">{{ e.accountName }}</span>
+            <span class="meta">
+              @if (e.employeeNumber) { No. {{ e.employeeNumber }} · }
+              @switch (e.onboardingStatus) {
+                @case ('approved') { <span class="chip ok"><att-icon name="check_circle" [size]="16" /> Activo</span> }
+                @case ('pending') { <span class="chip warn"><att-icon name="hourglass_top" [size]="16" /> Alta en revisión</span> }
+                @default { <span class="chip bad"><att-icon name="cancel" [size]="16" /> Alta rechazada</span> }
+              }
+            </span>
+            @if (e.onboardingStatus !== 'approved' && reviewFor(e)?.reviewComment) {
+              <span class="comment">«{{ reviewFor(e)?.reviewComment }}»</span>
+            }
+          </span>
+          @if (busyId() === e.employmentId) { <span class="muted">Entrando…</span> }
+          @else if (e.onboardingStatus === 'approved') { <att-icon name="chevron_right" /> }
+        </button>
+        @if (e.onboardingStatus === 'approved' && approvedCount() > 1) {
+          <button mat-icon-button type="button" (click)="toggleDefault(e, $event)"
+                  [attr.aria-pressed]="defaultId() === e.employmentId"
+                  [attr.aria-label]="defaultId() === e.employmentId ? 'Quitar como predeterminada' : 'Fijar como predeterminada'">
+            <att-icon name="push_pin" [fill]="defaultId() === e.employmentId" />
+          </button>
+        }
+      </li>
+    } @empty {
+      @if (!loading()) {
+        <li class="empty">
+          <att-icon name="domain_disabled" [size]="40" />
+          <p>No tienes empresas vinculadas. Pide a tu empresa la liga de alta.</p>
+        </li>
+      }
+    }
+  </ul>
+
+  <button mat-button type="button" class="btn-block" (click)="logout()"><att-icon name="logout" [size]="20" /> Cerrar sesión</button>
+</div>

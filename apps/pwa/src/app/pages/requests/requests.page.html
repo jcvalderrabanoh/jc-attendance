@@ -1,0 +1,56 @@
+@if (loading()) { <mat-progress-bar mode="indeterminate" aria-label="Cargando solicitudes" /> }
+<div class="page">
+  <h1 class="page-title">Solicitudes</h1>
+  <p class="sr-only" aria-live="polite">{{ announce() }}</p>
+
+  @if (balance(); as b) {
+    <section class="card balance">
+      <att-icon name="beach_access" [size]="32" />
+      <div class="spacer">
+        <div class="muted">Vacaciones {{ b.year }}</div>
+        <div><strong class="big">{{ b.available }}</strong> de {{ b.entitled }} días disponibles</div>
+      </div>
+      <span class="chip info">{{ b.yearsOfService }} año{{ b.yearsOfService === 1 ? '' : 's' }} de antigüedad</span>
+    </section>
+  }
+
+  @if (error(); as e) {
+    <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p>
+  }
+
+  <mat-tab-group mat-stretch-tabs animationDuration="0ms" [selectedIndex]="tab()" (selectedIndexChange)="tab.set($event)">
+    <mat-tab [label]="'Pendientes (' + pending().length + ')'" />
+    <mat-tab [label]="'Resueltas (' + resolved().length + ')'" />
+  </mat-tab-group>
+
+    <ul class="list" role="list">
+      @for (r of visible(); track r.id) {
+        <li class="card item">
+          <span class="ic" aria-hidden="true"><att-icon [name]="typeIcon[r.type]" /></span>
+          <div class="spacer">
+            <strong>{{ typeLabel[r.type] }}</strong>
+            <div class="muted small">
+              {{ r.fromDate | date: 'd MMM' : 'UTC' : 'es-MX' }}@if (r.toDate !== r.fromDate) { – {{ r.toDate | date: 'd MMM' : 'UTC' : 'es-MX' }}}
+              @if (detail(r)) { · {{ detail(r) }} }
+            </div>
+            @if (r.comment) { <div class="small">{{ r.comment }}</div> }
+            @if (r.decisionComment) { <div class="small decision">Respuesta: {{ r.decisionComment }}</div> }
+          </div>
+          <div class="side">
+            <span class="chip" [class]="statusInfo[r.requestStatus].tone">
+              <att-icon [name]="statusInfo[r.requestStatus].icon" [size]="16" /> {{ statusInfo[r.requestStatus].label }}
+            </span>
+            @if (r.requestStatus === 'pending') {
+              <button mat-button type="button" (click)="cancel(r)">Cancelar</button>
+            }
+          </div>
+        </li>
+      } @empty {
+        <li class="empty">Sin solicitudes</li>
+      }
+    </ul>
+</div>
+
+<button mat-fab extended type="button" class="fab" (click)="create()">
+  <att-icon name="add" /> Nueva solicitud
+</button>

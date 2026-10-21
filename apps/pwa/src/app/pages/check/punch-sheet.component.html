@@ -1,0 +1,86 @@
+<section class="sheet" aria-labelledby="sheet-title">
+  <div class="grip" aria-hidden="true"></div>
+
+  @switch (view()) {
+    @case ('qr') {
+      <h2 id="sheet-title" class="title">Escanear QR del kiosco</h2>
+      <att-qr-scanner (scanned)="onQr($event)" />
+      <button mat-button type="button" class="btn-block" (click)="view.set('summary')">Volver</button>
+    }
+    @case ('selfie') {
+      <h2 id="sheet-title" class="title">Selfie de verificación</h2>
+      <att-selfie-capture (captured)="onSelfie($event)" />
+      <button mat-button type="button" class="btn-block" (click)="view.set('summary')">Volver</button>
+    }
+    @default {
+      <h2 id="sheet-title" class="title">Confirmar {{ data.action.verb }}</h2>
+
+      <ul class="checks" role="list">
+        <li>
+          <att-icon name="my_location" />
+          <div class="txt">
+            <strong>Ubicación</strong>
+            @if (!data.useGeo) {
+              <span class="muted">No compartes tu ubicación. Puedes escanear el QR del kiosco.</span>
+            } @else if (locating()) {
+              <span class="muted" role="status">Obteniendo ubicación…</span>
+            } @else if (fix()) {
+              @let f = fix()!;
+              <span>
+                {{ data.locationName ?? 'Ubicación lista' }} ·
+                <span class="chip" [class]="accuracyTone()">
+                  <att-icon [name]="accuracyTone() === 'ok' ? 'gps_fixed' : 'gps_not_fixed'" [size]="16" />
+                  Precisión ±{{ f.accuracyMeters | number: '1.0-0' }} m
+                </span>
+              </span>
+            } @else {
+              <span class="muted">{{ geoProblem() }}</span>
+            }
+          </div>
+          @if (data.useGeo && !locating()) {
+            <button mat-icon-button type="button" (click)="locate()" aria-label="Volver a leer la ubicación"><att-icon name="refresh" /></button>
+          }
+        </li>
+
+        <li>
+          <att-icon name="qr_code_scanner" />
+          <div class="txt">
+            <strong>QR del kiosco</strong>
+            @if (qrPayload()) {
+              <span class="chip ok"><att-icon name="check_circle" [size]="16" /> Código leído</span>
+            } @else {
+              <span class="muted">{{ data.qrSuggested ? 'Tu empresa lo pide para validar que estás en sucursal.' : 'Opcional: prueba que estás en la sucursal.' }}</span>
+            }
+          </div>
+          <button mat-stroked-button type="button" (click)="view.set('qr')">{{ qrPayload() ? 'Repetir' : 'Escanear' }}</button>
+        </li>
+
+        <li>
+          @if (selfie(); as s) {
+            <img class="thumb" [src]="s" alt="Tu selfie" />
+          } @else {
+            <att-icon name="face" />
+          }
+          <div class="txt">
+            <strong>Selfie</strong>
+            @if (selfie()) {
+              <span class="chip ok"><att-icon name="check_circle" [size]="16" /> Foto lista</span>
+            } @else {
+              <span class="muted">{{ data.selfieSuggested ? 'Tu empresa pide selfie al checar.' : 'Opcional.' }}</span>
+            }
+          </div>
+          <button mat-stroked-button type="button" (click)="view.set('selfie')">{{ selfie() ? 'Repetir' : 'Tomar' }}</button>
+        </li>
+      </ul>
+
+      @if (!data.online) {
+        <p class="form-info"><att-icon name="cloud_off" [size]="20" /> Sin conexión: se guardará y se enviará al reconectar.</p>
+      }
+
+      <button mat-flat-button type="button" class="btn-block confirm" [class.out]="data.action.tone === 'out'" (click)="confirm()" [disabled]="locating()">
+        <att-icon [name]="data.action.icon" [size]="20" /> Confirmar {{ data.action.verb }}
+      </button>
+      <button mat-button type="button" class="btn-block" (click)="cancel()">Cancelar</button>
+    }
+  }
+</section>

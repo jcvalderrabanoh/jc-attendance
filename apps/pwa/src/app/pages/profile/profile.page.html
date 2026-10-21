@@ -1,0 +1,116 @@
+@if (loading()) { <mat-progress-bar mode="indeterminate" aria-label="Cargando perfil" /> }
+<div class="page">
+  <h1 class="page-title">Mi perfil</h1>
+
+  @if (error(); as e) {
+    <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p>
+  }
+
+  @if (profile(); as p) {
+    <section class="card who">
+      <span class="avatar" aria-hidden="true">{{ p.identity.firstName.charAt(0) }}{{ p.identity.lastName.charAt(0) }}</span>
+      <div>
+        <h2>{{ fullName() }}</h2>
+        @if (currentAccount(); as a) {
+          <p class="muted">{{ a.accountName }}@if (a.employeeNumber) { · No. {{ a.employeeNumber }} }</p>
+        }
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title"><att-icon name="badge" [size]="20" /> Datos personales</h2>
+      <dl class="facts">
+        <div><dt>Celular</dt><dd>{{ p.identity.phoneE164 ?? '—' }}</dd></div>
+        <div><dt>CURP</dt><dd>{{ p.identity.curp ?? '—' }}</dd></div>
+        <div><dt>RFC</dt><dd>{{ p.identity.rfc ?? '—' }}</dd></div>
+        <div><dt>NSS</dt><dd>{{ p.identity.nss ?? '—' }}</dd></div>
+      </dl>
+      @for (f of readonlyFields(); track f.key) {
+        <dl class="facts"><div><dt>{{ f.label }}</dt><dd>{{ display(f) }}</dd></div></dl>
+      }
+    </section>
+
+    <form class="card" (ngSubmit)="save()">
+      <h2 class="card-title"><att-icon name="edit" [size]="20" /> Datos que puedes actualizar</h2>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" autocomplete="email" [(ngModel)]="email" />
+        <mat-hint>Si lo cambias, se verifica la próxima vez que entres con él.</mat-hint>
+      </mat-form-field>
+      @if (hasEmployment()) {
+        @for (f of editable(); track f.key) {
+          @switch (f.type) {
+            @case ('select') {
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>{{ f.label }}</mat-label>
+                <mat-select [name]="f.key" [(ngModel)]="values[f.key]" [required]="f.required">
+                  @for (o of f.options; track o) { <mat-option [value]="o">{{ o }}</mat-option> }
+                </mat-select>
+              </mat-form-field>
+            }
+            @case ('multiselect') {
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>{{ f.label }}</mat-label>
+                <mat-select [name]="f.key" [(ngModel)]="values[f.key]" multiple>
+                  @for (o of f.options; track o) { <mat-option [value]="o">{{ o }}</mat-option> }
+                </mat-select>
+              </mat-form-field>
+            }
+            @case ('boolean') {
+              <mat-checkbox [name]="f.key" [(ngModel)]="values[f.key]">{{ f.label }}</mat-checkbox>
+            }
+            @default {
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>{{ f.label }}</mat-label>
+                <input matInput [name]="f.key" [(ngModel)]="values[f.key]" [required]="f.required"
+                       [type]="f.type === 'number' ? 'number' : f.type === 'date' ? 'date' : f.type === 'email' ? 'email' : f.type === 'phone' ? 'tel' : 'text'" />
+              </mat-form-field>
+            }
+          }
+        }
+      }
+      <button mat-flat-button class="btn-block" type="submit" [disabled]="saving()">Guardar cambios</button>
+    </form>
+
+    <section class="card">
+      <h2 class="card-title"><att-icon name="shield_person" [size]="20" /> Privacidad</h2>
+      @if (hasEmployment()) {
+        <ul class="consents" role="list">
+          <li>
+            <div class="spacer">
+              <strong>Aviso de privacidad</strong>
+              <div class="muted small">{{ granted('privacy_notice') ? 'Aceptado' : 'Pendiente' }}</div>
+            </div>
+            <span class="chip" [class]="granted('privacy_notice') ? 'ok' : 'warn'">
+              <att-icon [name]="granted('privacy_notice') ? 'check_circle' : 'pending'" [size]="16" /> {{ granted('privacy_notice') ? 'Aceptado' : 'Pendiente' }}
+            </span>
+          </li>
+          <li>
+            <mat-slide-toggle [checked]="granted('geolocation')" (change)="toggleConsent('geolocation', $event)">
+              <strong>Ubicación al checar</strong>
+              <div class="muted small">Solo en el momento del marcaje; nunca rastreo.</div>
+            </mat-slide-toggle>
+          </li>
+          <li>
+            <mat-slide-toggle [checked]="granted('biometric')" (change)="toggleConsent('biometric', $event)">
+              <strong>Biometría (selfie)</strong>
+              <div class="muted small">Para comparar tu rostro al checar, si tu empresa lo usa.</div>
+            </mat-slide-toggle>
+          </li>
+        </ul>
+      } @else {
+        <p class="muted">Elige una empresa para ver tus permisos.</p>
+      }
+      @if (privacyUrl) {
+        <a [href]="privacyUrl" target="_blank" rel="noopener">Leer el aviso de privacidad</a>
+      }
+    </section>
+  }
+
+  <section class="stack actions">
+    @if (employments().length > 1) {
+      <a mat-stroked-button class="btn-block" routerLink="/cuentas"><att-icon name="swap_horiz" [size]="20" /> Cambiar de empresa</a>
+    }
+    <button mat-button class="btn-block logout" type="button" (click)="logout()"><att-icon name="logout" [size]="20" /> Cerrar sesión</button>
+  </section>
+</div>

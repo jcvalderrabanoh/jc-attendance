@@ -1,0 +1,204 @@
+<att-brand-header tagline="Alta de empleado" />
+@if (loading()) { <mat-progress-bar mode="indeterminate" aria-label="Cargando invitación" /> }
+<div class="page">
+  @if (loadError(); as e) {
+    <div class="card empty">
+      <att-icon name="link_off" [size]="40" />
+      <h1 class="page-title">Liga no disponible</h1>
+      <p>{{ e }}</p>
+      <p class="muted">Pide a tu empresa una liga nueva.</p>
+    </div>
+  } @else if (result()) {
+    @let r = result()!;
+    <section class="card done" aria-live="polite">
+      @if (r.reviewStatus === 'approved') {
+        <att-icon name="verified" [size]="56" />
+        <h1 class="page-title">¡Listo, ya estás dado de alta!</h1>
+        <p>Ya puedes registrar tu entrada desde esta app.</p>
+        <button mat-flat-button class="btn-block" type="button" (click)="goToApp()">Ir a checar</button>
+      } @else {
+        <att-icon name="hourglass_top" [size]="56" />
+        <h1 class="page-title">Tu alta está en revisión</h1>
+        <p>{{ info()?.accountName }} revisará tus datos. Te avisaremos por WhatsApp o email.</p>
+        @if (r.findings.length) {
+          <ul class="findings">
+            @for (f of r.findings; track f.ruleKey) {
+              <li><att-icon [name]="f.outcome === 'warn' ? 'warning' : 'info'" [size]="18" /> {{ f.message }}</li>
+            }
+          </ul>
+        }
+        <button mat-stroked-button class="btn-block" type="button" (click)="goToApp()">Ver el estado de mi alta</button>
+      }
+    </section>
+  } @else if (info()) {
+    @let inv = info()!;
+    <section class="card invite">
+      <span class="logo" aria-hidden="true">
+        @if (inv.branding.logoUrl) { <img [src]="inv.branding.logoUrl" alt="" /> } @else { {{ inv.accountName.charAt(0) }} }
+      </span>
+      <div>
+        <span class="chip info"><att-icon name="mail" [size]="16" /> Invitación de empleo</span>
+        <h1>Te invitó {{ inv.accountName }}</h1>
+        <p class="muted">Completa tu registro para empezar a registrar tu asistencia.</p>
+      </div>
+    </section>
+
+    <mat-stepper linear orientation="vertical" #stepper aria-label="Pasos del registro">
+      <!-- Paso 1 -->
+      <mat-step [stepControl]="personal" label="Datos personales">
+        <form [formGroup]="personal" class="stack" novalidate>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre(s)</mat-label>
+            <input matInput formControlName="firstName" autocomplete="given-name" required />
+            @if (personal.controls.firstName.hasError('required')) { <mat-error>Escribe tu nombre</mat-error> }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Apellidos</mat-label>
+            <input matInput formControlName="lastName" autocomplete="family-name" required />
+            @if (personal.controls.lastName.hasError('required')) { <mat-error>Escribe tus apellidos</mat-error> }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Celular (WhatsApp)</mat-label>
+            <span matTextPrefix>+52&nbsp;</span>
+            <input matInput formControlName="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="55 1234 5678" required />
+            <mat-hint>Te enviaremos un código para verificarlo.</mat-hint>
+            @if (personal.controls.phone.invalid) { <mat-error>Escribe tu celular a 10 dígitos</mat-error> }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email {{ required().has('email') ? '' : '(opcional)' }}</mat-label>
+            <input matInput formControlName="email" type="email" inputmode="email" autocomplete="email" />
+            @if (personal.controls.email.hasError('domain')) {
+              <mat-error>Usa tu email de la empresa ({{ personal.controls.email.getError('domain') }})</mat-error>
+            } @else if (personal.controls.email.invalid) { <mat-error>Escribe un email válido</mat-error> }
+          </mat-form-field>
+
+          <div class="otp-box">
+            @if (!otpSent()) {
+              <button mat-stroked-button type="button" class="btn-block" (click)="sendOtp()" [disabled]="otpBusy()">
+                <att-icon name="sms" [size]="20" /> Enviarme código por WhatsApp
+              </button>
+            } @else {
+              <p class="muted">Escribe el código que enviamos a {{ maskDestination(personal.controls.phone.value) }}</p>
+              <att-otp-input [value]="otpCode()" (valueChange)="onOtp($event)" />
+              <p class="resend" aria-live="polite">
+                @if (resendIn() > 0) { Reenviar en 0:{{ resendIn() < 10 ? '0' : '' }}{{ resendIn() }} }
+                @else { <button mat-button type="button" (click)="sendOtp()" [disabled]="otpBusy()">Reenviar código</button> }
+              </p>
+            }
+            @if (otpError(); as e) { <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p> }
+          </div>
+
+          <button mat-flat-button matStepperNext class="btn-block" type="button" [disabled]="personal.invalid">
+            Continuar a datos laborales
+          </button>
+        </form>
+      </mat-step>
+
+      <!-- Paso 2 -->
+      <mat-step [stepControl]="work" label="Datos laborales">
+        <form [formGroup]="work" class="stack" novalidate>
+          <mat-form-field appearance="outline">
+            <mat-label>CURP {{ required().has('curp') ? '' : '(opcional)' }}</mat-label>
+            <input matInput formControlName="curp" maxlength="18" autocapitalize="characters" (blur)="upper('curp')" />
+            @if (work.controls.curp.invalid) { <mat-error>La CURP tiene 18 caracteres (ej. GOMC900101HDFRRR09)</mat-error> }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>RFC {{ required().has('rfc') ? '' : '(opcional)' }}</mat-label>
+            <input matInput formControlName="rfc" maxlength="13" autocapitalize="characters" (blur)="upper('rfc')" />
+            @if (work.controls.rfc.invalid) { <mat-error>El RFC tiene 12 o 13 caracteres con homoclave</mat-error> }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>NSS {{ required().has('nss') ? '' : '(opcional)' }}</mat-label>
+            <input matInput formControlName="nss" maxlength="11" inputmode="numeric" />
+            @if (work.controls.nss.invalid) { <mat-error>El NSS tiene 11 dígitos</mat-error> }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha de nacimiento {{ required().has('birthDate') ? '' : '(opcional)' }}</mat-label>
+            <input matInput type="date" formControlName="birthDate" autocomplete="bday" />
+            @if (work.controls.birthDate.invalid) { <mat-error>Indica tu fecha de nacimiento</mat-error> }
+          </mat-form-field>
+
+          <div formGroupName="custom" class="stack">
+            @for (f of customFields(); track f.key) {
+              @switch (f.type) {
+                @case ('select') {
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ f.label }}</mat-label>
+                    <mat-select [formControlName]="f.key" [required]="f.required">
+                      @for (o of f.options; track o) { <mat-option [value]="o">{{ o }}</mat-option> }
+                    </mat-select>
+                    <mat-error>Elige una opción</mat-error>
+                  </mat-form-field>
+                }
+                @case ('multiselect') {
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ f.label }}</mat-label>
+                    <mat-select [formControlName]="f.key" multiple [required]="f.required">
+                      @for (o of f.options; track o) { <mat-option [value]="o">{{ o }}</mat-option> }
+                    </mat-select>
+                    <mat-error>Elige al menos una opción</mat-error>
+                  </mat-form-field>
+                }
+                @case ('boolean') {
+                  <mat-checkbox [formControlName]="f.key">{{ f.label }}</mat-checkbox>
+                }
+                @default {
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ f.label }}{{ f.required ? '' : ' (opcional)' }}</mat-label>
+                    <input matInput [formControlName]="f.key" [required]="f.required"
+                           [type]="f.type === 'number' ? 'number' : f.type === 'date' ? 'date' : f.type === 'email' ? 'email' : f.type === 'phone' ? 'tel' : 'text'" />
+                    <mat-error>Revisa este dato</mat-error>
+                  </mat-form-field>
+                }
+              }
+            }
+          </div>
+
+          <div class="row">
+            <button mat-button matStepperPrevious type="button">Atrás</button>
+            <span class="spacer"></span>
+            <button mat-flat-button matStepperNext type="button" [disabled]="work.invalid">Continuar</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Paso 3 -->
+      <mat-step [stepControl]="consents" label="Privacidad y consentimientos">
+        <form [formGroup]="consents" class="stack" (ngSubmit)="submit()" novalidate>
+          <p class="muted">Lee y acepta cada permiso por separado.</p>
+          <mat-checkbox formControlName="privacy" required>
+            He leído y acepto el
+            @if (info()?.privacyNoticeUrl; as url) {
+              <a [href]="url" target="_blank" rel="noopener">aviso de privacidad</a>
+            } @else { aviso de privacidad }
+            (obligatorio)
+          </mat-checkbox>
+          @if (consents.controls.privacy.touched && consents.controls.privacy.invalid) {
+            <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> Debes aceptar el aviso de privacidad para continuar</p>
+          }
+          <mat-checkbox formControlName="geolocation">
+            Acepto compartir mi <strong>ubicación solo al checar</strong> (nunca rastreo).
+          </mat-checkbox>
+          <mat-checkbox formControlName="biometric">
+            Acepto el uso de mi <strong>foto (biometría)</strong> para verificar mi identidad al checar.
+          </mat-checkbox>
+
+          @if (serverErrors().length) {
+            <div class="form-error" role="alert">
+              <att-icon name="error" [size]="20" />
+              <ul class="errors">@for (e of serverErrors(); track e) { <li>{{ e }}</li> }</ul>
+            </div>
+          }
+
+          <div class="row">
+            <button mat-button matStepperPrevious type="button">Atrás</button>
+            <span class="spacer"></span>
+          </div>
+          <button mat-flat-button class="btn-block" type="submit" [disabled]="submitting()">
+            {{ submitting() ? 'Enviando…' : 'Enviar para validación' }}
+          </button>
+        </form>
+      </mat-step>
+    </mat-stepper>
+  }
+</div>

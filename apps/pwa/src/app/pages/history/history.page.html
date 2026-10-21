@@ -1,0 +1,78 @@
+@if (loading()) { <mat-progress-bar mode="indeterminate" aria-label="Cargando historial" /> }
+<div class="page">
+  <h1 class="page-title">Mis registros</h1>
+
+  <nav class="week-nav card" aria-label="Semana">
+    <button mat-icon-button type="button" (click)="move(-1)" aria-label="Semana anterior"><att-icon name="chevron_left" /></button>
+    <div class="week-label" aria-live="polite">
+      <strong>{{ label() }}</strong>
+      <span class="muted">{{ isCurrentWeek() ? 'Esta semana' : 'Semana' }}</span>
+    </div>
+    <button mat-icon-button type="button" (click)="move(1)" [disabled]="isCurrentWeek()" aria-label="Semana siguiente"><att-icon name="chevron_right" /></button>
+  </nav>
+
+  @if (error(); as e) {
+    <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p>
+  }
+
+  <section class="card">
+    <div class="row">
+      <span class="muted">Total de la semana</span>
+      <span class="spacer"></span>
+      <strong class="total">{{ hoursShort(worked()) }}</strong>
+      <span class="muted">/ {{ hoursShort(target) }}</span>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Horas de la semana contra objetivo" [attr.aria-valuenow]="percent()" aria-valuemin="0" aria-valuemax="100">
+      <span [style.width.%]="percent()"></span>
+    </div>
+    @if (timesheet()?.totals; as t) {
+      <div class="totals">
+        @if (t.lateDays) { <span class="chip warn"><att-icon name="schedule" [size]="16" /> {{ t.lateDays }} retardo{{ t.lateDays === 1 ? '' : 's' }}</span> }
+        @if (t.absences) { <span class="chip bad"><att-icon name="cancel" [size]="16" /> {{ t.absences }} falta{{ t.absences === 1 ? '' : 's' }}</span> }
+        @if (t.overtimeDoubleMinutes + t.overtimeTripleMinutes) { <span class="chip info"><att-icon name="more_time" [size]="16" /> {{ hoursShort(t.overtimeDoubleMinutes + t.overtimeTripleMinutes) }} extra</span> }
+        @if (t.pendingDays) { <span class="chip warn"><att-icon name="pending" [size]="16" /> {{ t.pendingDays }} pendiente{{ t.pendingDays === 1 ? '' : 's' }}</span> }
+      </div>
+    }
+  </section>
+
+  <ol class="days" role="list">
+    @for (d of days(); track d.date) {
+      <li class="card day" [class.future]="d.future">
+        <div class="row">
+          <h2 class="day-title">{{ d.label }}</h2>
+          <span class="spacer"></span>
+          @if (d.workday; as w) {
+            <strong>{{ formatMinutes(w.workedMinutes) }}</strong>
+          }
+        </div>
+        @if (d.workday; as w) {
+          <div class="chips">
+            <span class="chip" [class]="status[w.status].tone"><att-icon [name]="status[w.status].icon" [size]="16" /> {{ status[w.status].label }}@if (w.status === 'late' && w.lateMinutes) { ({{ w.lateMinutes }} min)}</span>
+            @if (w.overtimeMinutes > 0) { <span class="chip info"><att-icon name="more_time" [size]="16" /> Hora extra {{ hoursShort(w.overtimeMinutes) }}</span> }
+            @if (w.hasPendingPunches) { <span class="chip warn"><att-icon name="pending" [size]="16" /> Pendiente de revisión</span> }
+            @for (i of w.incidents ?? []; track i.id) {
+              @if (i.type === 'missing_punch') { <span class="chip warn"><att-icon name="error" [size]="16" /> Falta un marcaje</span> }
+            }
+          </div>
+        }
+        @if (d.punches.length) {
+          <ul class="punches" role="list">
+            @for (p of d.punches; track p.id) {
+              <li>
+                <att-icon [name]="p.type === 'in' || p.type === 'break_end' ? 'login' : 'logout'" [size]="18" />
+                <span class="ptime">{{ timeOf(p.effectiveAt) }}</span>
+                <span>{{ typeLabel[p.type] }}</span>
+                <span class="spacer"></span>
+                @if (p.offline) { <span class="chip"><att-icon name="cloud_off" [size]="16" /> Sin conexión</span> }
+                @if (p.reviewStatus === 'pending') { <span class="chip warn"><att-icon name="pending" [size]="16" /> Pendiente</span> }
+                @if (p.reviewStatus === 'rejected') { <span class="chip bad"><att-icon name="cancel" [size]="16" /> Rechazado</span> }
+              </li>
+            }
+          </ul>
+        } @else if (!d.workday) {
+          <p class="muted none">{{ d.future ? 'Próximamente' : 'Sin registros' }}</p>
+        }
+      </li>
+    }
+  </ol>
+</div>

@@ -1,0 +1,67 @@
+<att-brand-header tagline="Entra sin contraseña" />
+<div class="page">
+  @if (expirada()) {
+    <p class="form-info" role="status"><att-icon name="info" [size]="20" /> Tu sesión terminó. Entra de nuevo.</p>
+  }
+
+  @if (step() === 'destination') {
+    <h1 class="page-title">Entrar</h1>
+    <p class="muted">Te enviamos un código para confirmar que eres tú.</p>
+
+    <form class="card stack" (ngSubmit)="send(mode() === 'phone' ? 'whatsapp' : 'email')" novalidate>
+      @if (mode() === 'phone') {
+        <label class="field-label" for="phone">Celular (WhatsApp)</label>
+        <div class="phone">
+          <span class="prefix" aria-hidden="true">🇲🇽 +52</span>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="55 1234 5678"
+                 aria-describedby="phone-hint" [(ngModel)]="phone" maxlength="14" required />
+        </div>
+        <p id="phone-hint" class="hint"><att-icon name="sms" [size]="18" /> Recibirás el código por WhatsApp o SMS.</p>
+      } @else {
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" name="email" type="email" autocomplete="email" inputmode="email" [(ngModel)]="email" required />
+        </mat-form-field>
+      }
+
+      @if (error(); as e) {
+        <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p>
+      }
+
+      <button mat-flat-button class="btn-block" type="submit" [disabled]="busy()">
+        @if (busy()) { <mat-spinner diameter="22" /> } @else {
+          {{ mode() === 'phone' ? 'Enviarme código por WhatsApp' : 'Enviarme código por email' }}
+        }
+      </button>
+      @if (mode() === 'phone') {
+        <button mat-stroked-button class="btn-block" type="button" (click)="send('sms')" [disabled]="busy()">Mejor por SMS</button>
+      }
+      <button mat-button type="button" class="link" (click)="toggleMode()">
+        {{ mode() === 'phone' ? 'Usar email' : 'Usar mi celular' }}
+      </button>
+    </form>
+  } @else {
+    <button mat-button type="button" (click)="back()"><att-icon name="arrow_back" [size]="20" /> Cambiar {{ mode() === 'phone' ? 'número' : 'email' }}</button>
+    <h1 class="page-title">Escribe tu código</h1>
+    <p class="muted">
+      Lo enviamos por {{ sentChannel() === 'whatsapp' ? 'WhatsApp' : sentChannel() === 'sms' ? 'SMS' : 'email' }}
+      a <strong>{{ maskDestination(sentTo()) }}</strong>.
+    </p>
+    <div class="card stack">
+      <att-otp-input [(value)]="code" [disabled]="busy()" (completed)="verify($event)" />
+      @if (error(); as e) {
+        <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p>
+      }
+      <button mat-flat-button class="btn-block" type="button" (click)="verify()" [disabled]="busy() || code().length !== 6">
+        @if (busy()) { <mat-spinner diameter="22" /> } @else { Entrar }
+      </button>
+      <p class="resend" aria-live="polite">
+        @if (resendIn() > 0) {
+          Puedes pedir otro código en <strong>0:{{ resendIn() < 10 ? '0' : '' }}{{ resendIn() }}</strong>
+        } @else {
+          <button mat-button type="button" (click)="send(sentChannel())" [disabled]="busy()">Reenviar código</button>
+        }
+      </p>
+    </div>
+  }
+</div>

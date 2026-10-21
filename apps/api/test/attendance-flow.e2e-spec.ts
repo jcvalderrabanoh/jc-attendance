@@ -274,4 +274,19 @@ describe('Checador de punta a punta', () => {
     expect(data.body.employments[0].punches.length).toBeGreaterThan(0);
     expect(data.body.employments[0].consents.map((c: { kind: string }) => c.kind)).toContain('geolocation');
   });
+
+  it('anonimiza a quien terminó hace más del plazo de retención', async () => {
+    const { RetentionJob } = await import('../src/privacy/jobs');
+    const created = await http
+      .post(api('/employees'))
+      .set('Authorization', admin)
+      .send({ identity: { firstName: 'Ex', lastName: 'Empleado', phone: '5577778888' }, employeeNumber: 'E-900', customFields: { talla: 'M' } })
+      .expect(201);
+    await http.post(api(`/employees/${created.body.id}/terminate`)).set('Authorization', admin).send({ terminationDate: '2015-01-31' }).expect(201);
+    expect(await app.get(RetentionJob).execute()).toBe(1);
+    const after = await http.get(api(`/employees/${created.body.id}`)).set('Authorization', admin).expect(200);
+    expect(after.body.identity).toBeNull(); // identidad anonimizada (estado deleted)
+    const [row] = await ds.query(`SELECT "phoneE164", "firstName" FROM attendance.employee_identities WHERE id = $1`, [created.body.identityId]);
+    expect(row).toEqual({ phoneE164: null, firstName: 'Anonimizado' });
+  });
 });

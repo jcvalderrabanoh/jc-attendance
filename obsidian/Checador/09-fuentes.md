@@ -1,7 +1,7 @@
 ---
 proyecto: Checador
 fuente: jc-attendance/docs/09-fuentes.md
-sincronizado: 2026-10-20
+sincronizado: 2026-10-21
 tags: [checador, asistencia]
 ---
 

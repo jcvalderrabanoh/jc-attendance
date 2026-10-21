@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checador PyME - Planificador y Asignación de Turnos</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config directly from Design System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-high": "#dee8ff",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#9acee1",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#ffddb9",
+            "outline-variant": "#c0c8cb",
+            "outline": "#70787c",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#263143",
+            "error-container": "#ffdad6",
+            "tertiary": "#462900",
+            "on-tertiary-container": "#f1a440",
+            "on-secondary-container": "#3a6977",
+            "primary-container": "#0f4c5c",
+            "surface-bright": "#f9f9ff",
+            "on-secondary-fixed": "#001f27",
+            "on-background": "#111c2d",
+            "tertiary-container": "#653d00",
+            "surface-variant": "#d8e3fb",
+            "secondary-container": "#b7e7f7",
+            "background": "#f9f9ff",
+            "primary-fixed": "#b6ebfe",
+            "on-primary-fixed-variant": "#114d5d",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-primary-fixed": "#001f28",
+            "surface-container": "#e7eeff",
+            "on-surface-variant": "#40484b",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#111c2d",
+            "surface-container-low": "#f0f3ff",
+            "primary": "#003441",
+            "surface": "#f9f9ff",
+            "on-secondary": "#ffffff",
+            "on-primary-container": "#87bbce",
+            "on-error": "#ffffff",
+            "surface-container-highest": "#d8e3fb",
+            "surface-tint": "#306576",
+            "surface-dim": "#cfdaf2",
+            "on-tertiary-fixed": "#2b1700",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "secondary": "#356572",
+            "secondary-fixed-dim": "#9ecedd",
+            "secondary-fixed": "#baeafa",
+            "inverse-on-surface": "#ecf1ff",
+            "inverse-primary": "#9acee1",
+            "on-tertiary-fixed-variant": "#663e00"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "gutter": "1rem",
+            "margin-mobile": "1rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-2xl": "3rem"
+          },
+          "fontFamily": {
+            "display-clock": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "label-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "title-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f0f3ff;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #70787c;
+    }
+  </style>
+</head>
+<body class="h-full font-body-md text-on-surface bg-surface overflow-x-hidden antialiased">
+<!-- ========================================================================= -->
+<!-- 1. SHARED COMPONENT: SideNavBar (Strict execution from Shared JSON)       -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm z-40">
+<div class="p-4 flex flex-col h-full justify-between">
+<div>
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-2 py-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-title-lg shadow-sm">
+<span class="material-symbols-outlined" data-icon="fingerprint" data-weight="fill" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary leading-tight">Checador PyME</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">SaaS Asistencia México</span>
+</div>
+</div>
+<!-- Navigation Tabs: Exact Labels & Icons, Active = "Turnos" -->
+<nav class="space-y-1">
+<!-- Tablero -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Tablero</span>
+</a>
+<!-- En vivo -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="sensors">sensors</span>
+<span class="text-label-md font-label-md">En vivo</span>
+</a>
+<!-- Empleados -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="badge">badge</span>
+<span class="text-label-md font-label-md">Empleados</span>
+</a>
+<!-- Validaciones de Alta -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="how_to_reg">how_to_reg</span>
+<span class="text-label-md font-label-md">Validaciones de Alta</span>
+</a>
+<!-- Marcajes -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="fingerprint">fingerprint</span>
+<span class="text-label-md font-label-md">Marcajes</span>
+</a>
+<!-- Hojas de horas -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="schedule">schedule</span>
+<span class="text-label-md font-label-md">Hojas de horas</span>
+</a>
+<!-- Incidencias -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="warning">warning</span>
+<span class="text-label-md font-label-md">Incidencias</span>
+</a>
+<!-- Turnos (ACTIVE COMPONENT MATCH) -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-semibold justify-between active:scale-[0.98] transition-transform duration-100" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container dark:text-on-primary-container" data-icon="calendar_month" data-weight="fill" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="text-label-md font-label-md text-primary font-bold">Turnos</span>
+</div>
+<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-error text-surface-container-lowest">3 LFT</span>
+</a>
+<!-- Ubicaciones -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="location_on">location_on</span>
+<span class="text-label-md font-label-md">Ubicaciones</span>
+</a>
+<!-- Configuración -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer SideNav -->
+<div class="pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant font-normal hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="help">help</span>
+<span class="text-label-md font-label-md">Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-error hover:bg-error-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-label-md font-label-md">Cerrar sesión</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. SHARED COMPONENT: TopNavBar (Strict execution from Shared JSON)        -->
+<!-- ========================================================================= -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm z-30 flex items-center justify-between px-6">
+<!-- Left: Branch Switcher & Quick Search -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-title-lg" data-icon="storefront">storefront</span>
+<span class="text-title-md font-title-md font-bold text-on-surface dark:text-inverse-on-surface">Sucursal Matriz CDMX</span>
+<span class="material-symbols-outlined text-outline text-title-sm cursor-pointer" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Search on left -->
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-title-md" data-icon="search">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 rounded-lg text-body-sm bg-surface-container border border-transparent focus:border-primary-container focus:bg-surface-container-lowest focus:outline-none transition-all placeholder:text-outline" placeholder="Buscar colaborador o turno..." type="text"/>
+</div>
+</div>
+<!-- Right: Status, Actions, Profile -->
+<div class="flex items-center gap-3">
+<!-- Trailing sync pill link -->
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9]">
+<span class="material-symbols-outlined text-title-sm animate-spin-slow" data-icon="sync">sync</span>
+<span class="text-label-sm font-label-sm font-bold">Sincronizado</span>
+</div>
+<!-- Trailing Actions from JSON -->
+<button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" title="Notificaciones">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" title="Ayuda">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<!-- Trailing Primary Action -->
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-outline text-primary font-semibold text-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-title-sm" data-icon="file_download">file_download</span>
+        Exportar Reporte
+      </button>
+<!-- Profile Avatar & Details -->
+<div class="flex items-center gap-3 pl-2">
+<img class="w-9 h-9 rounded-full object-cover ring-2 ring-primary-container" data-alt="Portrait photo of a Mexican HR administrator in his late thirties wearing a professional navy blue suit jacket with warm interior office lighting, smiling confidently and looking directly at the camera with sharp crisp clarity in a modern corporate setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE8kyYRUEgLLf6IemdEBkaEqLZqxEKwqI0hCgoGchtprnmU7ATTfG8w32eySvVbvqtEiv1oiMKsDrWtosxEbHbLIrmLTp6xpxNSbRzUMiazigbJV7X1ciliXvIa9MuwM3xbZ5kG6TMeXloGbD1zF7M-MCIB5eM0u7QIuwpR9GvExpZV0REJdSMYVG9vbRp1BvpnwHeBRw0tSxXDhTjVrS4SY40OXizBfVrsHdzSo94W3DjiN_1hyQBKiv61WGsQvIslchtu91WDrT3"/>
+<div class="hidden xl:flex flex-col text-left">
+<span class="text-label-md font-label-md font-bold text-on-surface leading-tight">Lic. Roberto Morales</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Admin RH &amp; Nómina</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 3. MAIN WORKSPACE / CONTENT CANVAS (with ml-64 & pt-16 offset)             -->
+<!-- ========================================================================= -->
+<main class="ml-64 pt-16 p-6 min-h-screen bg-surface space-y-5 pb-28">
+<!-- Section A: Breadcrumb & View Header -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-outline-variant/60 pb-4">
+<div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant mb-1">
+<span class="font-bold text-primary">/turnos</span>
+<span>•</span>
+<span class="inline-flex items-center gap-1 text-on-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded font-semibold">
+<span class="material-symbols-outlined text-label-sm" data-icon="gavel">gavel</span>
+            Cumplimiento LFT Art. 59-68 (Jornada máx. 48 hrs semanales)
+          </span>
+</div>
+<div class="flex items-center gap-3 flex-wrap">
+<h1 class="text-headline-md font-headline-md text-on-surface font-extrabold tracking-tight">Planificador y Asignación de Turnos</h1>
+<!-- Week Selector Navigator -->
+<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-lg p-1 shadow-sm">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant" title="Semana anterior">
+<span class="material-symbols-outlined text-title-md" data-icon="chevron_left">chevron_left</span>
+</button>
+<div class="px-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-title-sm" data-icon="calendar_today">calendar_today</span>
+<span class="text-label-md font-label-md font-bold text-on-surface">Semana 43: 21 al 27 de Octubre, 2024</span>
+</div>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant" title="Semana siguiente">
+<span class="material-symbols-outlined text-title-md" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="ml-1 px-2.5 py-0.5 text-label-sm font-label-sm font-bold bg-surface-container-high text-primary rounded hover:bg-secondary-container transition-colors">
+              Hoy
+            </button>
+</div>
+</div>
+</div>
+<!-- Header Action Buttons -->
+<div class="flex items-center gap-2 flex-wrap">
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface text-label-md font-label-md hover:bg-surface-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-title-sm text-outline" data-icon="content_copy">content_copy</span>
+          Copiar de semana anterior
+        </button>
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface text-label-md font-label-md hover:bg-surface-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-title-sm text-outline" data-icon="tune">tune</span>
+          Plantillas de Turnos
+        </button>
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] text-label-md font-label-md hover:bg-[#FFECB3] transition-colors">
+<span class="material-symbols-outlined text-title-sm" data-icon="verified_user">verified_user</span>
+          Validar Reglas LFT
+        </button>
+<!-- Primary Action Trigger -->
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-surface-container-lowest font-bold text-label-md hover:brightness-110 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined text-title-md" data-icon="publish">publish</span>
+          + Asignar Turno / Publicar Horarios
+        </button>
+</div>
+</div>
+<!-- Section B: Top KPI Metrix Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/70 p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Cobertura de Turnos</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-extrabold text-on-surface">94%</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">88/94 cubiertos</span>
+</div>
+<span class="inline-flex items-center text-label-sm font-label-sm text-error font-medium">
+<span class="material-symbols-outlined text-label-sm mr-1" data-icon="error_outline">error_outline</span>
+            6 vacantes críticas en panadería/mostrador
+          </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container/50 text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-title-lg" data-icon="group_work">group_work</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/70 p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Horas Promedio Semanal</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-extrabold text-[#2E7D32]">43.2 hrs</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">/ colaborador</span>
+</div>
+<span class="inline-flex items-center text-label-sm font-label-sm text-[#2E7D32] font-medium">
+<span class="material-symbols-outlined text-label-sm mr-1" data-icon="check_circle">check_circle</span>
+            Dentro del marco legal (48 hrs límite)
+          </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center">
+<span class="material-symbols-outlined text-title-lg" data-icon="timer">timer</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant/70 p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Alertas LFT (&gt;48h Semanal)</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-extrabold text-error">3 Personas</span>
+<span class="text-label-sm font-label-sm bg-error-container text-on-error-container px-2 py-0.5 rounded font-bold">Riesgo</span>
+</div>
+<span class="inline-flex items-center text-label-sm font-label-sm text-error font-medium">
+<span class="material-symbols-outlined text-label-sm mr-1" data-icon="warning">warning</span>
+            Riesgo de horas extras triples / LFT
+          </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-error-container text-error flex items-center justify-center">
+<span class="material-symbols-outlined text-title-lg" data-icon="crisis_alert">crisis_alert</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant/70 p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Turnos Especiales / Nocturnos</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-extrabold text-[#653D00]">14 Turnos</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">horno &amp; ruta</span>
+</div>
+<span class="inline-flex items-center text-label-sm font-label-sm text-tertiary font-medium">
+<span class="material-symbols-outlined text-label-sm mr-1" data-icon="payments">payments</span>
+            Aplica prima nocturna (+25% Art. 60 LFT)
+          </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-title-lg" data-icon="bedtime">bedtime</span>
+</div>
+</div>
+</div>
+<!-- Section C: Filters, Views, and Interactive Controls -->
+<div class="bg-surface-container-lowest border border-outline-variant/80 rounded-xl p-3 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3">
+<div class="flex items-center gap-3 w-full md:w-auto flex-wrap">
+<!-- Colaborador Search Input -->
+<div class="relative min-w-[220px]">
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-outline text-title-sm" data-icon="person_search">person_search</span>
+<input class="w-full pl-8 pr-3 py-1.5 rounded-lg text-body-sm border border-outline-variant bg-surface-container-low focus:bg-surface-container-lowest focus:border-primary-container focus:outline-none placeholder:text-outline" placeholder="Filtrar por empleado o puesto..." type="text"/>
+</div>
+<!-- Dept Filter -->
+<div class="flex items-center">
+<select class="text-body-sm py-1.5 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:border-primary-container focus:outline-none">
+<option selected="">Todos los Departamentos</option>
+<option>Cocina y Panadería</option>
+<option>Ventas / Caja</option>
+<option>Reparto &amp; Logística</option>
+<option>Limpieza y Mantenimiento</option>
+</select>
+</div>
+<!-- Branch Filter -->
+<div class="flex items-center">
+<select class="text-body-sm py-1.5 pl-3 pr-8 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface focus:border-primary-container focus:outline-none">
+<option selected="">Todas las Sucursales</option>
+<option>Matriz Centro</option>
+<option>Sucursal Reforma</option>
+<option>Sucursal Insurgentes Sur</option>
+</select>
+</div>
+</div>
+<!-- Right Controls: View Modality & LFT Switch -->
+<div class="flex items-center gap-4 w-full md:w-auto justify-end">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-error"></div>
+</div>
+<span class="text-label-sm font-label-sm font-bold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-error text-label-md" data-icon="warning">warning</span>
+            Resaltar excesos &gt;48 hrs
+          </span>
+</label>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- View Segmented Button -->
+<div class="inline-flex rounded-lg bg-surface-container-low p-0.5 border border-outline-variant">
+<button class="px-3 py-1 rounded-md text-label-sm font-label-sm font-bold bg-surface-container-lowest text-primary shadow-xs">
+            Semanal (Lun-Dom)
+          </button>
+<button class="px-3 py-1 rounded-md text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface">
+            Quincenal
+          </button>
+<button class="px-3 py-1 rounded-md text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="grid_view">grid_view</span>
+            Heatmap
+          </button>
+</div>
+</div>
+</div>
+<!-- Section D: Planner Body (Draggable Templates Sidebar + Interactive Weekly Matrix) -->
+<div class="grid grid-cols-12 gap-5 items-start">
+<!-- LEFT SUBPANEL: Draggable Shift Templates -->
+<div class="col-span-12 lg:col-span-3 xl:col-span-2 bg-surface-container-lowest border border-outline-variant/80 rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between pb-2 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="drag_indicator">drag_indicator</span>
+<h3 class="text-label-md font-label-md font-bold text-on-surface">Plantillas de Turno</h3>
+</div>
+<button class="text-on-surface-variant hover:text-primary" title="Crear plantilla">
+<span class="material-symbols-outlined text-title-sm" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Arrastra una plantilla directamente a la celda del colaborador para asignarla.</p>
+<!-- Template 1: Matutino Panadería -->
+<div class="cursor-grab active:cursor-grabbing p-2.5 rounded-lg border border-[#B7E7F7] bg-[#E0F7FA] hover:shadow-md transition-shadow" draggable="true">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-[#006064]">Matutino Panadería</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded font-bold bg-white text-[#006064] border border-[#B7E7F7]">8h</span>
+</div>
+<div class="text-[11px] text-[#00838F] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="schedule">schedule</span>
+            05:00 - 13:30 (Comida 30m)
+          </div>
+</div>
+<!-- Template 2: Matutino Comercial -->
+<div class="cursor-grab active:cursor-grabbing p-2.5 rounded-lg border border-[#C8E6C9] bg-[#E8F5E9] hover:shadow-md transition-shadow" draggable="true">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-[#2E7D32]">Matutino Comercial</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded font-bold bg-white text-[#2E7D32] border border-[#C8E6C9]">8h</span>
+</div>
+<div class="text-[11px] text-[#388E3C] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="schedule">schedule</span>
+            07:00 - 15:30 (Comida 30m)
+          </div>
+</div>
+<!-- Template 3: Vespertino Mostrador -->
+<div class="cursor-grab active:cursor-grabbing p-2.5 rounded-lg border border-[#D1C4E9] bg-[#EDE7F6] hover:shadow-md transition-shadow" draggable="true">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-[#512DA8]">Vespertino Mostrador</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded font-bold bg-white text-[#512DA8] border border-[#D1C4E9]">7.5h</span>
+</div>
+<div class="text-[11px] text-[#673AB7] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="schedule">schedule</span>
+            14:00 - 22:00 (Cierre)
+          </div>
+</div>
+<!-- Template 4: Mixto Reparto -->
+<div class="cursor-grab active:cursor-grabbing p-2.5 rounded-lg border border-[#FFE082] bg-[#FFF8E1] hover:shadow-md transition-shadow" draggable="true">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-[#B78103]">Mixto Reparto</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded font-bold bg-white text-[#B78103] border border-[#FFE082]">8h</span>
+</div>
+<div class="text-[11px] text-[#D97706] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="schedule">schedule</span>
+            11:00 - 19:30 (Ruta B)
+          </div>
+</div>
+<!-- Template 5: Nocturno Horneado -->
+<div class="cursor-grab active:cursor-grabbing p-2.5 rounded-lg border border-[#311B92]/30 bg-[#F3E5F5] hover:shadow-md transition-shadow" draggable="true">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-[#4A148C]">Nocturno Horneado</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded font-bold bg-[#4A148C] text-white">7h LFT</span>
+</div>
+<div class="text-[11px] text-[#6A1B9A] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="bedtime">bedtime</span>
+            22:00 - 05:30 (Prima +25%)
+          </div>
+</div>
+<!-- Template 6: Descanso Semanal Legal -->
+<div class="cursor-grab active:cursor-grabbing p-2.5 rounded-lg border border-outline-variant bg-surface-container-low hover:shadow-md transition-shadow" draggable="true">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm font-bold text-outline">Descanso Semanal</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded font-bold bg-white text-outline border border-outline-variant">Art. 69</span>
+</div>
+<div class="text-[11px] text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-label-sm" data-icon="weekend">weekend</span>
+            Día de descanso legal pagado
+          </div>
+</div>
+<div class="p-3 bg-surface-container rounded-lg border border-outline-variant/60 text-[11px] text-on-surface-variant leading-relaxed">
+<span class="font-bold text-on-surface block mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-label-sm text-primary" data-icon="info">info</span>
+            Recordatorio LFT:
+          </span>
+          Por cada 6 días de trabajo continuo, el trabajador disfrutará de al menos 1 día de descanso con goce de salario íntegro.
+        </div>
+</div>
+<!-- RIGHT MAIN MATRIZ: Weekly Planner Grid -->
+<div class="col-span-12 lg:col-span-9 xl:col-span-10 bg-surface-container-lowest border border-outline-variant/80 rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Scrollable Table Wrapper -->
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse min-w-[1100px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<!-- Col 1: Colaborador -->
+<th class="p-3 w-64 text-label-md font-label-md font-bold text-on-surface sticky left-0 bg-surface-container-low z-10 border-r border-outline-variant/60">
+                  Colaborador / Puesto
+                </th>
+<!-- Col 2: Horas Semanales -->
+<th class="p-3 w-36 text-center text-label-md font-label-md font-bold text-on-surface border-r border-outline-variant/60">
+                  Horas Sem. (Máx 48h)
+                </th>
+<!-- Daily Cols -->
+<th class="p-2.5 text-center border-r border-outline-variant/60">
+<div class="text-label-sm font-label-sm font-bold text-on-surface">Lun 21</div>
+<div class="text-[10px] text-[#2E7D32] bg-[#E8F5E9] rounded px-1.5 py-0.2 mt-0.5 font-bold">14/14 cub.</div>
+</th>
+<th class="p-2.5 text-center border-r border-outline-variant/60">
+<div class="text-label-sm font-label-sm font-bold text-on-surface">Mar 22</div>
+<div class="text-[10px] text-[#2E7D32] bg-[#E8F5E9] rounded px-1.5 py-0.2 mt-0.5 font-bold">14/14 cub.</div>
+</th>
+<th class="p-2.5 text-center border-r border-outline-variant/60 bg-[#FFEBEE]/30">
+<div class="text-label-sm font-label-sm font-bold text-error flex items-center justify-center gap-1">
+                    Mié 23
+                    <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+</div>
+<div class="text-[10px] text-error bg-[#FFEBEE] rounded px-1.5 py-0.2 mt-0.5 font-bold">13/14 (-1 vacante)</div>
+</th>
+<th class="p-2.5 text-center border-r border-outline-variant/60">
+<div class="text-label-sm font-label-sm font-bold text-on-surface">Jue 24</div>
+<div class="text-[10px] text-[#2E7D32] bg-[#E8F5E9] rounded px-1.5 py-0.2 mt-0.5 font-bold">14/14 cub.</div>
+</th>
+<th class="p-2.5 text-center border-r border-outline-variant/60">
+<div class="text-label-sm font-label-sm font-bold text-on-surface">Vie 25</div>
+<div class="text-[10px] text-primary bg-secondary-container rounded px-1.5 py-0.2 mt-0.5 font-bold">15/14 refuerzo</div>
+</th>
+<th class="p-2.5 text-center border-r border-outline-variant/60">
+<div class="text-label-sm font-label-sm font-bold text-on-surface">Sáb 26</div>
+<div class="text-[10px] text-[#2E7D32] bg-[#E8F5E9] rounded px-1.5 py-0.2 mt-0.5 font-bold">16/16 cub.</div>
+</th>
+<th class="p-2.5 text-center">
+<div class="text-label-sm font-label-sm font-bold text-on-surface">Dom 27</div>
+<div class="text-[10px] text-[#2E7D32] bg-[#E8F5E9] rounded px-1.5 py-0.2 mt-0.5 font-bold">10/10 cub.</div>
+</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/60 text-body-sm font-body-sm">
+<!-- FILA 1: Carlos Eduardo (Alerta Roja >48h) -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-[#FFEBEE]/10">
+<td class="p-3 sticky left-0 bg-surface-container-lowest z-10 border-r border-outline-variant/60 shadow-xs">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-error" data-alt="Portrait photo of a middle-aged Mexican master baker man wearing a clean white baker uniform and apron in a bright artisanal bakery kitchen with soft warm sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjIGnMrnsCsgA9JIJqgtAF1d3SVvyf9JTnxPYVjgsLKjwKlamkopXeU76Tc9WyIDrlFvSl1_Dy4P_i0wlK92DG3CP4DwcmSOdRUWqWdImMJu4-BC15VU2H2S-ZzEjogBRP65-s3WfS8E2LlOkC4jarZDJTIkvyxWPiBieQk9bg-xirltituZW_jg_BcRCadvkbkLNplEMtS7cAR-Kk6F8qB02WYsn_EzOTJsXbrBhyIaIDlWc5WtD8UbU8m3E7JkrVyxPmAG2bW0o4"/>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface leading-tight">Carlos Eduardo Hernández</div>
+<div class="text-[11px] text-on-surface-variant">Panadero Maestro • Cocina</div>
+<span class="inline-block mt-0.5 text-[10px] px-1.5 py-0.2 rounded bg-surface-container text-primary font-semibold">Matriz Centro</span>
+</div>
+</div>
+</td>
+<!-- Horas Totales con advertencia -->
+<td class="p-3 text-center border-r border-outline-variant/60">
+<div class="text-label-md font-label-md font-extrabold text-error">52.0 hrs</div>
+<div class="w-full bg-outline-variant/40 rounded-full h-1.5 my-1 overflow-hidden">
+<div class="bg-error h-1.5 rounded-full" style="width: 100%"></div>
+</div>
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold text-error bg-error-container px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]" data-icon="warning">warning</span>
+                    +4h Extras LFT
+                  </span>
+</td>
+<!-- Lunes -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center hover:shadow transition-shadow">
+<div class="text-[11px] font-bold">05:00 - 13:30</div>
+<div class="text-[10px] opacity-80">Mat. Horno (8h)</div>
+</div>
+</td>
+<!-- Martes -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center hover:shadow transition-shadow">
+<div class="text-[11px] font-bold">05:00 - 13:30</div>
+<div class="text-[10px] opacity-80">Mat. Horno (8h)</div>
+</div>
+</td>
+<!-- Miércoles (Doble Turno / Alerta de horas extras) -->
+<td class="p-2 border-r border-outline-variant/60 bg-[#FFEBEE]/30">
+<div class="p-1.5 rounded bg-error-container border border-error text-error text-center shadow-xs">
+<div class="text-[11px] font-bold">05:00 - 17:00</div>
+<div class="text-[9px] font-extrabold uppercase tracking-tight bg-error text-white rounded px-1 mt-0.5">Doble turno (11.5h)</div>
+</div>
+</td>
+<!-- Jueves -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center hover:shadow transition-shadow">
+<div class="text-[11px] font-bold">05:00 - 13:30</div>
+<div class="text-[10px] opacity-80">Mat. Horno (8h)</div>
+</div>
+</td>
+<!-- Viernes -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center hover:shadow transition-shadow">
+<div class="text-[11px] font-bold">05:00 - 13:30</div>
+<div class="text-[10px] opacity-80">Mat. Horno (8h)</div>
+</div>
+</td>
+<!-- Sábado -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center hover:shadow transition-shadow">
+<div class="text-[11px] font-bold">05:00 - 13:30</div>
+<div class="text-[10px] opacity-80">Mat. Horno (8.5h)</div>
+</div>
+</td>
+<!-- Domingo (Descanso) -->
+<td class="p-2">
+<div class="p-1.5 rounded bg-surface-container text-outline text-center border border-dashed border-outline-variant">
+<div class="text-[11px] font-bold">Descanso</div>
+<div class="text-[10px]">Art. 69 LFT</div>
+</div>
+</td>
+</tr>
+<!-- FILA 2: Sofía Marroquín (Verde 48h exacta) -->
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="p-3 sticky left-0 bg-surface-container-lowest z-10 border-r border-outline-variant/60 shadow-xs">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-[#2E7D32]" data-alt="Portrait photo of a young Mexican female logistics and packaging supervisor in her early thirties with hair tied back, wearing a clean crisp collared shirt and badge inside a tidy bakery logistics center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYH-X10ju_qEqw_CXiX0PPhcGOayc59eQtPHU7J91KxgEpLViY-V_X7sJjySvGGE5z45pJoAI7Uw5DrsSOByPvyTv-EQXiOG0famZwD7fPz1ETTe5pPEQ655Q7zlLRfwVHlX13eYoogO_m61RPL662rWxDetjb2Vtv4_dEhLLYBMTX785YhMnoy_RvwLcuCX5q0nQGG3OIPkG3ox77bKIWgtTwo2lPi3XcGaWlVsosQV6QkvKdz0DF0iO0dFdFgpyb8dJiW0HqcsOL"/>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface leading-tight">Sofía Marroquín Téllez</div>
+<div class="text-[11px] text-on-surface-variant">Supervisora Empaque • Logística</div>
+<span class="inline-block mt-0.5 text-[10px] px-1.5 py-0.2 rounded bg-surface-container text-primary font-semibold">Matriz Centro</span>
+</div>
+</div>
+</td>
+<!-- Horas Totales -->
+<td class="p-3 text-center border-r border-outline-variant/60">
+<div class="text-label-md font-label-md font-extrabold text-[#2E7D32]">48.0 hrs</div>
+<div class="w-full bg-outline-variant/40 rounded-full h-1.5 my-1 overflow-hidden">
+<div class="bg-[#2E7D32] h-1.5 rounded-full" style="width: 100%"></div>
+</div>
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span>
+                    Jornada Exacta LFT
+                  </span>
+</td>
+<!-- Lun -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#EDE7F6] border border-[#D1C4E9] text-[#512DA8] text-center">
+<div class="text-[11px] font-bold">14:00 - 22:00</div>
+<div class="text-[10px] opacity-80">Vesp. Empaque (8h)</div>
+</div>
+</td>
+<!-- Mar -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#EDE7F6] border border-[#D1C4E9] text-[#512DA8] text-center">
+<div class="text-[11px] font-bold">14:00 - 22:00</div>
+<div class="text-[10px] opacity-80">Vesp. Empaque (8h)</div>
+</div>
+</td>
+<!-- Mié -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#EDE7F6] border border-[#D1C4E9] text-[#512DA8] text-center">
+<div class="text-[11px] font-bold">14:00 - 22:00</div>
+<div class="text-[10px] opacity-80">Vesp. Empaque (8h)</div>
+</div>
+</td>
+<!-- Jue -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#EDE7F6] border border-[#D1C4E9] text-[#512DA8] text-center">
+<div class="text-[11px] font-bold">14:00 - 22:00</div>
+<div class="text-[10px] opacity-80">Vesp. Empaque (8h)</div>
+</div>
+</td>
+<!-- Vie -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#EDE7F6] border border-[#D1C4E9] text-[#512DA8] text-center">
+<div class="text-[11px] font-bold">14:00 - 22:00</div>
+<div class="text-[10px] opacity-80">Vesp. Empaque (8h)</div>
+</div>
+</td>
+<!-- Sáb -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#EDE7F6] border border-[#D1C4E9] text-[#512DA8] text-center">
+<div class="text-[11px] font-bold">14:00 - 22:00</div>
+<div class="text-[10px] opacity-80">Vesp. Empaque (8h)</div>
+</div>
+</td>
+<!-- Dom (Descanso) -->
+<td class="p-2">
+<div class="p-1.5 rounded bg-surface-container text-outline text-center border border-dashed border-outline-variant">
+<div class="text-[11px] font-bold">Descanso</div>
+<div class="text-[10px]">Art. 69 LFT</div>
+</div>
+</td>
+</tr>
+<!-- FILA 3: Jorge Alberto (40.0h Ordinario) -->
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="p-3 sticky left-0 bg-surface-container-lowest z-10 border-r border-outline-variant/60 shadow-xs">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-container" data-alt="Portrait photo of a young Mexican man working as front desk cashier, with friendly welcoming smile, wearing corporate dark polo shirt in a well-lit modern bakery retail counter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSgwgQHTZPXrXr3pF2oIUQnDagHXEO_HF-irt7d9VGQb93fLhHvytmvodKH30h5LkLAxlzhHGduCDXXsIHFpyxTL3BtfJUK321hoG5z7CvqLnirwfesKRQJdTbYhR844rcScEEKMnhwwZ8neEQrxwCXEGSdmIqTgwqgCJrtNHy4U08KQ1ENA9RYdUY9kGJm9R52buqv4exKvujOrdnMFuU60qmnaWGWXSIpkSPb9ON5pJ9KtG-jy2aSf6LOJ8OXzEABkcSHeZFgeZ9"/>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface leading-tight">Jorge Alberto Silva Ruiz</div>
+<div class="text-[11px] text-on-surface-variant">Cajero Mostrador • Ventas</div>
+<span class="inline-block mt-0.5 text-[10px] px-1.5 py-0.2 rounded bg-surface-container text-primary font-semibold">Suc. Reforma</span>
+</div>
+</div>
+</td>
+<td class="p-3 text-center border-r border-outline-variant/60">
+<div class="text-label-md font-label-md font-extrabold text-primary">40.0 hrs</div>
+<div class="w-full bg-outline-variant/40 rounded-full h-1.5 my-1 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 83%"></div>
+</div>
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold text-primary bg-secondary-container px-1.5 py-0.5 rounded">
+                    Turno Ordinario
+                  </span>
+</td>
+<!-- Lun -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E8F5E9] border border-[#C8E6C9] text-[#2E7D32] text-center">
+<div class="text-[11px] font-bold">07:00 - 15:30</div>
+<div class="text-[10px] opacity-80">Comercial (8h)</div>
+</div>
+</td>
+<!-- Mar (Descanso entre semana) -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-surface-container text-outline text-center border border-dashed border-outline-variant">
+<div class="text-[11px] font-bold">Descanso</div>
+<div class="text-[10px]">Rotativo</div>
+</div>
+</td>
+<!-- Mié -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E8F5E9] border border-[#C8E6C9] text-[#2E7D32] text-center">
+<div class="text-[11px] font-bold">07:00 - 15:30</div>
+<div class="text-[10px] opacity-80">Comercial (8h)</div>
+</div>
+</td>
+<!-- Jue -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E8F5E9] border border-[#C8E6C9] text-[#2E7D32] text-center">
+<div class="text-[11px] font-bold">07:00 - 15:30</div>
+<div class="text-[10px] opacity-80">Comercial (8h)</div>
+</div>
+</td>
+<!-- Vie -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E8F5E9] border border-[#C8E6C9] text-[#2E7D32] text-center">
+<div class="text-[11px] font-bold">07:00 - 15:30</div>
+<div class="text-[10px] opacity-80">Comercial (8h)</div>
+</div>
+</td>
+<!-- Sáb -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E8F5E9] border border-[#C8E6C9] text-[#2E7D32] text-center">
+<div class="text-[11px] font-bold">07:00 - 15:30</div>
+<div class="text-[10px] opacity-80">Comercial (8h)</div>
+</div>
+</td>
+<!-- Dom (Descanso legal) -->
+<td class="p-2">
+<div class="p-1.5 rounded bg-surface-container text-outline text-center border border-dashed border-outline-variant">
+<div class="text-[11px] font-bold">Descanso</div>
+<div class="text-[10px]">Semanal</div>
+</div>
+</td>
+</tr>
+<!-- FILA 4: Rodrigo Téllez (49.5h Alerta Ámbar) -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-[#FFF8E1]/20">
+<td class="p-3 sticky left-0 bg-surface-container-lowest z-10 border-r border-outline-variant/60 shadow-xs">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-[#B78103]" data-alt="Portrait photo of a focused Mexican male delivery courier wearing a branded high-visibility motorcycle jacket and carrying a protective helmet next to him indoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9Jhfv8Si-Yc04EBxEx7rfmtbFKmkz5cuAR4JdQUnLKdz0gbjlaUyx2123vM6fPjLawh-zbyWec0xx4zkibDregva54_I5hDAlIxZbUwiRFhNE3OK4DbgBunjysBDGBpIta5BoBM-ta0pW6Np7ZJD3zHEjl8H1gSZrTgLdzi7YVtLlCOfY2Am_cncMbnoB3iuLUv4FLzPMoWSiAKm-tadlffqdoqFD18YgBWUsiAvuBYl7eW7ijIK07XBQkykxbiyDGkJlTmBggGSv"/>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface leading-tight">Rodrigo Téllez Nava</div>
+<div class="text-[11px] text-on-surface-variant">Repartidor Motocicleta • Rutas</div>
+<span class="inline-block mt-0.5 text-[10px] px-1.5 py-0.2 rounded bg-surface-container text-primary font-semibold">Matriz Centro</span>
+</div>
+</div>
+</td>
+<td class="p-3 text-center border-r border-outline-variant/60">
+<div class="text-label-md font-label-md font-extrabold text-[#B78103]">49.5 hrs</div>
+<div class="w-full bg-outline-variant/40 rounded-full h-1.5 my-1 overflow-hidden">
+<div class="bg-[#B78103] h-1.5 rounded-full" style="width: 100%"></div>
+</div>
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#B78103] bg-[#FFF8E1] px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]" data-icon="schedule">schedule</span>
+                    +1.5h Exceso
+                  </span>
+</td>
+<!-- Lun -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] text-center">
+<div class="text-[11px] font-bold">11:00 - 19:30</div>
+<div class="text-[10px]">Ruta CDMX (8h)</div>
+</div>
+</td>
+<!-- Mar -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] text-center">
+<div class="text-[11px] font-bold">11:00 - 19:30</div>
+<div class="text-[10px]">Ruta CDMX (8h)</div>
+</div>
+</td>
+<!-- Mié -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] text-center">
+<div class="text-[11px] font-bold">11:00 - 20:00</div>
+<div class="text-[10px] font-bold text-error">+0.5h Ruta alta</div>
+</div>
+</td>
+<!-- Jue -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] text-center">
+<div class="text-[11px] font-bold">11:00 - 19:30</div>
+<div class="text-[10px]">Ruta CDMX (8h)</div>
+</div>
+</td>
+<!-- Vie -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] text-center">
+<div class="text-[11px] font-bold">11:00 - 20:30</div>
+<div class="text-[10px] font-bold text-error">+1h Pedidos may.</div>
+</div>
+</td>
+<!-- Sáb -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] text-center">
+<div class="text-[11px] font-bold">10:00 - 18:30</div>
+<div class="text-[10px]">Ruta fin de sem.</div>
+</div>
+</td>
+<!-- Dom -->
+<td class="p-2">
+<div class="p-1.5 rounded bg-surface-container text-outline text-center border border-dashed border-outline-variant">
+<div class="text-[11px] font-bold">Descanso</div>
+<div class="text-[10px]">Art. 69 LFT</div>
+</div>
+</td>
+</tr>
+<!-- FILA 5: Claudia Pineda (45.0h En regla) -->
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="p-3 sticky left-0 bg-surface-container-lowest z-10 border-r border-outline-variant/60 shadow-xs">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-[#2E7D32]" data-alt="Portrait photo of a cheerful Mexican woman in her late twenties wearing an industrial food-grade hairnet and clean white apron in a professional bakery production line environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYser3PwfEDQqULLFYC-oHfYjUEhqBnZw0GA2YWdku_kXx3npfvhMdt225JCHHQt6ARUjZVRU5JLM8IRTyNKbTyRcz-roUUTZVURR3upBWJM3PwQqqpsrEHQji84tRStAKro8gLkN3z8wzCDLbLtqU8LWjaU31FEGkn3bz22jAAXgjDhRFfEnMXiBbco2s2rA92zD7AUpdN833FoxIN2PT0GFPRWpQnkkeq2z64FjcTJNGkFzn1p09Qs_CBn5aIXNJ0SW2BJF6ljXf"/>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface leading-tight">Claudia Pineda Soto</div>
+<div class="text-[11px] text-on-surface-variant">Ayudante General • Producción</div>
+<span class="inline-block mt-0.5 text-[10px] px-1.5 py-0.2 rounded bg-surface-container text-primary font-semibold">Matriz Centro</span>
+</div>
+</div>
+</td>
+<td class="p-3 text-center border-r border-outline-variant/60">
+<div class="text-label-md font-label-md font-extrabold text-[#2E7D32]">45.0 hrs</div>
+<div class="w-full bg-outline-variant/40 rounded-full h-1.5 my-1 overflow-hidden">
+<div class="bg-[#2E7D32] h-1.5 rounded-full" style="width: 93%"></div>
+</div>
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.5 rounded">
+                    En Regla LFT
+                  </span>
+</td>
+<!-- Lun -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center">
+<div class="text-[11px] font-bold">06:00 - 14:00</div>
+<div class="text-[10px]">Producción (7.5h)</div>
+</div>
+</td>
+<!-- Mar -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center">
+<div class="text-[11px] font-bold">06:00 - 14:00</div>
+<div class="text-[10px]">Producción (7.5h)</div>
+</div>
+</td>
+<!-- Mié (Vacante o asignación rápida) -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center">
+<div class="text-[11px] font-bold">06:00 - 14:00</div>
+<div class="text-[10px]">Producción (7.5h)</div>
+</div>
+</td>
+<!-- Jue -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center">
+<div class="text-[11px] font-bold">06:00 - 14:00</div>
+<div class="text-[10px]">Producción (7.5h)</div>
+</div>
+</td>
+<!-- Vie -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center">
+<div class="text-[11px] font-bold">06:00 - 14:00</div>
+<div class="text-[10px]">Producción (7.5h)</div>
+</div>
+</td>
+<!-- Sáb -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#E0F7FA] border border-[#B7E7F7] text-[#006064] text-center">
+<div class="text-[11px] font-bold">06:00 - 13:30</div>
+<div class="text-[10px]">Producción (7.5h)</div>
+</div>
+</td>
+<!-- Dom -->
+<td class="p-2">
+<div class="p-1.5 rounded bg-surface-container text-outline text-center border border-dashed border-outline-variant">
+<div class="text-[11px] font-bold">Descanso</div>
+<div class="text-[10px]">Art. 69 LFT</div>
+</div>
+</td>
+</tr>
+<!-- FILA 6: Miguel Ángel Reyes (42.0h Calidad) -->
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="p-3 sticky left-0 bg-surface-container-lowest z-10 border-r border-outline-variant/60 shadow-xs">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-container" data-alt="Portrait photo of a senior Mexican professional man with short grey hair and spectacles, wearing a crisp white inspection lab coat with clipboard inside an organized bakery quality control station" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2Jj4YHWTHhGiC75efCFqsVv3wYsrDhQH2hmtz0yJE7Zo0lF9wVm9PELrJ16S_8TgtJALZ7rcHEc1TBo2Bk3g2BM2bobaCtFI_a2CHtul50M-FvlMzvosGKJq8FwDhjkjWeGF_tdMYAl0DUEPqgbJcM7eXtRfvhA6O6Jqq9y47T43EkyF-VTJsy1FHm-niYAGFD9yzvO7NEYY9NgpujHRx-oREDd-sKoElj7QIetvxJS_fs7fIDN3y4NCtaRiYHQ5TT6ie0OQq_C0Z"/>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface leading-tight">Miguel Ángel Reyes Tovar</div>
+<div class="text-[11px] text-on-surface-variant">Supervisor de Calidad • Alimentos</div>
+<span class="inline-block mt-0.5 text-[10px] px-1.5 py-0.2 rounded bg-surface-container text-primary font-semibold">Insurgentes Sur</span>
+</div>
+</div>
+</td>
+<td class="p-3 text-center border-r border-outline-variant/60">
+<div class="text-label-md font-label-md font-extrabold text-[#2E7D32]">42.0 hrs</div>
+<div class="w-full bg-outline-variant/40 rounded-full h-1.5 my-1 overflow-hidden">
+<div class="bg-[#2E7D32] h-1.5 rounded-full" style="width: 87%"></div>
+</div>
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.5 rounded">
+                    En Regla LFT
+                  </span>
+</td>
+<!-- Lun -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#F3E5F5] border border-[#311B92]/30 text-[#4A148C] text-center">
+<div class="text-[11px] font-bold">22:00 - 05:30</div>
+<div class="text-[10px] font-bold">Nocturno (7h)</div>
+</div>
+</td>
+<!-- Mar -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#F3E5F5] border border-[#311B92]/30 text-[#4A148C] text-center">
+<div class="text-[11px] font-bold">22:00 - 05:30</div>
+<div class="text-[10px] font-bold">Nocturno (7h)</div>
+</div>
+</td>
+<!-- Mié -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#F3E5F5] border border-[#311B92]/30 text-[#4A148C] text-center">
+<div class="text-[11px] font-bold">22:00 - 05:30</div>
+<div class="text-[10px] font-bold">Nocturno (7h)</div>
+</div>
+</td>
+<!-- Jue -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#F3E5F5] border border-[#311B92]/30 text-[#4A148C] text-center">
+<div class="text-[11px] font-bold">22:00 - 05:30</div>
+<div class="text-[10px] font-bold">Nocturno (7h)</div>
+</div>
+</td>
+<!-- Vie -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#F3E5F5] border border-[#311B92]/30 text-[#4A148C] text-center">
+<div class="text-[11px] font-bold">22:00 - 05:30</div>
+<div class="text-[10px] font-bold">Nocturno (7h)</div>
+</div>
+</td>
+<!-- Sáb -->
+<td class="p-2 border-r border-outline-variant/60">
+<div class="p-1.5 rounded bg-[#F3E5F5] border border-[#311B92]/30 text-[#4A148C] text-center">
+<div class="text-[11px] font-bold">22:00 - 05:30</div>
+<div class="text-[10px] font-bold">Nocturno (7h)</div>
+</div>
+</td>
+<!-- Dom -->
+<td class="p-2">
+<div class="p-1.5 rounded bg-surface-container text-outline text-center border border-dashed border-outline-variant">
+<div class="text-[11px] font-bold">Descanso</div>
+<div class="text-[10px]">Art. 69 LFT</div>
+</div>
+</td>
+</tr>
+</tbody>
+<!-- Fila de Resumen y Capacidad Operativa -->
+<tfoot>
+<tr class="bg-surface-container-high/60 border-t-2 border-outline-variant font-bold text-on-surface">
+<td class="p-3 sticky left-0 bg-surface-container-high z-10 border-r border-outline-variant">
+<div class="flex items-center justify-between">
+<span>Personal Operativo Total</span>
+<span class="text-label-sm text-on-surface-variant font-normal">Capacidad 100%</span>
+</div>
+</td>
+<td class="p-3 text-center border-r border-outline-variant">
+<span class="text-label-md font-label-md">271.5 hrs tot.</span>
+</td>
+<td class="p-2 text-center border-r border-outline-variant">
+<span class="text-label-sm font-label-sm">14 Activos</span>
+<div class="text-[10px] text-on-surface-variant font-normal">100% cubierto</div>
+</td>
+<td class="p-2 text-center border-r border-outline-variant">
+<span class="text-label-sm font-label-sm">14 Activos</span>
+<div class="text-[10px] text-on-surface-variant font-normal">100% cubierto</div>
+</td>
+<td class="p-2 text-center border-r border-outline-variant bg-error-container/40">
+<span class="text-label-sm font-label-sm text-error">13 Activos</span>
+<div class="text-[10px] text-error font-bold">Falta 1 cajero</div>
+</td>
+<td class="p-2 text-center border-r border-outline-variant">
+<span class="text-label-sm font-label-sm">14 Activos</span>
+<div class="text-[10px] text-on-surface-variant font-normal">100% cubierto</div>
+</td>
+<td class="p-2 text-center border-r border-outline-variant">
+<span class="text-label-sm font-label-sm">15 Activos</span>
+<div class="text-[10px] text-primary font-bold">+1 refuerzo</div>
+</td>
+<td class="p-2 text-center border-r border-outline-variant">
+<span class="text-label-sm font-label-sm">16 Activos</span>
+<div class="text-[10px] text-on-surface-variant font-normal">Pico de ventas</div>
+</td>
+<td class="p-2 text-center">
+<span class="text-label-sm font-label-sm">10 Activos</span>
+<div class="text-[10px] text-on-surface-variant font-normal">Turno dominical</div>
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<!-- Planner Table Legend & Fast Actions -->
+<div class="p-3 bg-surface-container-low border-t border-outline-variant/70 flex flex-wrap items-center justify-between gap-3 text-[11px] text-on-surface-variant">
+<div class="flex items-center gap-4 flex-wrap">
+<span class="font-bold text-on-surface">Código de Colores LFT:</span>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-[#E0F7FA] border border-[#B7E7F7]"></span>
+<span>Matutino (8h)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-[#EDE7F6] border border-[#D1C4E9]"></span>
+<span>Vespertino (7.5h)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-[#F3E5F5] border border-[#311B92]/30"></span>
+<span>Nocturno (7h Art. 60)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-[#FFF8E1] border border-[#FFE082]"></span>
+<span>Mixto Reparto</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-error-container border border-error"></span>
+<span class="font-bold text-error">Exceso &gt;48h</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container transition-colors">
+              Descargar Matriz PDF
+            </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container transition-colors">
+              Notificar Turnos por WhatsApp
+            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- ========================================================================= -->
+<!-- 4. BOTTOM FLOATING ACTION DRAWER / LFT COMPLIANCE BAR                     -->
+<!-- ========================================================================= -->
+<div class="fixed bottom-0 right-0 left-64 bg-surface-container-lowest border-t-2 border-outline-variant/80 shadow-2xl z-30 px-6 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-title-lg" data-icon="warning">warning</span>
+</div>
+<div>
+<div class="text-label-md font-label-md font-bold text-on-surface flex items-center gap-2">
+<span>3 colaboradores exceden el límite legal de 48 horas semanales (Art. 68 LFT)</span>
+<span class="text-[10px] px-2 py-0.5 rounded-full bg-error text-white font-extrabold uppercase">Riesgo Multa STPS</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+          Carlos Eduardo Hernández (+4h), Rodrigo Téllez (+1.5h) y 1 vacante abierta en caja podrían generar horas extras triples en corte de pre-nómina quincenal.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg border border-primary-container text-primary-container font-semibold text-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-title-sm" data-icon="auto_fix_high">auto_fix_high</span>
+        Rebalancear automáticamente
+      </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-surface-container-lowest font-bold text-label-md hover:brightness-110 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined text-title-sm" data-icon="approval">approval</span>
+        Solicitar visto bueno de pre-nómina
+      </button>
+</div>
+</div>
+</body></html>

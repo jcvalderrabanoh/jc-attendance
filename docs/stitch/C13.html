@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>C13 · Analítica | Checador PyME</title>
+<!-- Material Symbols Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim as mandated -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary": "#356572",
+            "on-secondary": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "inverse-surface": "#263143",
+            "surface-container-low": "#f0f3ff",
+            "secondary-fixed": "#baeafa",
+            "on-error": "#ffffff",
+            "tertiary-container": "#653d00",
+            "on-tertiary-container": "#f1a440",
+            "tertiary-fixed-dim": "#ffb963",
+            "outline-variant": "#c0c8cb",
+            "on-primary-container": "#87bbce",
+            "on-primary": "#ffffff",
+            "surface-bright": "#f9f9ff",
+            "secondary-container": "#b7e7f7",
+            "on-background": "#111c2d",
+            "surface": "#f9f9ff",
+            "primary-fixed-dim": "#9acee1",
+            "surface-variant": "#d8e3fb",
+            "on-tertiary-fixed": "#2b1700",
+            "tertiary": "#462900",
+            "inverse-primary": "#9acee1",
+            "on-primary-fixed": "#001f28",
+            "on-surface": "#111c2d",
+            "surface-dim": "#cfdaf2",
+            "surface-container": "#e7eeff",
+            "on-secondary-fixed": "#001f27",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-container": "#0f4c5c",
+            "on-tertiary-fixed-variant": "#663e00",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-primary-fixed-variant": "#114d5d",
+            "outline": "#70787c",
+            "secondary-fixed-dim": "#9ecedd",
+            "primary": "#003441",
+            "on-surface-variant": "#40484b",
+            "on-secondary-container": "#3a6977",
+            "inverse-on-surface": "#ecf1ff",
+            "surface-container-high": "#dee8ff",
+            "tertiary-fixed": "#ffddb9",
+            "surface-container-highest": "#d8e3fb",
+            "primary-fixed": "#b6ebfe",
+            "surface-tint": "#306576",
+            "background": "#f9f9ff",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-2xl": "3rem",
+            "margin-mobile": "1rem",
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "margin": "1.5rem"
+          },
+          "fontFamily": {
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-clock": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "title-md": ["Inter"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  </style>
+</head>
+<body class="min-h-full bg-background text-on-surface antialiased flex">
+<!-- SIDEBAR NAVIGATION (Shared Component: SideNavBar, active: "Analítica") -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col z-40 bg-surface-container-lowest border-r border-outline-variant shadow-sm">
+<div class="w-64 h-full p-4 flex flex-col justify-between overflow-y-auto custom-scrollbar">
+<!-- Sidebar Header -->
+<div>
+<div class="flex items-center gap-3 px-2 py-3 mb-3 border-b border-outline-variant">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">punch_clock</span>
+</div>
+<div>
+<h1 class="text-title-lg font-title-lg font-bold text-primary">Checador PyME</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Control Operativo v2.4</p>
+</div>
+</div>
+<!-- Call to Action Pase de Lista -->
+<button class="w-full mb-4 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:opacity-95 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">checklist</span>
+<span>Pase de Lista</span>
+</button>
+<!-- Navigation Tabs -->
+<nav class="space-y-1">
+<!-- Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span>Empleados</span>
+</a>
+<!-- Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span>Hojas de horas</span>
+</a>
+<!-- Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">event_busy</span>
+<span>Incidencias</span>
+</a>
+<!-- Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">calendar_view_week</span>
+<span>Turnos</span>
+</a>
+<!-- Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">store</span>
+<span>Ubicaciones</span>
+</a>
+<!-- Reportes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span>Reportes</span>
+</a>
+<!-- Analítica (ACTIVE TAB per destination) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span>Analítica</span>
+</a>
+<!-- Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Footer -->
+<div class="pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- MAIN WRAPPER (Shifted for 64-width Sidebar) -->
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- TOPBAR NAVIGATION (Shared Component: TopNavBar) -->
+<header class="sticky top-0 right-0 h-16 w-full z-30 bg-surface-container-lowest border-b border-outline-variant shadow-sm flex items-center justify-between px-6">
+<!-- Left side: Branch selector & Search -->
+<div class="flex items-center gap-4">
+<!-- Branch selector pill -->
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-lg text-on-surface border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="text-title-md font-title-md font-semibold">Sucursal Matriz CDMX</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">arrow_drop_down</span>
+</div>
+<!-- Search Bar -->
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low border border-outline-variant rounded-lg text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary-container" placeholder="Buscar métrica, dimensión o reporte..." type="text"/>
+</div>
+</div>
+<!-- Right side: Actions, Sync, Profile -->
+<div class="flex items-center gap-4">
+<!-- Status indicator: Sincronizado -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+<span>Sincronizado</span>
+</div>
+<!-- Notification Icon -->
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors relative" title="Notificaciones de Cumplimiento LFT">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#C62828] rounded-full"></span>
+</button>
+<!-- Divider -->
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Trailing Primary Action -->
+<button class="flex items-center gap-2 bg-primary-container text-on-primary px-3.5 py-2 rounded-lg font-label-md text-label-md shadow-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">fingerprint</span>
+<span>Registrar Marcaje</span>
+</button>
+<!-- User Profile Avatar and Meta -->
+<div class="flex items-center gap-2.5 pl-2">
+<img class="w-9 h-9 rounded-full object-cover border border-outline-variant" data-alt="Portrait photography of Licenciado Roberto Morales, a seasoned Mexican HR director in his early forties with tidy hair, wearing a navy blazer and crisp white shirt in a modern corporate office background. The lighting is soft and professional with a clean executive aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCtZOip6HQiO2L8OHpUvcDHJcaiqjHF-Eyx1_CaGfzMIFeKmO8BY44HSGTdlHhoTjcGPez7Bq1TQVJKTJ8QwExSkX_x5H48Wfsvbm2XrtujAyapCYlUwRfpVSBwWPVlIW1_0zUyaLBt8ZLue6VlB5wW1pUvLiqc58FlNpleCKkBZLIQ5wtNdwysaBd8nRFXetjY_e1aSoWDgQVCv1khRiOO1prwztS_v5sJBfgYX7axTX6g_jgcU41F6zaokwgh8fXGzCAGNV1N91W"/>
+<div class="text-left hidden lg:block">
+<p class="text-label-md font-label-md text-on-surface leading-tight">Lic. Roberto Morales</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Director de RH &amp; Ops</p>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN ANALYTICS WORKSPACE -->
+<main class="flex-1 p-6 space-y-6">
+<!-- 1. Encabezado Principal & Acciones Globales -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant mb-1">
+<a class="hover:text-primary transition-colors" href="#">/analitica</a>
+<span>•</span>
+<span class="text-secondary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+              Inteligencia Operativa y Cumplimiento LFT
+            </span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Centro de Analítica y Constructor de Reportes</h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-4xl mt-1">
+            Crea visualizaciones a la medida cruzando métricas de asistencia, horas extra y costos laborales con dimensiones operativas para la toma de decisiones.
+          </p>
+</div>
+<div class="flex items-center gap-2.5 flex-wrap self-start md:self-auto">
+<!-- Mis Gráficos Guardados Button -->
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant text-on-surface px-3.5 py-2.5 rounded-lg text-label-md font-label-md hover:bg-surface-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">bookmark</span>
+<span>Mis Gráficos Guardados (8)</span>
+</button>
+<!-- Exportar Datos Button -->
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant text-on-surface px-3.5 py-2.5 rounded-lg text-label-md font-label-md hover:bg-surface-container transition-colors shadow-sm" title="Descargar datos en formatos estándar de nómina mexicana">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar Datos (CSV/XLSX)</span>
+</button>
+<!-- Guardar Gráfico Primary CTA -->
+<button class="flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2.5 rounded-lg text-label-md font-label-md shadow-sm hover:opacity-95 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add_chart</span>
+<span>+ Guardar Gráfico en Tablero</span>
+</button>
+</div>
+</div>
+<!-- 2. Constructor de Gráficos (Query & Chart Builder) + Área de Previsualización -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+<!-- PANEL DE CONFIGURACIÓN LATERAL (4 columnas en XL) -->
+<div class="xl:col-span-4 bg-surface-container-lowest rounded-xl border border-outline-variant p-5 shadow-sm space-y-5">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">tune</span>
+<h2 class="text-title-md font-title-md text-on-surface">Parámetros del Gráfico</h2>
+</div>
+<button class="text-label-sm font-label-sm text-secondary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+              Restablecer
+            </button>
+</div>
+<!-- Paso 1: Elegir Métrica Principal -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="w-5 h-5 rounded-full bg-surface-container text-primary-container flex items-center justify-center text-[10px] font-bold">1</span>
+                Métrica Principal
+              </label>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Obligatorio</span>
+</div>
+<div class="space-y-1.5">
+<!-- Horas Trabajadas -->
+<label class="flex items-center justify-between p-2.5 rounded-lg border border-outline-variant hover:border-primary-container cursor-pointer transition-colors bg-surface-container-low/40">
+<div class="flex items-center gap-2.5">
+<input class="text-primary-container focus:ring-primary-container" name="metric" type="radio"/>
+<div>
+<p class="text-label-md font-label-md text-on-surface">Horas trabajadas</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Efectivas ordinarias (Art. 61 LFT)</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface font-semibold">1,840 hrs</span>
+</label>
+<!-- Retardos y tolerancia -->
+<label class="flex items-center justify-between p-2.5 rounded-lg border border-outline-variant hover:border-primary-container cursor-pointer transition-colors bg-surface-container-low/40">
+<div class="flex items-center gap-2.5">
+<input class="text-primary-container focus:ring-primary-container" name="metric" type="radio"/>
+<div>
+<p class="text-label-md font-label-md text-on-surface">Retardos y tolerancia</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Minutos acumulados / conteo</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-[#B78103] font-semibold">34 eventos</span>
+</label>
+<!-- Faltas e inasistencias -->
+<label class="flex items-center justify-between p-2.5 rounded-lg border border-outline-variant hover:border-primary-container cursor-pointer transition-colors bg-surface-container-low/40">
+<div class="flex items-center gap-2.5">
+<input class="text-primary-container focus:ring-primary-container" name="metric" type="radio"/>
+<div>
+<p class="text-label-md font-label-md text-on-surface">Faltas e inasistencias</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Justificadas vs Injustificadas</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-[#C62828] font-semibold">6 faltas</span>
+</label>
+<!-- Horas Extraordinarias LFT (ACTIVE SELECTION) -->
+<label class="flex items-center justify-between p-2.5 rounded-lg border-2 border-primary-container bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-2.5">
+<input checked="" class="text-primary-container focus:ring-primary-container" name="metric" type="radio"/>
+<div>
+<div class="flex items-center gap-1.5">
+<p class="text-label-md font-label-md text-primary font-bold">Horas extraordinarias LFT</p>
+<span class="px-1.5 py-0.2 bg-[#FFF8E1] text-[#B78103] text-[10px] font-bold rounded">Art. 67/68</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Dobles (≤9 hrs/sem) y Triples</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-primary font-bold">142.5 hrs</span>
+</label>
+<!-- Índice de ausentismo -->
+<label class="flex items-center justify-between p-2.5 rounded-lg border border-outline-variant hover:border-primary-container cursor-pointer transition-colors bg-surface-container-low/40">
+<div class="flex items-center gap-2.5">
+<input class="text-primary-container focus:ring-primary-container" name="metric" type="radio"/>
+<div>
+<p class="text-label-md font-label-md text-on-surface">Índice de ausentismo (%)</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Fórmula estándar STPS / IMSS</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-secondary font-semibold">2.1%</span>
+</label>
+</div>
+</div>
+<!-- Paso 2: Dimensión de Agrupación -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="w-5 h-5 rounded-full bg-surface-container text-primary-container flex items-center justify-center text-[10px] font-bold">2</span>
+                Dimensión de Agrupación
+              </label>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Eje X / Series</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-outline-variant hover:bg-surface-container text-left text-on-surface text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px]">store</span>
+<span>Sucursal</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg border-2 border-primary-container bg-surface-container-low text-left text-primary font-bold text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary-container">corporate_fare</span>
+<span>Departamento</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-outline-variant hover:bg-surface-container text-left text-on-surface text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Turno LFT</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-outline-variant hover:bg-surface-container text-left text-on-surface text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Día de la semana</span>
+</button>
+</div>
+<!-- Sub-opción de segundo nivel -->
+<div class="mt-2 flex items-center justify-between px-2.5 py-1.5 bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface-variant">
+<span>Segmentar también por: <strong>Tipo de Horas Extra (Dobles/Triples)</strong></span>
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+</div>
+</div>
+<!-- Paso 3: Tipo de Visualización -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="w-5 h-5 rounded-full bg-surface-container text-primary-container flex items-center justify-center text-[10px] font-bold">3</span>
+                Tipo de Visualización
+              </label>
+</div>
+<div class="grid grid-cols-5 gap-1.5">
+<!-- Barras Apiladas (Active) -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg border-2 border-primary-container bg-secondary-container/40 text-primary-container text-center group" title="Barras apiladas / comparativas">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+<span class="text-[10px] font-semibold mt-1">Barras</span>
+</button>
+<!-- Líneas de tendencia -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface-variant text-center" title="Líneas de tendencia temporal">
+<span class="material-symbols-outlined text-[20px]">show_chart</span>
+<span class="text-[10px] font-medium mt-1">Líneas</span>
+</button>
+<!-- Heatmap -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface-variant text-center" title="Mapa de calor semanal">
+<span class="material-symbols-outlined text-[20px]">grid_on</span>
+<span class="text-[10px] font-medium mt-1">Heatmap</span>
+</button>
+<!-- Donut -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface-variant text-center" title="Composición porcentual">
+<span class="material-symbols-outlined text-[20px]">pie_chart</span>
+<span class="text-[10px] font-medium mt-1">Donut</span>
+</button>
+<!-- Tabla Dinámica -->
+<button class="flex flex-col items-center justify-center p-2 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface-variant text-center" title="Tabla dinámica cruzada">
+<span class="material-symbols-outlined text-[20px]">table_chart</span>
+<span class="text-[10px] font-medium mt-1">Tabla</span>
+</button>
+</div>
+</div>
+<!-- Paso 4: Rango y Periodo -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-label-md font-label-md text-on-surface flex items-center gap-1.5">
+<span class="w-5 h-5 rounded-full bg-surface-container text-primary-container flex items-center justify-center text-[10px] font-bold">4</span>
+                Periodo de Nómina / Rango
+              </label>
+</div>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg text-body-md font-body-md text-on-surface px-3 py-2 pr-8 appearance-none focus:outline-none focus:ring-1 focus:ring-primary-container">
+<option selected="">Quincena actual (16 - 31 Octubre 2024)</option>
+<option>Quincena anterior (01 - 15 Octubre 2024)</option>
+<option>Últimos 30 días</option>
+<option>Trimestre Q3 2024 (Jul - Sep)</option>
+<option>Personalizado con selector de fechas...</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Filtros Rápidos Adicionales -->
+<div class="pt-3 border-t border-outline-variant space-y-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Filtros de Depuración LFT</span>
+<div class="space-y-1.5">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span class="text-body-sm font-body-sm text-on-surface">Excluir colaboradores dados de baja</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span class="text-body-sm font-body-sm text-on-surface">Solo personal de planta (Contrato por tiempo indeterminado)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span class="text-body-sm font-body-sm text-[#B78103] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                  Mostrar alertas activas de rebase LFT Art. 68
+                </span>
+</label>
+</div>
+</div>
+<!-- Botón Generar/Actualizar -->
+<button class="w-full py-2.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+            Actualizar Vista de Gráfico
+          </button>
+</div>
+<!-- ÁREA DE PREVISUALIZACIÓN GRANDE (8 columnas en XL) -->
+<div class="xl:col-span-8 space-y-6">
+<!-- Tarjeta Canvas del Gráfico -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-sm">
+<!-- Barra de Herramientas del Canvas -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-outline-variant gap-3">
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-title-lg font-title-lg text-on-surface font-semibold">
+                    Horas Extraordinarias por Departamento vs Límite Legal LFT
+                  </h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm">
+                    Quincena 20
+                  </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                  Desglose de Horas Dobles (Art. 67) vs Horas Triples en riesgo de sanción (Art. 68)
+                </p>
+</div>
+<!-- Controles Rápidos -->
+<div class="flex items-center gap-2 flex-wrap">
+<!-- Toggle comparar con periodo previo -->
+<div class="flex items-center gap-2 bg-surface-container-low px-2.5 py-1.5 rounded-lg border border-outline-variant">
+<input checked="" class="rounded border-outline-variant text-primary-container focus:ring-primary-container" id="compare-toggle" type="checkbox"/>
+<label class="text-label-sm font-label-sm text-on-surface cursor-pointer flex items-center gap-1" for="compare-toggle">
+<span>vs Periodo Previo</span>
+<span class="text-[#C62828] font-bold">(+5.2%)</span>
+</label>
+</div>
+<!-- Botones de Acción sobre el Canvas -->
+<button class="p-2 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container" title="Alternar a Vista de Tabla">
+<span class="material-symbols-outlined text-[18px]">table_chart</span>
+</button>
+<button class="p-2 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container" title="Ampliar pantalla completa">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+<button class="p-2 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container" title="Descargar imagen PNG/SVG">
+<span class="material-symbols-outlined text-[18px]">image</span>
+</button>
+</div>
+</div>
+<!-- Leyenda del Gráfico y Umbral Legal -->
+<div class="flex items-center justify-between py-3 flex-wrap gap-3 text-label-sm font-label-sm">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="w-3.5 h-3.5 rounded bg-primary-container"></span>
+<span class="text-on-surface">Horas Dobles (Legales ≤ 9h)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3.5 h-3.5 rounded bg-[#C62828]"></span>
+<span class="text-[#C62828] font-semibold">Horas Triples Excedentes (Art. 68)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-0.5 border-t-2 border-dashed border-[#F2A541]"></span>
+<span class="text-[#B78103]">Límite LFT Recomendado (9h/colaborador)</span>
+</div>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Total personal analizado: <strong>86 colaboradores</strong></span>
+</div>
+<!-- GRÁFICO SVG VECTORIAL DE ALTA FIDELIDAD -->
+<div class="relative w-full h-80 pt-2 pb-6">
+<!-- Simulación de Tooltip Interactivo Flotante -->
+<div class="absolute top-4 left-[24%] z-20 bg-inverse-surface text-inverse-on-surface p-3 rounded-lg shadow-xl border border-outline-variant max-w-xs animate-fade-in pointer-events-none">
+<div class="flex items-center justify-between gap-3 mb-1">
+<span class="text-label-md font-label-md font-bold text-[#FFDDB9]">Cocina y Hornos</span>
+<span class="text-label-sm font-label-sm bg-[#FFEBEE] text-[#C62828] px-1.5 py-0.2 rounded font-bold">Crítico</span>
+</div>
+<p class="text-body-sm font-body-sm text-inverse-on-surface leading-tight">
+<strong>64.5 hrs extra acumuladas</strong> (+18% vs Q19)
+                </p>
+<div class="mt-2 pt-2 border-t border-outline/30 text-[11px] space-y-0.5 text-surface-variant">
+<div class="flex justify-between"><span>• Horas dobles autorizadas:</span><span class="font-bold text-white">41.0 hrs</span></div>
+<div class="flex justify-between text-[#FFB4AB]"><span>• Horas triples (Riesgo multa):</span><span class="font-bold text-[#FFB4AB]">23.5 hrs</span></div>
+<div class="flex justify-between text-[#FFDDB9]"><span>• Colaboradores en zona roja:</span><span class="font-bold">4 personas</span></div>
+</div>
+</div>
+<!-- SVG Canvas -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 700 240">
+<defs>
+<!-- Gradient para barras dobles -->
+<lineargradient id="grad-primary" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0F4C5C"></stop>
+<stop offset="100%" stop-color="#1B6C81"></stop>
+</lineargradient>
+<!-- Gradient para horas triples críticas -->
+<lineargradient id="grad-danger" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#C62828"></stop>
+<stop offset="100%" stop-color="#E53935"></stop>
+</lineargradient>
+<!-- Sombra ligera para las barras -->
+<filter height="110%" id="bar-shadow" width="110%" x="-5%" y="-5%">
+<fedropshadow dx="0" dy="2" flood-color="#0F4C5C" flood-opacity="0.12" stddeviation="2"></fedropshadow>
+</filter>
+</defs>
+<!-- Grid horizontal lines & scale labels -->
+<!-- 80 hrs -->
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="50" x2="680" y1="20" y2="20"></line>
+<text fill="#70787c" font-family="Inter" font-size="10" text-anchor="end" x="42" y="24">80h</text>
+<!-- 60 hrs -->
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="50" x2="680" y1="65" y2="65"></line>
+<text fill="#70787c" font-family="Inter" font-size="10" text-anchor="end" x="42" y="69">60h</text>
+<!-- 40 hrs -->
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="50" x2="680" y1="110" y2="110"></line>
+<text fill="#70787c" font-family="Inter" font-size="10" text-anchor="end" x="42" y="114">40h</text>
+<!-- 20 hrs -->
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="50" x2="680" y1="155" y2="155"></line>
+<text fill="#70787c" font-family="Inter" font-size="10" text-anchor="end" x="42" y="159">20h</text>
+<!-- 0 hrs Base -->
+<line stroke="#CBD5E1" stroke-width="1.5" x1="50" x2="680" y1="200" y2="200"></line>
+<text fill="#70787c" font-family="Inter" font-size="10" text-anchor="end" x="42" y="204">0h</text>
+<!-- LÍNEA DE UMBRAL LEGAL RECOMENDADO (36 hrs depto aprox) -->
+<line stroke="#F2A541" stroke-dasharray="6 4" stroke-width="2" x1="50" x2="680" y1="118" y2="118"></line>
+<rect fill="#FFF8E1" height="18" rx="4" stroke="#F2A541" stroke-width="0.8" width="95" x="580" y="108"></rect>
+<text fill="#B78103" font-family="Inter" font-size="9" font-weight="600" text-anchor="middle" x="627" y="121">Máximo Seguro LFT</text>
+<!-- BARRAS AGRUPADAS POR DEPARTAMENTO -->
+<!-- Depto 1: Cocina y Hornos (Crítico: 41 Dobles + 23.5 Triples = 64.5h) -->
+<g filter="url(#bar-shadow)">
+<!-- Horas dobles -->
+<rect fill="url(#grad-primary)" height="92" rx="0" width="56" x="110" y="108"></rect>
+<!-- Horas triples arriba -->
+<rect fill="url(#grad-danger)" height="53" rx="4" width="56" x="110" y="55"></rect>
+<!-- Valor total en top -->
+<text fill="#C62828" font-family="Inter" font-size="11" font-weight="700" text-anchor="middle" x="138" y="47">64.5 h</text>
+<!-- Subtexto Triples badge -->
+<circle cx="138" cy="72" fill="#ffffff" r="7"></circle>
+<text fill="#C62828" font-family="Inter" font-size="9" font-weight="700" text-anchor="middle" x="138" y="75">!</text>
+</g>
+<text fill="#111c2d" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="138" y="218">Cocina y Hornos</text>
+<text fill="#70787c" font-family="Inter" font-size="9.5" text-anchor="middle" x="138" y="232">24 empleados</text>
+<!-- Depto 2: Ventas y Mostrador (Moderado: 32 Dobles + 4 Triples = 36h) -->
+<g filter="url(#bar-shadow)">
+<rect fill="url(#grad-primary)" height="72" rx="0" width="56" x="250" y="128"></rect>
+<rect fill="url(#grad-danger)" height="9" rx="3" width="56" x="250" y="119"></rect>
+<text fill="#111c2d" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="278" y="111">36.0 h</text>
+</g>
+<text fill="#111c2d" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="278" y="218">Ventas / Mostrador</text>
+<text fill="#70787c" font-family="Inter" font-size="9.5" text-anchor="middle" x="278" y="232">28 empleados</text>
+<!-- Depto 3: Logística y Reparto (Alto: 26 Dobles + 9 Triples = 35h) -->
+<g filter="url(#bar-shadow)">
+<rect fill="url(#grad-primary)" height="59" rx="0" width="56" x="390" y="141"></rect>
+<rect fill="url(#grad-danger)" height="20" rx="3" width="56" x="390" y="121"></rect>
+<text fill="#111c2d" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="418" y="113">35.0 h</text>
+</g>
+<text fill="#111c2d" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="418" y="218">Logística y Reparto</text>
+<text fill="#70787c" font-family="Inter" font-size="9.5" text-anchor="middle" x="418" y="232">18 empleados</text>
+<!-- Depto 4: Administración y RH (Saludable: 7 Dobles + 0 Triples = 7h) -->
+<g filter="url(#bar-shadow)">
+<rect fill="url(#grad-primary)" height="16" rx="4" width="56" x="530" y="184"></rect>
+<text fill="#2E7D32" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="558" y="177">7.0 h</text>
+</g>
+<text fill="#111c2d" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="558" y="218">Administración</text>
+<text fill="#70787c" font-family="Inter" font-size="9.5" text-anchor="middle" x="558" y="232">16 empleados</text>
+</svg>
+</div>
+<!-- Alerta Informativa LFT Contextual -->
+<div class="mt-4 p-3.5 rounded-lg bg-[#FFF8E1] border border-[#F2A541]/40 flex items-start gap-3">
+<span class="material-symbols-outlined text-[#B78103] text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<div class="text-body-sm font-body-sm text-[#462900]">
+<strong>Observación Legal Art. 68 Ley Federal del Trabajo:</strong> Las horas de trabajo extraordinario que excedan de nueve a la semana deben pagarse obligatoriamente al doscientos por ciento más del salario (horas triples). Se detectaron <strong>36.5 horas triples totales</strong> en el periodo actual que impactan el costo patronal en nómina y exponen a la empresa a observaciones de inspección de la STPS.
+              </div>
+</div>
+</div>
+<!-- 3. Fila de KPIs Resumen Derivados del Gráfico Actual -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Total Horas Extra</span>
+<span class="material-symbols-outlined text-primary-container text-[18px]">more_time</span>
+</div>
+<div class="text-headline-md font-headline-md text-on-surface">142.5 hrs</div>
+<div class="mt-1 flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">Impacto Nómina:</span>
+<span class="text-primary font-bold">$38,450 MXN</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Depto Más Crítico</span>
+<span class="material-symbols-outlined text-[#C62828] text-[18px]">warning</span>
+</div>
+<div class="text-headline-md font-headline-md text-[#C62828] truncate">Cocina / Hornos</div>
+<div class="mt-1 flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">Concentración:</span>
+<span class="text-[#C62828] font-bold">45.2% del total</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Cumplimiento LFT</span>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">verified</span>
+</div>
+<div class="text-headline-md font-headline-md text-[#2E7D32]">92.4%</div>
+<div class="mt-1 flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">Umbral STPS:</span>
+<span class="text-[#2E7D32] font-semibold">Dentro de rango</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Ahorro Proyectado</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">savings</span>
+</div>
+<div class="text-headline-md font-headline-md text-secondary">~$12,200 MXN</div>
+<div class="mt-1 flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">Vía Rebalanceo:</span>
+<span class="text-secondary font-bold">Turno Mixto</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Sección Inferior: Plantillas y Gráficos Frecuentes Guardados en Tablero -->
+<section class="pt-4">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-title-lg font-title-lg text-on-surface">Plantillas y Gráficos Frecuentes Guardados en Tablero</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Vistas preconfiguradas y ancladas por la gerencia para monitoreo diario.</p>
+</div>
+<a class="text-label-md font-label-md text-primary font-semibold hover:underline flex items-center gap-1" href="#">
+<span>Ver biblioteca completa de reportes</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Tarjeta 1: Patrón de retardos por día de la semana -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2 py-0.5 rounded-full bg-[#FFF8E1] text-[#B78103] text-label-sm font-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+                  Puntualidad
+                </span>
+<span class="text-label-sm font-label-sm text-secondary font-medium">Activo en Tablero C1</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold mb-1">
+                Patrón de retardos por día de la semana
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-3">
+                Lunes y Viernes concentran el 62% del total de minutos de tolerancia consumidos en el mes.
+              </p>
+<!-- Mini sparkline / heatmap preview -->
+<div class="bg-surface-container-low p-2.5 rounded-lg flex items-end justify-between h-20 mb-3 gap-1">
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-[#B78103] rounded-t" style="height: 48px;"></div>
+<span class="text-[9px] font-bold text-on-surface-variant">LUN</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-primary-container/40 rounded-t" style="height: 18px;"></div>
+<span class="text-[9px] text-on-surface-variant">MAR</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-primary-container/40 rounded-t" style="height: 14px;"></div>
+<span class="text-[9px] text-on-surface-variant">MIÉ</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-primary-container/40 rounded-t" style="height: 22px;"></div>
+<span class="text-[9px] text-on-surface-variant">JUE</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-[#B78103] rounded-t" style="height: 52px;"></div>
+<span class="text-[9px] font-bold text-on-surface-variant">VIE</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-primary-container/30 rounded-t" style="height: 10px;"></div>
+<span class="text-[9px] text-on-surface-variant">SÁB</span>
+</div>
+</div>
+</div>
+<button class="w-full py-2 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg text-label-sm font-label-sm font-semibold transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+              Cargar en constructor
+            </button>
+</div>
+<!-- Tarjeta 2: Costo de ausentismo no justificado por sucursal -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2 py-0.5 rounded-full bg-[#FFEBEE] text-[#C62828] text-label-sm font-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">money_off</span>
+                  Costos IMSS / Nómina
+                </span>
+<span class="text-label-sm font-label-sm text-secondary font-medium">Activo en Tablero C1</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold mb-1">
+                Costo de ausentismo no justificado por sucursal
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-3">
+                Pérdida acumulada mensual por faltas no amparadas por incapacidad médica del IMSS.
+              </p>
+<!-- Mini sparkline preview -->
+<div class="bg-surface-container-low p-2.5 rounded-lg flex items-center justify-between h-20 mb-3 px-3">
+<div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Impacto Q20:</span>
+<p class="text-title-lg font-title-lg text-[#C62828] font-bold">$24,190 MXN</p>
+<p class="text-[11px] text-on-surface-variant">18 incidencias sin justificar</p>
+</div>
+<div class="w-16 h-12 flex items-end gap-1">
+<span class="w-3 bg-[#C62828] rounded-t h-10" title="Matriz CDMX"></span>
+<span class="w-3 bg-[#C62828]/60 rounded-t h-5" title="Reforma"></span>
+<span class="w-3 bg-[#C62828]/40 rounded-t h-3" title="Insurgentes"></span>
+<span class="w-3 bg-[#C62828]/80 rounded-t h-7" title="Sucursal Norte"></span>
+</div>
+</div>
+</div>
+<button class="w-full py-2 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg text-label-sm font-label-sm font-semibold transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+              Cargar en constructor
+            </button>
+</div>
+<!-- Tarjeta 3: Correlación de puntualidad vs uso de Kiosco Facial -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">face</span>
+                  Tecnología y Adopción
+                </span>
+<span class="text-label-sm font-label-sm text-secondary font-medium">Activo en Tablero C1</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold mb-1">
+                Correlación de puntualidad vs Kiosco Facial
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-3">
+                Incremento de +14.2% en puntualidad en turnos que checan con Kiosco biométrico anti-fraude.
+              </p>
+<!-- Mini sparkline preview -->
+<div class="bg-surface-container-low p-2.5 rounded-lg flex items-center justify-between h-20 mb-3 px-3">
+<div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Tasa puntualidad:</span>
+<p class="text-title-lg font-title-lg text-[#2E7D32] font-bold">96.8%</p>
+<p class="text-[11px] text-on-surface-variant">Frente a 82.6% con PIN tradicional</p>
+</div>
+<div class="h-10 w-10 rounded-full bg-[#E8F5E9] flex items-center justify-center text-[#2E7D32]">
+<span class="material-symbols-outlined text-[24px]">trending_up</span>
+</div>
+</div>
+</div>
+<button class="w-full py-2 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg text-label-sm font-label-sm font-semibold transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+              Cargar en constructor
+            </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Global Footer Minimal -->
+<footer class="mt-auto px-6 py-4 border-t border-outline-variant bg-surface-container-lowest text-on-surface-variant flex flex-col sm:flex-row items-center justify-between text-body-sm font-body-sm gap-2">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-primary">Checador PyME</span>
+<span>•</span>
+<span>Cumplimiento Normativo STPS / NOM-035 / LFT México</span>
+</div>
+<div class="flex items-center gap-4 text-label-sm font-label-sm">
+<a class="hover:underline" href="#">Políticas de Privacidad</a>
+<a class="hover:underline" href="#">Calculadora de Horas Extra LFT</a>
+<a class="hover:underline" href="#">Centro de Ayuda</a>
+</div>
+</footer>
+</div>
+</body></html>

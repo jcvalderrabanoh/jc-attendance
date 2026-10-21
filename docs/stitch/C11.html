@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es-MX"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checador PyME · Ubicaciones y Geocercas</title>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#462900",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#b6ebfe",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#001f27",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#9acee1",
+            "surface-container-high": "#dee8ff",
+            "on-background": "#111c2d",
+            "surface": "#f9f9ff",
+            "outline": "#70787c",
+            "on-primary-fixed": "#001f28",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#114d5d",
+            "surface-container": "#e7eeff",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-tertiary-fixed-variant": "#663e00",
+            "on-surface": "#111c2d",
+            "on-primary-container": "#87bbce",
+            "on-tertiary-fixed": "#2b1700",
+            "primary-container": "#0f4c5c",
+            "surface-container-highest": "#d8e3fb",
+            "surface-bright": "#f9f9ff",
+            "secondary-fixed": "#baeafa",
+            "on-tertiary-container": "#f1a440",
+            "tertiary-container": "#653d00",
+            "primary-fixed-dim": "#9acee1",
+            "inverse-surface": "#263143",
+            "secondary": "#356572",
+            "on-secondary-container": "#3a6977",
+            "inverse-on-surface": "#ecf1ff",
+            "surface-variant": "#d8e3fb",
+            "secondary-fixed-dim": "#9ecedd",
+            "outline-variant": "#c0c8cb",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "surface-dim": "#cfdaf2",
+            "surface-container-low": "#f0f3ff",
+            "primary": "#003441",
+            "tertiary-fixed": "#ffddb9",
+            "secondary-container": "#b7e7f7",
+            "background": "#f9f9ff",
+            "surface-tint": "#306576",
+            "on-surface-variant": "#40484b",
+            "on-error": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1rem",
+            "margin": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "space-2xl": "3rem",
+            "space-xs": "0.25rem",
+            "gutter-mobile": "0.75rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-clock": ["Inter"],
+            "label-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "title-md": ["Inter"],
+            "display-clock-mobile": ["Inter"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Map simulation vector grid */
+    .map-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(112, 120, 124, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(112, 120, 124, 0.08) 1px, transparent 1px);
+    }
+    .custom-range::-webkit-slider-thumb {
+      appearance: none;
+      height: 22px;
+      width: 22px;
+      border-radius: 9999px;
+      background: #0f4c5c;
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex h-screen overflow-hidden font-body-md text-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- ========================================================================= -->
+<!-- 1. SideNavBar (Anchor Component from JSON)                               -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant/30 dark:border-outline/20 shadow-sm dark:shadow-none z-30 select-none">
+<div class="p-4 flex flex-col gap-5 overflow-y-auto">
+<!-- Logo & System Subtext -->
+<div class="flex items-center gap-3 px-2 pt-1">
+<div class="w-10 h-10 rounded-xl bg-primary-container text-white flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-white text-[24px]">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary leading-tight tracking-tight">AsistenciaPyME</span>
+<span class="text-label-sm font-label-sm text-outline">Administración central</span>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<div class="px-1">
+<button class="w-full min-h-[48px] px-4 py-2.5 rounded-xl bg-primary-container text-white flex items-center justify-center gap-2 font-label-lg text-label-lg shadow-sm hover:brightness-110 active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+<span>Registrar Marcaje</span>
+</button>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<!-- 1: Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-label-md font-label-md">Tablero</span>
+</a>
+<!-- 2: En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+<span class="text-label-md font-label-md">En vivo</span>
+</a>
+<!-- 3: Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span class="text-label-md font-label-md">Empleados</span>
+</a>
+<!-- 4: Validaciones de Alta -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+<span class="text-label-md font-label-md">Validaciones de Alta</span>
+</a>
+<!-- 5: Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+<span class="text-label-md font-label-md">Marcajes</span>
+</a>
+<!-- 6: Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="text-label-md font-label-md">Hojas de horas</span>
+</a>
+<!-- 7: Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">report_problem</span>
+<span class="text-label-md font-label-md">Incidencias</span>
+</a>
+<!-- 8: Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">event_repeat</span>
+<span class="text-label-md font-label-md">Turnos</span>
+</a>
+<!-- 9: Ubicaciones (ACTIVE INTENT PER SPEC) -->
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-semibold shadow-xs" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span class="text-label-md font-label-md">Ubicaciones</span>
+</div>
+<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary-container text-white">4 activas</span>
+</a>
+<!-- 10: Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-label-md font-label-md">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer actions -->
+<div class="p-4 border-t border-outline-variant/30 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+<span class="text-label-md font-label-md">Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-error hover:bg-error-container/40 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="text-label-md font-label-md">Cerrar Sesión</span>
+</a>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. Contenedor Principal (Lado derecho del Sidebar)                        -->
+<!-- ========================================================================= -->
+<div class="ml-64 flex-1 flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopNavBar (Anchor Component from JSON) -->
+<header class="flex justify-between items-center h-16 px-6 w-full bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant/30 dark:border-outline/20 shadow-sm z-20 flex-shrink-0">
+<!-- Left: Branch Selector & Search Bar -->
+<div class="flex items-center gap-4">
+<!-- Branch Selector -->
+<div class="relative">
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-outline-variant/60 bg-surface text-on-surface hover:bg-surface-container transition-colors min-h-[44px]" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]">store</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Sucursal Central (CDMX)</span>
+<span class="material-symbols-outlined text-outline text-[18px]">expand_more</span>
+</button>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant/40"></div>
+<!-- Search Bar -->
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-surface border border-outline-variant/60 text-body-md font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container h-10" placeholder="Buscar empleado, kiosco, IP o geocerca..." type="text"/>
+</div>
+</div>
+<!-- Right: Sync status, Notifications, New Geofence CTA, Profile -->
+<div class="flex items-center gap-3">
+<!-- Status Chip: En sincronía -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/40 text-secondary">
+<span class="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
+<span class="text-label-sm font-label-sm font-semibold">En sincronía</span>
+</div>
+<!-- Trailing Icon Action: Help -->
+<button aria-label="Ayuda del sistema" class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<!-- Trailing Icon Action: Notifications -->
+<button aria-label="Notificaciones" class="relative w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/40"></div>
+<!-- Primary Action: Nueva Geocerca -->
+<button class="min-h-[44px] px-4 py-2 rounded-lg bg-primary-container text-white flex items-center gap-2 font-label-md text-label-md shadow-sm hover:brightness-110 active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">add_location_alt</span>
+<span>Nueva Geocerca</span>
+</button>
+<!-- User Profile Pill -->
+<div class="flex items-center gap-2.5 pl-2">
+<div class="w-9 h-9 rounded-full bg-surface-variant flex items-center justify-center text-primary font-bold text-label-lg border border-outline-variant/60">
+            RM
+          </div>
+<div class="flex flex-col text-left">
+<span class="text-label-md font-label-md text-on-surface font-semibold leading-tight">Lic. Roberto Morales</span>
+<span class="text-body-sm font-body-sm text-outline">Admin RH · LFT Matriz</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas Area -->
+<main class="flex-1 overflow-y-auto px-6 py-5 flex flex-col gap-5">
+<!-- ===================================================================== -->
+<!-- 3. Encabezado de Página y Métricas Clave                              -->
+<!-- ===================================================================== -->
+<section class="flex flex-col gap-3">
+<!-- Breadcrumb -->
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-outline">
+<span class="hover:text-primary cursor-pointer">/ubicaciones</span>
+<span>•</span>
+<span class="text-on-surface font-medium">Parámetros de Georreferenciación y Terminales Kiosco</span>
+<span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-surface-container font-semibold text-secondary">Normativa LFT Art. 132</span>
+</div>
+<div class="flex items-center justify-between flex-wrap gap-4">
+<div>
+<h1 class="text-headline-md font-headline-md text-on-surface font-bold tracking-tight">Gestión de Sucursales y Geocercas</h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-3xl mt-0.5">
+              Configura polígonos perimetrales GPS, tolerancias de marcaje móvil y kioscos autorizados por centro de trabajo conforme a la LFT y lineamientos del INAI.
+            </p>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex items-center gap-2.5">
+<button class="min-h-[44px] px-3.5 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface flex items-center gap-2 text-label-md font-label-md hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">file_download</span>
+<span>Exportar Mapa de Cobertura</span>
+</button>
+<button class="min-h-[44px] px-3.5 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface flex items-center gap-2 text-label-md font-label-md hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">network_check</span>
+<span>Auditoría de Red y GPS</span>
+</button>
+</div>
+</div>
+<!-- 4 Metric Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-1">
+<!-- Card 1 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline">Sucursales Operativas</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">4</span>
+<span class="text-label-sm font-label-sm text-[#2E7D32] font-semibold">100% activas</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant truncate">Matriz, Reforma, Insurgentes, CD Vallejo</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[26px]">domain</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline">Radio Promedio Geocerca</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">65 m</span>
+<span class="text-label-sm font-label-sm text-[#2E7D32] font-semibold">Óptimo STPS</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Precisión satelital ±4m promedio</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[26px]">radar</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline">Kioscos Fijos Enlazados</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">6</span>
+<span class="text-label-sm font-label-sm text-secondary font-semibold">100% en línea</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Tablets con facial y PIN sincronizado</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[26px]">tablet_mac</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-outline">Alertas Fuera de Rango</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-bold text-[#C62828]">2</span>
+<span class="text-label-sm font-label-sm text-[#C62828] font-semibold">Incidencias hoy</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Requieren justificación con selfie</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-error-container/40 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[26px]">wrong_location</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- 4. Contenedor Principal Split-View (2 Columnas)                       -->
+<!-- ===================================================================== -->
+<div class="flex-1 flex gap-5 min-h-0 pb-6">
+<!-- =================================================================== -->
+<!-- COLUMNA IZQUIERDA: Directorio de Sucursales (~380px)               -->
+<!-- =================================================================== -->
+<div class="w-96 flex flex-col gap-3.5 bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-4 shadow-xs flex-shrink-0">
+<div class="flex items-center justify-between">
+<h2 class="text-title-md font-title-md font-bold text-on-surface">Centros de Trabajo</h2>
+<span class="text-label-sm font-label-sm text-outline">4 registrados</span>
+</div>
+<!-- Filtros de lista -->
+<div class="flex flex-col gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-sm font-body-sm rounded-lg bg-surface border border-outline-variant/50 focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none h-9" placeholder="Filtrar por nombre o dirección..." type="text"/>
+</div>
+<!-- Filter tabs -->
+<div class="flex items-center gap-1.5 p-1 bg-surface-container-low rounded-lg">
+<button class="flex-1 py-1 text-center rounded-md text-label-sm font-label-sm bg-surface-container-lowest shadow-xs text-primary font-bold" type="button">Todas (4)</button>
+<button class="flex-1 py-1 text-center rounded-md text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface" type="button">Con Kiosco</button>
+<button class="flex-1 py-1 text-center rounded-md text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface" type="button">Solo Móvil</button>
+</div>
+</div>
+<!-- Branch List Cards -->
+<div class="flex-1 overflow-y-auto pr-1 flex flex-col gap-2.5">
+<!-- Sucursal 1 (ACTIVA / SELECCIONADA) -->
+<div class="p-3.5 rounded-xl border-2 border-primary-container bg-surface-container-low shadow-sm cursor-pointer transition-all">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-white flex items-center justify-center font-bold text-label-sm">
+                    1
+                  </div>
+<h3 class="text-title-md font-title-md font-bold text-primary-container leading-tight">Sucursal Matriz Centro</h3>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#E8F5E9] text-[#2E7D32]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
+                  Activa
+                </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1.5 line-clamp-1">
+                Eje Central Lázaro Cárdenas #140, Col. Doctores, Cuauhtémoc, CDMX.
+              </p>
+<div class="grid grid-cols-3 gap-2 mt-3 pt-2.5 border-t border-outline-variant/30 text-[11px] text-on-surface-variant font-medium">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">groups</span>
+<span>42 colab.</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">radar</span>
+<span>Radio 50m</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">tablet_mac</span>
+<span>2 Kioscos</span>
+</div>
+</div>
+</div>
+<!-- Sucursal 2 -->
+<div class="p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-outline-variant hover:bg-surface-container-low/50 transition-all cursor-pointer">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-label-sm">
+                    2
+                  </div>
+<h3 class="text-title-md font-title-md font-semibold text-on-surface leading-tight">Paseo de la Reforma</h3>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#E8F5E9] text-[#2E7D32]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
+                  Activa
+                </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mt-1.5 line-clamp-1">
+                Av. Paseo de la Reforma #222, Juárez, Cuauhtémoc, CDMX.
+              </p>
+<div class="grid grid-cols-3 gap-2 mt-3 pt-2.5 border-t border-outline-variant/20 text-[11px] text-outline font-medium">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">groups</span>
+<span>24 colab.</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">radar</span>
+<span>Radio 60m</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">tablet_mac</span>
+<span>1 Kiosco</span>
+</div>
+</div>
+</div>
+<!-- Sucursal 3 -->
+<div class="p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-outline-variant hover:bg-surface-container-low/50 transition-all cursor-pointer">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-label-sm">
+                    3
+                  </div>
+<h3 class="text-title-md font-title-md font-semibold text-on-surface leading-tight">Insurgentes Sur</h3>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#E8F5E9] text-[#2E7D32]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
+                  Activa
+                </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mt-1.5 line-clamp-1">
+                Av. Insurgentes Sur #1602, Crédito Constructor, Benito Juárez, CDMX.
+              </p>
+<div class="grid grid-cols-3 gap-2 mt-3 pt-2.5 border-t border-outline-variant/20 text-[11px] text-outline font-medium">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">groups</span>
+<span>18 colab.</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">radar</span>
+<span>Radio 40m</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">tablet_mac</span>
+<span>2 Kioscos</span>
+</div>
+</div>
+</div>
+<!-- Sucursal 4 -->
+<div class="p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest hover:border-outline-variant hover:bg-surface-container-low/50 transition-all cursor-pointer">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-label-sm">
+                    4
+                  </div>
+<h3 class="text-title-md font-title-md font-semibold text-on-surface leading-tight">Centro Distribución Vallejo</h3>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFF8E1] text-[#B78103]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B78103]"></span>
+                  Polígono
+                </span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mt-1.5 line-clamp-1">
+                Calz. Vallejo #1100, Industrial Vallejo, Azcapotzalco, CDMX.
+              </p>
+<div class="grid grid-cols-3 gap-2 mt-3 pt-2.5 border-t border-outline-variant/20 text-[11px] text-outline font-medium">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">groups</span>
+<span>12 colab.</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">polyline</span>
+<span>4 Vértices</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">tablet_mac</span>
+<span>1 Kiosco</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Botón Agregar Sucursal -->
+<button class="w-full min-h-[48px] py-2.5 px-4 rounded-xl border-2 border-dashed border-outline-variant text-primary font-label-md text-label-md hover:bg-surface-container transition-all flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>+ Agregar Nuevo Centro de Trabajo</span>
+</button>
+</div>
+<!-- =================================================================== -->
+<!-- COLUMNA DERECHA: Configuración y Mapa de Geocerca (Split View)    -->
+<!-- =================================================================== -->
+<div class="flex-1 flex flex-col gap-4 bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-5 shadow-xs overflow-y-auto">
+<!-- Encabezado de la Sucursal Seleccionada -->
+<div class="flex items-start justify-between flex-wrap gap-3 pb-3 border-b border-outline-variant/30">
+<div>
+<div class="flex items-center gap-3">
+<h2 class="text-headline-md font-headline-md font-bold text-on-surface">Sucursal Matriz Centro</h2>
+<span class="px-2.5 py-1 rounded-md bg-secondary-container text-on-secondary-container font-mono text-label-sm font-bold">ID: SUC-001</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-[#E8F5E9] text-[#2E7D32]">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+                  Verificada LFT
+                </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant flex items-center gap-1.5 mt-1">
+<span class="material-symbols-outlined text-[18px] text-outline">location_on</span>
+<span>Eje Central Lázaro Cárdenas #140, Doctores, Cuauhtémoc, 06720 CDMX</span>
+<span class="text-outline">•</span>
+<span class="font-mono text-label-sm text-outline">19.4326° N, 99.1332° W</span>
+</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="min-h-[44px] px-3 py-2 rounded-lg border border-outline-variant text-on-surface text-label-md font-label-md hover:bg-surface-container flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+<span>Editar Datos</span>
+</button>
+<button class="min-h-[44px] px-3 py-2 rounded-lg bg-surface-container text-error hover:bg-error-container/50 text-label-md font-label-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+<span>Desactivar</span>
+</button>
+</div>
+</div>
+<!-- Pestañas de Configuración de la Sucursal -->
+<div class="flex border-b border-outline-variant/40 gap-6 -mt-1">
+<button class="pb-3 border-b-2 border-primary-container text-primary font-label-lg text-label-lg font-semibold flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px]">radar</span>
+<span>Geocerca y Mapa</span>
+</button>
+<button class="pb-3 border-b-2 border-transparent text-outline hover:text-on-surface font-label-lg text-label-lg font-medium flex items-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">tablet_mac</span>
+<span>Kioscos y Terminales (2)</span>
+</button>
+<button class="pb-3 border-b-2 border-transparent text-outline hover:text-on-surface font-label-lg text-label-lg font-medium flex items-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">wifi_lock</span>
+<span>Restricciones Wi-Fi e IP</span>
+</button>
+<button class="pb-3 border-b-2 border-transparent text-outline hover:text-on-surface font-label-lg text-label-lg font-medium flex items-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span>Historial de Marcajes en Sitio</span>
+</button>
+</div>
+<!-- SECCIÓN 1: VISUALIZADOR DE MAPA VECTORIAL INTERACTIVO -->
+<div class="relative w-full h-80 rounded-2xl overflow-hidden border border-outline-variant/50 bg-[#eef3f7] shadow-inner select-none flex flex-col justify-between p-4">
+<!-- Simulated Vector Street Map Background -->
+<div class="absolute inset-0 map-grid-pattern opacity-70 pointer-events-none"></div>
+<!-- Road simulations -->
+<div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-10 bg-white border-y border-outline-variant/30 flex items-center justify-between px-6 pointer-events-none">
+<span class="text-[11px] font-bold text-outline/60 tracking-wider">EJE CENTRAL LÁZARO CÁRDENAS</span>
+<span class="text-[11px] font-bold text-outline/40">SENTIDO NORTE ➜</span>
+</div>
+<div class="absolute inset-y-0 left-1/3 w-8 bg-white border-x border-outline-variant/30 flex flex-col justify-around py-4 pointer-events-none">
+<span class="text-[9px] font-bold text-outline/50 rotate-90 whitespace-nowrap">DR. J. NAVARRO</span>
+</div>
+<!-- GEOFENCE RADIUS CIRCLE (50m radius overlay) -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-[#0F4C5C]/15 border-2 border-dashed border-[#0F4C5C] flex items-center justify-center pointer-events-none shadow-sm animate-pulse" style="animation-duration: 3s;">
+<div class="w-48 h-48 rounded-full border border-[#0F4C5C]/20 bg-[#0F4C5C]/5"></div>
+</div>
+<!-- Center Pin: Branch Building -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none z-10 -mt-3">
+<div class="px-2 py-1 bg-primary-container text-white text-[11px] font-bold rounded shadow-md whitespace-nowrap flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">apartment</span>
+<span>Sucursal Matriz</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-primary-container text-white border-2 border-white flex items-center justify-center shadow-lg -mt-1">
+<span class="material-symbols-outlined text-[14px]">store</span>
+</div>
+</div>
+<!-- Real-time Punches Indicators within radius -->
+<div class="absolute top-[38%] left-[46%] z-10 flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white border border-[#2E7D32] shadow-xs" title="Colaborador checado en tiempo y forma">
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+<span class="text-[10px] font-bold text-[#2E7D32]">Juan P. (08:58 AM)</span>
+</div>
+<div class="absolute top-[58%] left-[54%] z-10 flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white border border-[#2E7D32] shadow-xs" title="Colaborador checado en tiempo y forma">
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+<span class="text-[10px] font-bold text-[#2E7D32]">Sofía M. (09:02 AM)</span>
+</div>
+<!-- Alert out-of-range indicator -->
+<div class="absolute top-[20%] right-[15%] z-10 flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FFEBEE] border border-[#C62828] shadow-xs" title="Intento de marcaje fuera de perímetro">
+<span class="material-symbols-outlined text-[13px] text-[#C62828]">warning</span>
+<span class="text-[10px] font-bold text-[#C62828]">Fuera de Geocerca (140m)</span>
+</div>
+<!-- Top Controls on Map -->
+<div class="relative z-20 flex items-center justify-between">
+<!-- Switch Mode: Circular vs Poligono -->
+<div class="flex items-center p-1 bg-white/95 backdrop-blur-sm rounded-lg shadow-sm border border-outline-variant/60">
+<button class="px-3 py-1 rounded-md text-label-sm font-label-sm bg-primary-container text-white font-semibold flex items-center gap-1.5 shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]">circle</span>
+<span>Radio Circular (50m)</span>
+</button>
+<button class="px-3 py-1 rounded-md text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px]">polyline</span>
+<span>Polígono Libre</span>
+</button>
+</div>
+<!-- Layer Selector -->
+<div class="flex items-center gap-1 p-1 bg-white/95 backdrop-blur-sm rounded-lg shadow-sm border border-outline-variant/60">
+<button class="px-2.5 py-1 rounded text-label-sm font-label-sm bg-surface-container font-bold text-primary" type="button">Calles</button>
+<button class="px-2.5 py-1 rounded text-label-sm font-label-sm text-outline hover:text-on-surface" type="button">Satélite</button>
+</div>
+</div>
+<!-- Bottom Controls on Map -->
+<div class="relative z-20 flex items-end justify-between">
+<!-- Accuracy indicator info badge -->
+<div class="px-3 py-1.5 rounded-lg bg-white/95 backdrop-blur-sm border border-outline-variant/60 shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">satellite_alt</span>
+<div class="flex flex-col">
+<span class="text-[11px] font-bold text-on-surface">Precisión Satelital GNSS: ±4 metros</span>
+<span class="text-[10px] text-outline">Conexión con GPS, GLONASS y Galileo</span>
+</div>
+</div>
+<!-- Map Zoom and Recenter Controls -->
+<div class="flex flex-col gap-1.5 bg-white/95 backdrop-blur-sm p-1 rounded-lg border border-outline-variant/60 shadow-sm">
+<button aria-label="Aumentar zoom" class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container text-on-surface font-bold text-title-lg" type="button">+</button>
+<div class="w-full h-[1px] bg-outline-variant/40"></div>
+<button aria-label="Disminuir zoom" class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container text-on-surface font-bold text-title-lg" type="button">-</button>
+<div class="w-full h-[1px] bg-outline-variant/40"></div>
+<button aria-label="Centrar en centro de trabajo" class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container text-primary" title="Centrar en el centro de trabajo" type="button">
+<span class="material-symbols-outlined text-[18px]">my_location</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CONTROLES INTERACTIVOS DE GEOCERCA -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col gap-4">
+<!-- Slider de Radio -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-label-lg font-label-lg font-bold text-on-surface">Radio Perimetral de la Geocerca</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container-highest text-primary">Recomendado LFT: 30m - 100m</span>
+</div>
+<span class="text-title-md font-title-md font-bold text-primary-container">50 metros</span>
+</div>
+<!-- Input Range Slider -->
+<input class="custom-range w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" max="250" min="20" type="range" value="50"/>
+<div class="flex justify-between text-body-sm font-body-sm text-outline px-1">
+<span>25 m (Kiosco cerrado)</span>
+<span class="font-bold text-primary-container">50 m (Estándar local)</span>
+<span>100 m (Nave media)</span>
+<span>200 m (Parque logístico)</span>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/30"></div>
+<!-- Switches de validación y tolerancia -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Switch 1: Tolerancia de borde -->
+<label class="flex items-start gap-3 p-3 rounded-lg bg-surface-container-lowest border border-outline-variant/30 cursor-pointer hover:border-outline-variant">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary-container focus:ring-primary-container border-outline" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md font-bold text-on-surface leading-tight">Tolerancia de borde (+10m)</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Amortigua rebotes de señal GPS en edificios altos o sótanos comerciales.</span>
+</div>
+</label>
+<!-- Switch 2: Bloqueo estricto -->
+<label class="flex items-start gap-3 p-3 rounded-lg bg-surface-container-lowest border border-outline-variant/30 cursor-pointer hover:border-outline-variant">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary-container focus:ring-primary-container border-outline" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md font-bold text-on-surface leading-tight">Bloqueo estricto con justificación</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Requiere selfie obligatoria y motivo si el colaborador marca fuera del perímetro.</span>
+</div>
+</label>
+</div>
+</div>
+<!-- SECCIÓN 2: KIOSCOS Y TERMINALES ENLAZADAS -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">tablet_mac</span>
+<h3 class="text-title-md font-title-md font-bold text-on-surface">Terminales Kiosco en Sucursal Matriz</h3>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#E8F5E9] text-[#2E7D32]">2 operando</span>
+</div>
+<button class="min-h-[44px] px-3 py-1.5 rounded-lg border border-primary-container text-primary-container font-label-md text-label-md hover:bg-secondary-container/20 flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Vincular Nueva Terminal</span>
+</button>
+</div>
+<!-- Terminal Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+<!-- Terminal 1 -->
+<div class="p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest flex flex-col justify-between gap-3 shadow-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">tablet_android</span>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg font-bold text-on-surface">Kiosco Principal · Entrada Hornos</h4>
+<p class="text-body-sm font-body-sm text-outline">Lenovo Tab M10 FHD • ID: KIOSK-04</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#E8F5E9] text-[#2E7D32]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
+                    Ping 18ms
+                  </span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-2 border-t border-outline-variant/20">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">face</span>
+<span>Facial</span>
+<span>•</span>
+<span class="material-symbols-outlined text-[16px] text-primary">qr_code_2</span>
+<span>QR Dinámico</span>
+<span>•</span>
+<span class="material-symbols-outlined text-[16px] text-primary">dialpad</span>
+<span>NIP</span>
+</div>
+<button class="min-h-[36px] px-2.5 py-1 text-label-sm font-label-sm rounded-md bg-surface-container hover:bg-surface-container-high text-primary font-semibold transition-colors" type="button">
+                    Gestionar
+                  </button>
+</div>
+</div>
+<!-- Terminal 2 -->
+<div class="p-3.5 rounded-xl border border-outline-variant/40 bg-surface-container-lowest flex flex-col justify-between gap-3 shadow-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">point_of_sale</span>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg font-bold text-on-surface">Kiosco Mostrador y Caja</h4>
+<p class="text-body-sm font-body-sm text-outline">Samsung Galaxy Tab A8 • ID: KIOSK-07</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#E8F5E9] text-[#2E7D32]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
+                    En línea
+                  </span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-2 border-t border-outline-variant/20">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">qr_code_2</span>
+<span>QR Dinámico</span>
+<span>•</span>
+<span class="material-symbols-outlined text-[16px] text-primary">dialpad</span>
+<span>NIP Kiosco</span>
+</div>
+<button class="min-h-[36px] px-2.5 py-1 text-label-sm font-label-sm rounded-md bg-surface-container hover:bg-surface-container-high text-primary font-semibold transition-colors" type="button">
+                    Gestionar
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- SECCIÓN 3: RESTRICCIONES DE RED WI-FI E IP PÚBLICA -->
+<div class="p-4 rounded-xl border border-outline-variant/40 bg-surface-container-lowest flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">wifi_lock</span>
+<span class="text-label-lg font-label-lg font-bold text-on-surface">Validación de Conectividad Antifraude</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+<span class="ml-2.5 text-label-sm font-label-sm font-semibold text-on-surface">Restringir a Wi-Fi de la Empresa</span>
+</label>
+</div>
+<p class="text-body-sm font-body-sm text-outline">
+              El colaborador sólo podrá registrar asistencia en su app móvil si está conectado al SSID corporativo o a través de la IP de la sucursal.
+            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+<!-- SSIDs autorizados -->
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/30 flex flex-col gap-1.5">
+<span class="text-label-sm font-label-sm text-outline font-semibold">Redes Wi-Fi Autorizadas (SSID / BSSID):</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white text-body-sm font-medium border border-outline-variant/50 text-on-surface shadow-xs">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]">wifi</span>
+<span>Espiga_Corporativo_5G</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white text-body-sm font-medium border border-outline-variant/50 text-on-surface shadow-xs">
+<span class="material-symbols-outlined text-[16px] text-outline">wifi</span>
+<span>Espiga_Cajas_Mesh</span>
+</span>
+</div>
+</div>
+<!-- IP Pública Fija -->
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/30 flex flex-col gap-1.5">
+<span class="text-label-sm font-label-sm text-outline font-semibold">IP Pública Fija del Centro de Trabajo:</span>
+<div class="flex items-center justify-between bg-white px-3 py-1 rounded border border-outline-variant/50 shadow-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">lan</span>
+<span class="font-mono text-body-sm font-bold text-on-surface">189.210.45.12</span>
+<span class="text-[11px] text-outline">(Totalplay Fibra Negocio)</span>
+</div>
+<span class="text-label-sm font-label-sm text-[#2E7D32] font-bold">Validada</span>
+</div>
+</div>
+</div>
+</div>
+<!-- BARRA DE GUARDADO Y ACCIONES INFERIOR -->
+<div class="sticky bottom-0 -mx-5 -mb-5 px-5 py-3.5 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/40 rounded-b-2xl flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-outline">
+<span class="material-symbols-outlined text-[18px] text-[#2E7D32]">sync</span>
+<span>Cambios sincronizados en tiempo real con 42 colaboradores en turno.</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="min-h-[48px] px-4 py-2.5 rounded-lg border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors" type="button">
+                Restablecer Valores
+              </button>
+<button class="min-h-[48px] px-6 py-2.5 rounded-lg bg-primary-container text-white font-label-lg text-label-lg font-bold shadow-md hover:brightness-110 active:scale-[0.98] transition-all flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Guardar Configuración de Geocerca</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

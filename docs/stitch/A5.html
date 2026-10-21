@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="es-MX"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verificar Asistencia - Checador</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#003441",
+            "inverse-primary": "#9acee1",
+            "outline-variant": "#c0c8cb",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "tertiary-container": "#653d00",
+            "secondary-fixed": "#baeafa",
+            "inverse-on-surface": "#ecf1ff",
+            "surface-container": "#e7eeff",
+            "surface": "#f9f9ff",
+            "surface-container-highest": "#d8e3fb",
+            "on-tertiary-container": "#f1a440",
+            "on-secondary-container": "#3a6977",
+            "outline": "#70787c",
+            "primary-fixed": "#b6ebfe",
+            "surface-tint": "#306576",
+            "on-primary-fixed-variant": "#114d5d",
+            "surface-container-high": "#dee8ff",
+            "on-surface-variant": "#40484b",
+            "primary-fixed-dim": "#9acee1",
+            "on-tertiary-fixed-variant": "#663e00",
+            "surface-bright": "#f9f9ff",
+            "on-secondary": "#ffffff",
+            "secondary": "#356572",
+            "primary-container": "#0f4c5c",
+            "on-tertiary-fixed": "#2b1700",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#001f28",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "background": "#f9f9ff",
+            "on-background": "#111c2d",
+            "surface-dim": "#cfdaf2",
+            "on-primary-container": "#87bbce",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#9ecedd",
+            "tertiary-fixed": "#ffddb9",
+            "on-surface": "#111c2d",
+            "on-secondary-fixed": "#001f27",
+            "surface-variant": "#d8e3fb",
+            "surface-container-low": "#f0f3ff",
+            "tertiary": "#462900",
+            "on-error": "#ffffff",
+            "inverse-surface": "#263143",
+            "error": "#ba1a1a",
+            "secondary-container": "#b7e7f7",
+            "tertiary-fixed-dim": "#ffb963",
+            "error-container": "#ffdad6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "gutter": "1rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "3rem",
+            "space-md": "1rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "0.75rem",
+            "margin": "1.5rem"
+          },
+          "fontFamily": {
+            "title-md": ["Inter"],
+            "display-clock": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-md": ["Inter"],
+            "label-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-lg": ["Inter"]
+          },
+          "fontSize": {
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined[data-weight="fill"] {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .animate-pulse-ring {
+      animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    .animate-scan {
+      animation: scanline 2.5s ease-in-out infinite alternate;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased font-body-md min-h-screen flex justify-center selection:bg-secondary-container">
+<!-- Mobile Container Screen A5 -->
+<div class="w-full max-w-md bg-surface flex flex-col min-h-screen relative shadow-sm border-x border-outline-variant/20 pb-36">
+<!-- Top App Bar Navigation Shell -->
+<header class="sticky top-0 z-30 bg-surface/95 backdrop-blur-md px-margin-mobile pt-3 pb-3 border-b border-outline-variant/30 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<a aria-label="Regresar a Checar" class="w-10 h-10 -ml-1 rounded-full flex items-center justify-center text-primary hover:bg-surface-container active:scale-95 transition-all" href="/checar">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</a>
+<div>
+<h1 class="text-title-lg font-title-lg text-primary tracking-tight">Verificar Asistencia</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant flex items-center gap-1">
+<span>Sucursal Centro</span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>Turno Matutino</span>
+</p>
+</div>
+</div>
+<div class="flex items-center">
+<!-- Status Chip: GPS Activo -->
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] border border-[#2E7D32]/20 font-label-sm text-label-sm shadow-xs">
+<span class="material-symbols-outlined text-[14px]" data-weight="fill">check_circle</span>
+<span>GPS validado</span>
+</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-margin-mobile py- space-y-4 pt-4 flex-1">
+<!-- SECTION 1: Biometric Selfie Preview Card -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-3 shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-2 px-1">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[20px]">face</span>
+<span class="text-label-lg font-label-lg">Verificación Facial Activa</span>
+</div>
+<span class="text-label-sm font-label-sm bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded-full">Anti-spoofing</span>
+</div>
+<!-- Camera Viewfinder Viewport -->
+<div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-primary flex items-center justify-center shadow-inner">
+<!-- Background Camera Feed Simulation Placeholder -->
+<div class="absolute inset-0 bg-cover bg-center brightness-[0.88] scale-105" data-alt="A clean, modern first-person selfie camera viewfinder for workplace check-in. The subject is a Hispanic professional with a friendly focused expression looking directly at the camera in a modern bright corporate office lobby with warm lighting. Subtle interface guidelines are visible, with emerald green tone highlights for biometric verification." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCPKWgiik5NNzD81a_oRbQmeU0Wwnyt2KGqdFeIbSdEZC-qSgiAqKhH3IPYisAzLyJVske49Vr3hJS8Q9rfcoQBnnJ_s8bXr4hiL6lYmW2VCUmXfQMc0aODJ3erd2VqsdjGtNnU-hY5SoRKqD3sEd4t9y8khHWoRN3ZeL0vltBB39P3pmgzlUK2IxsIikcfwThNHmPQjkPEi0lCyZF6jW7rUI5sxxIH722Rv-hv_CFHmHcGAVTg3BjVn6fGSt_GoPSTQMjqH0AAAOSM')"></div>
+<!-- Subtle Scanning Light Line Overlay -->
+<div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#2E7D32] to-transparent opacity-70 animate-scan"></div>
+<!-- Biometric Face Oval Overlay Guide -->
+<div class="relative z-10 w-44 h-56 rounded-[48%] border-2 border-dashed border-[#2E7D32] flex items-center justify-center animate-pulse-ring shadow-[0_0_20px_rgba(46,125,50,0.35)]">
+<div class="w-full h-full rounded-[48%] border border-white/40 flex items-center justify-center">
+<!-- Corner alignment indicators -->
+<span class="absolute top-2 left-6 w-3 h-3 border-t-2 border-l-2 border-[#2E7D32]"></span>
+<span class="absolute top-2 right-6 w-3 h-3 border-t-2 border-r-2 border-[#2E7D32]"></span>
+<span class="absolute bottom-2 left-6 w-3 h-3 border-b-2 border-l-2 border-[#2E7D32]"></span>
+<span class="absolute bottom-2 right-6 w-3 h-3 border-b-2 border-r-2 border-[#2E7D32]"></span>
+</div>
+</div>
+<!-- Top-right Quick Controls -->
+<div class="absolute top-2.5 right-2.5 z-20 flex gap-2">
+<button aria-label="Encender luz" class="w-9 h-9 rounded-full bg-black/45 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/60 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">light_mode</span>
+</button>
+<button aria-label="Alternar cámara" class="w-9 h-9 rounded-full bg-black/45 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/60 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">flip_camera_ios</span>
+</button>
+</div>
+<!-- Floating Detection Confirmation Badge -->
+<div class="absolute bottom-3 inset-x-3 z-20 flex justify-center">
+<div class="bg-black/65 backdrop-blur-md border border-white/20 text-white rounded-full px-3.5 py-1.5 flex items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]" data-weight="fill">verified</span>
+<span class="text-label-sm font-label-sm tracking-wide">Rostro detectado correctamente <strong class="text-[#2E7D32] font-semibold">(98% confianza)</strong></span>
+</div>
+</div>
+</div>
+<!-- Interactive Liveness Instruction -->
+<div class="mt-3 bg-secondary-container/40 border border-secondary-container rounded-lg p-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-primary">Parpadea para verificar</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Prueba de vida activa en progreso...</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-[#2E7D32] text-label-sm font-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-[#2E7D32] animate-ping"></span>
+            Listo
+          </div>
+</div>
+</section>
+<!-- SECTION 2: Geofence Validation (Mini GPS Map) -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-3.5 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">share_location</span>
+</div>
+<div>
+<h2 class="text-label-lg font-label-lg text-primary">Validación de Geocerca</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Sucursal Centro Histórico</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
+            Dentro de zona
+          </span>
+</div>
+<!-- Stylized Mini-Map View with Geofence Circle Radius -->
+<div class="relative w-full h-36 rounded-lg overflow-hidden border border-outline-variant/30 bg-surface-container-low flex items-center justify-center" data-location="Mexico City" style="">
+<!-- Stylized map background -->
+<div class="absolute inset-0 bg-[#E5ECEF] opacity-90">
+<!-- Simulated street layout grid -->
+<div class="absolute inset-0 opacity-40 bg-[radial-gradient(#70787c_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<div class="absolute top-1/2 left-0 right-0 h-4 bg-white/70 transform -rotate-6"></div>
+<div class="absolute top-0 bottom-0 left-1/3 w-5 bg-white/70 transform rotate-12"></div>
+<div class="absolute top-0 bottom-0 right-1/4 w-3.5 bg-white/70"></div>
+</div>
+<!-- Geofence Permitted Area Boundary -->
+<div class="relative z-10 w-28 h-28 rounded-full bg-primary-container/15 border-2 border-primary-container/40 flex items-center justify-center shadow-inner">
+<div class="w-20 h-20 rounded-full bg-[#2E7D32]/15 border border-[#2E7D32]/50 flex items-center justify-center">
+<!-- User Position Beacon -->
+<div class="relative flex items-center justify-center">
+<span class="absolute w-8 h-8 rounded-full bg-primary/20 animate-ping"></span>
+<div class="w-5 h-5 rounded-full bg-primary-container text-white flex items-center justify-center shadow-md border-2 border-white">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Map Info Badge -->
+<div class="absolute bottom-2 left-2 z-20 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-1 rounded shadow-xs border border-outline-variant/30 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[14px]">near_me</span>
+<span class="text-label-sm font-label-sm text-primary">A 12 metros del centroide</span>
+</div>
+<div class="absolute top-2 right-2 z-20 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-label-sm font-label-sm text-on-surface-variant border border-outline-variant/30">
+            Radio permitido: 50m
+          </div>
+</div>
+<!-- Address and Accuracy Metadata Details -->
+<div class="grid grid-cols-2 gap-2 pt-1 border-t border-outline-variant/20">
+<div class="flex items-start gap-1.5">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] shrink-0 mt-0.5">pin_drop</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Dirección verificada</p>
+<p class="text-body-sm font-body-sm text-on-surface font-medium truncate">Av. Juárez #412, Centro Histórico</p>
+</div>
+</div>
+<div class="flex items-start gap-1.5 pl-2 border-l border-outline-variant/20">
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px] shrink-0 mt-0.5">gps_fixed</span>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Precisión satelital</p>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">±4 metros · Alta</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Alternative Fallback Trigger -->
+<section class="bg-surface-container-low hover:bg-surface-container rounded-lg border border-outline-variant/30 p-3 transition-colors">
+<a class="flex items-center justify-between group" href="#kiosco">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary border border-outline-variant/30 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[22px]">qr_code_scanner</span>
+</div>
+<div>
+<p class="text-title-md font-title-md text-primary leading-tight">¿Problemas con cámara o GPS?</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Escanear código QR en el kiosco físico</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-0.5 transition-transform text-[20px]">chevron_right</span>
+</a>
+</section>
+</main>
+<!-- SECTION 4: Fixed Action Shell & Legal Disclaimer -->
+<div class="fixed bottom-16 inset-x-0 max-w-md mx-auto z-40 bg-surface/95 backdrop-blur-md px-margin-mobile pt-3 pb-3 border-t border-outline-variant/30 shadow-lg">
+<div class="space-y-2">
+<!-- Botón Principal de Marcaje (Punch Trigger) -->
+<button class="w-full h-14 bg-primary-container hover:bg-primary active:scale-[0.98] text-white rounded-xl shadow-md flex items-center justify-center gap-2.5 transition-all text-title-md font-title-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container" id="btn-confirmar" type="button">
+<span class="material-symbols-outlined text-[22px]" data-weight="fill">check_circle</span>
+<span>Confirmar y Marcar Entrada</span>
+</button>
+<!-- LFT Compliance Note -->
+<p class="text-label-sm font-label-sm text-center text-on-surface-variant flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">verified_user</span>
+<span>Registro protegido con geoposición y biometría conforme a la LFT</span>
+</p>
+</div>
+</div>
+<!-- SHARED COMPONENT: BottomNavBar (Active: Checar) -->
+<nav aria-label="Navegación principal" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-space-xs py-space-xs max-w-md mx-auto inset-x-0 pb-safe bg-surface-container-lowest shadow-lg border-t border-outline-variant/20">
+<!-- Item 0: Checar (ACTIVE) -->
+<a aria-current="page" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-space-md py-space-xs active:scale-95 transition-transform duration-150 min-h-[48px] min-w-[64px]" href="/checar">
+<span class="material-symbols-outlined text-[22px]" data-weight="fill">schedule</span>
+<span class="text-label-sm font-label-sm font-bold mt-0.5">Checar</span>
+</a>
+<!-- Item 1: Historial -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-space-md py-space-xs hover:bg-surface-container transition-colors active:scale-95 duration-150 min-h-[48px] min-w-[64px] rounded-full" href="/historial">
+<span class="material-symbols-outlined text-[22px]">history</span>
+<span class="text-label-sm font-label-sm mt-0.5">Historial</span>
+</a>
+<!-- Item 2: Incidencias -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-space-md py-space-xs hover:bg-surface-container transition-colors active:scale-95 duration-150 min-h-[48px] min-w-[64px] rounded-full" href="/incidencias">
+<span class="material-symbols-outlined text-[22px]">report_problem</span>
+<span class="text-label-sm font-label-sm mt-0.5">Incidencias</span>
+</a>
+<!-- Item 3: Perfil -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-space-md py-space-xs hover:bg-surface-container transition-colors active:scale-95 duration-150 min-h-[48px] min-w-[64px] rounded-full" href="/perfil">
+<span class="material-symbols-outlined text-[22px]">person</span>
+<span class="text-label-sm font-label-sm mt-0.5">Perfil</span>
+</a>
+</nav>
+</div>
+<script>
+    // Lightweight micro-interaction for punch confirmation
+    const punchButton = document.getElementById('btn-confirmar');
+    if (punchButton) {
+      punchButton.addEventListener('click', function() {
+        this.classList.add('scale-95');
+        const originalContent = this.innerHTML;
+        this.innerHTML = `
+          <span class="material-symbols-outlined animate-spin text-[22px]">progress_activity</span>
+          <span>Registrando asistencia...</span>
+        `;
+        setTimeout(() => {
+          this.classList.remove('bg-primary-container', 'hover:bg-primary');
+          this.classList.add('bg-[#2E7D32]');
+          this.innerHTML = `
+            <span class="material-symbols-outlined text-[22px]" data-weight="fill">task_alt</span>
+            <span>¡Entrada Registrada 08:02 AM!</span>
+          `;
+          if (navigator.vibrate) {
+            navigator.vibrate([100, 50, 100]);
+          }
+        }, 1200);
+      });
+    }
+  </script>
+</body></html>

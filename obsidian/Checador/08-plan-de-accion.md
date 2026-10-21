@@ -1,7 +1,7 @@
 ---
 proyecto: Checador
 fuente: jc-attendance/docs/08-plan-de-accion.md
-sincronizado: 2026-10-20
+sincronizado: 2026-10-21
 tags: [checador, asistencia]
 ---
 
@@ -66,3 +66,17 @@ Duración estimada al MVP: **~12 semanas** con 1 dev full-stack + Claude Code. C
 - Specs: unitarios del motor de reglas y checkers; e2e del endpoint.
 - Pantalla con su propuesta de Stitch enlazada en [[07-pantallas-y-stitch|07]].
 - Mapa de pantallas y Notion/Obsidian actualizados.
+
+## Estado (2026-10-21)
+
+| Entregable | Estado |
+|---|---|
+| 0.1 Monorepo, CI | ✅ `jc-attendance` (`libs/rules-engine`, `apps/api`, `apps/pwa`), GitHub Actions con Postgres + Redis |
+| 0.2 `AppEnum.Attendance` en jc-core | ✅ rama `claude/time-tracking-system-vb9i4l` |
+| 0.3 Esquema `attendance`, rol, migraciones propias, guardián de migraciones | ✅ (`db/provision.sql`, trigger append-only en `punches`) |
+| 0.4 Auth patrón (JWT jc-core, cualquier app) + empleado (OTP) + kiosco | ✅ |
+| Motor LFT (`libs/rules-engine`) | ✅ 184 pruebas |
+| API S1–S5: organización, sucursales/geocercas/kioscos, campos personalizados, horarios/políticas/festivos, empleados, ligas + reglas + cola de validación, marcajes (PWA/QR/PIN/manual/self) con riesgo y hash, jornadas + horas extra + incidencias + periodos + tareas programadas, solicitudes, analítica + constructor de gráficos, reportes PDF/Excel/CSV (incl. registro LFT 132-XXXIV), bitácora | ✅ 62 pruebas unitarias + 16 de punta a punta |
+| Consola del patrón en core-front | 🚧 en curso |
+| PWA del empleado + kiosco | 🚧 en curso |
+| Propuestas de Stitch (29 pantallas) | 🚧 generándose; ver docs/stitch |

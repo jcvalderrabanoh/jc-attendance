@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checador PyME - Validación de Altas</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-bright": "#f9f9ff",
+            "surface-container-highest": "#d8e3fb",
+            "tertiary-fixed": "#ffddb9",
+            "surface-container-low": "#f0f3ff",
+            "secondary-fixed-dim": "#9ecedd",
+            "primary-container": "#0f4c5c",
+            "on-secondary-container": "#3a6977",
+            "on-error-container": "#93000a",
+            "surface": "#f9f9ff",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-error": "#ffffff",
+            "on-surface-variant": "#40484b",
+            "inverse-on-surface": "#ecf1ff",
+            "background": "#f9f9ff",
+            "tertiary-container": "#653d00",
+            "on-background": "#111c2d",
+            "secondary": "#356572",
+            "primary-fixed": "#b6ebfe",
+            "primary": "#003441",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "surface-variant": "#d8e3fb",
+            "on-primary-fixed-variant": "#114d5d",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#001f28",
+            "surface-container-high": "#dee8ff",
+            "on-surface": "#111c2d",
+            "secondary-fixed": "#baeafa",
+            "secondary-container": "#b7e7f7",
+            "surface-tint": "#306576",
+            "surface-container": "#e7eeff",
+            "primary-fixed-dim": "#9acee1",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#663e00",
+            "on-secondary-fixed": "#001f27",
+            "inverse-primary": "#9acee1",
+            "on-tertiary-fixed": "#2b1700",
+            "outline-variant": "#c0c8cb",
+            "on-tertiary": "#ffffff",
+            "surface-dim": "#cfdaf2",
+            "outline": "#70787c",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#263143",
+            "on-primary-container": "#87bbce",
+            "on-tertiary-container": "#f1a440",
+            "error-container": "#ffdad6",
+            "tertiary": "#462900",
+            "on-secondary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xl": "2rem",
+            "margin-mobile": "1rem",
+            "margin": "1.5rem",
+            "gutter": "1rem",
+            "space-lg": "1.5rem",
+            "space-2xl": "3rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "display-clock": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "title-md": ["Inter"],
+            "body-md": ["Inter"],
+            "title-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom Scrollbar for inner panes */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #70787c;
+    }
+  </style>
+</head>
+<body class="h-full bg-background text-on-surface antialiased flex flex-row overflow-hidden">
+<!-- ========================================================================= -->
+<!-- SideNavBar (Shared Component from JSON Blueprint)                        -->
+<!-- ========================================================================= -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 flex flex-col p-4 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm dark:shadow-none justify-between shrink-0">
+<!-- Brand Header -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-2 py-1">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold font-title-lg text-title-lg shadow-sm">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg font-bold text-primary dark:text-primary-fixed leading-tight">Checador PyME</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant dark:text-inverse-on-surface">Administración SaaS</span>
+</div>
+</div>
+<!-- Quick Action CTA from JSON -->
+<button class="w-full h-11 flex items-center justify-center gap-2 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:opacity-95 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[18px]">fact_check</span>
+<span>Pase de Lista</span>
+</button>
+<!-- Main Navigation Items -->
+<nav class="flex flex-col gap-1 mt-2 overflow-y-auto max-h-[calc(100vh-270px)] pr-1">
+<!-- 0: Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Tablero</span>
+</a>
+<!-- 1: En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span class="font-label-md text-label-md">En vivo</span>
+</a>
+<!-- 2: Empleados -->
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">Empleados</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</a>
+<!-- 3: Validaciones de Alta (ACTIVE ITEM) -->
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-semibold active:scale-[0.98]" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
+<span class="font-label-md text-label-md text-primary font-bold">Validaciones de Alta</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-sm text-label-sm font-bold shadow-xs">4</span>
+</a>
+<!-- 4: Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">fingerprint</span>
+<span class="font-label-md text-label-md">Marcajes</span>
+</a>
+<!-- 5: Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-label-md text-label-md">Hojas de horas</span>
+</a>
+<!-- 6: Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">event_busy</span>
+<span class="font-label-md text-label-md">Incidencias</span>
+</a>
+<!-- 7: Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Turnos</span>
+</a>
+<!-- 8: Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-md text-label-md">Ubicaciones</span>
+</a>
+<!-- 9: Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer Support Section -->
+<div class="pt-3 border-t border-outline-variant dark:border-outline">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Ayuda y Soporte</span>
+</a>
+<div class="mt-2 px-3 py-2 rounded-lg bg-surface-container-low flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">LFT v2024.2 Sincronizado</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- TopNavBar (Shared Component from JSON Blueprint)                        -->
+<!-- ========================================================================= -->
+<header class="fixed top-0 right-0 z-30 h-16 w-[calc(100%-16rem)] px-6 flex items-center justify-between bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<!-- Left: Search Box -->
+<div class="flex items-center gap-3 w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline">search</span>
+<input class="w-full h-10 pl-10 pr-4 rounded-lg bg-surface-container-low border border-outline-variant focus:border-primary text-body-md font-body-md text-on-surface placeholder-on-surface-variant/60 focus:outline-none transition-colors" placeholder="Buscar postulante, RFC, NSS o folio de alta..." type="text"/>
+</div>
+</div>
+<!-- Right: Contextual Controls & Profile -->
+<div class="flex items-center gap-4">
+<!-- Live Status Pill (trailing_primary_action) -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+<span class="font-label-md text-label-md text-emerald-800 font-semibold">En Vivo: Activo</span>
+</div>
+<!-- Branch Selector (trailing_secondary_action) -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary">storefront</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Sucursal Matriz CDMX</span>
+<span class="material-symbols-outlined text-[16px] text-outline">arrow_drop_down</span>
+</div>
+<!-- Icon Actions -->
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors relative" title="Notificaciones">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" title="Ayuda">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Lic. Roberto Morales Profile -->
+<div class="flex items-center gap-3 pl-1 cursor-pointer">
+<img alt="Avatar Administrador General" class="w-9 h-9 rounded-full object-cover border border-outline-variant shadow-sm" data-alt="Professional studio portrait of an experienced Mexican HR Administrator named Roberto Morales wearing modern business attire with warm subtle office background lighting in teal and cream tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfjPBD-IPIoda1A7_RDOhQh_Hgryo-IrjL8HG5yrZ6zd3czoR1FT5CTfeVtfi0FKScXohh08473kv8WxDpTlI55eAjUzJzX8IQzdP_BCrESO6gGLhsjBRRS9zSngsHEV8XKeUzHYvvzMGmbJNvIiKGtED5l0wAqlLnjtQgvkhQoVMC5apeLGr2vKvja4jfQiXNmObsXq5zhr8VMI2C3rW0nxNgYLFXNg-3I8najzVgoEjUcYgxIRbcPbTdFjxbnfSjhl4A4LPZzx8I"/>
+<div class="flex flex-col text-left">
+<span class="font-label-md text-label-md font-bold text-on-surface">Lic. Roberto Morales</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Admin RH &amp; Nómina</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- Main Content Stage                                                        -->
+<!-- ========================================================================= -->
+<main class="ml-64 mt-16 w-[calc(100%-16rem)] h-[calc(100vh-4rem)] flex flex-col bg-background overflow-hidden">
+<!-- Header Section + KPI Metrics Strip -->
+<section class="px-6 py-5 bg-surface-container-lowest border-b border-outline-variant shrink-0">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-3">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Validación de Altas y Enrolamiento</h1>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container border border-outline-variant text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px] text-primary">verified_user</span>
+              Bandeja de Entrada LFT / SAT
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-4xl">
+            Revisa y autoriza las solicitudes de auto-registro generadas vía enlaces de invitación de WhatsApp o Kiosco antes de habilitar el pase de lista y timbrado de nómina.
+          </p>
+</div>
+<!-- Secondary Meta info -->
+<div class="flex items-center gap-2">
+<button class="h-10 px-3.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+            Reglas de Validación
+          </button>
+<button class="h-10 px-3.5 rounded-lg bg-primary text-on-primary hover:opacity-95 font-label-md text-label-md flex items-center gap-2 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">share</span>
+            Generar Enlace de Alta
+          </button>
+</div>
+</div>
+<!-- KPI Summary Cards Bento Strip -->
+<div class="grid grid-cols-4 gap-4 mt-4">
+<!-- KPI 1: Pendientes de revisión -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Pendientes de revisión</span>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="font-headline-md text-headline-md font-bold text-primary">4 registros</span>
+<span class="font-label-sm text-label-sm text-amber-700 font-medium bg-amber-100 px-1.5 py-0.5 rounded">2 con alerta</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+</div>
+</div>
+<!-- KPI 2: Tiempo promedio de resolución -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Tiempo promedio resolución</span>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">18 min</span>
+<span class="font-label-sm text-label-sm text-emerald-700 font-medium flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>-4m hoy
+              </span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-container/40 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined">timer</span>
+</div>
+</div>
+<!-- KPI 3: Aprobadas esta quincena -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Aprobadas esta quincena</span>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">38 colaboradores</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- KPI 4: Rechazadas / En corrección -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Rechazadas / En corrección</span>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">3 solicitudes</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">WhatsApp reenviado</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-rose-50 text-error flex items-center justify-center">
+<span class="material-symbols-outlined">restart_alt</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ======================================================================= -->
+<!-- Main Interactive Split-View (Bandeja / Master - Detail)                 -->
+<!-- ======================================================================= -->
+<div class="flex-1 flex overflow-hidden">
+<!-- ===================================================================== -->
+<!-- Panel A: Left Queue Inbox (~390px)                                    -->
+<!-- ===================================================================== -->
+<section class="w-[390px] border-r border-outline-variant bg-surface flex flex-col shrink-0">
+<!-- Sub-header & Quick Filters -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-lowest">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
+<input class="w-full h-9 pl-9 pr-8 rounded-lg bg-surface-container-low border border-outline-variant text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary" placeholder="Filtrar por nombre, WhatsApp o folio..." type="text" value="#SOL-1049"/>
+<button class="absolute right-2.5 top-2 text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- Queue Filter Tabs -->
+<div class="flex items-center gap-1.5 mt-3 overflow-x-auto pb-1 text-nowrap">
+<button class="px-2.5 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-xs">
+              Todas (4)
+            </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-amber-800 border border-amber-300 font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              Alertas SAT / Rostro (2)
+            </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-medium">
+              Listas para aprobar (2)
+            </button>
+</div>
+</div>
+<!-- Cards List Container -->
+<div class="flex-1 overflow-y-auto divide-y divide-outline-variant/60">
+<!-- Card 1 (Active / Selected) -->
+<article class="p-3.5 bg-surface-container-lowest border-l-4 border-primary cursor-pointer transition-colors relative">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-bold text-primary">#SOL-1049</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span> Hace 25 min
+              </span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<img alt="Mariana Hernández Velázquez" class="w-11 h-11 rounded-lg object-cover border border-outline-variant shrink-0" data-alt="Close-up biometric ID verification photo of Mariana Hernandez, a 28-year-old Mexican woman with tied hair, bright natural lighting against a neutral white wall, neutral calm expression for workplace registry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCQXm5lj1Z1zPCUbNmFl2ZsarII-SK-JiHiA56idW9D90HgXcRD19sFMO6JbQOJ00fgwKXN8a0rUfS4jFwXGRoNeY8lsdNKD00pyHBfxiIn5HaOhQ7-z_10lNWEGFlfgvohtCoJ28_wTOJHY75DICInOC0NFl6GRmNPsA4yvexuRCWWJ6hIXRyhqpGGrrafIdif2WfCtotYFO-K4v9tP1brqVDvnm1bL2lv3j_jeAt8UAv8v5bJpP2at48OWtIm0o6Kx6rYPueExoy"/>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-md text-title-md font-bold text-on-surface truncate">Mariana Hernández Velázquez</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Auxiliar de Pastelería · Matriz</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2.5 border-t border-outline-variant/40">
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+<span class="material-symbols-outlined text-[12px]">chat</span> Liga WhatsApp
+              </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-300">
+<span class="material-symbols-outlined text-[13px] text-amber-600">warning</span> Alerta Biométrica
+              </span>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="p-3.5 hover:bg-surface-container-lowest/60 bg-surface cursor-pointer transition-colors border-l-4 border-transparent">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant">#SOL-1048</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span> Hace 1 hora
+              </span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<img alt="Jorge Alberto Silva Ruiz" class="w-11 h-11 rounded-lg object-cover border border-outline-variant shrink-0" data-alt="Kiosk captured digital photo of Jorge Alberto Silva, a 32-year-old Mexican retail cashier smiling politely, wearing a neat navy polo shirt under bright indoor retail lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtIDXZiplbeM_s1HBFEgVm5D8tniziS945QiQq5cM835zBdu3XuH3ticX8jVL8V4ZLuQR1N93xpb99F-vGHJI4nnBNjWiXLcHl5W-tfTmZVN6EIPBhtLwU3WGN7JOf0qoi_cTXzXBUNJaQRlan5lm2zbaIVelAKSSrqwzSq9MO-5CFayD01B8oWDZY984Vb_J1zCWCQtL42-WvjGlgqUFj3wS9tLCqwp-wSBs8o5YAUWy273C6b7KsKaRnVCEWBI1xuNm-qDkRq5cQ"/>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-md text-title-md font-semibold text-on-surface truncate">Jorge Alberto Silva Ruiz</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Cajero Mostrador · Centro</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2.5 border-t border-outline-variant/40">
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">qr_code_2</span> Liga QR Kiosco
+              </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+<span class="material-symbols-outlined text-[13px] text-emerald-600">check_circle</span> Validación preliminar (3/3)
+              </span>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="p-3.5 hover:bg-surface-container-lowest/60 bg-surface cursor-pointer transition-colors border-l-4 border-transparent">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant">#SOL-1047</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span> Hace 2 horas
+              </span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<img alt="Rodrigo Téllez Nava" class="w-11 h-11 rounded-lg object-cover border border-outline-variant shrink-0" data-alt="Digital ID employee verification snapshot of Rodrigo Tellez, a 26-year-old Mexican delivery driver wearing high-visibility collar against a clean neutral wall background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFpgTsVnagJYPh9O3jHCNs7Bgf3Bq0xLz5GcjoSqubUdW5D1o1-dJn1UAnaZvvmWjEUaZuJDzztwTT4HUAdNpiF6Zu7135pTmA7hO5fBNUtkzby3dWRO3ulP0imM86dK3WervfGV5xYuesStGUQtCLxM9TONO9gbs0N-Q2gjN2iTeDFDKrsOIgfNgfLFd3ExmMcDRi7O-zGT7drQj3xarxeQRovNJYbqqpc6PqJuRBYldlAJrqN0GYDROUF8RM9vd6WMXb_yKHEBrQ"/>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-md text-title-md font-semibold text-on-surface truncate">Rodrigo Téllez Nava</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Repartidor Motocicleta · Matriz</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2.5 border-t border-outline-variant/40">
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">chat</span> WhatsApp
+              </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
+<span class="material-symbols-outlined text-[13px] text-error">phone_in_talk</span> Teléfono duplicado
+              </span>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="p-3.5 hover:bg-surface-container-lowest/60 bg-surface cursor-pointer transition-colors border-l-4 border-transparent">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant">#SOL-1046</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">calendar_today</span> Ayer, 18:40
+              </span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<img alt="Claudia Pineda Soto" class="w-11 h-11 rounded-lg object-cover border border-outline-variant shrink-0" data-alt="Clear profile photo for company badge of Claudia Pineda Soto, a 24-year-old Mexican general assistant with pleasant expression, clean hair and soft indoor daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU0H_G-80Tq0lIw8EzX4CO3Tmd-EgcdBAmo8OfM0ZARFjA3X9QFdtXEwah1b9Mg0yqmcze2jEqj7-jBy9eHCVut4XD0GGa-j8bgNl_B9WcULDl6f-mZzEPOYXrxp94qjou6CnWV_OWwQ1cPgKkZfrDNI4Zu9Atvw7UW2W5Yj-Gpf6E1wdiG5XZYgpD_cn_nmrQGxAjvPAANS_CU59jydGjTcXQ3FTe7nbThZ427HsIJyEtH01WzjDkUCE5CU5w-vLPqz9n2RDJJ2OX"/>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-md text-title-md font-semibold text-on-surface truncate">Claudia Pineda Soto</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Ayudante General · Matriz</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2.5 border-t border-outline-variant/40">
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">qr_code</span> Kiosco
+              </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+<span class="material-symbols-outlined text-[13px] text-emerald-600">assignment_turned_in</span> Lista para firma
+              </span>
+</div>
+</article>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- Panel B: Exhaustive Detail View (Right Pane)                          -->
+<!-- ===================================================================== -->
+<section class="flex-1 flex flex-col bg-background overflow-hidden relative">
+<!-- Scrollable Detail Canvas -->
+<div class="flex-1 overflow-y-auto px-8 py-6 pb-28">
+<!-- Candidate Header Profile Card -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant shadow-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-start gap-5">
+<!-- Selfie Badge & Anti-spoofing tag -->
+<div class="relative">
+<img alt="Mariana Hernández Velázquez Selfie" class="w-20 h-20 rounded-xl object-cover border-2 border-primary shadow-sm" data-alt="High resolution verification selfie of Mariana Hernandez Velazquez, Mexican woman in her late twenties, facing camera directly with neutral expression, clear illuminated lighting and verified 3D depth check graphic overlay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5kEfqaMjaglQBIQQcHp6nRpXBbo09RNAKOkPhqrx2zAMeDUrjcrvPjcwylBdOESWWkUZdKiZCwjwuGPLdEzjEWpf-5LDKcry5uEHaGjBDGMqFBlpFvYVq-2NolB4rA-b647U1trXedK_HYyCIpiy-QzVDWEh0g4RweEZKsTO32OBI94fKxbiVe_NoWVWf7schTXECpEfONM9kgtUAY4M7x64uZx5dU_p7oghAjBjw1gdOf_7eBLOK3Yx3NscGRKO1FMS54g3J6Lo8"/>
+<span class="absolute -bottom-2 -right-1.5 px-1.5 py-0.5 rounded-full bg-emerald-600 text-white font-label-sm text-[10px] font-bold flex items-center gap-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[12px]">check</span> Liveness OK
+                  </span>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Mariana Hernández Velázquez</h2>
+<span class="font-label-sm text-label-sm font-bold text-primary bg-secondary-container/40 px-2.5 py-0.5 rounded-full border border-secondary-container">
+                      Folio #SOL-1049
+                    </span>
+</div>
+<!-- Mexican Regulatory Codes Chips (RFC / CURP / NSS) -->
+<div class="flex items-center gap-2 mt-2 flex-wrap">
+<div class="px-2.5 py-1 rounded bg-surface-container border border-outline-variant flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="text-outline font-semibold">RFC:</span>
+<span class="font-mono font-bold text-primary">HEVM950412-8N3</span>
+<span class="material-symbols-outlined text-emerald-600 text-[16px]">verified</span>
+</div>
+<div class="px-2.5 py-1 rounded bg-surface-container border border-outline-variant flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="text-outline font-semibold">CURP:</span>
+<span class="font-mono font-bold text-primary">HEVM950412MDFRLA03</span>
+<span class="material-symbols-outlined text-emerald-600 text-[16px]">verified</span>
+</div>
+<div class="px-2.5 py-1 rounded bg-surface-container border border-outline-variant flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="text-outline font-semibold">NSS IMSS:</span>
+<span class="font-mono font-bold text-primary">3814-95-1029-4</span>
+<span class="material-symbols-outlined text-emerald-600 text-[16px]">verified</span>
+</div>
+</div>
+<!-- Contact Coordinates -->
+<div class="flex items-center gap-5 mt-3 text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5 text-emerald-800 font-medium">
+<span class="material-symbols-outlined text-[16px] text-emerald-600">smartphone</span>
+                      +52 55 8492 1104 <span class="text-[11px] bg-emerald-100 text-emerald-800 px-1.5 rounded">WhatsApp Verificado</span>
+</span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">mail</span>
+                      marianahv.pasteleria@gmail.com
+                    </span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">location_on</span>
+                      Col. Cuauhtémoc, CDMX
+                    </span>
+</div>
+</div>
+</div>
+<!-- Proposed Contract Parameters -->
+<div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant min-w-[240px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider block">Condiciones Laborales</span>
+<div class="mt-2 space-y-1.5 font-body-sm text-body-sm">
+<div class="flex justify-between">
+<span class="text-outline">Puesto:</span>
+<span class="font-semibold text-on-surface">Auxiliar de Pastelería</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Área:</span>
+<span class="font-medium text-on-surface">Hornos y Amasado</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Turno:</span>
+<span class="font-medium text-on-surface">Matutino (06:00 - 14:00)</span>
+</div>
+<div class="flex justify-between border-t border-outline-variant/60 pt-1.5">
+<span class="text-outline font-medium">Sueldo Base:</span>
+<span class="font-bold text-primary font-mono">$10,200 MXN / mes</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Automated Rules Checklist -->
+<div class="mt-6">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">policy</span>
+<h3 class="font-title-lg text-title-lg font-bold text-on-surface">Checklist de Reglas Automatizadas (Motor de Cumplimiento)</h3>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">5 de 6 aprobadas automáticamente</span>
+</div>
+<!-- Rules Grid -->
+<div class="grid grid-cols-2 gap-3.5">
+<!-- Rule 1: CURP RENAPO -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant flex items-start gap-3 shadow-xs">
+<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="font-title-md text-title-md font-bold text-on-surface">CURP verificada ante RENAPO</h4>
+<span class="font-label-sm text-label-sm font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Válida</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                    Coincide 100% nombre completo, fecha de nacimiento (12/04/1995) y entidad federativa CDMX.
+                  </p>
+</div>
+</div>
+<!-- Rule 2: IMSS NSS -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant flex items-start gap-3 shadow-xs">
+<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="font-title-md text-title-md font-bold text-on-surface">NSS e Historial IMSS cotejado</h4>
+<span class="font-label-sm text-label-sm font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Válido</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                    Número de Seguridad Social vigente. Sin trámite de baja litigiosa ni duplicidad patronal activa.
+                  </p>
+</div>
+</div>
+<!-- Rule 3: Biometric Duplicate Alert (CRITICAL CALLOUT) -->
+<div class="col-span-2 p-4 rounded-xl bg-amber-50/70 border-2 border-amber-300 flex flex-col gap-3 shadow-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md font-bold text-amber-900">Posible duplicado de rostro detectado (Biometría Facial 3D)</h4>
+<span class="font-label-sm text-label-sm font-bold text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full">Alerta / Reingreso</span>
+</div>
+<p class="font-body-sm text-body-sm text-amber-900/90 mt-1">
+                        Algoritmo arrojó <strong class="font-semibold">82% de similitud biométrica</strong> con el expediente de baja voluntaria: <em>"Mariana H. (Baja en Nov 2023 - #EMP-0782)"</em>.
+                      </p>
+</div>
+</div>
+<button class="h-8 px-3 rounded-lg bg-surface-container-lowest border border-amber-400 text-amber-900 font-label-md text-label-md font-semibold hover:bg-amber-100 flex items-center gap-1.5 transition-colors shadow-xs">
+<span class="material-symbols-outlined text-[16px]">compare</span>
+                    Comparar perfiles
+                  </button>
+</div>
+<!-- Face Comparison Mini-strip -->
+<div class="mt-1 pl-11 flex items-center gap-4">
+<div class="flex items-center gap-3 p-2 bg-surface-container-lowest rounded-lg border border-amber-200">
+<img alt="Selfie enviada hoy" class="w-12 h-12 rounded object-cover" data-alt="Close up current verification selfie photo of Mexican employee candidate Mariana with clear frontal view." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRzcj2rjnOtzzhciSRgq15tI3uIv9Umc9sTcTBWy1IhUaNYLdE6rLojhwJXsnuW9ylXV05TRntoxORwAnLcC0SuN4oP2ENwVykcR6sLxElLbqhNtnWmQVInvaTcklQe9ObyLu5Vd4NQVj3o6Ob5xLIFHpaHSxJ8hXwz53WyaxT8xnwrgFnR6ObgHol07kiFxmEQMJIwqx62ITtIP4wLVH6jMnhVrpGj9bFBfZ3LdyUkTGJ0r5A31MFzw3HPrIXo0d9xkIPsYc0zNRF"/>
+<div class="text-[12px]">
+<span class="font-bold text-on-surface block">Selfie enviada hoy</span>
+<span class="text-on-surface-variant font-mono">#SOL-1049 · 10:45 hrs</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-amber-600">compare_arrows</span>
+<div class="flex items-center gap-3 p-2 bg-surface-container-lowest rounded-lg border border-amber-200">
+<img alt="Registro histórico #EMP-0782" class="w-12 h-12 rounded object-cover filter grayscale contrast-125" data-alt="Historical archive photo from November 2023 of the former employee Mariana, in bakery apron with warm bakery kitchen ambient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9JeYo-pglVSs22-_gahzb6JPv0yWlfd34OrqTLFrDcFUsVRz3o3BG25rVV1vbHybGAv_NnaB54cjTHuF_2op2GT62N9bqW8pgq-K-RNy7fIq-Bujfs0MMCnZ5byu0NTg8QcZojYZx8HH3mWG9RLso10RW4dwyd4aCOdYABMmhABm4WIFzf30TPt-WSHWKq6Ux53E4G5ueH4lAwR_cb_jfBiwab-K18zHHFj50o9xxQz7BDZ7TrNU06DTTkbHArr6aT-ILEm7AY7E8"/>
+<div class="text-[12px]">
+<span class="font-bold text-on-surface block">Mariana Hernández (Histórico)</span>
+<span class="text-on-surface-variant font-mono">Baja Nov 2023 · Recontratable ✓</span>
+</div>
+</div>
+<div class="text-body-sm font-body-sm text-amber-900 bg-amber-100/70 p-2 rounded-lg border border-amber-300/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-amber-700">info</span>
+<span>El expediente anterior cuenta con recomendación positiva y finiquito en regla.</span>
+</div>
+</div>
+</div>
+<!-- Rule 4: Phone Validation -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant flex items-start gap-3 shadow-xs">
+<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Validación de Teléfono (WhatsApp OTP)</h4>
+<span class="font-label-sm text-label-sm font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Verificado</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                    PIN temporal de 6 dígitos confirmado vía WhatsApp Oficial. Número sin uso en otras empresas activas.
+                  </p>
+</div>
+</div>
+<!-- Rule 5: Geolocation -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant flex items-start gap-3 shadow-xs">
+<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Geolocalización en Solicitud</h4>
+<span class="font-label-sm text-label-sm font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">En Rango</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                    Envío registrado desde CDMX Centro (a 1.2 km de Sucursal Matriz). Sin uso detectado de Fake GPS o VPN.
+                  </p>
+</div>
+</div>
+<!-- Rule 6: Address proof & INE -->
+<div class="col-span-2 p-4 rounded-xl bg-surface-container-lowest border border-outline-variant flex items-start gap-3 shadow-xs">
+<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Comprobante de Domicilio &amp; INE Vigente</h4>
+<span class="font-label-sm text-label-sm font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Cotejado SAT / INE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                    Recibo de luz CFE con antigüedad menor a 60 días coincidente con Código Postal 06010 registrado en Constancia SAT.
+                  </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Attached Documentation Viewer -->
+<div class="mt-6">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">folder_shared</span>
+<h3 class="font-title-lg text-title-lg font-bold text-on-surface">Documentación Digital Adjunta (3 Archivos Legales)</h3>
+</div>
+<button class="font-label-md text-label-md text-primary font-bold hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">download</span> Descargar expediente completo (.ZIP)
+              </button>
+</div>
+<!-- Bento Documents Grid -->
+<div class="grid grid-cols-3 gap-4">
+<!-- Doc 1: INE -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all group cursor-pointer shadow-xs">
+<div class="h-28 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center overflow-hidden relative">
+<img alt="Identificación Oficial INE" class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Digital scan simulation of a Mexican INE credential document with visible security watermark patterns, green official crest details, and blurred photo for privacy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3BKYQ3IxiUKOc8mDTL6LlFR7n3nvRA7L3Gz9pbA1Qg6y6NmSV7FTkezTCjfwrTxk7j6h51c37ob2bJMTJB0vPtJhdV5xLlXt5Jbpg4eJIhykZYbQkNuLW5prunOy-CEbgy30H4lnMui4t4IpRkXALSKDgoVE0WlzNN-SqwfFP0tIlx8fQuyfWfWU8ETCGV9T5BniuoBVxwvW5pPlqvi8mocg8uVVxnEX560M5_ZNFvCds9MWRTTND_2N4AixeF6UTolVRna51LZZj"/>
+<span class="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white font-mono text-[10px]">PDF 1.8 MB</span>
+</div>
+<div class="mt-3 flex items-start justify-between">
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">INE Vigente (Anverso / Rev)</h4>
+<span class="font-label-sm text-label-sm text-emerald-700 font-semibold flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span> Vigencia 2030 OK
+                    </span>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-outline group-hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Doc 2: SAT CIF -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all group cursor-pointer shadow-xs">
+<div class="h-28 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center overflow-hidden relative">
+<img alt="Constancia de Situación Fiscal SAT" class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Official Mexican SAT tax situation document scan simulation with distinct QR code section and official tax authority letterhead." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6l63-Se3rQbTlq7LwHOyfCEVzMyc5PhjCFNKqRb-8ZWfugk6Q7cwRLenlaLbW_ZWjoZJWNhvA6rujyhAHMeavIyoOqNACkT8w1Ye2dN01q0qb4OwZABgmz4KDqVx_0FKX45yPeURY4lzM80Ul5V6ujwO7UtqRhfDHzmdLkkiQW_W-k_Ar_-0RQ9xkyL259neT_xbXrgqVM5G0pirpWtM1puzeIvuZwtBGghz8dFCuDdZq7SKbIqf8Hd7Rb3878m0QFDlCrhPv7B8b"/>
+<span class="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white font-mono text-[10px]">PDF 640 KB</span>
+</div>
+<div class="mt-3 flex items-start justify-between">
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Constancia Fiscal SAT</h4>
+<span class="font-label-sm text-label-sm text-emerald-700 font-semibold flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span> CIF y QR legibles
+                    </span>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-outline group-hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Doc 3: Kiosk Selfie -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary transition-all group cursor-pointer shadow-xs">
+<div class="h-28 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center overflow-hidden relative">
+<img alt="Foto de Perfil para Kiosco" class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Clean high quality biometric portrait snapshot of Mariana on neutral white background designed for factory tablet kiosk attendance clock-in." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1sK3956NZ4LHBFp91JsTf1sVpiiN7DJ_6y5ircSl3yBpzhiNYrFNi35fNf20Mw6pBy4takgQA3L7gK-iT3s94TOwJqwh42rKQ1Pg4jq9vmcP2VpI0ga6s0ihlKiOFluMrJFcaPy48L-n1uWXyD0rjo4ONzWjpK5ntR3W_nAKWWR-fmW3wmem0uPxZuOc0NhQkgCcdQOaDIuDwuyDXmG0MvGvSEhF7ejHgzEyeDrXX9Rd1M3RNol3KNSo4NkKvfedns6fUMlsZfer8"/>
+<span class="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white font-mono text-[10px]">JPG 820 KB</span>
+</div>
+<div class="mt-3 flex items-start justify-between">
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Foto Perfil Kiosco</h4>
+<span class="font-label-sm text-label-sm text-emerald-700 font-semibold flex items-center gap-0.5 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span> Anti-spoofing superado
+                    </span>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-outline group-hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: HR Internal Notes & Resolution Block -->
+<div class="mt-6 p-4 rounded-xl bg-surface-container-lowest border border-outline-variant shadow-xs">
+<div class="flex items-center justify-between mb-2">
+<label class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2" for="hr-notes">
+<span class="material-symbols-outlined text-primary text-[20px]">edit_note</span>
+                Observaciones del Validador (Notas Internas RH)
+              </label>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Visibles solo para administradores</span>
+</div>
+<textarea class="w-full p-3 rounded-lg bg-surface-container-low border border-outline-variant focus:border-primary text-body-md font-body-md text-on-surface focus:outline-none" id="hr-notes" rows="3">Reingreso confirmado telefónicamente con Don Mario (Gerente de Hornos Matriz). La alerta de rostro corresponde a colaboradora que laboró el año pasado y concluyó relación laboral en excelentes términos. Documentación fiscal y RFC 100% cotejados.</textarea>
+<div class="flex items-center justify-between mt-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>Registrado por: <strong>Lic. Roberto Morales (Admin RH)</strong></span>
+<span>Guardado automático hace 2 min</span>
+</div>
+</div>
+</div>
+<!-- =================================================================== -->
+<!-- Fixed Sticky Action Bar (Tactile Buttons >= 48px)                   -->
+<!-- =================================================================== -->
+<footer class="absolute bottom-0 left-0 right-0 h-20 bg-surface-container-lowest border-t border-outline-variant px-8 flex items-center justify-between shadow-lg z-20">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-amber-600">info</span>
+              Al aprobar, se enviará el PIN de asistencia al WhatsApp del colaborador.
+            </span>
+</div>
+<div class="flex items-center gap-3">
+<!-- Danger Secondary Button (Rechazar) -->
+<button class="h-12 px-5 rounded-xl border border-rose-300 bg-rose-50 hover:bg-rose-100 text-error font-label-lg text-label-lg font-bold flex items-center gap-2 transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">cancel</span>
+              Rechazar con motivo
+            </button>
+<!-- Warning Secondary Button (Pedir corrección) -->
+<button class="h-12 px-5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-800 font-label-lg text-label-lg font-bold flex items-center gap-2 transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">sms</span>
+              Pedir corrección WhatsApp
+            </button>
+<!-- Primary Action Button (Aprobar y Enrolar) -->
+<button class="h-12 px-6 rounded-xl bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg font-bold flex items-center gap-3 shadow-md hover:shadow-lg transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
+<div class="flex flex-col text-left">
+<span class="leading-none">Aprobar y Enrolar en Checador</span>
+<span class="font-label-sm text-[10px] text-primary-fixed font-normal mt-0.5">Habilitar PIN y Kiosco Matriz</span>
+</div>
+</button>
+</div>
+</footer>
+</section>
+</div>
+</main>
+<script>
+    // Lightweight micro-interaction for active cards and feedback
+    document.addEventListener('DOMContentLoaded', () => {
+      const applicantCards = document.querySelectorAll('article');
+      applicantCards.forEach(card => {
+        card.addEventListener('click', () => {
+          applicantCards.forEach(c => {
+            c.classList.remove('border-l-4', 'border-primary', 'bg-surface-container-lowest');
+            c.classList.add('border-l-4', 'border-transparent', 'bg-surface');
+          });
+          card.classList.remove('border-transparent', 'bg-surface');
+          card.classList.add('border-primary', 'bg-surface-container-lowest');
+        });
+      });
+    });
+  </script>
+</body></html>

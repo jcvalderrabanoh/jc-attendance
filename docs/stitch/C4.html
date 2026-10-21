@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>C4 · Ficha de Empleado · Checador PyME</title>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#d8e3fb",
+            "primary": "#003441",
+            "tertiary-fixed": "#ffddb9",
+            "surface-container-low": "#f0f3ff",
+            "inverse-primary": "#9acee1",
+            "primary-container": "#0f4c5c",
+            "surface-container-high": "#dee8ff",
+            "on-surface": "#111c2d",
+            "on-secondary-fixed": "#001f27",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "secondary-container": "#b7e7f7",
+            "on-tertiary": "#ffffff",
+            "outline": "#70787c",
+            "surface-dim": "#cfdaf2",
+            "on-error-container": "#93000a",
+            "surface-container": "#e7eeff",
+            "on-secondary-container": "#3a6977",
+            "background": "#f9f9ff",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-primary-fixed-variant": "#114d5d",
+            "tertiary": "#462900",
+            "on-background": "#111c2d",
+            "on-tertiary-fixed": "#2b1700",
+            "primary-fixed": "#b6ebfe",
+            "on-primary-fixed": "#001f28",
+            "inverse-on-surface": "#ecf1ff",
+            "surface-container-highest": "#d8e3fb",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#663e00",
+            "error-container": "#ffdad6",
+            "secondary-fixed": "#baeafa",
+            "on-surface-variant": "#40484b",
+            "on-error": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#9ecedd",
+            "primary-fixed-dim": "#9acee1",
+            "on-tertiary-container": "#f1a440",
+            "tertiary-container": "#653d00",
+            "outline-variant": "#c0c8cb",
+            "on-primary-container": "#87bbce",
+            "on-primary": "#ffffff",
+            "surface-tint": "#306576",
+            "surface": "#f9f9ff",
+            "surface-bright": "#f9f9ff",
+            "on-secondary": "#ffffff",
+            "secondary": "#356572",
+            "inverse-surface": "#263143"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "0.75rem",
+            "margin": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin-mobile": "1rem",
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "3rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "display-clock": ["Inter"],
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "title-md": ["Inter"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="h-full bg-background text-on-surface antialiased font-body-md text-body-md overflow-x-hidden">
+<div class="min-h-full flex flex-row">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed top-0 left-0 h-screen w-64 z-40 bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col justify-between p-4">
+<!-- Header / Logo -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2 pt-2">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold text-lg shadow-sm">
+<span class="material-symbols-outlined text-on-primary">schedule</span>
+</div>
+<div>
+<h1 class="text-title-lg font-title-lg text-primary font-bold tracking-tight">Checador PyME</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Administración de Turnos</p>
+</div>
+</div>
+<!-- CTA Incident -->
+<button class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-primary text-on-primary text-label-md font-label-md shadow-sm hover:bg-primary-container active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined text-sm">add_alert</span>
+<span>Registrar Incidencia</span>
+</button>
+<!-- Navigation Links -->
+<nav aria-label="Navegación principal" class="flex flex-col gap-1.5">
+<!-- 1. Tablero -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Tablero</span>
+</a>
+<!-- 2. En vivo -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span class="text-label-md font-label-md">En vivo</span>
+</a>
+<!-- 3. Empleados (ACTIVO PARA ESTA RUTA /empleados/:id) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-semibold rounded-lg shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">badge</span>
+<span class="text-label-md font-label-md">Empleados</span>
+</a>
+<!-- 4. Marcajes -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span class="text-label-md font-label-md">Marcajes</span>
+</a>
+<!-- 5. Reportes -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-label-md font-label-md">Reportes</span>
+</a>
+<!-- 6. Configuración -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer SideNav -->
+<div class="flex flex-col gap-1.5 pt-4 border-t border-outline-variant">
+<div class="px-3 py-2 bg-surface-container-low rounded-lg mb-2">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-label-sm font-label-sm font-semibold text-primary">Sincronización Kiosco OK</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-0.5">Norma Oficial NOM-037 / LFT</p>
+</div>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+<span class="text-label-md font-label-md">Soporte LFT</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span class="text-label-md font-label-md">Cerrar Sesión</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area with TopNav -->
+<div class="flex-1 ml-64 flex flex-col min-w-0">
+<!-- TopNavBar (Shared Component) -->
+<header class="sticky top-0 right-0 z-30 h-16 w-full bg-surface-container-lowest border-b border-outline-variant shadow-sm flex justify-between items-center px-6">
+<!-- Search & Branch Selector -->
+<div class="flex items-center gap-4 flex-1 max-w-xl">
+<!-- Branch Selector Pill -->
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low border border-outline-variant rounded-lg">
+<span class="material-symbols-outlined text-primary text-lg">store</span>
+<span class="text-title-md font-title-md font-bold text-on-surface whitespace-nowrap">Sucursal Matriz CDMX</span>
+<span class="material-symbols-outlined text-on-surface-variant text-base">expand_more</span>
+</div>
+<!-- Quick Search -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 bg-surface-container rounded-lg border border-transparent focus:border-primary-container focus:bg-surface-container-lowest text-body-md font-body-md placeholder:text-on-surface-variant/60 focus:outline-none transition-all" placeholder="Buscar colaborador, RFC, NSS o ID..." type="text" value="Carlos Eduardo Hernández Morales"/>
+</div>
+</div>
+<!-- Trailing Actions & Profile -->
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container text-label-md font-label-md transition-colors active:scale-95">
+<span class="material-symbols-outlined text-base">download</span>
+<span>Descargar Reporte</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary text-label-md font-label-md transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-base">schedule</span>
+<span>Registrar Marcaje</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<!-- Trailing Icon Actions -->
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-lg relative transition-colors" title="Notificaciones">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" title="Ayuda">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<!-- User Profile -->
+<div class="flex items-center gap-3 pl-2 border-l border-outline-variant">
+<div class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-semibold text-sm shadow-sm ring-1 ring-primary/20">
+              RM
+            </div>
+<div class="hidden xl:block text-left">
+<p class="text-label-md font-label-md text-on-surface leading-tight font-semibold">Lic. Roberto Morales</p>
+<p class="text-[11px] text-on-surface-variant leading-none">Admin RH · Matriz</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Scrollable Canvas -->
+<main class="flex-1 p-6 space-y-6 max-w-[1400px] w-full mx-auto">
+<!-- Breadcrumb & Back Action -->
+<div class="flex items-center justify-between">
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<a class="inline-flex items-center gap-1.5 text-primary hover:text-primary-container font-semibold transition-colors" href="#">
+<span class="material-symbols-outlined text-base">arrow_back</span>
+<span>Volver al directorio</span>
+</a>
+<span class="text-outline-variant">/</span>
+<span>Empleados</span>
+<span class="text-outline-variant">/</span>
+<span class="font-semibold text-on-surface">Carlos Eduardo Hernández Morales (#EMP-1042)</span>
+</nav>
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-emerald-700">verified_user</span>
+<span>Expediente auditado bajo Ley Federal del Trabajo (LFT 2024)</span>
+</div>
+</div>
+<!-- Encabezado de Perfil / Ficha del Empleado (Glassmorphic Bento Top Card) -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 relative overflow-hidden">
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-surface-container-low rounded-full opacity-60 pointer-events-none blur-2xl"></div>
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6 relative z-10">
+<!-- Left Info Cluster -->
+<div class="flex flex-col sm:flex-row items-start gap-5">
+<!-- Avatar with Live Status Indicator -->
+<div class="relative shrink-0">
+<img class="w-24 h-24 rounded-2xl object-cover ring-2 ring-primary/10 shadow-md" data-alt="A dignified close-up portrait of Carlos Eduardo, a 36-year-old skilled artisan Mexican master baker wearing a clean white bakery uniform and apron in a bright, modern commercial kitchen. The lighting is soft and natural with high-key clarity, showing authentic confidence and professionalism with warm skin tones and fine details. The backdrop reveals stainless steel bakery racks and warm ovens in soft focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-2hOjqKZqmHWvymCpQTdVQsimbWduyN5SbQ4EMRCI8hY9ni9uL07Hl4WgFVZjLfr0LORnysSXiZxLPGk1Wd64-EpbAIFIquGj3qnFX7QNBXkOivotCsntasyU7zJIoe6DMFbl_bx9elvIndDON5E8qtT-j1or48bRTzRVpXPe5w6r12ozTTxaBPTkWL-ueoei5UOHRGqRFP_Utsql0WDq0_5Zf4yAE9pHyMf4l6OxtoAMCiPSq-GM5ChXHmpRRPP6J2Q3Pug-bVfC"/>
+<span class="absolute -bottom-1 -right-1 flex h-4 w-4">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-600 ring-2 ring-surface-container-lowest"></span>
+</span>
+</div>
+<!-- Main Details & Tags -->
+<div class="space-y-2">
+<div class="flex flex-wrap items-center gap-2">
+<h1 class="text-headline-md font-headline-md text-on-surface tracking-tight">Carlos Eduardo Hernández Morales</h1>
+<span class="text-body-sm font-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-mono font-medium">#EMP-1042</span>
+</div>
+<!-- Status Badges System Guidance -->
+<div class="flex flex-wrap items-center gap-2 pt-0.5">
+<!-- Colaborador Activo -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-label-sm font-semibold bg-[#E8F5E9] text-[#2E7D32]">
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+                    Colaborador Activo
+                  </span>
+<!-- Contrato Indefinido -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-label-sm font-medium bg-surface-container text-primary">
+<span class="material-symbols-outlined text-xs">contract</span>
+                    Contrato Indefinido
+                  </span>
+<!-- Biometría Kiosco Facial -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-label-sm font-medium bg-[#E0F2F1] text-[#0F4C5C]">
+<span class="material-symbols-outlined text-xs">face</span>
+                    Biometría Facial Vinculada
+                  </span>
+<!-- Sindicalizado / Registro -->
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-label-sm font-medium bg-surface-container-low text-on-surface-variant border border-outline-variant/60">
+<span class="material-symbols-outlined text-xs">work</span>
+                    Planta Permanente
+                  </span>
+</div>
+<!-- Meta details chips -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-1.5 pt-2 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">local_fire_department</span>
+<span>Puesto: <strong class="text-on-surface font-semibold">Panadero Maestro</strong></span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">domain</span>
+<span>Área: <strong class="text-on-surface font-semibold">Producción / Hornos</strong></span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">location_on</span>
+<span>Plaza: <strong class="text-on-surface font-semibold">Sucursal Matriz CDMX</strong></span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">calendar_month</span>
+<span>Ingreso: <strong class="text-on-surface font-semibold">15 Mar 2021 (3a 7m)</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons Group Right -->
+<div class="flex flex-wrap lg:flex-nowrap items-center gap-2 self-start lg:self-auto shrink-0">
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface hover:bg-surface-container text-label-md font-label-md transition-all shadow-sm">
+<span class="material-symbols-outlined text-base">edit</span>
+<span>Editar Datos</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface hover:bg-surface-container text-label-md font-label-md transition-all shadow-sm" title="Expediente Laboral Digital">
+<span class="material-symbols-outlined text-base text-primary">picture_as_pdf</span>
+<span>Expediente PDF (LFT)</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary text-label-md font-label-md transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-base">edit_calendar</span>
+<span>Marcaje Manual / Incidencia</span>
+</button>
+<!-- Secondary Menu Dropdown Trigger -->
+<div class="relative">
+<button class="p-2 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface-variant transition-colors" title="Más opciones">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Fila de Identificadores Oficiales Fiscales / Seguridad Social (LFT, SAT, IMSS) -->
+<div class="mt-5 pt-4 border-t border-outline-variant/70 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">assured_workload</span>
+<div>
+<span class="block text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">RFC SAT</span>
+<span class="font-mono text-body-md font-body-md font-bold text-on-surface">HEMC880415-K34</span>
+</div>
+</div>
+<span class="inline-flex items-center text-xs text-emerald-700 bg-[#E8F5E9] p-1 rounded-full" title="Verificado ante SAT">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">fingerprint</span>
+<div>
+<span class="block text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">CURP RENAPO</span>
+<span class="font-mono text-body-md font-body-md font-bold text-on-surface">HEMC880415HDFRRD03</span>
+</div>
+</div>
+<span class="inline-flex items-center text-xs text-emerald-700 bg-[#E8F5E9] p-1 rounded-full" title="Clave Única Validada">
+<span class="material-symbols-outlined text-sm">check</span>
+</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">health_and_safety</span>
+<div>
+<span class="block text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">NSS IMSS</span>
+<span class="font-mono text-body-md font-body-md font-bold text-on-surface">3412-88-9012-3</span>
+</div>
+</div>
+<span class="text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">Riesgo Clase III</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-[#E0F2F1]/50 border border-secondary-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#0F4C5C] text-base">alarm</span>
+<div>
+<span class="block text-[11px] uppercase tracking-wider text-[#0F4C5C] font-semibold">Turno Habitual</span>
+<span class="text-body-md font-body-md font-bold text-[#0F4C5C]">Matutino Horno (05:30 - 13:30)</span>
+</div>
+</div>
+<span class="text-[10px] font-semibold text-[#0F4C5C] bg-white/80 px-2 py-0.5 rounded border border-[#0F4C5C]/20">8h Diaria</span>
+</div>
+</div>
+</section>
+<!-- Tab System Horizontal Navigation -->
+<div class="border-b border-outline-variant">
+<div class="flex space-x-2 overflow-x-auto no-scrollbar">
+<!-- Tab 1: Activa -->
+<button class="flex items-center gap-2 py-3 px-4 text-label-lg font-label-lg text-primary border-b-2 border-primary font-bold whitespace-nowrap bg-surface-container-lowest/50 rounded-t-lg">
+<span class="material-symbols-outlined text-base">overview</span>
+<span>Resumen</span>
+</button>
+<button class="flex items-center gap-2 py-3 px-4 text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors whitespace-nowrap rounded-t-lg">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span>Asistencia y Calendario</span>
+</button>
+<button class="flex items-center gap-2 py-3 px-4 text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors whitespace-nowrap rounded-t-lg">
+<span class="material-symbols-outlined text-base">nest_clock_farsight_analog</span>
+<span>Marcajes Recientes</span>
+</button>
+<button class="flex items-center gap-2 py-3 px-4 text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors whitespace-nowrap rounded-t-lg">
+<span class="material-symbols-outlined text-base">pending_actions</span>
+<span>Solicitudes e Incidencias</span>
+<span class="w-5 h-5 rounded-full bg-secondary-container text-on-secondary-container text-[11px] font-bold flex items-center justify-center">3</span>
+</button>
+<button class="flex items-center gap-2 py-3 px-4 text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors whitespace-nowrap rounded-t-lg">
+<span class="material-symbols-outlined text-base">folder_shared</span>
+<span>Expediente y Documentos LFT</span>
+</button>
+<button class="flex items-center gap-2 py-3 px-4 text-label-lg font-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors whitespace-nowrap rounded-t-lg">
+<span class="material-symbols-outlined text-base">tune</span>
+<span>Campos Personalizados</span>
+</button>
+</div>
+</div>
+<!-- KPI Banner Quincena Actual (Quincena 19 en curso) -->
+<section aria-label="KPIs del Periodo Quincenal" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Horas Trabajadas (Q19)</span>
+<span class="p-1.5 rounded-lg bg-surface-container text-primary">
+<span class="material-symbols-outlined text-lg">timer</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">76.5 <span class="text-body-md font-body-md text-on-surface-variant font-normal">/ 80.0 hrs</span></span>
+<span class="text-label-sm font-label-sm font-semibold text-primary-container">95.6%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-primary-container h-2 rounded-full" style="width: 95.6%"></div>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-2">Faltan 3.5 hrs para completar meta de ciclo</p>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Índice de Puntualidad</span>
+<span class="p-1.5 rounded-lg bg-[#E8F5E9] text-[#2E7D32]">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-bold text-[#2E7D32]">94.2%</span>
+<span class="text-label-sm font-label-sm text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.5 rounded font-semibold">+1.8% vs Q18</span>
+</div>
+<div class="flex items-center gap-1.5 mt-2 text-[11px] text-on-surface-variant">
+<span class="font-semibold text-on-surface">12 a tiempo</span>
+<span>·</span>
+<span class="text-amber-700 font-medium">1 retardo leve (8 min justificado)</span>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-2 border-t border-outline-variant/40 pt-1.5">0 faltas injustificadas en el año</p>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Vacaciones Dignas (LFT)</span>
+<span class="p-1.5 rounded-lg bg-surface-container text-[#0F4C5C]">
+<span class="material-symbols-outlined text-lg">beach_access</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">12 <span class="text-body-md font-body-md text-on-surface-variant font-normal">días disp.</span></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">4 tomados</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 mt-2 overflow-hidden flex">
+<div class="bg-emerald-600 h-2" style="width: 75%" title="12 días disponibles"></div>
+<div class="bg-surface-variant h-2" style="width: 25%" title="4 días disfrutados"></div>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-2">Vigencia LFT: 15 Dic 2024</p>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Horas Extras Acumuladas</span>
+<span class="p-1.5 rounded-lg bg-amber-50 text-amber-800">
+<span class="material-symbols-outlined text-lg">more_time</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">+3.5 <span class="text-body-md font-body-md text-on-surface-variant font-normal">hrs</span></span>
+<span class="text-label-sm font-label-sm text-emerald-800 bg-[#E8F5E9] px-2 py-0.5 rounded font-semibold">2.0h Dobles Aut.</span>
+</div>
+<div class="flex items-center gap-1.5 mt-2 text-[11px] text-amber-700">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>1.5 hrs en revisión por supervisor</span>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-2 border-t border-outline-variant/40 pt-1.5">Pago programado en nómina 15/10</p>
+</div>
+</section>
+<!-- Two Columns Layout: Left Grid (Calendario Asistencia) + Right Side Panel (Marcajes & Docs) -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Left Main Area (2 Columns Span) -->
+<section class="xl:col-span-2 space-y-6">
+<!-- Calendario de Asistencia Mensual -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-outline-variant/60">
+<div>
+<h2 class="text-title-lg font-title-lg font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">event_available</span>
+                    Registro Mensual de Asistencia y Turnos
+                  </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Ciclo Quincenal 19 · Horno Matutino (Lunes a Sábado con descanso dominical)</p>
+</div>
+<!-- Month Selector & Controls -->
+<div class="flex items-center gap-2">
+<div class="flex items-center bg-surface-container rounded-lg p-1">
+<button class="p-1 rounded hover:bg-surface-container-lowest text-on-surface transition-colors" title="Mes anterior">
+<span class="material-symbols-outlined text-base">chevron_left</span>
+</button>
+<span class="px-3 text-label-md font-label-md font-bold text-on-surface">Octubre 2024</span>
+<button class="p-1 rounded hover:bg-surface-container-lowest text-on-surface transition-colors" title="Mes siguiente">
+<span class="material-symbols-outlined text-base">chevron_right</span>
+</button>
+</div>
+<button class="px-2.5 py-1.5 border border-outline-variant rounded-lg text-label-sm font-label-sm text-on-surface hover:bg-surface-container transition-colors">
+                    Hoy
+                  </button>
+</div>
+</div>
+<!-- Color Legend Chips -->
+<div class="flex flex-wrap items-center gap-3 py-3 text-[11px] font-medium text-on-surface-variant border-b border-outline-variant/40">
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#2E7D32]"></span>
+                  A tiempo
+                </span>
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#F2A541]"></span>
+                  Retardo tolerado / justificado
+                </span>
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#C62828]"></span>
+                  Falta / Ausencia
+                </span>
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#0F4C5C]"></span>
+                  Descanso semanal
+                </span>
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                  Vacaciones / Incapacidad IMSS
+                </span>
+</div>
+<!-- Calendar Weekday Headers -->
+<div class="grid grid-cols-7 gap-2 pt-4 text-center">
+<span class="text-label-sm font-label-sm font-bold text-on-surface-variant py-1">LUN</span>
+<span class="text-label-sm font-label-sm font-bold text-on-surface-variant py-1">MAR</span>
+<span class="text-label-sm font-label-sm font-bold text-on-surface-variant py-1">MIÉ</span>
+<span class="text-label-sm font-label-sm font-bold text-on-surface-variant py-1">JUE</span>
+<span class="text-label-sm font-label-sm font-bold text-on-surface-variant py-1">VIE</span>
+<span class="text-label-sm font-label-sm font-bold text-on-surface-variant py-1">SÁB</span>
+<span class="text-label-sm font-label-sm font-bold text-primary py-1">DOM</span>
+</div>
+<!-- Calendar Grid Matrix (Sample from Oct 7 to Oct 20) -->
+<div class="grid grid-cols-7 gap-2 pt-2">
+<!-- Lun 07 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest hover:border-primary transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-md font-label-md font-bold text-on-surface">07</span>
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+</div>
+<div class="text-[10px] space-y-0.5">
+<p class="font-mono text-emerald-800 font-semibold">05:26 - 13:30</p>
+<p class="text-on-surface-variant">8.0 hrs · Kiosco</p>
+<span class="inline-block px-1 rounded bg-[#E8F5E9] text-[#2E7D32] text-[9px] font-bold">A tiempo</span>
+</div>
+</div>
+<!-- Mar 08 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest hover:border-primary transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-md font-label-md font-bold text-on-surface">08</span>
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+</div>
+<div class="text-[10px] space-y-0.5">
+<p class="font-mono text-emerald-800 font-semibold">05:29 - 13:32</p>
+<p class="text-on-surface-variant">8.0 hrs · Kiosco</p>
+<span class="inline-block px-1 rounded bg-[#E8F5E9] text-[#2E7D32] text-[9px] font-bold">A tiempo</span>
+</div>
+</div>
+<!-- Mie 09 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest hover:border-primary transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-md font-label-md font-bold text-on-surface">09</span>
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+</div>
+<div class="text-[10px] space-y-0.5">
+<p class="font-mono text-emerald-800 font-semibold">05:25 - 15:30</p>
+<p class="text-primary-container font-semibold">+2h Extra Aut.</p>
+<span class="inline-block px-1 rounded bg-[#E8F5E9] text-[#2E7D32] text-[9px] font-bold">A tiempo + HE</span>
+</div>
+</div>
+<!-- Jue 10 -->
+<div class="p-2.5 rounded-lg border border-amber-300 bg-amber-50/40 hover:border-amber-500 transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-md font-label-md font-bold text-on-surface">10</span>
+<span class="w-2 h-2 rounded-full bg-[#F2A541]"></span>
+</div>
+<div class="text-[10px] space-y-0.5">
+<p class="font-mono text-amber-900 font-semibold">05:38 - 13:35</p>
+<p class="text-amber-800">+8m Tráfico L-1</p>
+<span class="inline-block px-1 rounded bg-[#FFF8E1] text-[#B78103] text-[9px] font-bold">Retardo Tolerado</span>
+</div>
+</div>
+<!-- Vie 11 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest hover:border-primary transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-md font-label-md font-bold text-on-surface">11</span>
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+</div>
+<div class="text-[10px] space-y-0.5">
+<p class="font-mono text-emerald-800 font-semibold">05:28 - 13:31</p>
+<p class="text-on-surface-variant">8.0 hrs · Kiosco</p>
+<span class="inline-block px-1 rounded bg-[#E8F5E9] text-[#2E7D32] text-[9px] font-bold">A tiempo</span>
+</div>
+</div>
+<!-- Sab 12 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest hover:border-primary transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-md font-label-md font-bold text-on-surface">12</span>
+<span class="w-2 h-2 rounded-full bg-[#2E7D32]"></span>
+</div>
+<div class="text-[10px] space-y-0.5">
+<p class="font-mono text-emerald-800 font-semibold">05:27 - 13:30</p>
+<p class="text-on-surface-variant">8.0 hrs · Kiosco</p>
+<span class="inline-block px-1 rounded bg-[#E8F5E9] text-[#2E7D32] text-[9px] font-bold">A tiempo</span>
+</div>
+</div>
+<!-- Dom 13 (Descanso) -->
+<div class="p-2.5 rounded-lg border border-dashed border-outline-variant bg-surface-container-low text-center">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-md font-label-md font-bold text-on-surface-variant">13</span>
+<span class="w-2 h-2 rounded-full bg-[#0F4C5C]"></span>
+</div>
+<div class="text-[10px] pt-2">
+<span class="inline-block px-1.5 py-0.5 rounded bg-surface-container text-[#0F4C5C] font-semibold text-[9px]">Descanso Semanal</span>
+</div>
+</div>
+<!-- Lun 14 (HOY) -->
+<div class="p-2.5 rounded-lg border-2 border-primary-container bg-surface-container-low shadow-sm">
+<div class="flex justify-between items-center mb-1">
+<div class="flex items-center gap-1">
+<span class="text-label-md font-label-md font-bold text-primary">14</span>
+<span class="text-[9px] bg-primary text-on-primary px-1 rounded font-bold uppercase">Hoy</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
+</div>
+<div class="text-[10px] space-y-0.5">
+<p class="font-mono text-emerald-800 font-semibold">05:28 - --:--</p>
+<p class="text-[#0F4C5C] font-semibold">Turno activo (5h transcurridas)</p>
+<span class="inline-block px-1 rounded bg-[#E0F2F1] text-[#0F4C5C] text-[9px] font-bold">En turno actual</span>
+</div>
+</div>
+<!-- Mar 15 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/40 bg-white/60">
+<span class="text-label-md font-label-md font-semibold text-on-surface-variant/70">15</span>
+<p class="text-[9px] text-on-surface-variant mt-2">Cierre Q19</p>
+</div>
+<!-- Mie 16 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/40 bg-white/60">
+<span class="text-label-md font-label-md font-semibold text-on-surface-variant/70">16</span>
+<p class="text-[9px] text-on-surface-variant mt-2">Programado 05:30</p>
+</div>
+<!-- Jue 17 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/40 bg-white/60">
+<span class="text-label-md font-label-md font-semibold text-on-surface-variant/70">17</span>
+<p class="text-[9px] text-on-surface-variant mt-2">Programado 05:30</p>
+</div>
+<!-- Vie 18 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/40 bg-white/60">
+<span class="text-label-md font-label-md font-semibold text-on-surface-variant/70">18</span>
+<p class="text-[9px] text-on-surface-variant mt-2">Programado 05:30</p>
+</div>
+<!-- Sab 19 -->
+<div class="p-2.5 rounded-lg border border-outline-variant/40 bg-white/60">
+<span class="text-label-md font-label-md font-semibold text-on-surface-variant/70">19</span>
+<p class="text-[9px] text-on-surface-variant mt-2">Programado 05:30</p>
+</div>
+<!-- Dom 20 -->
+<div class="p-2.5 rounded-lg border border-dashed border-outline-variant/40 bg-surface-container-low/50 text-center">
+<span class="text-label-md font-label-md font-semibold text-on-surface-variant/70">20</span>
+<p class="text-[9px] text-on-surface-variant mt-2">Descanso</p>
+</div>
+</div>
+</div>
+<!-- Incidencias Recientes y Justificaciones -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-5">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/50">
+<h3 class="text-title-md font-title-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">report_problem</span>
+                  Bitácora de Justificaciones e Incidencias (Últimos 30 días)
+                </h3>
+<span class="text-label-sm font-label-sm text-on-surface-variant">1 incidente registrado</span>
+</div>
+<div class="mt-4 space-y-3">
+<div class="flex items-start justify-between p-3.5 rounded-lg bg-surface-container-low border border-outline-variant/60">
+<div class="flex items-start gap-3">
+<span class="p-2 rounded-lg bg-[#FFF8E1] text-[#B78103] mt-0.5">
+<span class="material-symbols-outlined text-lg">alarm_on</span>
+</span>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md font-bold text-on-surface">Retardo de 8 minutos (Entrada 05:38 hrs)</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E8F5E9] text-[#2E7D32]">Justificado por Supervisor</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+                        Motivo: Retraso en transbordo Metro Línea 1 (Pantitlán - Observatorio). Constancia colectiva de STC presentada.
+                      </p>
+<div class="flex items-center gap-4 mt-2 text-[11px] text-on-surface-variant">
+<span>Fecha: <strong>10 Oct 2024</strong></span>
+<span>Autorizó: <strong>Ing. Marcos V. (Jefe de Turno)</strong></span>
+<span>Afectación a sueldo: <strong>$0.00 MXN</strong></span>
+</div>
+</div>
+</div>
+<button class="px-2.5 py-1 text-xs font-semibold text-primary hover:bg-surface-container rounded transition-colors">
+                    Ver comprobante
+                  </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar Panel (1 Column Span: Marcajes + Custom Fields + Compliance) -->
+<aside class="space-y-6">
+<!-- Últimos Marcajes Registrados (Kiosco Facial / GPS) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-5">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<h3 class="text-title-md font-title-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">nest_clock_farsight_analog</span>
+                  Marcajes en Tiempo Real
+                </h3>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="Dispositivo Conectado"></span>
+</div>
+<div class="mt-4 space-y-4">
+<!-- Marcaje 1: Hoy Entrada -->
+<div class="p-3 rounded-lg border border-outline-variant/80 bg-surface-container-low flex items-start gap-3">
+<div class="relative shrink-0">
+<img class="w-12 h-12 rounded-lg object-cover ring-1 ring-emerald-500 shadow-sm" data-alt="Small biometric verification capture photo of Mexican bakery worker Carlos Eduardo looking straight into a terminal kiosk camera with smiling confidence in high-definition lighting, confirming real-time identity pass." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDome6_tBgnUVQyqgEcuCLdyWw2nMM0n4P-ZR7iBe5GIC-A0wg6eoz1Gd5XPBFjOnS2uaw1Hy19qvOPCyNJMqYHTVc2ZDX7cythz1EKdvMGGiKPlT1MtgYPSTjbsxYxZ2fMICisj9p73BFL6LFvjj36Pszgb9gQpBmY07GKT8p2PKmRy7cweKIKPxJIyry-d9hYGH8CPQYl3sbybqJ9syxJs6WYA-vEzSwGXbM--xGBCS1s2C8DEsm4km7v-IS1vyMWiAYbGiV3KHnh"/>
+<span class="absolute -bottom-1 -right-1 bg-emerald-600 text-white rounded-full p-0.5 text-[10px]">
+<span class="material-symbols-outlined text-xs">face</span>
+</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-bold text-emerald-800">ENTRADA REGISTRADA</span>
+<span class="font-mono text-title-md font-bold text-on-surface">05:28:14</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate">Kiosco #01 · Puerta Hornos</p>
+<div class="flex items-center gap-2 mt-1 text-[11px] text-on-surface-variant font-mono">
+<span class="text-emerald-700 font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">pin_drop</span> Geocerca 4m (OK)
+                      </span>
+<span>· Confianza 99.8%</span>
+</div>
+</div>
+</div>
+<!-- Marcaje 2: Ayer Salida -->
+<div class="p-3 rounded-lg border border-outline-variant/50 bg-surface-container-lowest flex items-start gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-2xl">exit_to_app</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-semibold text-on-surface">SALIDA TURNO</span>
+<span class="font-mono text-body-md font-bold text-on-surface">13:31:02</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate">Sábado 12 Oct · Kiosco #01</p>
+<p class="text-[10px] text-on-surface-variant font-mono mt-0.5">Hash: 8f4c2e...b9a1 (Auditado LFT)</p>
+</div>
+</div>
+<!-- Marcaje 3: Ayer Entrada -->
+<div class="p-3 rounded-lg border border-outline-variant/50 bg-surface-container-lowest flex items-start gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-2xl">login</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md font-semibold text-on-surface">ENTRADA TURNO</span>
+<span class="font-mono text-body-md font-bold text-on-surface">05:27:40</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate">Sábado 12 Oct · Kiosco #01</p>
+<p class="text-[10px] text-on-surface-variant font-mono mt-0.5">Geocerca OK (Validado por Kiosco)</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-center text-label-md font-label-md text-primary font-semibold hover:bg-surface-container rounded-lg border border-outline-variant/60 transition-colors">
+                Ver historial completo de marcajes (142)
+              </button>
+</div>
+<!-- Campos Personalizados de Empresa (Bento Item) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-5">
+<h3 class="text-title-md font-title-md font-bold text-on-surface flex items-center gap-2 pb-3 border-b border-outline-variant/60">
+<span class="material-symbols-outlined text-primary">assignment_ind</span>
+                Campos de Empresa &amp; Dotación
+              </h3>
+<div class="mt-4 space-y-3 text-body-sm font-body-sm">
+<div class="flex items-center justify-between py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Talla Uniforme / EPP:</span>
+<span class="font-semibold text-on-surface bg-surface-container px-2 py-0.5 rounded">Talla M · Cofia · Bota #27 (Casquillo)</span>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Alergias / Restricciones:</span>
+<span class="font-semibold text-emerald-800">Ninguna declarada</span>
+</div>
+<div class="flex flex-col py-1.5 border-b border-outline-variant/40">
+<span class="text-on-surface-variant text-[11px]">Contacto de Emergencia:</span>
+<span class="font-semibold text-on-surface">María Elena Morales (Esposa)</span>
+<span class="text-primary font-mono text-xs mt-0.5">55 9876 5432 · Llamada prioritaria</span>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant">Casillero Asignado:</span>
+<span class="font-mono font-bold text-on-surface bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant/40">#C-14 (Vestidor Caballeros)</span>
+</div>
+</div>
+</div>
+<!-- Cumplimiento Laboral LFT y Documentos Clave -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-5">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/60">
+<h3 class="text-title-md font-title-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+                  Cumplimiento Laboral LFT
+                </h3>
+<span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">100% Completo</span>
+</div>
+<ul class="mt-4 space-y-2.5">
+<li class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors text-body-sm font-body-sm">
+<div class="flex items-center gap-2.5 truncate">
+<span class="material-symbols-outlined text-primary text-base">description</span>
+<span class="truncate font-medium text-on-surface">Contrato Indefinido Firmado</span>
+</div>
+<span class="text-emerald-700 text-xs font-semibold shrink-0">Vigente</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors text-body-sm font-body-sm">
+<div class="flex items-center gap-2.5 truncate">
+<span class="material-symbols-outlined text-primary text-base">fact_check</span>
+<span class="truncate font-medium text-on-surface">Constancia SAT (CSF 2024)</span>
+</div>
+<span class="text-emerald-700 text-xs font-semibold shrink-0">Validado</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors text-body-sm font-body-sm">
+<div class="flex items-center gap-2.5 truncate">
+<span class="material-symbols-outlined text-primary text-base">badge</span>
+<span class="truncate font-medium text-on-surface">Alta IMSS (Formato Afil-02)</span>
+</div>
+<span class="text-emerald-700 text-xs font-semibold shrink-0">Activo</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors text-body-sm font-body-sm">
+<div class="flex items-center gap-2.5 truncate">
+<span class="material-symbols-outlined text-primary text-base">medical_services</span>
+<span class="truncate font-medium text-on-surface">Cert. Manejo de Alimentos</span>
+</div>
+<span class="text-amber-800 text-[11px] font-medium shrink-0">Renueva Feb 2025</span>
+</li>
+</ul>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between text-[11px] text-on-surface-variant">
+<span>Última auditoría interna: 01 Oct 2024</span>
+<a class="text-primary font-bold hover:underline" href="#">Ver repositorio</a>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer Corporativo Simple -->
+<footer class="mt-12 py-4 px-8 border-t border-outline-variant bg-surface-container-lowest text-on-surface-variant text-body-sm font-body-sm flex flex-col sm:flex-row items-center justify-between gap-2">
+<p>© 2024 Checador PyME México · Conforme a las reformas de la Ley Federal del Trabajo y lineamientos STPS / NOM-037.</p>
+<div class="flex items-center gap-4 text-xs">
+<span>Servidores Seguros CDMX</span>
+<span>·</span>
+<span>Soporte Nómina: 800-CHECADOR</span>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es-MX"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Acceso Seguro por OTP | Checador</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#3a6977",
+            "secondary": "#356572",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#baeafa",
+            "on-primary-fixed": "#001f28",
+            "on-primary-fixed-variant": "#114d5d",
+            "tertiary-fixed": "#ffddb9",
+            "surface-container": "#e7eeff",
+            "error": "#ba1a1a",
+            "secondary-container": "#b7e7f7",
+            "on-primary-container": "#87bbce",
+            "primary-fixed": "#b6ebfe",
+            "surface-bright": "#f9f9ff",
+            "inverse-on-surface": "#ecf1ff",
+            "secondary-fixed-dim": "#9ecedd",
+            "surface-dim": "#cfdaf2",
+            "on-tertiary-fixed-variant": "#663e00",
+            "surface": "#f9f9ff",
+            "inverse-primary": "#9acee1",
+            "tertiary-container": "#653d00",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-highest": "#d8e3fb",
+            "surface-variant": "#d8e3fb",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#dee8ff",
+            "on-surface": "#111c2d",
+            "tertiary": "#462900",
+            "on-error": "#ffffff",
+            "primary": "#003441",
+            "on-primary": "#ffffff",
+            "outline": "#70787c",
+            "inverse-surface": "#263143",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed": "#2b1700",
+            "background": "#f9f9ff",
+            "surface-container-low": "#f0f3ff",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed": "#001f27",
+            "primary-container": "#0f4c5c",
+            "on-surface-variant": "#40484b",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-tertiary-container": "#f1a440",
+            "outline-variant": "#c0c8cb",
+            "surface-tint": "#306576",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-background": "#111c2d",
+            "primary-fixed-dim": "#9acee1"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-2xl": "3rem",
+            "margin-mobile": "1rem",
+            "gutter": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "display-clock-mobile": ["Inter"],
+            "body-sm": ["Inter"],
+            "title-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "display-clock": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 1s infinite;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-full bg-background text-on-surface antialiased flex flex-col items-center justify-start selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Mobile Viewport Canvas Container (390px default bounds, responsive to larger displays) -->
+<div class="w-full max-w-md min-h-screen bg-surface-container-lowest flex flex-col shadow-xl border-x border-outline-variant/30 relative">
+<!-- Top Navigation Header (Suppressed Global BottomNavBar per Linear/Transactional Login Rule) -->
+<header class="w-full bg-surface-container-lowest px-margin-mobile pt- space-md pb-space-sm flex items-center justify-between border-b border-outline-variant/20 sticky top-0 z-30">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">schedule</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-lg text-title-lg font-bold text-primary tracking-tight">Checador</span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-semibold tracking-wide">
+<span class="material-symbols-outlined text-[12px] fill">verified</span>
+              PyME
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">lock</span>
+            Acceso Seguro
+          </p>
+</div>
+</div>
+<!-- Ayuda / Soporte Button -->
+<a class="min-h-[48px] min-w-[48px] flex items-center justify-center px-space-sm py-space-xs rounded-full hover:bg-surface-container transition-colors text-secondary font-label-md text-label-md font-semibold gap-1" href="#ayuda">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+<span>Ayuda</span>
+</a>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 px-margin-mobile pt-space-lg pb-space-xl flex flex-col justify-between">
+<div>
+<!-- Step / Mode Toggle Simulation Tabs (Interactivo para demostrar ambas fases) -->
+<div class="bg-surface-container-low p-1 rounded-xl mb-space-lg flex items-center border border-outline-variant/30">
+<button class="flex-1 min-h-[40px] flex items-center justify-center gap-1.5 rounded-lg py-2 text-label-md font-label-md font-semibold transition-all duration-200 bg-white shadow-sm text-primary" id="tab-step1" onclick="switchStep(1)">
+<span class="w-5 h-5 rounded-full bg-primary-container text-white text-[11px] flex items-center justify-center font-bold">1</span>
+<span>Ingresar Teléfono</span>
+</button>
+<button class="flex-1 min-h-[40px] flex items-center justify-center gap-1.5 rounded-lg py-2 text-label-md font-label-md font-medium transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-step2" onclick="switchStep(2)">
+<span class="w-5 h-5 rounded-full bg-outline-variant/50 text-on-surface-variant text-[11px] flex items-center justify-center font-bold" id="badge-step2">2</span>
+<span>Verificar Código</span>
+</button>
+</div>
+<!-- ============================================== -->
+<!-- VIEW 1: ENTRADA DE NÚMERO TELEFÓNICO (FASE 1) -->
+<!-- ============================================== -->
+<div class="transition-opacity duration-300" id="view-step-1">
+<!-- Hero Section Title -->
+<div class="mb-space-lg">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-secondary text-label-sm font-label-sm font-medium mb- space-sm">
+<span class="material-symbols-outlined text-[14px]">key_off</span>
+              Autenticación sin contraseñas
+            </div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tight">
+              Ingresa a tu Checador
+            </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5 leading-relaxed">
+              Sin contraseñas difíciles. Te enviamos un código de acceso inmediato directo a tu celular de trabajo.
+            </p>
+</div>
+<!-- Input Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md border border-outline-variant/40 shadow-sm mb-space-lg">
+<label class="block font-label-lg text-label-lg text-on-surface mb-2">
+              Número de teléfono celular
+            </label>
+<!-- Phone input container with MX Flag and 48px touch target minimum -->
+<div class="relative flex items-center rounded-lg border border-outline-variant focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/20 transition-all bg-white overflow-hidden h-14">
+<!-- Mexico Prefix selector -->
+<div class="h-full px-3.5 bg-surface-container-low border-r border-outline-variant/40 flex items-center gap-2 select-none">
+<!-- SVG Mexico Flag -->
+<svg class="w-5 h-3.5 rounded-sm shadow-xs object-cover" fill="none" viewbox="0 0 30 21" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#006847" height="21" width="10"></rect>
+<rect fill="#FFFFFF" height="21" width="10" x="10"></rect>
+<rect fill="#CE1126" height="21" width="10" x="20"></rect>
+<circle cx="15" cy="10.5" fill="#886A2B" r="2"></circle>
+</svg>
+<span class="font-title-md text-title-md font-semibold text-on-surface">+52</span>
+<span class="material-symbols-outlined text-[18px] text-outline">arrow_drop_down</span>
+</div>
+<div class="relative flex-1 h-full flex items-center px-3">
+<span class="material-symbols-outlined text-[20px] text-outline mr-2">phone_android</span>
+<input class="w-full h-full bg-transparent border-0 p-0 text-title-lg font-title-lg font-medium text-on-surface focus:ring-0 placeholder:text-outline-variant tracking-wider" id="phone-input" maxlength="12" placeholder="55 0000 0000" type="tel" value="55 1234 5678"/>
+<button class="p-2 text-outline hover:text-on-surface transition-colors" onclick="document.getElementById('phone-input').value=''; document.getElementById('phone-input').focus();" title="Borrar número" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</div>
+<!-- Context Hint / Quick Note -->
+<div class="mt-3 flex items-start gap-2 text-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32] fill mt-0.5">check_circle</span>
+<span>Lada nacional a 10 dígitos asociada a tu expediente de nómina.</span>
+</div>
+</div>
+<!-- CTAs Section -->
+<div class="space-y-space-sm mb-space-lg">
+<!-- WhatsApp Action (Primary 52px high) -->
+<button class="w-full min-h-[52px] h-[52px] rounded-xl bg-[#0F4C5C] hover:bg-primary text-white font-title-md text-title-md font-semibold flex items-center justify-center gap-2.5 shadow-md active:scale-[0.99] transition-all" onclick="switchStep(2)" type="button">
+<span class="material-symbols-outlined text-[22px] fill">chat</span>
+<span>Enviarme código por WhatsApp</span>
+</button>
+<!-- SMS Alternative (Secundario táctil de 48px) -->
+<button class="w-full min-h-[48px] rounded-xl border border-outline-variant bg-white hover:bg-surface-container-low text-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 transition-colors active:scale-[0.99]" onclick="switchStep(2)" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary">sms</span>
+<span>Enviar por SMS tradicional</span>
+</button>
+</div>
+<!-- Email Option Link -->
+<div class="text-center py-space-xs">
+<button class="inline-flex items-center gap-1.5 font-label-md text-label-md text-secondary hover:text-primary font-medium hover:underline py-2" type="button">
+<span class="material-symbols-outlined text-[18px]">alternate_email</span>
+<span>¿Prefieres usar tu correo corporativo? Usar email</span>
+</button>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- VIEW 2: VERIFICACIÓN DE CÓDIGO OTP (FASE 2)   -->
+<!-- ============================================== -->
+<div class="hidden transition-opacity duration-300" id="view-step-2">
+<!-- Verification Header -->
+<div class="mb-space-lg">
+<button class="inline-flex items-center gap-1 text-label-md text-label-md text-secondary font-medium mb-3 hover:text-primary min-h-[36px]" onclick="switchStep(1)" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Volver a cambiar número</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tight">
+              Ingresa el código
+            </h1>
+<!-- Recipient Badge & Edit Option -->
+<div class="mt-2 p-2.5 bg-surface-container-low rounded-lg flex items-center justify-between border border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#2E7D32] text-[20px] fill">mark_chat_read</span>
+<p class="font-body-md text-body-md text-on-surface">
+                  Enviado a <span class="font-semibold text-primary">+52 55 •••• 5678</span>
+</p>
+</div>
+<button class="min-h-[40px] px-2.5 flex items-center gap-1 text-label-sm font-label-sm font-semibold text-secondary hover:underline" onclick="switchStep(1)">
+<span class="material-symbols-outlined text-[15px]">edit</span>
+<span>Editar</span>
+</button>
+</div>
+</div>
+<!-- OTP Input Boxes (6 casillas de 48x54px con números y cursor activo) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md border border-outline-variant/40 shadow-sm mb-space-lg">
+<label class="block font-label-md text-label-md text-on-surface-variant text-center mb-3">
+              Escribe los 6 dígitos recibidos
+            </label>
+<!-- 6 Boxes Layout -->
+<div class="grid grid-cols-6 gap-2 max-w-[340px] mx-auto justify-center">
+<!-- Box 1 (Filled) -->
+<div class="h-[54px] rounded-lg border-2 border-primary-container bg-surface-container-low flex items-center justify-center font-display-clock-mobile text-[24px] font-bold text-primary shadow-xs">
+                7
+              </div>
+<!-- Box 2 (Filled) -->
+<div class="h-[54px] rounded-lg border-2 border-primary-container bg-surface-container-low flex items-center justify-center font-display-clock-mobile text-[24px] font-bold text-primary shadow-xs">
+                4
+              </div>
+<!-- Box 3 (Filled) -->
+<div class="h-[54px] rounded-lg border-2 border-primary-container bg-surface-container-low flex items-center justify-center font-display-clock-mobile text-[24px] font-bold text-primary shadow-xs">
+                2
+              </div>
+<!-- Box 4 (Active / With Cursor) -->
+<div class="h-[54px] rounded-lg border-2 border-primary ring-2 ring-primary/20 bg-white flex items-center justify-center font-display-clock-mobile text-[24px] font-bold text-primary relative">
+<span class="w-0.5 h-6 bg-primary-container cursor-blink"></span>
+</div>
+<!-- Box 5 (Empty) -->
+<div class="h-[54px] rounded-lg border border-outline-variant bg-surface-bright flex items-center justify-center font-display-clock-mobile text-[24px] font-medium text-outline">
+                ·
+              </div>
+<!-- Box 6 (Empty) -->
+<div class="h-[54px] rounded-lg border border-outline-variant bg-surface-bright flex items-center justify-center font-display-clock-mobile text-[24px] font-medium text-outline">
+                ·
+              </div>
+</div>
+<!-- Resend Countdown Timer Banner -->
+<div class="mt-5 pt-4 border-t border-outline-variant/20 flex flex-col items-center">
+<div class="flex items-center gap-1.5 text-label-md text-label-md text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">timer</span>
+<span>Reenviar código en:</span>
+<span class="font-bold text-tertiary-container bg-[#FFF8E1] px-2 py-0.5 rounded text-label-md" id="countdown">00:48</span>
+</div>
+<!-- Reenviar buttons -->
+<div class="flex items-center gap-3 mt-3">
+<button class="min-h-[44px] px-3 rounded-full text-label-sm font-label-sm font-semibold text-outline bg-surface-container-low cursor-not-allowed" disabled="" type="button">
+                  Reenviar por WhatsApp
+                </button>
+<button class="min-h-[44px] px-3 rounded-full text-label-sm font-label-sm font-semibold text-secondary hover:bg-surface-container transition-colors" type="button">
+                  Enviar por SMS
+                </button>
+</div>
+</div>
+</div>
+<!-- Verify Action Button -->
+<div class="space-y-3 mb-space-lg">
+<button class="w-full min-h-[52px] h-[52px] rounded-xl bg-primary-container hover:bg-primary text-white font-title-md text-title-md font-semibold flex items-center justify-center gap-2 shadow-md active:scale-[0.99] transition-all" onclick="showDemoSuccess()" type="button">
+<span>Verificar y Entrar</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<!-- Status / Troubleshooting hint -->
+<div class="bg-[#FFF8E1] border border-[#F2A541]/40 rounded-xl p-3 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[#B78103] text-[20px] shrink-0 mt-0.5 fill">info</span>
+<p class="font-body-sm text-body-sm text-[#462900]">
+<span class="font-semibold">¿No llega tu mensaje?</span> Asegúrate de tener señal o revisa que tu número registrado ante Recursos Humanos esté actualizado.
+            </p>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- PIE DE CONFIANZA Y SEGURIDAD PYME (MEXICO)     -->
+<!-- ============================================== -->
+<footer class="mt-space-xl pt-space-md border-t border-outline-variant/30">
+<!-- Trust badge grid -->
+<div class="grid grid-cols-2 gap-2 mb-4">
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low border border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px] text-[#2E7D32] fill">security</span>
+<div class="text-[11px] leading-tight">
+<span class="font-semibold text-on-surface block">Cifrado Bancario</span>
+<span class="text-on-surface-variant">Conexión SSL/TLS</span>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low border border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px] text-secondary fill">verified_user</span>
+<div class="text-[11px] leading-tight">
+<span class="font-semibold text-on-surface block">NOM-035 / LFT</span>
+<span class="text-on-surface-variant">Registro Laboral MX</span>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center leading-relaxed">
+          Tu número celular solo se utiliza para validar tu identidad laboral dentro de tu empresa. No enviamos publicidad.
+        </p>
+<!-- Admin / Support secondary links -->
+<div class="mt-4 flex items-center justify-center divide-x divide-outline-variant/40 text-label-sm font-label-sm text-secondary">
+<a class="px-3 py-1 hover:underline flex items-center gap-1" href="#admin">
+<span class="material-symbols-outlined text-[14px]">admin_panel_settings</span>
+<span>Acceso Administrador RRHH</span>
+</a>
+<a class="px-3 py-1 hover:underline" href="#privacidad">Aviso de Privacidad</a>
+</div>
+<!-- Terminal Identifier / Brand signature -->
+<div class="mt-3 text-center text-[10px] text-outline font-mono">
+          Checador PyME v2.4 • Ciudad de México
+        </div>
+</footer>
+</main>
+</div>
+<!-- Toast Notification Modal for Demonstration -->
+<div class="fixed bottom-6 z-50 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-primary text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 opacity-0 pointer-events-none transition-all duration-300" id="toast">
+<span class="material-symbols-outlined text-[#2E7D32] text-[24px] fill">check_circle</span>
+<div class="flex-1">
+<p class="font-title-md text-title-md font-semibold text-white">¡Identidad Confirmada!</p>
+<p class="font-body-sm text-body-sm text-primary-fixed">Ingresando al tablero de marcaje...</p>
+</div>
+</div>
+<!-- Interactive JavaScript for Seamless Preview Experience -->
+<script>
+    function switchStep(step) {
+      const v1 = document.getElementById('view-step-1');
+      const v2 = document.getElementById('view-step-2');
+      const t1 = document.getElementById('tab-step1');
+      const t2 = document.getElementById('tab-step2');
+      const b2 = document.getElementById('badge-step2');
+
+      if (step === 1) {
+        v1.classList.remove('hidden');
+        v2.classList.add('hidden');
+        
+        t1.className = "flex-1 min-h-[40px] flex items-center justify-center gap-1.5 rounded-lg py-2 text-label-md font-label-md font-semibold transition-all duration-200 bg-white shadow-sm text-primary";
+        t2.className = "flex-1 min-h-[40px] flex items-center justify-center gap-1.5 rounded-lg py-2 text-label-md font-label-md font-medium transition-all duration-200 text-on-surface-variant hover:text-on-surface";
+        b2.className = "w-5 h-5 rounded-full bg-outline-variant/50 text-on-surface-variant text-[11px] flex items-center justify-center font-bold";
+      } else {
+        v1.classList.add('hidden');
+        v2.classList.remove('hidden');
+
+        t1.className = "flex-1 min-h-[40px] flex items-center justify-center gap-1.5 rounded-lg py-2 text-label-md font-label-md font-medium transition-all duration-200 text-on-surface-variant hover:text-on-surface";
+        t2.className = "flex-1 min-h-[40px] flex items-center justify-center gap-1.5 rounded-lg py-2 text-label-md font-label-md font-semibold transition-all duration-200 bg-white shadow-sm text-primary";
+        b2.className = "w-5 h-5 rounded-full bg-primary-container text-white text-[11px] flex items-center justify-center font-bold";
+      }
+    }
+
+    // Interactive Countdown timer simulation
+    let secondsLeft = 48;
+    const timerElem = document.getElementById('countdown');
+    setInterval(() => {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        const formatted = secondsLeft < 10 ? `00:0${secondsLeft}` : `00:${secondsLeft}`;
+        if (timerElem) timerElem.textContent = formatted;
+      }
+    }, 1000);
+
+    // Toast demonstration on verify button click
+    function showDemoSuccess() {
+      const toast = document.getElementById('toast');
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+        toast.classList.remove('opacity-100');
+      }, 3000);
+    }
+  </script>
+</body></html>

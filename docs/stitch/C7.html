@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checador PyME · Registro y Auditoría de Marcajes</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Font Family -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-tint": "#306576",
+            "inverse-primary": "#9acee1",
+            "on-tertiary-fixed": "#2b1700",
+            "on-tertiary-container": "#f1a440",
+            "outline": "#70787c",
+            "on-primary": "#ffffff",
+            "secondary-container": "#b7e7f7",
+            "on-primary-fixed": "#001f28",
+            "tertiary-container": "#653d00",
+            "primary-fixed-dim": "#9acee1",
+            "on-error": "#ffffff",
+            "surface-dim": "#cfdaf2",
+            "on-secondary": "#ffffff",
+            "primary-fixed": "#b6ebfe",
+            "surface": "#f9f9ff",
+            "on-secondary-container": "#3a6977",
+            "on-surface-variant": "#40484b",
+            "tertiary": "#462900",
+            "on-primary-fixed-variant": "#114d5d",
+            "on-primary-container": "#87bbce",
+            "background": "#f9f9ff",
+            "outline-variant": "#c0c8cb",
+            "surface-container": "#e7eeff",
+            "primary-container": "#0f4c5c",
+            "error-container": "#ffdad6",
+            "secondary": "#356572",
+            "error": "#ba1a1a",
+            "inverse-on-surface": "#ecf1ff",
+            "surface-container-low": "#f0f3ff",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-surface": "#111c2d",
+            "on-error-container": "#93000a",
+            "surface-variant": "#d8e3fb",
+            "surface-container-highest": "#d8e3fb",
+            "tertiary-fixed": "#ffddb9",
+            "on-tertiary-fixed-variant": "#663e00",
+            "surface-bright": "#f9f9ff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "inverse-surface": "#263143",
+            "on-tertiary": "#ffffff",
+            "primary": "#003441",
+            "secondary-fixed-dim": "#9ecedd",
+            "on-background": "#111c2d",
+            "on-secondary-fixed": "#001f27",
+            "secondary-fixed": "#baeafa",
+            "surface-container-high": "#dee8ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "0.75rem",
+            "space-2xl": "3rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2rem",
+            "margin": "1.5rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Inter"],
+            "label-sm": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "label-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "display-clock": ["Inter"],
+            "title-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="h-full bg-background text-on-surface antialiased overflow-hidden font-body-md text-body-md">
+<!-- ==================== SIDENAVBAR COMPONENT (SHARED COMPONENT) ==================== -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 flex flex-col p-4 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm dark:shadow-none justify-between shrink-0">
+<!-- Top Branding & CTA -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-2 py-1">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg font-bold text-primary dark:text-primary-fixed leading-tight">Checador PyME</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant dark:text-inverse-on-surface">Administración SaaS</span>
+</div>
+</div>
+<!-- Action Button CTA -->
+<button class="w-full h-11 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm hover:bg-surface-tint active:scale-[0.98] transition-all duration-150">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
+<span>Pase de Lista</span>
+</button>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1 mt-1 custom-scrollbar overflow-y-auto max-h-[calc(100vh-270px)] pr-1">
+<!-- 1. Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-label-md text-label-md">Tablero</span>
+</a>
+<!-- 2. En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">sensors</span>
+<span class="font-label-md text-label-md">En vivo</span>
+<span class="ml-auto w-2 h-2 rounded-full bg-error animate-ping"></span>
+</a>
+<!-- 3. Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">badge</span>
+<span class="font-label-md text-label-md">Empleados</span>
+</a>
+<!-- 4. Validaciones de Alta -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">how_to_reg</span>
+<span class="font-label-md text-label-md">Validaciones de Alta</span>
+</a>
+<!-- 5. Marcajes (ACTIVE TAB - EXACT MATCH) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-semibold shadow-xs" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+<span class="font-label-md text-label-md">Marcajes</span>
+<span class="ml-auto px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary-container text-primary-fixed">LIVE</span>
+</a>
+<!-- 6. Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">schedule</span>
+<span class="font-label-md text-label-md">Hojas de horas</span>
+</a>
+<!-- 7. Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">event_busy</span>
+<span class="font-label-md text-label-md">Incidencias</span>
+</a>
+<!-- 8. Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">calendar_month</span>
+<span class="font-label-md text-label-md">Turnos</span>
+</a>
+<!-- 9. Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">location_on</span>
+<span class="font-label-md text-label-md">Ubicaciones</span>
+</a>
+<!-- 10. Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="font-label-md text-label-md">Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Sidenav Footer -->
+<div class="pt-3 border-t border-outline-variant dark:border-outline flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-inverse-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="font-label-md text-label-md">Ayuda y Soporte</span>
+</a>
+<div class="px-3 py-2 bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">LFT Cumplimiento</span>
+<span class="text-[11px] font-semibold text-primary">Vigencia 2024 / SAT OK</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</aside>
+<!-- ==================== TOPNAVBAR COMPONENT (SHARED COMPONENT) ==================== -->
+<header class="fixed top-0 right-0 z-30 h-16 w-[calc(100%-16rem)] px-6 flex items-center justify-between bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<!-- Left: Global Search in TopNavBar -->
+<div class="flex items-center gap-4 w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full h-10 pl-9 pr-4 bg-surface-container-low border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface placeholder-on-surface-variant/70 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="Buscar por empleado, RFC, folio o ID de marcaje..." type="text"/>
+</div>
+</div>
+<!-- Right Cluster: Trailing Secondary, Primary, Notification Icons & Profile -->
+<div class="flex items-center gap-3">
+<!-- Trailing Secondary: Sucursal Selector -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-low rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-primary text-base">storefront</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Sucursal Matriz CDMX</span>
+<span class="material-symbols-outlined text-outline text-sm">expand_more</span>
+</div>
+<!-- Trailing Primary Action: Live Active Status -->
+<div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-800 rounded-full border border-emerald-200">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-wide">En Vivo: Activo</span>
+</div>
+<div class="h-5 w-px bg-outline-variant mx-1"></div>
+<!-- Trailing Icons: Notifications & Help -->
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors relative" title="Notificaciones de Auditoría">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+</button>
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" title="Ayuda">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+</button>
+<!-- Profile Avatar -->
+<div class="flex items-center gap-2.5 pl-2">
+<div class="w-9 h-9 rounded-full ring-2 ring-primary-container/20 overflow-hidden bg-primary-container/10 flex items-center justify-center text-primary font-bold text-xs">
+          RM
+        </div>
+<div class="flex flex-col text-left">
+<span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">Lic. Roberto Morales</span>
+<span class="text-[11px] text-on-surface-variant leading-none">Administrador General</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+<main class="ml-64 pt-16 h-screen flex flex-col overflow-hidden bg-background">
+<!-- Scrollable Workspace Canvas -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
+<!-- ==================== 1. PAGE HEADER & PRIMARY ACTIONS ==================== -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-1">
+<div>
+<div class="flex items-center gap-2.5 mb-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Registro y Auditoría de Marcajes</h1>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+              Ruta /marcajes
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+            Monitoreo en tiempo real de entradas, salidas y comidas con validación biométrica facial y geocercas LFT.
+          </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-wrap items-center gap-2.5 shrink-0">
+<!-- Botón Secundario 1: Descarga Excel/SAT -->
+<button class="h-10 px-3.5 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2 shadow-xs transition-colors active:scale-95">
+<span class="material-symbols-outlined text-lg text-secondary">download</span>
+<span>Exportar Reporte (Excel/SAT)</span>
+</button>
+<!-- Botón Secundario 2: Reglas de Tolerancia -->
+<button class="h-10 px-3.5 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2 shadow-xs transition-colors active:scale-95">
+<span class="material-symbols-outlined text-lg text-secondary">tune</span>
+<span>Reglas de Tolerancia</span>
+</button>
+<!-- Botón Primario Destacado: Agregar Marcaje Manual -->
+<button class="h-10 px-4 bg-primary text-on-primary hover:bg-surface-tint rounded-lg font-label-md text-label-md flex items-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-95 relative group" onclick="document.getElementById('modal-marcaje-manual').classList.remove('hidden')">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+<span>+ Agregar Marcaje Manual</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-400 text-amber-950 font-bold uppercase tracking-wider ml-1">
+              Motivo obligatorio
+            </span>
+</button>
+</div>
+</div>
+<!-- ==================== 2. KPI RESUMEN DIARIO (BENTO CARDS) ==================== -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1: Total Marcajes Hoy -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-xs flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Total Marcajes Hoy</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-on-surface">342</span>
+<span class="font-label-md text-label-md text-on-surface-variant">registros</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-emerald-700 font-medium">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+12 vs ayer</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">event_available</span>
+</div>
+</div>
+<!-- KPI 2: A tiempo -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-xs flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">A tiempo</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-[#2E7D32]">318</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-[#2E7D32] text-xs font-bold">93%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dentro de margen de tolerancia</p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-[#2E7D32]">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- KPI 3: Con Retardo / Tolerancia -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-xs flex items-center justify-between">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium uppercase tracking-wider">Con Retardo / Tolerancia</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-[#F2A541]">16</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">colaboradores</span>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+<span class="material-symbols-outlined text-xs">schedule</span>
+<span>10m a 45m de demora</span>
+</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-[#F2A541]">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">alarm</span>
+</div>
+</div>
+<!-- KPI 4: Alertas de Riesgo / Geocerca -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-xs flex items-center justify-between ring-1 ring-error/20">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-error font-semibold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span>Alertas de Riesgo / Geocerca</span>
+</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-[#C62828]">8</span>
+<span class="font-label-md text-label-md text-error font-medium">pendientes</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Fuera de perímetro o selfie dudosa</p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-[#C62828]">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+</div>
+</section>
+<!-- ==================== 3. BARRA DE FILTROS Y BÚSQUEDA ==================== -->
+<section class="bg-surface-container-lowest p-3.5 rounded-xl border border-outline-variant shadow-xs flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2.5 flex-1 min-w-[300px]">
+<!-- Input Búsqueda Rápida -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-base">search</span>
+<input class="w-full h-9 pl-9 pr-3 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Nombre, RFC o #Empleado..." type="text"/>
+</div>
+<!-- Filtro Fecha -->
+<button class="h-9 px-3 bg-surface-container-low border border-outline-variant hover:bg-surface-container rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary">calendar_today</span>
+<span>Hoy · 24 Oct 2024</span>
+<span class="material-symbols-outlined text-sm text-outline">expand_more</span>
+</button>
+<!-- Filtro Sucursal -->
+<button class="h-9 px-3 bg-surface-container-low border border-outline-variant hover:bg-surface-container rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary">apartment</span>
+<span>Todas las sucursales (4)</span>
+<span class="material-symbols-outlined text-sm text-outline">expand_more</span>
+</button>
+<!-- Filtro Tipo de Evento -->
+<button class="h-9 px-3 bg-surface-container-low border border-outline-variant hover:bg-surface-container rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary">filter_list</span>
+<span>Todos los eventos</span>
+<span class="material-symbols-outlined text-sm text-outline">expand_more</span>
+</button>
+<!-- Filtro Banderas / Riesgo -->
+<button class="h-9 px-3 bg-surface-container-low border border-outline-variant hover:bg-surface-container rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary">flag</span>
+<span>Todas las banderas</span>
+<span class="material-symbols-outlined text-sm text-outline">expand_more</span>
+</button>
+</div>
+<!-- Toggle Switch: Solo requieren revisión -->
+<div class="flex items-center gap-3 pl-2 border-l border-outline-variant">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Solo requieren revisión</span>
+<span class="px-2 py-0.5 bg-red-100 text-[#C62828] rounded-full text-xs font-bold">8</span>
+</div>
+</div>
+</section>
+<!-- ==================== 4. LAYOUT PRINCIPAL: TABLA + PANEL DE INSPECCIÓN ==================== -->
+<div class="grid grid-cols-12 gap-6 items-start">
+<!-- ==================== COLUMNA IZQUIERDA: TABLA DE MARCAJES DETALLADA (7 COLS) ==================== -->
+<div class="col-span-12 xl:col-span-7 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-xs overflow-hidden">
+<div class="p-4 border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">view_list</span>
+<h2 class="font-title-md text-title-md font-semibold text-on-surface">Bitácora Oficial de Marcajes en Tiempo Real</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Mostrando 6 de 342 registros</span>
+</div>
+<!-- Table Wrapper -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse font-body-sm text-body-sm">
+<thead class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md uppercase tracking-wider border-b border-outline-variant">
+<tr>
+<th class="py-3 px-3">Colaborador / Puesto</th>
+<th class="py-3 px-3">Hora / Tipo</th>
+<th class="py-3 px-2">Biometría</th>
+<th class="py-3 px-3">Geocerca GPS</th>
+<th class="py-3 px-3">Estado / Banderas</th>
+<th class="py-3 px-3 text-right">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<!-- FILA 1: SELECCIONADA PARA INSPECCIÓN (Carlos Eduardo Hernández) -->
+<tr class="bg-secondary-container/20 border-l-4 border-l-primary hover:bg-secondary-container/30 transition-colors cursor-pointer">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<div class="relative w-9 h-9 rounded-full ring-2 ring-primary bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait photo of a friendly Mexican master baker named Carlos Eduardo wearing professional kitchen apron and a hairnet, warm studio lighting with soft highlights, realistic workplace corporate aesthetic with crisp depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAdOYphLV0Faxf1ugX0HDiuBnTLXjpT8aF5oFZ7KOj3c6sj2hqYwcWt7SCs7Rj_cz0AmaFB_TskVlXnOZupEDw0RA6-oNEbjxhwBpUFc2es1fl8eP0Clv97v4ZPbJZtL7iZkz1VA5nn7qDcI9VJEWRbCy_djECYeWeXbeIXP_MxjNr3_4z7b9tYAzomOZ5l6gahS9IYMNGUGYriMdJTxg_q-EiLR_2nUbm0jEDrCwF6rqf-ocDNavI2hSKd_s0FkQHSDCUFyIeBQZA"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-primary truncate">Carlos Eduardo Hernández</span>
+<span class="text-[11px] text-on-surface-variant truncate">Panadero Maestro · Matriz (#EMP-1042)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface tabular-nums">06:34:12 am</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Entrada Matutina
+                      </span>
+</div>
+</td>
+<td class="py-3 px-2">
+<div class="flex items-center gap-1.5">
+<div class="relative w-8 h-8 rounded border-2 border-emerald-500 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up selfie shot of a Mexican worker captured via front facing smartphone camera during a morning factory check in, authentic workplace natural lighting with verification green framing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJgQUJlBb05esa110-oeBFuk4Go2Zi4lEARLORarGR_MJK3xpMQC3n8Wd7P0i7vdvN-tlmblTirfbswxhVUsIHsDhrKwTHBDPZAnD0KSZ9YYGUI8n4EM1jRGG5K4OTcKX00nVLvA_QZKJ90A-pU3mb3P-TJpuTCTkkfbRqya3mTxXgu0EkXHla6rGgVrezRaWUgJe6E-MWlep0xPmhAHGEvv12HhCAQ0hdSOPhcft3TbO1KoRLHktGM22hkk3kGOxP9AsxXUQMIpkY"/>
+</div>
+<span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1 rounded">98%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-sm text-emerald-700">near_me</span>
+<span class="font-label-sm text-label-sm">18m (Dentro)</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900 border border-amber-300">
+<span class="material-symbols-outlined text-xs">timer</span>
+<span>Retardo +34m (Grave)</span>
+</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-700">
+                        En revisión
+                      </span>
+</div>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint" title="Ver detalle de auditoría">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant" title="Opciones">
+<span class="material-symbols-outlined text-base">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 2: Sofía Méndez Gómez -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait headshot of Sofia Mendez, a Mexican young woman working as a head cashier, smiling with professional demeanor, wearing a navy retail collared uniform in bright natural indoor store illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiuoIWDsKRO_ef4bpgLdZrXKihmqAfcXNmErYi7rlDrEeWwy3QJMYjndAns1JRGU_T0pKgqFhwqrHICMbnSbnsEv6Y-rHWI4spa3Thi3Rr9Ov-wY0vHA-BlQjh-SjqI4-P4nlzC82JP8l1q0K8dOku7-46f8FWjCRTBWcQP0nt2OMhdeEHsXNwhCRpMS74IOLBRFNSwMdDbMx0jo1JE5iuslMYTo0SisVn6pdaRbcOfNkwn0-hx7in25u-cxwgnIqGUsmeRRDJA-fI"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate">Sofía Méndez Gómez</span>
+<span class="text-[11px] text-on-surface-variant truncate">Cajera Líder · Centro (#EMP-1088)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface tabular-nums">07:14:02 am</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Entrada
+                      </span>
+</div>
+</td>
+<td class="py-3 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-8 h-8 rounded border border-emerald-500 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="App selfie verification snapshot of a Mexican female employee checking in on time at a bakery store entrance, natural clean light, biometric scanning frame." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAilcIRwqvyqw8vFQBS8Y3-pu_NzpOjiq7YWetTya8yBWR-hb4svwNpUsN58fmNYW83sGULXmh5LENzs70FGUFQNusAX8SRNVt-7nvuQ9_GnE6lQByjajQTndt0m2Mu6NJ9_a0MHb1jujADanTTLHftFMRae7uaUEldkwneocWumhmvTGWnhrwmED2IBZbNiO_oAlNfdOqnuWsmarRsYqs5zNfpjWcPokaNHzkHLirrO2h9b3kBdGd5DGiEeZlsryxA4T0_Y2CYWuPX"/>
+</div>
+<span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1 rounded">99%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-sm text-emerald-700">near_me</span>
+<span class="font-label-sm text-label-sm">8m (Dentro)</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-[#2E7D32] border border-emerald-200">
+<span class="material-symbols-outlined text-xs">check</span>
+<span>A tiempo (Tolerancia 4m)</span>
+</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant" title="Ver detalle">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 3: Miguel Ángel Reyes Tovar (ALERTA FUERA DE GEOCERCA) -->
+<tr class="bg-red-50/40 hover:bg-red-50/70 transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-full bg-slate-200 overflow-hidden shrink-0 ring-1 ring-error">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of Miguel Angel Reyes, a Hispanic retail floor supervisor in his late thirties wearing an azure polo shirt against a blurred office backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiudlH87pvHW5x6ImR8-jmAffWOgeUeRgLtJcPxazqEswBGyfuSAZ7vm9vJqEh5CGj3U1BcuoOssflDA2omHBIEQ9jnWlCep5_zaNGkqEAziwRLNMGaMExZ62XhO0FAOcoKSNk2LTxHKUNYyC9wjKRpT-fyE1pG9bRxKH_Dw9JuTkWIHOvN4xbWShIwFCAZqSGPsztNypYfJFC7JUfiyViltg43bWgJM8hB7absJpUCIXX7H5v0p7BB8AxmoBQfMgerscwMftwN0P5"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-error truncate">Miguel Ángel Reyes Tovar</span>
+<span class="text-[11px] text-on-surface-variant truncate">Supervisor · Matriz (#EMP-1019)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface tabular-nums">06:48:30 am</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Entrada
+                      </span>
+</div>
+</td>
+<td class="py-3 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-8 h-8 rounded border border-amber-500 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Automated mobile clock in biometric photo capture taken inside an automobile parked on a city street, morning sunlight reflecting on passenger window." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFaMHipelFPF0ADPNvQMrWT2JT5tI3Nt81NK5fiVGuIVS6o-m_EoTP51BImpU4DlRYQxnfFaqfOl4NP8Qn_N620yTZP7EffEfE_wevqP0CnJHfUP2TFeRa_vaN297Otb7D_D3hCUtEW_kB5litsXeJef2-nmul0JlLSCv6dZmiwxAD3Xoy7QvgiIZNUi9YeAYgJLjOC-4zTCS48afyWj4YNyfrvL_upzDcNSDvrhEzn2vIYwHcynIOT-aF7nQoyOYLwzpD9Fxq5HtH"/>
+</div>
+<span class="text-[10px] font-bold text-amber-900 bg-amber-100 px-1 rounded">91%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-error font-medium">
+<span class="material-symbols-outlined text-sm">location_off</span>
+<span class="font-label-sm text-label-sm font-bold">142m (¡Fuera!)</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-[#C62828] border border-red-300">
+<span class="material-symbols-outlined text-xs">gpp_maybe</span>
+<span>Alerta Geocerca</span>
+</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-900">
+                        Retardo +18m
+                      </span>
+</div>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg bg-error-container text-on-error-container hover:bg-red-200" title="Auditar alerta">
+<span class="material-symbols-outlined text-base">rule</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 4: Mariana Hernández Velázquez (KIOSK TERMINAL) -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait photo of Mariana Hernandez, Mexican retail sales assistant woman in her twenties, clean company vest, bright welcoming warehouse retail floor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZMFu93negJB8DAxjw4eH95rrC1LC3-8beAPm1-vNlpJ33InVuMyMdotbDTW8IN5gBhlidRDOAZkxgeiTglSn2dXl-SesMPZUZfovCb0m82ZNOHQx4_e4-vemOVfl7SKd45pk1beKbDfGIljYOZKQaMoR-3cAeCfXbFvu5-2L0Ys3JnGwBWWN_yPTGlfRv6scTa681RX82-woEHCTESUxLtLCBQTrtXfZ0YVmFvotpyB0rwcupHP8KoXqTnIXBfM7k4KCi6hfgQIDR"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate">Mariana Hernández Velázquez</span>
+<span class="text-[11px] text-on-surface-variant truncate">Auxiliar · Centro (#EMP-1049)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface tabular-nums">08:01:15 am</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-secondary">desktop_windows</span> Entrada Kiosco
+                      </span>
+</div>
+</td>
+<td class="py-3 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-8 h-8 rounded border border-emerald-500 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Biometric kiosk camera photo capture of a female Mexican worker looking straight into tablet camera mounted on wall at staff entrance with overhead fluorescent store lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlWBG53rYrXKky7Om2RdCtFwJ0DCWKeA_SDkFwEmqwxSTQ08MoKb4yLnM_xBSq1_2rZe85JLyvHl3gipp741xKg_gyhtpq_NEZmmN4664_f_hNUl47FiPVCVgHz_S0kH_2v5r3H4olADnT5eFJpkB2vl2tBYksS1dtTNANbf4SdYdp5trn9cs7zOVhGoJYhWZ7juGBH6_98lxQCBmdcU8yMicuXde8EVwwwmyN0SBDVcfbJVnjlZkIpXb-GokSXJvXdvWi6r5maIoT"/>
+</div>
+<span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1 rounded">100%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-sm text-secondary">tablet_mac</span>
+<span class="font-label-sm text-label-sm">KIOSK-04 CDMX</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-[#2E7D32]">
+<span class="material-symbols-outlined text-xs">check</span>
+<span>A tiempo</span>
+</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 5: Laura Beatriz Morales -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Corporate headshot of Laura Beatriz Morales, Mexican quality control supervisor, attentive expression, wearing white lab coat in industrial kitchen setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5iIggDm4TSNCJPimoPYP3HVsw-1uvEKwop84BaJ5iwJYx8k3Q22X_Na7_HVvE2cfYhszXHP8dC8Hu2ayOCoPkc12EJ5YiiIzWLX1hdGZ5M13pHy1lur8S3vxxKUlXAdHpnwbuNOAHKlLs-XDaGkgUP_1E-nrWJp3iI_Jzhe4qqVBCLx8pQHAmUk3vfL9kijOLSbjZ4ZLYd2TEPwBharNnKe90rYzqAucmpjfuLX2P8NtV9whu9sovzpI1DrMDDDAomxdreWTS-Iwf"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate">Laura Beatriz Morales</span>
+<span class="text-[11px] text-on-surface-variant truncate">Calidad · Matriz (#EMP-1031)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface tabular-nums">08:18:00 am</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Entrada Móvil GPS
+                      </span>
+</div>
+</td>
+<td class="py-3 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-8 h-8 rounded border border-emerald-500 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High quality facial recognition scan snapshot of Mexican woman with hair tied back, well lit reception area background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ZnHKG8XMsMkI9yTTdY5YeHqdek2m1lScsrOIPUTifoSnBOtA5FnKGCG-NUD7hyj63NN2iFukxIVHjQfnPFwzrIDxFE-8hjsthBdyKe-Ww1aFEb-sDIWxtOudZuDsqzzBWiYB5KcAExSB2Fg7hnbPnrf3lXrIPMT0DbcOcIPK3GwtfSOfDVuEb9IKl_lqbAgnNij6P4gMHvv_uloGcN5VsBuu0ZNHchkFYIyIUDjckvKvqPxYqsSE8sT16Qw7NdZhLnaQe68LOC65"/>
+</div>
+<span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1 rounded">97%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-sm text-emerald-700">near_me</span>
+<span class="font-label-sm text-label-sm">22m (Dentro)</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-50 text-amber-900 border border-amber-200">
+<span class="material-symbols-outlined text-xs">attach_file</span>
+<span>Retardo leve (Justificante)</span>
+</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 6: Juan Pablo Durán -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Photo portrait of Juan Pablo Duran, Mexican delivery driver in his twenties wearing branded safety reflective polo shirt, confident neutral expression outdoors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4iLHqEHfhF5UG75K88ZMlbQPdLPh3tb1jQGY6WbeuUfPfM0ZMoY0uVgkIHjuFiZ8ldjJ0JW6BmkVioF8ChNuY0cbJP8v32Jaqa_AgTeyUJg3Z9A-mdquqdmtLuC1uHP6hyX1_pDtpI7HJOdwvXIfR7udc3tVPsrkRe32JicVFl-p3_7Pzalc7mH7tIocY5LNxL2OnS8tUAmYpW8q92bbVjnbPk4TtJdK3mQLhPuJpw0mN9dB8CuWQaH25AkWAEFIB6bbfc9QBt-K7"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate">Juan Pablo Durán</span>
+<span class="text-[11px] text-on-surface-variant truncate">Repartidor Logística (#EMP-1055)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface tabular-nums">13:02:10 pm</span>
+<span class="text-[11px] text-amber-700 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs">restaurant</span> Inicio Comida
+                      </span>
+</div>
+</td>
+<td class="py-3 px-2">
+<div class="flex items-center gap-1.5">
+<div class="w-8 h-8 rounded border border-emerald-500 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Biometric phone verification selfie of a delivery employee standing beside delivery motorcycle van in designated parking slot, bright afternoon sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgwUdXnbo0bjCf6MTqQHxvjoOVEmu-e8ey2S0vhcxy1jibnWjofHrfdupIhkoxpcNwAIpxSFJ5AT8dYCbaFR6tRRabUvpj-7aHF1XkmIK5UByFdi0qJo6ZqIOrilMBIH2XJXz3dpKfbBz8xdX7gudz0zCsHWgfv-QtvsMiA12pJpfhcvZuLFhSBQZBAJ40x6UnyxG4m3lu4BP63pPnARJKVbyB7B2uXXMNY6kzEn8jlrFcrzHltHyjYCNqx-6Lr7yc_UXa8iwS9oh9"/>
+</div>
+<span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1 rounded">96%</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-sm text-emerald-700">near_me</span>
+<span class="font-label-sm text-label-sm">5m (Dentro)</span>
+</div>
+</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700">
+<span class="material-symbols-outlined text-xs">pause_circle</span>
+<span>Pausa legal LFT</span>
+</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-base">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Paginación de Tabla -->
+<div class="p-3 border-t border-outline-variant bg-surface-container-low flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Página 1 de 29 (342 marcajes)</span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded border border-outline-variant bg-surface-container-lowest disabled:opacity-50" disabled="">Anterior</button>
+<button class="px-2.5 py-1 rounded border border-primary-container bg-primary-container text-white font-semibold">1</button>
+<button class="px-2.5 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-container">2</button>
+<button class="px-2.5 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-container">3</button>
+<button class="px-2.5 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-container">Siguiente</button>
+</div>
+</div>
+</div>
+<!-- ==================== COLUMNA DERECHA: PANEL DE INSPECCIÓN Y AUDITORÍA (5 COLS) ==================== -->
+<div class="col-span-12 xl:col-span-5 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-5 space-y-5">
+<!-- Encabezado de Inspección -->
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-bold text-on-surface">Detalle de Marcaje #MC-89421</span>
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-xs text-on-surface-variant">Dispositivo verificado · Certificación STPS LFT Art. 68</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+<span class="material-symbols-outlined text-xs">warning</span>
+<span>Alerta: Retardo Grave</span>
+</span>
+</div>
+<!-- Datos del Colaborador Auditado -->
+<div class="bg-surface-container-low p-3.5 rounded-lg border border-outline-variant/60 flex items-center gap-3">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary shrink-0 shadow-xs">
+<img class="w-full h-full object-cover" data-alt="Detailed professional ID photo of employee Carlos Eduardo Hernandez, Mexican male baker supervisor, high definition studio headshot against neutral slate gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI5qtw7G9m35M0xRoLsTMgr0dSAPp5SZ8iRapXZcLcUWMAtPCHVUJ0Qi5QvaWTuzpFn5SOP3Th5JFqPZmYQgf3aHujHtq_IIon__71ESACY8S-k8NzBX-8YyuuPHy_ESQa1o3k0UyjFwdvszwkUERVdnPCLn7CuEBsmEWOUeOe-B99EpmHHzirWf1E_uxg8rS-Et4XSDgWJCbGZagRVoTUCy8662giw9kR2V9s1__2NugmXF9aC0zyVjSJtABNKZ64OuH_-XwoElAj"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md font-bold text-on-surface truncate">Carlos Eduardo Hernández Morales</h3>
+</div>
+<div class="grid grid-cols-2 gap-x-2 gap-y-0.5 text-xs text-on-surface-variant mt-1">
+<div><span class="font-medium text-on-surface">ID:</span> EMP-1042</div>
+<div><span class="font-medium text-on-surface">RFC:</span> HEMC880415-K82</div>
+<div class="col-span-2 text-primary font-medium">Panadero Maestro · Sucursal Matriz CDMX</div>
+</div>
+</div>
+</div>
+<!-- Comparativa de Horarios: Oficial vs Marcado -->
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 bg-surface rounded-lg border border-outline-variant">
+<span class="text-[11px] font-semibold uppercase text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> Horario Oficial Turno
+              </span>
+<p class="text-lg font-bold text-on-surface mt-1">06:00:00 am</p>
+<span class="text-[11px] text-on-surface-variant">Tolerancia máx: 10 min</span>
+</div>
+<div class="p-3 bg-amber-50 rounded-lg border border-amber-200">
+<span class="text-[11px] font-semibold uppercase text-amber-900 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">alarm_on</span> Marcaje Registrado
+              </span>
+<p class="text-lg font-bold text-[#F2A541] mt-1">06:34:12 am</p>
+<span class="text-[11px] text-amber-900 font-semibold">+34 min 12 seg (Retardo)</span>
+</div>
+</div>
+<!-- Comparativa Biométrica / Selfie de Marcaje -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-primary">face</span>
+<span>Auditoría Biométrica Facial (Liveness Detection)</span>
+</span>
+<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span> 98% Coincidencia
+              </span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Selfie Capturada -->
+<div class="bg-surface-container-low p-2 rounded-lg border border-outline-variant flex flex-col items-center">
+<div class="relative w-full h-32 rounded bg-slate-900 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Real live selfie biometric photograph captured directly through mobile application of Mexican male employee at front desk check-in, real workplace context, authenticated high confidence facial recognition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB4HCzdTVY99o4ct1yLvC0yz_lQxy227LIGFlDLABZyYxz33-V7edyU9WrBA69NrUqAWToGbC4QBRNC0B_fAmJvVR7MD0gHGXE2piAP5vbiEfgVobg2KST8ihhw6-Lr-J1cpU7tyZMkI1XXQr1Q2RwEWJ1GDWc7ZdrrDpew8datrgoJBoYYVcpL4qtZ4AdZpwweE1KYprVOT21uAoTa4PpQKUChKe_UM2SnG2o1XpOL-tFs8dJT9OeF6j5fziKdq7A1ovzFEcgpdpu"/>
+<div class="absolute bottom-1 left-1 right-1 bg-black/60 backdrop-blur-xs text-[10px] text-white px-1.5 py-0.5 rounded flex justify-between items-center">
+<span>App Móvil · 06:34 am</span>
+<span class="text-emerald-400 font-bold">VIVO OK</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">Selfie en Marcaje Real</span>
+</div>
+<!-- Credencial Base / Expediente -->
+<div class="bg-surface-container-low p-2 rounded-lg border border-outline-variant flex flex-col items-center">
+<div class="relative w-full h-32 rounded bg-slate-100 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Standard reference ID photo stored in HR system for biometric template comparison, Mexican adult male employee portrait on pure neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAetW2OeG91-mZ0Y9CvLEHU_K_q4yjnp53mW_pmHiHCZviHsz5_G4-VC14svYNrn8Cp2rXwdxQC2ZIoVpYkDx0rGUB188_5fDMsIx78rT1FHGVsfcJlOmEOkyMJgUjozE9s7QeEKPSQPiXLwISR49b_vBstw40WvAuIlHQihYIyrpyKPiNvO8BDDp1CCYjYc3Zdn2-OMmAb1ba38RsFQfHFIsoX4KIzRBQjmdrChUcg35CpbxvgDFuFCCofc_effv36H3FOdzBCiIc0"/>
+<div class="absolute bottom-1 left-1 right-1 bg-black/60 backdrop-blur-xs text-[10px] text-white px-1.5 py-0.5 rounded text-center">
+<span>Foto Registro RRHH (Base)</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1.5">Expediente Oficial</span>
+</div>
+</div>
+</div>
+<!-- Mapa de Geocerca Interactivo -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-primary">pin_drop</span>
+<span>Geolocalización &amp; Geocerca LFT</span>
+</span>
+<span class="text-xs font-semibold text-[#2E7D32] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                Dentro de Geocerca (18m / Radio 50m)
+              </span>
+</div>
+<!-- Mapa Visual Mockup con Geocerca -->
+<div class="relative w-full h-40 rounded-xl overflow-hidden border border-outline-variant bg-slate-100" data-location="Ciudad de México" style="">
+<!-- Background Map Image -->
+<div class="w-full h-full bg-cover bg-center" data-alt="Satellite and road map view aerial perspective of a commercial industrial street block in Mexico City with subtle overlaid digital grid lines representing a geofence zone, architectural modern cartography style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDil8eKb-cwPeLc52jcpgIZhRFOIXqeLrpjHL0jd7Teps5gGYJe4xjitsQ2XjIjcnv9OVj588Ro-3dprHY09bisxZ1i2lLG6q5wkYMwzC32FVfV-N3Q3Qwgc31DOADGBLZcdkAQKMnbzHR9KRlDCc6tBfo5EYtUge5AKokB2okZDCoBuj5Sn9r45r9qD9xvDwq1Zf8VByKAruGkicOyyz9BEJYrpOfzNra6WxJBiuNerY4wXOeyE_DcP4hQTO0itKpZO7qfPaudy5Pu')">
+</div>
+<!-- Geocircle Overlay Visual -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<!-- Outer 50m Geofence Radius -->
+<div class="w-28 h-28 rounded-full border-2 border-dashed border-emerald-500 bg-emerald-500/20 flex items-center justify-center animate-pulse">
+<!-- Punch Pin Location -->
+<div class="relative flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-2xl drop-shadow-md" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="px-1.5 py-0.5 bg-primary text-white rounded text-[9px] font-bold shadow-md -mt-1 whitespace-nowrap">
+                      Marcó aquí (18m)
+                    </span>
+</div>
+</div>
+</div>
+<!-- Coordenadas & Datos de Precisión -->
+<div class="absolute bottom-2 left-2 right-2 bg-surface-container-lowest/95 backdrop-blur-sm p-2 rounded-lg border border-outline-variant text-[11px] flex items-center justify-between">
+<div>
+<span class="text-on-surface-variant">Coords:</span>
+<span class="font-mono font-semibold text-on-surface">19.4326° N, -99.1332° W</span>
+</div>
+<div class="flex items-center gap-1 text-emerald-800 font-semibold">
+<span class="material-symbols-outlined text-xs">gps_fixed</span>
+<span>Precisión GPS ±4m</span>
+</div>
+</div>
+</div>
+<!-- Telemetría del Dispositivo -->
+<div class="p-2.5 bg-surface-container-low rounded-lg border border-outline-variant/60 flex items-center justify-between text-xs text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-secondary">phone_android</span>
+<span class="font-medium text-on-surface">Samsung Galaxy A53</span>
+<span>· IP 192.168.1.142</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface font-semibold">
+<span class="material-symbols-outlined text-sm text-emerald-700">battery_charging_full</span>
+<span>84%</span>
+</div>
+</div>
+</div>
+<!-- Acciones del Administrador -->
+<div class="pt-2 border-t border-outline-variant space-y-2">
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Aprobar -->
+<button class="h-10 px-3 bg-primary text-on-primary hover:bg-surface-tint rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all">
+<span class="material-symbols-outlined text-base">check_circle</span>
+<span>Aprobar / Justificar</span>
+</button>
+<!-- Rechazar / Marcar Falta -->
+<button class="h-10 px-3 bg-red-50 text-[#C62828] border border-red-200 hover:bg-red-100 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span>Rechazar / Falta</span>
+</button>
+</div>
+<!-- Solicitar aclaración vía WhatsApp -->
+<button class="w-full py-2 px-3 text-xs font-semibold text-emerald-800 hover:bg-emerald-50 rounded-lg border border-emerald-300 flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-base text-emerald-700">chat</span>
+<span>Solicitar aclaración a empleado por WhatsApp (+52 55 4912 8840)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- ==================== MODAL / DRAWER: AGREGAR MARCAJE MANUAL ==================== -->
+<div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 transition-opacity hidden" id="modal-marcaje-manual">
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-2xl max-w-xl w-full max-h-[921px] overflow-y-auto custom-scrollbar">
+<!-- Modal Header -->
+<div class="p-5 border-b border-outline-variant flex items-center justify-between sticky top-0 bg-surface-container-lowest z-10">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-xl bg-primary-container text-white flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-xl">edit_calendar</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg font-bold text-on-surface">Agregar Marcaje Manual</h2>
+<p class="text-xs text-on-surface-variant">Conforme a Ley Federal del Trabajo Art. 132 Fracc. I</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-surface-container text-on-surface-variant" onclick="document.getElementById('modal-marcaje-manual').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Form Body -->
+<form class="p-6 space-y-4" onsubmit="event.preventDefault(); document.getElementById('modal-marcaje-manual').classList.add('hidden');">
+<!-- Info Banner Obligatoriedad -->
+<div class="p-3 bg-amber-50 rounded-xl border border-amber-300 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-amber-800 text-lg mt-0.5">policy</span>
+<p class="text-xs text-amber-900 leading-relaxed">
+<span class="font-bold">Aviso de Auditoría STPS:</span> Todo marcaje manual genera un folio único inviolable y requiere justificación vinculante para evitar sanciones en inspecciones laborales.
+          </p>
+</div>
+<!-- Colaborador Selector -->
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+            Colaborador <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-11 pl-3 pr-10 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option value="">Selecciona al empleado...</option>
+<option selected="" value="1042">Carlos Eduardo Hernández Morales (EMP-1042) · Panadero Maestro</option>
+<option value="1088">Sofía Méndez Gómez (EMP-1088) · Cajera Líder</option>
+<option value="1019">Miguel Ángel Reyes Tovar (EMP-1019) · Supervisor</option>
+<option value="1049">Mariana Hernández Velázquez (EMP-1049) · Auxiliar</option>
+<option value="1031">Laura Beatriz Morales (EMP-1031) · Calidad</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">expand_more</span>
+</div>
+</div>
+<!-- Sucursal y Tipo de Evento en 2 columnas -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Sucursal -->
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+              Sucursal <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-11 pl-3 pr-10 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option selected="">Sucursal Matriz CDMX</option>
+<option>Sucursal Centro Histórico</option>
+<option>Sucursal Polanco</option>
+<option>Planta Producción Vallejo</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">storefront</span>
+</div>
+</div>
+<!-- Tipo de Marcaje -->
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+              Tipo de Marcaje <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-11 pl-3 pr-10 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option selected="">Entrada de turno</option>
+<option>Salida a comer</option>
+<option>Regreso de comida</option>
+<option>Salida de turno</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">history</span>
+</div>
+</div>
+</div>
+<!-- Fecha y Hora Exacta -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+              Fecha del Marcaje <span class="text-error">*</span>
+</label>
+<input class="w-full h-11 px-3 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary" type="date" value="2024-10-24"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+              Hora Exacta <span class="text-error">*</span>
+</label>
+<input class="w-full h-11 px-3 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary" step="1" type="time" value="06:00"/>
+</div>
+</div>
+<!-- Motivo Obligatorio (Auditoría LFT) -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="font-label-md text-label-md font-semibold text-on-surface">
+              Motivo Obligatorio (Auditoría LFT) <span class="text-error">*</span>
+</label>
+<span class="text-[11px] text-error font-semibold">Requerido por SAT/STPS</span>
+</div>
+<div class="relative">
+<select class="w-full h-11 pl-3 pr-10 bg-surface border-2 border-amber-300 rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option value="">Seleccione causal de justificación legal...</option>
+<option selected="" value="1">Falla de conexión a internet o batería descargada en sucursal</option>
+<option value="2">Olvido involuntario de registro en dispositivo de pared</option>
+<option value="3">Trabajo en campo / Comisión exterior autorizada por jefe directo</option>
+<option value="4">Problema de calibración con sensor biométrico / rostro</option>
+<option value="5">Interrupción eléctrica general en centro de trabajo</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">flag</span>
+</div>
+</div>
+<!-- Observaciones y Evidencia -->
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+            Observaciones Detalladas
+          </label>
+<textarea class="w-full p-3 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Escriba la minuta o justificación del supervisor que avala este marcaje extemporáneo..." rows="2"></textarea>
+</div>
+<!-- Adjuntar Evidencia Documental -->
+<div class="p-3 rounded-lg border-2 border-dashed border-outline-variant hover:border-primary bg-surface text-center cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-secondary text-2xl">upload_file</span>
+<p class="font-label-sm text-label-sm text-on-surface mt-1">Adjuntar ticket, justificante médico o foto de asistencia (PDF, JPG hasta 5MB)</p>
+<span class="text-[11px] text-on-surface-variant">Arrastre el archivo o haga clic para examinar</span>
+</div>
+<!-- Notificación WhatsApp Folio STPS Checkbox -->
+<div class="flex items-start gap-2.5 pt-1">
+<input checked="" class="mt-1 rounded text-primary focus:ring-primary" id="whatsapp-notify" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface cursor-pointer" for="whatsapp-notify">
+<span class="font-semibold text-primary">Notificar al colaborador vía WhatsApp con folio STPS.</span> 
+            Se enviará comprobante oficial automático con sello de tiempo criptográfico.
+          </label>
+</div>
+<!-- Modal Actions -->
+<div class="flex items-center justify-end gap-3 pt-4 border-t border-outline-variant">
+<button class="px-4 py-2.5 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors" onclick="document.getElementById('modal-marcaje-manual').classList.add('hidden')" type="button">
+            Cancelar
+          </button>
+<button class="px-5 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md font-bold shadow-md active:scale-95 transition-all flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-base">save</span>
+<span>Guardar Marcaje Manual</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</body></html>

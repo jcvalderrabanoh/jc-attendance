@@ -1,7 +1,7 @@
 ---
 proyecto: Checador
 fuente: jc-attendance/docs/investigacion/C-tecnica-ux-stitch.md
-sincronizado: 2026-10-20
+sincronizado: 2026-10-21
 tags: [checador, asistencia]
 ---
 

@@ -13,6 +13,8 @@ import { OrganizationModule } from './organization';
 import { CustomFieldsModule } from './custom-fields';
 import { SchedulesModule } from './schedules';
 import { EmployeesModule } from './employees';
+import { EmployeeAuthModule } from './employee-auth';
+import { OnboardingModule } from './onboarding';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { EmployeesModule } from './employees';
     CustomFieldsModule,
     SchedulesModule,
     EmployeesModule,
+    EmployeeAuthModule,
+    OnboardingModule,
   ],
   controllers: [HealthController],
 })

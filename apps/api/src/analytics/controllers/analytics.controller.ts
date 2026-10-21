@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AccountId, Auth } from '../../common';
+import { AccountId, Auth, CoreUserContext, CurrentAuth } from '../../common';
 import { AnalyticsRangeDto, ChartQueryDto } from '../dtos';
 import { AnalyticsService } from '../services';
 
@@ -13,6 +13,13 @@ export class AnalyticsController {
   @Auth()
   dashboard(@AccountId() accountId: string, @Query('locationId') locationId?: string) {
     return this.service.dashboard(accountId, locationId);
+  }
+
+  /** Tablero de grupo: todas las cuentas del usuario con el Checador. */
+  @Get('group')
+  @Auth()
+  group(@CurrentAuth() user: CoreUserContext) {
+    return this.service.group(user.email);
   }
 
   @Get('presence')

@@ -27,6 +27,10 @@ export class CoreLinkService implements AttendanceEntitlement {
     return value;
   }
 
+  attendanceAccountsForEmail(email: string) {
+    return this.coreAccountDao.findAttendanceAccountsForEmail(email);
+  }
+
   findUsers(accountId: string, userIds: string[]) {
     return this.coreAccountDao.findUsers(accountId, userIds);
   }

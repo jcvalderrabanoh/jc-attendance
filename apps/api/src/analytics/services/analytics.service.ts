@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { addDays, dayOfWeek, localDateOf } from '@jc-attendance/rules-engine';
+import { CoreLinkService } from '../../core-link';
 import { CustomFieldDefinitionDao } from '../../custom-fields/daos';
 import { CustomFieldEntityEnum } from '../../custom-fields/entities';
 import { AccountSettingsDao } from '../../organization/daos';
@@ -12,7 +13,34 @@ export class AnalyticsService {
     private readonly dao: AnalyticsDao,
     private readonly accountSettingsDao: AccountSettingsDao,
     private readonly customFieldDao: CustomFieldDefinitionDao,
+    private readonly coreLink: CoreLinkService,
   ) {}
+
+  /**
+   * Grupo empresarial: KPIs de cada cuenta donde el usuario (mismo email en
+   * jc-core) tiene acceso y el Checador contratado. Solo lectura agregada.
+   */
+  async group(email: string) {
+    const accounts = await this.coreLink.attendanceAccountsForEmail(email);
+    const rows = await Promise.all(
+      accounts.map(async (a) => {
+        const d = await this.dashboard(a.id);
+        return { accountId: a.id, accountName: a.name, ...d.kpis };
+      }),
+    );
+    const sum = (k: keyof (typeof rows)[number]) => rows.reduce((acc, r) => acc + (Number(r[k]) || 0), 0);
+    return {
+      accounts: rows,
+      totals: {
+        accounts: rows.length,
+        activeEmployees: sum('activeEmployees'),
+        presentNow: sum('presentNow'),
+        overtimeHoursWeek: Math.round(sum('overtimeHoursWeek') * 10) / 10,
+        punchesToReview: sum('punchesToReview'),
+        pendingOnboarding: sum('pendingOnboarding'),
+      },
+    };
+  }
 
   private async today(accountId: string) {
     const settings = await this.accountSettingsDao.findByAccount(accountId);

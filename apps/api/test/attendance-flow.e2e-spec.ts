@@ -289,4 +289,11 @@ describe('Checador de punta a punta', () => {
     const [row] = await ds.query(`SELECT "phoneE164", "firstName" FROM attendance.employee_identities WHERE id = $1`, [created.body.identityId]);
     expect(row).toEqual({ phoneE164: null, firstName: 'Anonimizado' });
   });
+
+  it('tablero de grupo: solo las cuentas del mismo usuario con el Checador', async () => {
+    const group = await http.get(api('/analytics/group')).set('Authorization', admin).expect(200);
+    // seedCoreAccount crea a rosa@espiga.mx en ambas cuentas; solo una tiene el Checador.
+    expect(group.body.accounts.map((a: { accountName: string }) => a.accountName)).toEqual(['Panadería La Espiga']);
+    expect(group.body.totals.activeEmployees).toBeGreaterThanOrEqual(2);
+  });
 });

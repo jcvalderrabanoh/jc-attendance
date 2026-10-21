@@ -45,6 +45,22 @@ export class CoreAccountDao {
     return rows.length > 0;
   }
 
+  /**
+   * Cuentas con el Checador contratado donde el mismo humano (email) tiene
+   * usuario activo: la base del tablero de grupo empresarial.
+   */
+  findAttendanceAccountsForEmail(email: string): Promise<CoreAccount[]> {
+    return this.dataSource.query(
+      `SELECT DISTINCT a."id", a."name", a."timeZone", a."status"
+         FROM public.users u
+         JOIN public.accounts a ON a."id" = u."accountId"
+         JOIN public.account_apps ap ON ap."accountId" = a."id" AND ap."app" = 'attendance' AND ap."status" = 'active'
+        WHERE lower(u."email") = lower($1) AND u."status" = 'active'
+        ORDER BY a."name"`,
+      [email],
+    );
+  }
+
   async findUsers(accountId: string, userIds: string[]): Promise<CoreUser[]> {
     if (userIds.length === 0) return [];
     return this.dataSource.query(

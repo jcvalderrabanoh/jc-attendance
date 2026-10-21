@@ -111,6 +111,7 @@
     @if (employments().length > 1) {
       <a mat-stroked-button class="btn-block" routerLink="/cuentas"><att-icon name="swap_horiz" [size]="20" /> Cambiar de empresa</a>
     }
+    <button mat-stroked-button class="btn-block" type="button" (click)="downloadMyData()"><att-icon name="download" [size]="20" /> Descargar mis datos</button>
     <button mat-button class="btn-block logout" type="button" (click)="logout()"><att-icon name="logout" [size]="20" /> Cerrar sesión</button>
   </section>
 </div>

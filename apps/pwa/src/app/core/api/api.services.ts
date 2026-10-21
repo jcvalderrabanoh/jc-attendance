@@ -101,6 +101,14 @@ export class MeApi {
   onboarding(): Observable<MyOnboardingRequest[]> {
     return this.http.get<MyOnboardingRequest[]>(`${API_URL}/me/onboarding`);
   }
+  /** Corregir el alta cuando la empresa pidió información (vuelve a la cola). */
+  resubmitOnboarding(id: string, body: { identity?: Record<string, string>; customFields?: Record<string, unknown> }): Observable<unknown> {
+    return this.http.put(`${API_URL}/me/onboarding/${id}`, body);
+  }
+  /** Derecho de acceso (ARCO): todo lo que el Checador guarda de la persona. */
+  dataExport(): Observable<unknown> {
+    return this.http.get(`${API_URL}/me/data-export`);
+  }
   requests(): Observable<EmployeeRequest[]> {
     return this.http.get<EmployeeRequest[]>(`${API_URL}/me/requests`);
   }

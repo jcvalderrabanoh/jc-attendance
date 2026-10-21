@@ -1,3 +1,6 @@
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -14,7 +17,7 @@ import { IconComponent } from '../../shared/icon.component';
 /** A3 · Selector de patrón: empresas donde trabaja el empleado. */
 @Component({
   selector: 'att-accounts-page',
-  imports: [MatButtonModule, MatProgressBarModule, BrandHeaderComponent, IconComponent],
+  imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatProgressBarModule, BrandHeaderComponent, IconComponent],
   templateUrl: './accounts.page.html',
   styleUrl: './accounts.page.scss',
 })
@@ -52,6 +55,27 @@ export class AccountsPage implements OnInit {
       this.error.set(apiErrorMessage(err));
     } finally {
       this.loading.set(false);
+    }
+  }
+
+  /** Alta con «pedir información»: el empleado corrige y la reenvía. */
+  readonly fixingId = signal<string | null>(null);
+  fix: Record<string, string> = { email: '', curp: '', rfc: '', nss: '' };
+
+  needsInfo(e: MyEmployment): MyOnboardingRequest | undefined {
+    const r = this.reviewFor(e);
+    return r?.reviewStatus === 'needs_info' ? r : undefined;
+  }
+
+  async resubmit(request: MyOnboardingRequest): Promise<void> {
+    const identity = Object.fromEntries(Object.entries(this.fix).filter(([, v]) => v.trim()).map(([k, v]) => [k, v.trim()]));
+    this.error.set(null);
+    try {
+      await firstValueFrom(this.api.resubmitOnboarding(request.id, { identity }));
+      this.fixingId.set(null);
+      this.onboarding.set(await firstValueFrom(this.api.onboarding()));
+    } catch (err) {
+      this.error.set(apiErrorMessage(err));
     }
   }
 

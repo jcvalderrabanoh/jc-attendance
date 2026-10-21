@@ -121,6 +121,21 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  /** Descarga en JSON todos sus datos personales (derecho de acceso, LFPDPPP). */
+  async downloadMyData(): Promise<void> {
+    try {
+      const data = await firstValueFrom(this.me.dataExport());
+      const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `mis-datos-checador-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      this.snack.open(apiErrorMessage(err), 'Cerrar', { duration: 5000 });
+    }
+  }
+
   logout(): void {
     void this.session.logout();
   }

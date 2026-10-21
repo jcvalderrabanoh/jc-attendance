@@ -8,7 +8,7 @@
     "start:dev": "nest start --watch",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "jest",
-    "test:e2e": "jest --config test/jest-e2e.config.js --runInBand",
+    "test:e2e": "jest --config test/jest-e2e.config.js --runInBand --forceExit",
     "migration:run": "node scripts/db-prepare.js && typeorm migration:run -d dist/config/data-source.js",
     "migration:revert": "typeorm migration:revert -d dist/config/data-source.js",
     "db:prepare": "node scripts/db-prepare.js",

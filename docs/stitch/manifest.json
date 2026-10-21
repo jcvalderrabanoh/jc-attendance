@@ -124,6 +124,11 @@
       "name": "Campos personalizados",
       "screen": "projects/17859620597435208577/screens/30758b8d57894a8cab85e73144609c43",
       "generatedAt": "2026-10-21T01:05:16.912Z"
+    },
+    "C16": {
+      "name": "Reglas de validación",
+      "screen": "projects/17859620597435208577/screens/7461744ea37c4b81bb28020fa67b6e50",
+      "generatedAt": "2026-10-21T01:08:09.214Z"
     }
   },
   "projectId": "17859620597435208577",

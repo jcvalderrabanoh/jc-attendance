@@ -42,3 +42,5 @@ jobs:
         run: npm run test:e2e -w @jc-attendance/api
       - name: API · build
         run: npm run build -w @jc-attendance/api
+      - name: PWA · typecheck, pruebas y build
+        run: npm run typecheck -w @jc-attendance/pwa && npm test -w @jc-attendance/pwa -- --ci && npm run build -w @jc-attendance/pwa

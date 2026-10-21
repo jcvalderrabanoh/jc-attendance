@@ -9,7 +9,7 @@ import { EmployeeChecker } from './checkers';
 import { EmployeesController, MyProfileController } from './controllers';
 import { EmployeeIdentityDao, EmploymentDao } from './daos';
 import { EmployeeIdentity, Employment } from './entities';
-import { ResolveIdentityProcess } from './processes';
+import { ImportEmployeesProcess, ResolveIdentityProcess } from './processes';
 import { IdentityDataRule } from './rules';
 import { EmployeesService } from './services';
 
@@ -22,6 +22,7 @@ import { EmployeesService } from './services';
     IdentityDataRule,
     EmployeeChecker,
     ResolveIdentityProcess,
+    ImportEmployeesProcess,
     CreateEmployeeBluePrint,
     UpdateEmployeeBluePrint,
     TerminateEmployeeBluePrint,

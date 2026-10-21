@@ -248,4 +248,30 @@ describe('Checador de punta a punta', () => {
     const audit = await http.get(api('/audit?entity=request')).set('Authorization', admin).expect(200);
     expect(audit.body.items.map((a: { action: string }) => a.action)).toEqual(expect.arrayContaining(['create', 'approve']));
   });
+
+  it('importa empleados desde CSV con vista previa y luego los da de alta', async () => {
+    const csv = 'Nombre,Apellidos,Teléfono,Número de empleado,Sucursal,Talla de uniforme\nAna,López,5511112222,E-002,Sucursal Centro,G\nLuis,Mora,5533334444,E-003,Sucursal Norte,M\nSin,Talla,5555556666,E-004,,XL\n';
+    const preview = await http
+      .post(api('/employees/import?dryRun=true'))
+      .set('Authorization', admin)
+      .attach('file', Buffer.from(csv, 'utf8'), 'empleados.csv')
+      .expect(201);
+    expect(preview.body).toMatchObject({ dryRun: true, total: 3, ok: 1, failed: 2 });
+    expect(preview.body.results[1].errors[0]).toContain('Sucursal «Sucursal Norte» no existe');
+    expect(preview.body.results[2].errors[0]).toContain('opción inválida');
+    const before = await http.get(api('/employees')).set('Authorization', admin).expect(200);
+    const done = await http.post(api('/employees/import')).set('Authorization', admin).attach('file', Buffer.from(csv, 'utf8'), 'empleados.csv').expect(201);
+    expect(done.body.ok).toBe(1);
+    const after = await http.get(api('/employees')).set('Authorization', admin).expect(200);
+    expect(after.body.total).toBe(before.body.total + 1);
+    const template = await http.get(api('/employees/import/template')).set('Authorization', admin).expect(200);
+    expect(template.headers['content-type']).toContain('spreadsheetml');
+  });
+
+  it('el empleado descarga sus datos (derecho de acceso ARCO)', async () => {
+    const data = await http.get(api('/me/data-export')).set('Authorization', employeeToken).expect(200);
+    expect(data.body.identity.phoneE164).toBe(phoneE164);
+    expect(data.body.employments[0].punches.length).toBeGreaterThan(0);
+    expect(data.body.employments[0].consents.map((c: { kind: string }) => c.kind)).toContain('geolocation');
+  });
 });

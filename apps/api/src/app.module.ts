@@ -21,6 +21,8 @@ import { TimesheetsModule } from './timesheets';
 import { RequestsModule } from './requests';
 import { AnalyticsModule } from './analytics';
 import { ReportsModule } from './reports';
+import { NotificationsModule } from './notifications';
+import { PrivacyModule } from './privacy';
 
 @Module({
   imports: [
@@ -49,6 +51,8 @@ import { ReportsModule } from './reports';
     RequestsModule,
     AnalyticsModule,
     ReportsModule,
+    NotificationsModule,
+    PrivacyModule,
   ],
   controllers: [HealthController],
 })

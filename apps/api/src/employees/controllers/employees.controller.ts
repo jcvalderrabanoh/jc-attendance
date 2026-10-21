@@ -1,4 +1,6 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Put, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Put, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 import { ApiTags } from '@nestjs/swagger';
 import { AccountId, Auth, AuthContext, CurrentAuth, EmployeeContext, ManagersOnly } from '../../common';
 import {
@@ -20,6 +22,23 @@ export class EmployeesController {
   @Auth()
   list(@AccountId() accountId: string, @Query() query: ListEmployeesQueryDto) {
     return this.service.list(accountId, query);
+  }
+
+  @Get('import/template')
+  @ManagersOnly()
+  async template(@AccountId() accountId: string, @Res() res: Response) {
+    res.setHeader('content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('content-disposition', 'attachment; filename="plantilla-empleados.xlsx"');
+    res.send(await this.service.importTemplate(accountId));
+  }
+
+  /** `?dryRun=true` para la vista previa. Archivo XLSX o CSV (≤ 2 MB). */
+  @Post('import')
+  @ManagersOnly()
+  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 2 * 1024 * 1024 } }))
+  import(@AccountId() accountId: string, @UploadedFile() file: Express.Multer.File, @Query('dryRun') dryRun: string, @CurrentAuth() actor: AuthContext) {
+    if (!file || !/\.(xlsx|csv)$/i.test(file.originalname)) throw new BadRequestException('Sube un archivo .xlsx o .csv');
+    return this.service.import(accountId, file, dryRun === 'true', actor);
   }
 
   @Get(':id')

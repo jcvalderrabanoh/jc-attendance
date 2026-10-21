@@ -8,6 +8,7 @@ import { CreateEmployeeBluePrint, TerminateEmployeeBluePrint, UpdateEmployeeBlue
 import { EmployeeIdentityDao, EmploymentDao } from '../daos';
 import { CreateEmployeeDto, ListEmployeesQueryDto, TerminateEmployeeDto, UpdateEmployeeDto, UpdateMyProfileDto } from '../dtos';
 import { Employment } from '../entities';
+import { ImportEmployeesProcess } from '../processes';
 
 @Injectable()
 export class EmployeesService {
@@ -20,7 +21,39 @@ export class EmployeesService {
     private readonly accountSettingsDao: AccountSettingsDao,
     private readonly customFields: CustomFieldsService,
     private readonly audit: RecordAuditProcess,
+    private readonly importProcess: ImportEmployeesProcess,
   ) {}
+
+  /** Plantilla de importación con las columnas base y los campos personalizados de la cuenta. */
+  async importTemplate(accountId: string) {
+    return this.importProcess.template(await this.customFields.list(accountId, CustomFieldEntityEnum.Employment));
+  }
+
+  /**
+   * Importación masiva. `dryRun` = vista previa: valida cada fila con las
+   * mismas reglas del alta manual sin guardar nada.
+   */
+  async import(accountId: string, file: { buffer: Buffer; originalname: string }, dryRun: boolean, actor: AuthContext) {
+    const fields = await this.customFields.list(accountId, CustomFieldEntityEnum.Employment);
+    const rows = await this.importProcess.parse(accountId, file.buffer, file.originalname, fields);
+    if (rows.length > 1000) throw new BadRequestException('Máximo 1,000 filas por archivo');
+    const results: { row: number; ok: boolean; errors: string[]; employmentId?: string }[] = [];
+    for (const r of rows) {
+      if (!r.dto) {
+        results.push({ row: r.row, ok: false, errors: r.errors });
+        continue;
+      }
+      if (dryRun) {
+        const cf = await this.customFields.validateValues(accountId, CustomFieldEntityEnum.Employment, r.dto.customFields);
+        results.push({ row: r.row, ok: cf.errors.length === 0, errors: cf.errors });
+        continue;
+      }
+      const created = await this.createBluePrint.execute({ accountId, dto: r.dto, actor });
+      results.push({ row: r.row, ok: created.isValid, errors: created.constraints.map((c) => c.error ?? ''), employmentId: created.data?.id });
+    }
+    if (!dryRun) await this.audit.process({ accountId, actor, entity: 'employment', action: 'import', after: { file: file.originalname, rows: rows.length, created: results.filter((r) => r.ok).length } });
+    return { dryRun, total: results.length, ok: results.filter((r) => r.ok).length, failed: results.filter((r) => !r.ok).length, results };
+  }
 
   list(accountId: string, query: ListEmployeesQueryDto) {
     let customFields: Record<string, unknown> | undefined;

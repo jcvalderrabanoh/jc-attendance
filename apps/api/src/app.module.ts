@@ -1,0 +1,27 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuditModule } from './audit';
+import { buildDataSourceOptions } from './config';
+import { CoreLinkModule } from './core-link';
+import { HealthController } from './health.controller';
+import { OrganizationModule } from './organization';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({ useFactory: () => buildDataSourceOptions() }),
+    EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot(),
+    // Límite global; los endpoints públicos (liga, OTP, kiosco) llevan uno más estricto.
+    ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
+    CoreLinkModule,
+    AuditModule,
+    OrganizationModule,
+  ],
+  controllers: [HealthController],
+})
+export class AppModule {}

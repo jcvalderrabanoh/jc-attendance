@@ -1,0 +1,18 @@
+{
+  "name": "jc-attendance",
+  "private": true,
+  "description": "Checador: registro de entradas y salidas multicuenta",
+  "workspaces": [
+    "libs/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  }
+}

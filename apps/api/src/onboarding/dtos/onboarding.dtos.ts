@@ -16,9 +16,10 @@ import {
   Matches,
   Max,
   Min,
+  ValidateNested,
 } from 'class-validator';
 import { ConsentKindEnum } from '../../employee-auth/entities';
-import { IdentityDataDto } from '../../employees/dtos';
+import { IdentityDataDto, PartialIdentityDataDto } from '../../employees/dtos';
 import { InvitationKindEnum, ReviewStatusEnum, RuleSeverityEnum } from '../entities';
 
 export const INVITATION_REQUIRABLE_FIELDS = ['email', 'curp', 'rfc', 'nss', 'birthDate'] as const;
@@ -44,14 +45,14 @@ export class JoinOtpDto {
 }
 
 export class SubmitOnboardingDto {
-  @ApiProperty({ type: IdentityDataDto }) @Type(() => IdentityDataDto) identity: IdentityDataDto;
+  @ApiProperty({ type: IdentityDataDto }) @ValidateNested() @Type(() => IdentityDataDto) identity: IdentityDataDto;
   @ApiProperty({ description: 'Código recibido por WhatsApp/SMS en el teléfono de la identidad' }) @Matches(/^\d{6}$/) otpCode: string;
   @ApiPropertyOptional() @IsOptional() @IsObject() customFields?: Record<string, unknown>;
   @ApiProperty({ enum: ConsentKindEnum, isArray: true }) @IsArray() @IsEnum(ConsentKindEnum, { each: true }) consents: ConsentKindEnum[];
 }
 
 export class ResubmitOnboardingDto {
-  @ApiPropertyOptional({ type: IdentityDataDto }) @IsOptional() @Type(() => IdentityDataDto) identity?: Partial<IdentityDataDto>;
+  @ApiPropertyOptional({ type: IdentityDataDto }) @IsOptional() @ValidateNested() @Type(() => PartialIdentityDataDto) identity?: PartialIdentityDataDto;
   @ApiPropertyOptional() @IsOptional() @IsObject() customFields?: Record<string, unknown>;
 }
 

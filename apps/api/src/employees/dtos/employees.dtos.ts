@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsArray,
@@ -14,22 +14,27 @@ import {
   IsUUID,
   Length,
   Matches,
+  MaxLength,
   Min,
+  ValidateNested,
 } from 'class-validator';
 import { StatusForEntityEnum } from '../../common';
 import { OnboardingStatusEnum, PayTypeEnum } from '../entities';
 
-/** Datos de la persona (identidad global). */
+/** Datos de la persona (identidad global). El formato de CURP/RFC/NSS lo validan las reglas (pueden ser solo advertencia). */
 export class IdentityDataDto {
   @ApiProperty() @IsString() @Length(1, 120) firstName: string;
   @ApiProperty() @IsString() @Length(1, 120) lastName: string;
   @ApiPropertyOptional({ example: '+525512345678' }) @IsOptional() @IsString() phone?: string;
   @ApiPropertyOptional() @IsOptional() @IsEmail() email?: string;
-  @ApiPropertyOptional() @IsOptional() @IsString() @Length(18, 18) curp?: string;
-  @ApiPropertyOptional() @IsOptional() @IsString() @Length(12, 13) rfc?: string;
-  @ApiPropertyOptional() @IsOptional() @IsString() @Length(11, 11) nss?: string;
+  @ApiPropertyOptional() @IsOptional() @IsString() @MaxLength(20) curp?: string;
+  @ApiPropertyOptional() @IsOptional() @IsString() @MaxLength(20) rfc?: string;
+  @ApiPropertyOptional() @IsOptional() @IsString() @MaxLength(20) nss?: string;
   @ApiPropertyOptional() @IsOptional() @IsDateString() birthDate?: string;
 }
+
+/** Edición parcial de la identidad. */
+export class PartialIdentityDataDto extends PartialType(IdentityDataDto) {}
 
 /** Datos laborales en la cuenta. */
 export class EmploymentDataDto {
@@ -52,11 +57,11 @@ export class EmploymentDataDto {
 }
 
 export class CreateEmployeeDto extends EmploymentDataDto {
-  @ApiProperty({ type: IdentityDataDto }) @Type(() => IdentityDataDto) identity: IdentityDataDto;
+  @ApiProperty({ type: IdentityDataDto }) @ValidateNested() @Type(() => IdentityDataDto) identity: IdentityDataDto;
 }
 
 export class UpdateEmployeeDto extends EmploymentDataDto {
-  @ApiPropertyOptional({ type: IdentityDataDto }) @IsOptional() @Type(() => IdentityDataDto) identity?: Partial<IdentityDataDto>;
+  @ApiPropertyOptional({ type: IdentityDataDto }) @IsOptional() @ValidateNested() @Type(() => PartialIdentityDataDto) identity?: PartialIdentityDataDto;
 }
 
 export class TerminateEmployeeDto {

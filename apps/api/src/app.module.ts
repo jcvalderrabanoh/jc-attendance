@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -18,6 +19,8 @@ import { OnboardingModule } from './onboarding';
 import { PunchesModule } from './punches';
 import { TimesheetsModule } from './timesheets';
 import { RequestsModule } from './requests';
+import { AnalyticsModule } from './analytics';
+import { ReportsModule } from './reports';
 
 @Module({
   imports: [
@@ -25,6 +28,11 @@ import { RequestsModule } from './requests';
     TypeOrmModule.forRootAsync({ useFactory: () => buildDataSourceOptions() }),
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
+    // Colas propias con prefijo `att` en el mismo Redis que jc-core.
+    BullModule.forRoot({
+      redis: { host: process.env.REDIS_HOST || 'localhost', port: parseInt(process.env.REDIS_PORT || '6379', 10), password: process.env.REDIS_PASSWORD || undefined },
+      prefix: 'att',
+    }),
     // Límite global; los endpoints públicos (liga, OTP, kiosco) llevan uno más estricto.
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
     CoreLinkModule,
@@ -39,6 +47,8 @@ import { RequestsModule } from './requests';
     PunchesModule,
     TimesheetsModule,
     RequestsModule,
+    AnalyticsModule,
+    ReportsModule,
   ],
   controllers: [HealthController],
 })

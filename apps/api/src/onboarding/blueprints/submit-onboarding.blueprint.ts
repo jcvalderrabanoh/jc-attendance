@@ -94,6 +94,7 @@ export class SubmitOnboardingBluePrint implements BasicBluePrintInterface<Submit
       actor: null,
       verified: { phone: true },
       skipCustomFieldValidation: true,
+      identityRulesApplied: true,
       onboardingStatus: autoApprove ? OnboardingStatusEnum.Approved : OnboardingStatusEnum.Pending,
       dto: {
         identity: dto.identity,

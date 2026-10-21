@@ -29,7 +29,7 @@ export function buildDataSourceOptions(
     schema: ATTENDANCE_SCHEMA,
     migrationsTableName: ATTENDANCE_MIGRATIONS_TABLE,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
-    migrations: [__dirname + '/../migrations/*.{js,ts}'],
+    migrations: [__dirname + '/../migrations/[0-9]*-*.{js,ts}'],
     // gen_random_uuid() es nativo desde PG13: el rol del Checador no necesita crear extensiones.
     uuidExtension: 'pgcrypto',
     synchronize: false,

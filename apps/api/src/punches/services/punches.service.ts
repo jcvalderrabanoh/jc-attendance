@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { addDays, dayOfWeek, localDateOf, zonedTimeToUtc } from '@jc-attendance/rules-engine';
 import { RecordAuditProcess } from '../../audit/processes';
-import { CoreUserContext, EmployeeContext, found, hashSecret, KioskContext, safeEqual, unwrap } from '../../common';
+import { CoreUserContext, EmployeeContext, found, hashSecret, KioskContext, safeEqual, sha256, unwrap } from '../../common';
 import { EmployeeIdentityDao, EmploymentDao } from '../../employees/daos';
 import { LocationDao } from '../../locations/daos';
 import { AccountSettingsDao } from '../../organization/daos';
@@ -106,7 +106,7 @@ export class PunchesService {
         source: PunchSourceEnum.Manual,
         actor: user,
         type: dto.type,
-        idempotencyKey: `manual-${user.userId}-${dto.employmentId}-${dto.type}-${dto.at}`,
+        idempotencyKey: `manual-${sha256(`${user.userId}|${dto.employmentId}|${dto.type}|${dto.at}`).slice(0, 48)}`,
         clientAt: new Date(dto.at),
         manual: { at: new Date(dto.at), reason: dto.reason, locationId: dto.locationId, replacesPunchId: dto.replacesPunchId, userId: user.userId },
       }),

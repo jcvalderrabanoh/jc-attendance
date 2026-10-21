@@ -20,6 +20,11 @@ export interface CreateEmployeeInput {
   verified?: { phone?: boolean; email?: boolean };
   /** Los campos personalizados ya vienen validados (alta por liga). */
   skipCustomFieldValidation?: boolean;
+  /**
+   * Alta por liga: el formato de CURP/RFC/NSS ya lo evaluaron las reglas de la
+   * cuenta (que pueden dejarlo como simple advertencia).
+   */
+  identityRulesApplied?: boolean;
 }
 
 /** Alta de empleado: identidad global (o la existente) + empleo en la cuenta. */
@@ -37,7 +42,9 @@ export class CreateEmployeeBluePrint implements BasicBluePrintInterface<CreateEm
 
   async execute(input: CreateEmployeeInput): Promise<CheckRulesAndProcessInterfaceResult<Employment>> {
     const { accountId, dto, actor } = input;
-    const { value: identityData, errors } = this.identityRule.normalize(dto.identity);
+    const normalized = this.identityRule.normalize(dto.identity);
+    const identityData = normalized.value;
+    const errors = input.identityRulesApplied ? normalized.errors.filter((e) => !/CURP|RFC|NSS/.test(e)) : normalized.errors;
     errors.push(...(await this.checker.validateEmployment(accountId, dto)));
     errors.push(...(await this.checker.validateIdentityInAccount(accountId, identityData)));
     let customFields = dto.customFields ?? {};

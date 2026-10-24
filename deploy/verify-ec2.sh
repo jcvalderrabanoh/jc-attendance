@@ -19,7 +19,9 @@ check "pm2 jc-attendance-api" sudo -u "${APP_USER}" bash -c \
 check "API local /health" curl -fsS --max-time 5 http://127.0.0.1:3100/health
 check "API vía nginx" curl -fsS --max-time 5 --resolve "${PUBLIC_HOST}:443:127.0.0.1" "https://${PUBLIC_HOST}/attendance/health"
 check "PWA vía nginx" curl -fsS --max-time 5 -o /dev/null -w "%{http_code} %{content_type}" --resolve "${PUBLIC_HOST}:443:127.0.0.1" "https://${PUBLIC_HOST}/asistencia/"
-check "jc-core local (GET / en :${CORE_PORT})" curl -fsS --max-time 5 "http://127.0.0.1:${CORE_PORT}/"
+# jc-core no registra AppController (references/index.ts resuelve controllers.ts),
+# así que GET / da 404; la especificación de Swagger siempre responde 200.
+check "jc-core local (:${CORE_PORT}/api-json)" curl -fsS --max-time 10 -o /dev/null -w "%{http_code}" "http://127.0.0.1:${CORE_PORT}/api-json"
 # Vía nginx basta con que jc-core conteste (401/404 incluidos): 502/503/504 = caído.
 check "jc-core vía nginx" bash -c "code=\$(curl -sS --max-time 5 -o /dev/null -w '%{http_code}' --resolve '${PUBLIC_HOST}:443:127.0.0.1' 'https://${PUBLIC_HOST}/public-viewer'); echo \$code; case \$code in 000|502|503|504) exit 1;; esac"
 check "nginx -t" nginx -t

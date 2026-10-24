@@ -17,30 +17,45 @@ sudo -u ec2-user bash -c 'cd ${DIR} && git fetch origin ${BRANCH} && git reset -
 BRANCH=${BRANCH} bash ${DIR}/deploy/bootstrap-ec2.sh
 SH
 
-PARAMS="$(jq -n --arg c "${REMOTE}" '{commands: [$c]}')"
-COMMAND_ID=$(aws ssm send-command \
-  --instance-ids "${INSTANCE_ID}" \
-  --document-name "AWS-RunShellScript" \
-  --timeout-seconds 3600 \
-  --comment "Deploy Checador (jc-attendance ${BRANCH})" \
-  --parameters "${PARAMS}" \
-  --query 'Command.CommandId' --output text)
-echo "Command ID: ${COMMAND_ID}"
+# Manda un script por SSM, espera y deja su salida en $OUT; devuelve 0 si terminó bien.
+run_remote() {
+  local script="$1" comment="$2" params command_id status
+  params="$(jq -n --arg c "${script}" '{commands: [$c]}')"
+  command_id=$(aws ssm send-command \
+    --instance-ids "${INSTANCE_ID}" \
+    --document-name "AWS-RunShellScript" \
+    --timeout-seconds 3600 \
+    --comment "${comment}" \
+    --parameters "${params}" \
+    --query 'Command.CommandId' --output text)
+  echo "Command ID: ${command_id}"
+  for _ in $(seq 1 120); do
+    status=$(aws ssm get-command-invocation --command-id "${command_id}" --instance-id "${INSTANCE_ID}" \
+      --query 'Status' --output text 2>/dev/null || echo "InProgress")
+    echo "Status: ${status}"
+    case "${status}" in
+      Success|Failed|Cancelled|TimedOut)
+        OUT="$(aws ssm get-command-invocation --command-id "${command_id}" --instance-id "${INSTANCE_ID}" \
+          --query '[StandardOutputContent, StandardErrorContent]' --output text)"
+        [ "${status}" = "Success" ]
+        return
+        ;;
+    esac
+    sleep 10
+  done
+  OUT="Timeout esperando el comando"
+  return 1
+}
 
-for _ in $(seq 1 120); do
-  STATUS=$(aws ssm get-command-invocation --command-id "${COMMAND_ID}" --instance-id "${INSTANCE_ID}" \
-    --query 'Status' --output text 2>/dev/null || echo "InProgress")
-  echo "Status: ${STATUS}"
-  case "${STATUS}" in
-    Success|Failed|Cancelled|TimedOut)
-      aws ssm get-command-invocation --command-id "${COMMAND_ID}" --instance-id "${INSTANCE_ID}" \
-        --query 'StandardOutputContent' --output text | tail -60
-      if [ "${STATUS}" = "Success" ]; then exit 0; fi
-      aws ssm get-command-invocation --command-id "${COMMAND_ID}" --instance-id "${INSTANCE_ID}" \
-        --query 'StandardErrorContent' --output text | tail -60
-      exit 1
-      ;;
-  esac
-  sleep 10
-done
-echo "Timeout esperando el deploy"; exit 1
+deploy_ok=0
+run_remote "${REMOTE}" "Deploy Checador (jc-attendance ${BRANCH})" || deploy_ok=$?
+echo "----- deploy (últimas líneas; SSM trunca la salida a 24 KB) -----"
+echo "${OUT}" | tail -60
+
+# Siempre: un resumen corto que SSM no trunca.
+verify_ok=0
+run_remote "bash ${DIR}/deploy/verify-ec2.sh" "Verificar Checador" || verify_ok=$?
+echo "----- verificación -----"
+echo "${OUT}"
+
+if [ "${deploy_ok}" -ne 0 ] || [ "${verify_ok}" -ne 0 ]; then exit 1; fi

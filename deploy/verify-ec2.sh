@@ -18,7 +18,7 @@ check "pm2 jc-attendance-api" sudo -u "${APP_USER}" bash -c \
 check "API local /health" curl -fsS --max-time 5 http://127.0.0.1:3100/health
 check "API vía nginx" curl -fsS --max-time 5 --resolve "${PUBLIC_HOST}:443:127.0.0.1" "https://${PUBLIC_HOST}/attendance/health"
 check "PWA vía nginx" curl -fsS --max-time 5 -o /dev/null -w "%{http_code} %{content_type}" --resolve "${PUBLIC_HOST}:443:127.0.0.1" "https://${PUBLIC_HOST}/asistencia/"
-check "jc-core vía nginx" curl -fsS --max-time 5 -o /dev/null -w "%{http_code}" --resolve "${PUBLIC_HOST}:443:127.0.0.1" "https://${PUBLIC_HOST}/health"
+check "jc-core vía nginx (GET /)" curl -fsS --max-time 5 -o /dev/null -w "%{http_code}" --resolve "${PUBLIC_HOST}:443:127.0.0.1" "https://${PUBLIC_HOST}/"
 check "nginx -t" nginx -t
 check "include en nginx" grep -c "lumen-attendance.conf" /etc/nginx/conf.d/lumenview.conf
 

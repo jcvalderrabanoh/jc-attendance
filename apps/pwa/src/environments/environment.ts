@@ -1,5 +1,8 @@
-/** Producción: el API se sirve detrás del mismo dominio (proxy inverso). */
+/**
+ * Producción: la PWA vive en `https://core.lumen-view.com/asistencia/` y el API
+ * en `/attendance/` del mismo dominio (nginx → :3100), así que no hay CORS.
+ */
 export const environment = {
   production: true,
-  apiUrl: '/api/v1',
+  apiUrl: '/attendance/api/v1',
 };

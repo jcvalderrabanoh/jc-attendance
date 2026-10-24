@@ -8,7 +8,7 @@ set -euo pipefail
 APP_DIR="${APP_DIR:-/home/ec2-user/jc-attendance}"
 BUILD_DIR="${BUILD_DIR:-${APP_DIR}-build}"
 OLD_DIR="${OLD_DIR:-${APP_DIR}-previous}"
-SWAPPED_DIRS=(node_modules libs/rules-engine/dist apps/api/dist)
+SWAPPED_DIRS=(node_modules libs/rules-engine/dist libs/platform-sdk/dist apps/api/dist)
 PM2_APP_NAME="jc-attendance-api"
 
 log() { echo "[release] $*"; }
@@ -21,9 +21,9 @@ ln -s "${APP_DIR}/apps/api/.env" "${BUILD_DIR}/apps/api/.env"
 
 cd "${BUILD_DIR}"
 log "npm ci"
-npm ci --workspace @jc-attendance/rules-engine --workspace @jc-attendance/api --include-workspace-root
+npm ci --workspace @jc-attendance/rules-engine --workspace @jc/platform-sdk --workspace @jc-attendance/api --include-workspace-root
 log "build"
-npm run build -w @jc-attendance/rules-engine
+npm run build:libs
 npm run build -w @jc-attendance/api
 log "migraciones (esquema attendance)"
 npm run migration:run -w @jc-attendance/api

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
+import { ACCOUNT_HAS_APP_SQL } from '@jc/platform-sdk';
 import { DataSource } from 'typeorm';
 
 export interface CoreAccount {
@@ -35,13 +36,7 @@ export class CoreAccountDao {
   }
 
   async hasAttendanceApp(accountId: string): Promise<boolean> {
-    const rows = await this.dataSource.query(
-      `SELECT 1 FROM public.account_apps
-        WHERE "accountId" = $1 AND "app" = 'attendance' AND "status" = 'active'
-          AND ("trialEndsAt" IS NULL OR "trialEndsAt" > now())
-        LIMIT 1`,
-      [accountId],
-    );
+    const rows = await this.dataSource.query(ACCOUNT_HAS_APP_SQL, [accountId, 'attendance']);
     return rows.length > 0;
   }
 

@@ -34,6 +34,8 @@ jobs:
       - run: npm ci
       - name: Motor de cálculo
         run: npm run typecheck -w @jc-attendance/rules-engine && npm test -w @jc-attendance/rules-engine && npm run build -w @jc-attendance/rules-engine
+      - name: Platform SDK
+        run: npm run typecheck -w @jc/platform-sdk && npm test -w @jc/platform-sdk && npm run build -w @jc/platform-sdk
       - name: API · typecheck (incluye specs)
         run: npm run typecheck -w @jc-attendance/api
       - name: API · pruebas unitarias

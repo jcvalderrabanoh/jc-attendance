@@ -28,7 +28,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test -w @jc-attendance/rules-engine
+      - run: npm test -w @jc-attendance/rules-engine && npm test -w @jc/platform-sdk
+      # El typecheck del API resuelve los tipos de las libs desde su dist/.
+      - run: npm run build:libs
       - run: npm run typecheck -w @jc-attendance/api && npm test -w @jc-attendance/api
 
   deploy:

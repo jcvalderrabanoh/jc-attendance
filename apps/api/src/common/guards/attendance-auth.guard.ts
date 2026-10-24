@@ -8,6 +8,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { parseAcceptedApps, PlatformSession, ProductRoleMap, resolveProductRole, verifyPlatformToken } from '@jc/platform-sdk';
 import * as jwt from 'jsonwebtoken';
 import { AUTH_OPTIONS_KEY, AuthOptions } from '../decorators/auth.decorator';
 import { ActorRoleEnum } from '../enums';
@@ -29,7 +30,7 @@ export const ATTENDANCE_APP = 'attendance';
  * Checador (fila activa en `account_apps`), no desde qué app inició sesión.
  */
 export function acceptedCoreApps(): string[] {
-  return (process.env.ATTENDANCE_ACCEPTED_APPS || 'attendance,lumen-view,anesthesia').split(',').map((a) => a.trim());
+  return parseAcceptedApps(process.env.ATTENDANCE_ACCEPTED_APPS, ['attendance', 'lumen-view', 'anesthesia']);
 }
 
 /**
@@ -43,15 +44,19 @@ export const ATTENDANCE_PERMISSIONS = {
   read: 'attendance.read',
 } as const;
 
+const ATTENDANCE_ROLES: ProductRoleMap<ActorRoleEnum> = {
+  admin: ActorRoleEnum.Admin,
+  byPermission: [
+    [ATTENDANCE_PERMISSIONS.manage, ActorRoleEnum.Rh],
+    [ATTENDANCE_PERMISSIONS.supervise, ActorRoleEnum.Supervisor],
+    [ATTENDANCE_PERMISSIONS.inspect, ActorRoleEnum.Inspector],
+    [ATTENDANCE_PERMISSIONS.read, ActorRoleEnum.Inspector],
+  ],
+};
+
 /** Rol dentro del Checador, o `null` si el usuario no tiene acceso al Checador. */
 export function resolveAttendanceRole(role: string, permissions: string[]): ActorRoleEnum | null {
-  if (role === 'admin') return ActorRoleEnum.Admin;
-  if (permissions.includes(ATTENDANCE_PERMISSIONS.manage)) return ActorRoleEnum.Rh;
-  if (permissions.includes(ATTENDANCE_PERMISSIONS.supervise)) return ActorRoleEnum.Supervisor;
-  if (permissions.includes(ATTENDANCE_PERMISSIONS.inspect) || permissions.includes(ATTENDANCE_PERMISSIONS.read)) {
-    return ActorRoleEnum.Inspector;
-  }
-  return null;
+  return resolveProductRole(role, permissions, ATTENDANCE_ROLES);
 }
 
 /**
@@ -100,8 +105,19 @@ export class AttendanceAuthGuard implements CanActivate {
     const coreSecret = process.env.JWT_SECRET;
     const ownSecret = process.env.EMPLOYEE_JWT_SECRET;
     if (coreSecret) {
-      const core = this.tryVerify(token, coreSecret);
-      if (core) return this.toCoreContext(core);
+      const core = verifyPlatformToken(token, coreSecret, acceptedCoreApps());
+      switch (core.status) {
+        case 'ok':
+          return this.toCoreContext(core.session);
+        case 'expired':
+          throw new UnauthorizedException('Token expired. Please refresh token');
+        case 'app_not_accepted':
+          throw new ForbiddenException(`Las sesiones de ${core.app} no pueden usar el Checador`);
+        case 'malformed':
+          throw new UnauthorizedException('Invalid token');
+        case 'not_platform':
+          break; // puede ser un token propio (empleado o kiosco)
+      }
     }
     if (ownSecret) {
       const own = this.tryVerify(token, ownSecret);
@@ -131,27 +147,18 @@ export class AttendanceAuthGuard implements CanActivate {
     }
   }
 
-  private toCoreContext(payload: any): CoreUserContext {
-    // Tokens antiguos de lumen-view no traen `app`: jc-core asume lumen-view.
-    const app = payload.app ?? 'lumen-view';
-    if (!acceptedCoreApps().includes(app)) {
-      throw new ForbiddenException(`Las sesiones de ${app} no pueden usar el Checador`);
-    }
-    if (!payload.userId || !payload.accountId) {
-      throw new UnauthorizedException('Invalid token');
-    }
-    const permissions: string[] = Array.isArray(payload.permissions) ? payload.permissions : [];
-    const attendanceRole = resolveAttendanceRole(payload.role ?? 'staff', permissions);
+  private toCoreContext(session: PlatformSession): CoreUserContext {
+    const attendanceRole = resolveAttendanceRole(session.role, session.permissions);
     if (!attendanceRole) {
       throw new ForbiddenException('Tu usuario no tiene permisos del Checador (attendance.*)');
     }
     return {
       kind: 'core',
-      userId: payload.userId,
-      email: payload.email,
-      accountId: payload.accountId,
-      role: payload.role ?? 'staff',
-      permissions,
+      userId: session.userId,
+      email: session.email,
+      accountId: session.accountId,
+      role: session.role,
+      permissions: session.permissions,
       attendanceRole,
     };
   }

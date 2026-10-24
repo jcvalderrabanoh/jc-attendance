@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@jc-attendance/rules-engine": "*",
+    "@jc/platform-sdk": "*",
     "@nestjs/bull": "^10.2.3",
     "@nestjs/common": "^10.3.1",
     "@nestjs/config": "^3.1.1",
@@ -70,7 +71,8 @@
     },
     "testEnvironment": "node",
     "moduleNameMapper": {
-      "^@jc-attendance/rules-engine$": "<rootDir>/../../../libs/rules-engine/src"
+      "^@jc-attendance/rules-engine$": "<rootDir>/../../../libs/rules-engine/src",
+      "^@jc/platform-sdk$": "<rootDir>/../../../libs/platform-sdk/src"
     }
   }
 }

@@ -1,7 +1,2 @@
-/** Mismos valores que jc-core: soft delete con `deleted`. */
-export enum StatusForEntityEnum {
-  Active = 'active',
-  Inactive = 'inactive',
-  Deleted = 'deleted',
-  Archived = 'archived',
-}
+/** Mismos valores que jc-core: soft delete con `deleted` (`@jc/platform-sdk`). */
+export { StatusForEntityEnum } from '@jc/platform-sdk';

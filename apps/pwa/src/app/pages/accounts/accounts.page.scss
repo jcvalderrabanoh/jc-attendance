@@ -1,0 +1,17 @@
+.list { list-style: none; margin: 0 0 16px; padding: 0; }
+.account { display: flex; align-items: center; gap: 4px; padding: 8px 8px 8px 0; }
+.account.current { border-color: var(--att-primary); box-shadow: 0 0 0 2px rgb(15 76 92 / 15%); }
+.choose {
+  flex: 1; display: flex; align-items: center; gap: 12px; min-height: 64px;
+  background: none; border: 0; padding: 8px 12px; text-align: left; font: inherit; color: inherit; cursor: pointer; border-radius: 12px;
+  &:disabled { cursor: default; }
+}
+.logo {
+  flex: none; width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--att-accent-soft); color: var(--att-warn-ink); font-weight: 800; font-size: 1.3rem;
+}
+.info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.name { font-weight: 700; font-size: 1.05rem; }
+.meta { font-size: 0.85rem; color: var(--att-muted); display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.comment { font-size: 0.85rem; color: var(--att-muted); font-style: italic; }
+.disabled .name { color: var(--att-muted); }

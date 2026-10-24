@@ -1,7 +1,7 @@
 ---
 proyecto: Checador
 fuente: jc-attendance/docs/03-arquitectura.md
-sincronizado: 2026-10-20
+sincronizado: 2026-10-21
 tags: [checador, asistencia]
 ---
 
@@ -51,7 +51,22 @@ tags: [checador, asistencia]
 Único cambio en jc-core (PR pequeño y aislado): añadir `AppEnum.Attendance =
 'attendance'` para que una cuenta pueda contratar el checador en `account_apps`
 y el token-exchange emita `app: 'attendance'`. El resto del código de jc-core no
-se toca.
+se toca. **Hecho** en la rama `claude/time-tracking-system-vb9i4l` de jc-core.
+
+### Acceso integral: un usuario, todas las apps (decisión 2026-10-21)
+
+- jc-core es el **único proveedor de identidad** (Auth0 + `users` + `account_apps`).
+  La misma persona entra a **lumen-view**, **anestesia (SIRA)** y **asistencia**
+  con un solo login.
+- El API del Checador acepta el JWT de jc-core de **cualquiera** de esas apps
+  (`ATTENDANCE_ACCEPTED_APPS`, por defecto `attendance,lumen-view,anesthesia`).
+  Lo que decide el acceso es que la **cuenta** tenga fila activa `attendance` en
+  `account_apps` (mismo criterio que el `AppAccessGuard` de jc-core).
+- Las **pantallas del patrón viven en core-front** (módulo `Checador` con el
+  mismo menú y sesión que lumen-view). La **app del empleado y el kiosco** son
+  una PWA aparte (`apps/pwa`), porque el empleado no es usuario de jc-core.
+- Un usuario de jc-core que además checa se enlaza a su empleo
+  (`employments.coreUserId`) y marca con `POST /punches/self` desde core-front.
 
 ## 3. Identidades: patrón vs. empleado
 
@@ -75,7 +90,7 @@ Monorepo `jc-attendance` (Nx o workspaces npm):
 | Paquete | Stack | Notas |
 |---|---|---|
 | `apps/api` | NestJS 10 + TypeORM + PostgreSQL + Bull/Redis + EventEmitter2 | Misma arquitectura por capas que jc-core (controllers → services → blueprints → checkers/rules → processes → daos). |
-| `apps/web` | Angular (standalone) + Angular Material + ECharts | Consola del patrón: empleados, ubicaciones, políticas, aprobaciones, reportes, tableros. |
+| core-front `pages/checador` | Angular 19 (standalone) + Angular Material | Consola del patrón dentro de core-front (mismo login y menú que lumen-view): empleados, ubicaciones, políticas, aprobaciones, reportes, tableros. |
 | `apps/pwa` | Angular PWA (Service Worker + IndexedDB) | App del empleado: checar, historial, solicitudes. Offline-first. Empaquetable con Capacitor para tiendas (fase 3). |
 | `apps/kiosk` | Ruta del PWA en modo kiosco | Tablet en sucursal: QR rotativo y/o reconocimiento facial + PIN. |
 | `libs/rules-engine` | TypeScript puro, sin dependencias de Nest | Motor de cálculo de jornada (turnos, tolerancias, redondeo, horas extra LFT). 100 % testeado con tablas de casos. |

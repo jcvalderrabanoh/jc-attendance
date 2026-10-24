@@ -1,0 +1,55 @@
+name: Deploy to EC2
+
+# Mismo mecanismo que jc-core: SSM ejecuta deploy/release.sh en la instancia
+# (proceso pm2 propio `jc-attendance-api`, puerto 3100, mismo EC2).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      skip_tests:
+        description: 'Hotfix: desplegar sin esperar los tests'
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-ec2-attendance
+  cancel-in-progress: false
+
+jobs:
+  test:
+    if: ${{ !(startsWith(github.event.head_commit.message, '[hotfix]') || inputs.skip_tests) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test -w @jc-attendance/rules-engine
+      - run: npm run typecheck -w @jc-attendance/api && npm test -w @jc-attendance/api
+
+  deploy:
+    needs: test
+    if: ${{ !cancelled() && (needs.test.result == 'success' || needs.test.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    env:
+      HAS_SECRETS: ${{ secrets.EC2_INSTANCE_ID != '' }}
+    steps:
+      - name: Sin secretos de AWS
+        if: env.HAS_SECRETS != 'true'
+        run: |
+          echo "::notice::Este repo aún no tiene AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / EC2_INSTANCE_ID. Despliega con jc-core → Actions → «Deploy Checador»."
+      - uses: aws-actions/configure-aws-credentials@v4
+        if: env.HAS_SECRETS == 'true'
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Run deploy command
+        if: env.HAS_SECRETS == 'true'
+        env:
+          INSTANCE_ID: ${{ secrets.EC2_INSTANCE_ID }}
+        run: bash deploy/ssm-deploy.sh

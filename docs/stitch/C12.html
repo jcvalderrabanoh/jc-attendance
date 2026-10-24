@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AsistePyME - Centro de Reportes y Prenómina (LFT &amp; IMSS)</title>
+<!-- Material Symbols & Typography -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-on-surface": "#ecf1ff",
+            "primary": "#003441",
+            "on-surface": "#111c2d",
+            "on-tertiary-container": "#f1a440",
+            "on-tertiary-fixed": "#2b1700",
+            "on-primary-container": "#87bbce",
+            "error": "#ba1a1a",
+            "secondary-container": "#b7e7f7",
+            "secondary": "#356572",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary": "#ffffff",
+            "primary-container": "#0f4c5c",
+            "primary-fixed-dim": "#9acee1",
+            "surface-bright": "#f9f9ff",
+            "primary-fixed": "#b6ebfe",
+            "on-primary": "#ffffff",
+            "tertiary": "#462900",
+            "on-primary-fixed-variant": "#114d5d",
+            "background": "#f9f9ff",
+            "on-secondary-container": "#3a6977",
+            "inverse-surface": "#263143",
+            "inverse-primary": "#9acee1",
+            "tertiary-fixed": "#ffddb9",
+            "secondary-fixed": "#baeafa",
+            "tertiary-fixed-dim": "#ffb963",
+            "surface-container-high": "#dee8ff",
+            "on-background": "#111c2d",
+            "surface-dim": "#cfdaf2",
+            "surface-container": "#e7eeff",
+            "on-tertiary": "#ffffff",
+            "surface": "#f9f9ff",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-variant": "#d8e3fb",
+            "surface-tint": "#306576",
+            "surface-container-low": "#f0f3ff",
+            "outline-variant": "#c0c8cb",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-surface-variant": "#40484b",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#653d00",
+            "on-secondary-fixed": "#001f27",
+            "surface-container-highest": "#d8e3fb",
+            "on-primary-fixed": "#001f28",
+            "on-tertiary-fixed-variant": "#663e00",
+            "secondary-fixed-dim": "#9ecedd",
+            "outline": "#70787c"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-2xl": "3rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "margin": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "0.75rem",
+            "gutter": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Inter"],
+            "title-lg": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "title-md": ["Inter"],
+            "display-clock": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f0f3ff;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="h-full text-on-surface bg-background flex overflow-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="fixed top-0 left-0 h-screen w-64 z-40 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm dark:shadow-none flex flex-col justify-between p-space-md">
+<!-- Top Branding & CTA Section -->
+<div class="flex flex-col gap-space-md">
+<!-- Brand Logo / Avatar Header -->
+<div class="flex items-center gap-space-sm px-space-xs py-space-xs">
+<div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[24px]" data-icon="fingerprint">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-title-lg font-title-lg text-primary dark:text-primary-fixed font-bold leading-tight">AsistePyME</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant dark:text-inverse-on-surface">Matriz CDMX</span>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<button class="w-full h-11 px-space-md rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors flex items-center justify-center gap-space-sm text-label-lg font-label-lg shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="how_to_reg">how_to_reg</span>
+<span>Registrar Entrada</span>
+</button>
+<!-- Navigation Links (Active: Reportes index 9) -->
+<nav class="flex flex-col gap-1 mt-2 overflow-y-auto max-h-[calc(100vh-270px)] pr-1 custom-scroll">
+<!-- 0: Tablero -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#tablero">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- 1: En vivo -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#envivo">
+<span class="material-symbols-outlined text-[20px]" data-icon="sensors">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- 2: Empleados -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#empleados">
+<span class="material-symbols-outlined text-[20px]" data-icon="badge">badge</span>
+<span>Empleados</span>
+</a>
+<!-- 3: Validaciones de Alta -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#validaciones">
+<span class="material-symbols-outlined text-[20px]" data-icon="how_to_reg">how_to_reg</span>
+<span>Validaciones de Alta</span>
+</a>
+<!-- 4: Marcajes -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#marcajes">
+<span class="material-symbols-outlined text-[20px]" data-icon="fingerprint">fingerprint</span>
+<span>Marcajes</span>
+</a>
+<!-- 5: Hojas de horas -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#hojas">
+<span class="material-symbols-outlined text-[20px]" data-icon="schedule">schedule</span>
+<span>Hojas de horas</span>
+</a>
+<!-- 6: Incidencias -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#incidencias">
+<span class="material-symbols-outlined text-[20px]" data-icon="event_busy">event_busy</span>
+<span>Incidencias</span>
+</a>
+<!-- 7: Turnos -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#turnos">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_month">calendar_month</span>
+<span>Turnos</span>
+</a>
+<!-- 8: Ubicaciones -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#ubicaciones">
+<span class="material-symbols-outlined text-[20px]" data-icon="location_on">location_on</span>
+<span>Ubicaciones</span>
+</a>
+<!-- 9: Reportes (ACTIVE ELEMENT) -->
+<a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-label-lg text-label-lg shadow-sm" href="#reportes">
+<span class="material-symbols-outlined text-[20px]" data-icon="assessment" style="font-variation-settings: 'FILL' 1;">assessment</span>
+<span>Reportes</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Settings Tab -->
+<div class="border-t border-outline-variant/40 pt-space-sm">
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant dark:text-inverse-on-surface font-body-md text-body-md hover:bg-surface-container-high dark:hover:bg-surface-tint hover:text-on-surface dark:hover:text-inverse-on-surface transition-colors duration-150 active:scale-[0.98]" href="#configuracion">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span>Configuración</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas Wrapper -->
+<div class="flex-1 flex flex-col pl-64 h-screen overflow-hidden">
+<!-- TopNavBar Anchor -->
+<header class="docked full-width top-0 sticky z-30 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none flex items-center justify-between h-16 px-space-lg w-full">
+<!-- Branch Selector & Search Bar (on_left) -->
+<div class="flex items-center gap-space-lg flex-1 max-w-2xl">
+<!-- Sucursal Dropdown -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/40 text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="domain">domain</span>
+<span class="text-label-md font-label-md">Sucursal Matriz CDMX (Todas las áreas)</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Search Input -->
+<div class="relative w-full max-w-md">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="search">search</span>
+</span>
+<input class="w-full h-9 pl-9 pr-4 bg-surface-container-low border border-outline-variant/40 rounded-lg text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant/70 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition" placeholder="Buscar reporte, empleado o folio..." type="text"/>
+</div>
+</div>
+<!-- Trailing Action Cluster & User Profile -->
+<div class="flex items-center gap-space-md">
+<!-- Live Sync Status Indicator (Trailing Primary Action: Sincronizado) -->
+<div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container border border-secondary-container">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-label-sm font-label-sm font-semibold">Sincronizado</span>
+</div>
+<!-- Trailing Icon Actions: notifications, help -->
+<button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" title="Notificaciones">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" title="Ayuda y Soporte LFT">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/50 mx-1"></div>
+<!-- User Profile Pill -->
+<div class="flex items-center gap-space-sm pl-1 cursor-pointer">
+<img class="w-8 h-8 rounded-full object-cover border border-primary-container" data-alt="Professional portrait photograph of a Hispanic male human resources director named Roberto Morales in his early forties wearing a navy blue blazer and crisp white shirt in a modern brightly lit CDMX corporate office with soft natural window illumination and warm teal design accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBv29IxIhLooKs4oLhb41wuS5ZXsEKEVH3sMHqmr4hp3TfK78kZ1TzWyNEiYgD6juKr-Qi3qBCyJwXG3UbfTYxbXJI9jKiQmweJLP6p2SArGe_sZwFzChNX7h93W1JnbTyr-hM0Ld5-m6_JQRF_19uDl1169oxTaf7ysosgPJ5DVZzko-of1RfoLOzydvb4m2tVlxZWca5gvhOeEyJwPSae5tRneWqYOo34Z7Fo7e7qRXk8nvQarn9_-n6FnjlhiQSDM9JGfpsbKkt"/>
+<div class="hidden md:flex flex-col text-left">
+<span class="text-label-md font-label-md text-on-surface leading-tight">Lic. Roberto Morales</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant text-[11px] leading-none">Admin General / RRHH</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<main class="flex-1 overflow-y-auto px-space-lg py-space-lg space-y-space-lg custom-scroll">
+<!-- Page Header & Main Actions -->
+<section class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div>
+<!-- Breadcrumb Hierarchy -->
+<div class="flex items-center gap-1.5 text-body-sm font-body-sm text-on-surface-variant mb-1">
+<span class="hover:underline cursor-pointer">/reportes</span>
+<span>•</span>
+<span class="text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified_user">verified_user</span>
+              Centro de Exportación y Cumplimiento Normativo LFT
+            </span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface">Centro de Reportes y Prenómina</h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-3xl mt-1">
+            Genera y descarga informes oficiales en formato Excel (.xlsx) y PDF foliado con validez para inspecciones STPS, IMSS (SUA/IDSE) y cálculo quincenal de nómina.
+          </p>
+</div>
+<!-- Primary Canvas Triggers -->
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<button class="h-10 px-4 rounded-lg bg-surface-container border border-outline-variant/40 text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition flex items-center gap-2 active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px] text-secondary" data-icon="schedule_send">schedule_send</span>
+<span>Programar Reporte Automático</span>
+</button>
+<button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary transition shadow-sm flex items-center gap-2 active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+<span>Nueva Exportación Personalizada</span>
+</button>
+</div>
+</section>
+<!-- KPI Summary Cards: Resumen de Actividad de Exportación -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant/30 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Reportes Generados este mes</span>
+<span class="p-1.5 rounded-md bg-surface-container text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-on-surface">48 reportes</div>
+<div class="flex items-center gap-1 text-label-sm font-label-sm text-secondary mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="arrow_upward">arrow_upward</span>
+<span>+12 vs mes anterior</span>
+</div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant/30 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Último Cierre de Prenómina</span>
+<span class="p-1.5 rounded-md bg-secondary-container/50 text-secondary">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified">verified</span>
+</span>
+</div>
+<div>
+<div class="text-title-lg font-title-lg text-on-surface font-semibold">Quincena 20 (Octubre)</div>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-[#2E7D32] mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span>
+<span>Aprobado y timbrado</span>
+</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant/30 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Horas Extra Fiscalizadas</span>
+<span class="p-1.5 rounded-md bg-tertiary-fixed text-tertiary">
+<span class="material-symbols-outlined text-[18px]" data-icon="timer">timer</span>
+</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-on-surface">160.5 hrs</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant mt-1">
+              Dentro de límite LFT Art. 67
+            </div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg border border-outline-variant/30 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Espacio de Almacenamiento Seguro</span>
+<span class="p-1.5 rounded-md bg-surface-container text-primary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="cloud_done">cloud_done</span>
+</span>
+</div>
+<div>
+<div class="flex items-baseline justify-between">
+<span class="text-headline-md font-headline-md text-on-surface">1.2 GB</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">/ 10 GB</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 12%"></div>
+</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant text-[11px] mt-1">
+              Respaldo en la nube 5 años LFT
+            </div>
+</div>
+</div>
+</section>
+<!-- Galería de Reportes Disponibles (Bento Grid 3 Columns) -->
+<section class="space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary" data-icon="apps">apps</span>
+<h2 class="text-title-lg font-title-lg text-on-surface">Galería de Reportes Disponibles</h2>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Formatos homologados con validez oficial ante inspectores STPS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md">
+<!-- Report Card 1: Asistencia Diaria y Checadas -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between mb-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]" data-icon="fingerprint">fingerprint</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-primary font-semibold">
+                  Operativo / Diario
+                </span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface">Asistencia Diaria y Checadas</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2 leading-relaxed">
+                Registro cronológico de entradas, salidas a comida, regresos y salidas definitivas con coordenadas GPS y método biométrico.
+              </p>
+<!-- In-Card Quick Filters -->
+<div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-outline-variant/20">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Sucursal</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Matriz CDMX</option>
+<option>Planta Lerma</option>
+<option>Todas</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Fecha</label>
+<input class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary" type="date" value="2024-10-24"/>
+</div>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-2 mt-5 pt-3 border-t border-outline-variant/20">
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]" data-icon="table_view">table_view</span>
+<span>Excel (.xlsx)</span>
+</button>
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>PDF Foliado</span>
+</button>
+</div>
+</div>
+<!-- Report Card 2: Hoja de Horas por Empleado -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between mb-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]" data-icon="badge">badge</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-primary font-semibold">
+                  Individual / Quincenal
+                </span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface">Hoja de Horas por Empleado</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2 leading-relaxed">
+                Detalle consolidado de jornada por colaborador, horas ordinarias cumplidas, pausas legales y resumen de puntualidad quincenal.
+              </p>
+<!-- In-Card Quick Filters -->
+<div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-outline-variant/20">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Colaborador</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Todos los 96 empleados</option>
+<option>Depto. Operaciones</option>
+<option>Depto. Ventas</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Periodo</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Quincena Actual (Q20)</option>
+<option>Quincena Anterior (Q19)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-2 mt-5 pt-3 border-t border-outline-variant/20">
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]" data-icon="table_view">table_view</span>
+<span>Excel</span>
+</button>
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>PDF</span>
+</button>
+</div>
+</div>
+<!-- Report Card 3: Horas Extraordinarias (Art. 67 y 68 LFT) -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between mb-3">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed/60 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[28px]" data-icon="warning">warning</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-tertiary-container/10 text-tertiary font-bold">
+                    LFT Art. 68
+                  </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant">
+                    Auditoría
+                  </span>
+</div>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface">Horas Extraordinarias (Art. 67 y 68 LFT)</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2 leading-relaxed">
+                Desglose automatizado de horas dobles (hasta 9h sem.) y horas triples excedentes para prevención de multas STPS.
+              </p>
+<!-- In-Card Quick Filters -->
+<div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-outline-variant/20">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Rango</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Semana 42 (Octubre)</option>
+<option>Semana 41 (Octubre)</option>
+<option>Mes completo</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Filtro de Riesgo</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>&gt;9h extras (Crítico)</option>
+<option>Todas las extras</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-2 mt-5 pt-3 border-t border-outline-variant/20">
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]" data-icon="table_view">table_view</span>
+<span>Excel</span>
+</button>
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>PDF</span>
+</button>
+</div>
+</div>
+<!-- Report Card 4: Incidencias y Justificantes -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between mb-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]" data-icon="health_and_safety">health_and_safety</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-primary font-semibold">
+                  Relaciones Laborales
+                </span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface">Incidencias y Justificantes</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2 leading-relaxed">
+                Concentrado de faltas injustificadas, retardos con tolerancia, incapacidades médicas IMSS (ST-7) y días de vacaciones dignas.
+              </p>
+<!-- In-Card Quick Filters -->
+<div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-outline-variant/20">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Tipo Incidencia</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Todas las incidencias</option>
+<option>Incapacidades IMSS</option>
+<option>Vacaciones Dignas</option>
+<option>Faltas Injustificadas</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Rango</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Mes corriente (Oct)</option>
+<option>Bimestre IMSS</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-2 mt-5 pt-3 border-t border-outline-variant/20">
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]" data-icon="table_view">table_view</span>
+<span>Excel</span>
+</button>
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>PDF</span>
+</button>
+</div>
+</div>
+<!-- Report Card 5: Prenómina e Integración SUA / NOI -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between mb-3">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]" data-icon="payments">payments</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-container text-on-secondary-container font-semibold">
+                    SAT / IMSS
+                  </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-primary font-semibold">
+                    Fiscal
+                  </span>
+</div>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface">Prenómina e Integración SUA / NOI</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2 leading-relaxed">
+                Layout directo compatible con Aspel NOI, Contpaqi Nóminas y archivo de texto para confronta del SUA del IMSS.
+              </p>
+<!-- In-Card Quick Filters -->
+<div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-outline-variant/20">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Frecuencia</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Quincenal (Días 1-15)</option>
+<option>Quincenal (Días 16-31)</option>
+<option>Semanal Operativo</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Layout</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Aspel NOI TXT</option>
+<option>SUA IMSS</option>
+<option>Contpaqi</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-2 mt-5 pt-3 border-t border-outline-variant/20">
+<button class="flex-1 h-9 rounded-lg bg-primary-container text-on-primary hover:bg-primary text-label-md font-label-md shadow-sm flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px]" data-icon="sync_alt">sync_alt</span>
+<span>Generar SUA/NOI</span>
+</button>
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]" data-icon="table_view">table_view</span>
+<span>Excel Consolidado</span>
+</button>
+</div>
+</div>
+<!-- Report Card 6: Puntualidad y Cumplimiento por Sucursal -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between mb-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]" data-icon="insights">insights</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container text-primary font-semibold">
+                  Directivo / KPIs
+                </span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface">Puntualidad y Cumplimiento por Sucursal</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2 leading-relaxed">
+                Comparativa de tasa de asistencia, mapa de calor de retardos por turno matutino/vespertino y ranking de sucursales operativas.
+              </p>
+<!-- In-Card Quick Filters -->
+<div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-outline-variant/20">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Periodo</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Mensual (Octubre)</option>
+<option>Trimestre Q3</option>
+<option>Anual Acumulado</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Alcance</label>
+<select class="w-full text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg py-1 px-2 focus:ring-primary focus:border-primary">
+<option>Comparar 4 sucursales</option>
+<option>Solo Matriz CDMX</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-2 mt-5 pt-3 border-t border-outline-variant/20">
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]" data-icon="analytics">analytics</span>
+<span>Excel Ejecutivo</span>
+</button>
+<button class="flex-1 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant/30 flex items-center justify-center gap-1.5 transition">
+<span class="material-symbols-outlined text-[16px] text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>Presentación PDF</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Sección Inferior: Bitácora de Reportes Generados Recientemente -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 shadow-sm overflow-hidden mb-6">
+<!-- Table Header & Controls -->
+<div class="p-space-md border-b border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[22px] text-primary" data-icon="history">history</span>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface">Historial de descargas y auditoría</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Registro inmutable de archivos exportados con sello digital del usuario</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<!-- Filter Search -->
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="search">search</span>
+</span>
+<input class="h-8 pl-8 pr-3 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg text-on-surface placeholder-on-surface-variant/70 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Filtrar por folio o nombre..." type="text"/>
+</div>
+<!-- State Filter -->
+<select class="h-8 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/40 rounded-lg px-2.5 text-on-surface focus:ring-primary focus:border-primary">
+<option>Todos los estados</option>
+<option>Listo para descarga</option>
+<option>Procesando</option>
+</select>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant/30">
+<th class="py-3 px-space-md text-label-sm font-label-sm">Folio y Nombre del Reporte</th>
+<th class="py-3 px-space-md text-label-sm font-label-sm">Generado Por</th>
+<th class="py-3 px-space-md text-label-sm font-label-sm">Periodo / Parámetros</th>
+<th class="py-3 px-space-md text-label-sm font-label-sm">Formato / Tamaño</th>
+<th class="py-3 px-space-md text-label-sm font-label-sm">Fecha y Hora</th>
+<th class="py-3 px-space-md text-label-sm font-label-sm">Estatus</th>
+<th class="py-3 px-space-md text-label-sm font-label-sm text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 text-body-sm font-body-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md font-semibold text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="description">description</span>
+<div>
+<div class="font-semibold text-primary">#REP-2024-1048</div>
+<div class="text-body-sm text-on-surface font-normal">Prenómina Quincenal Q20 - Matriz CDMX</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Small round professional avatar headshot of Roberto Morales wearing a dark corporate suit against a clean studio backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlA9gbxBWUWpHyEjukz8ZGaT1ML6YzC0ZfkWxDfOWaOO4410pm5Bg9sCXL2cJ1oil0c_ttWxHfDlp5lDYgjIeFwvEUCFPiBxyz1IdO5XN31jltu8Vbg9XYVc6vr-nEpqlqnEUt0Oyad4QXRADTiIGbTQU_4hI32EabnCAMc92YDuP0dUKu9BvXZBAZjArClFtKnj1MHwZBh-QNU1410Cco88NOQWn3JwKyTY60VhBsuxD5HBTBBzHn0yCr8clsgaK0uQQeNBxZuN8d"/>
+<span class="text-on-surface">Lic. Roberto Morales</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  01 al 15 Octubre 2024 • 96 empleados
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="table_chart">table_chart</span>
+<span>XLSX (1.8 MB)</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  Hoy 11:24 am
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+<span>Listo para descarga</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg bg-surface-container text-primary hover:bg-primary-container hover:text-on-primary transition text-label-md font-label-md flex items-center gap-1" title="Descargar archivo">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+<span>Descargar</span>
+</button>
+<button class="p-1 rounded-lg text-on-surface-variant hover:bg-surface-container transition" title="Opciones adicionales">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md font-semibold text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="picture_as_pdf">picture_as_pdf</span>
+<div>
+<div class="font-semibold text-primary">#REP-2024-1047</div>
+<div class="text-body-sm text-on-surface font-normal">Foliado de Horas Extra STPS - Semana 41</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Small round professional avatar headshot of Roberto Morales wearing a dark corporate suit against a clean studio backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_HSFcE5sUJxpAmQNCRcIxq85prs5f0TgnkQWha-FVQtAjkqPi_xR9hm0xALiZsrNNgwL5I8XbO6XVMVqxFjk76p_QR9r6jMMSqW8F0ES6o-XutC0NJ64b7aFDG4AFuUFjpcoJCT4dkcPHATVq8WV7DqVICpO5jijNmJwdXLuzX17_xOYoMmq4jf8HsmxcXxTN1ZvmUKr_qbYO2SSz8wS8q3tbtXieUtaKuiF_i92liEodJjul14e2YzWoLpJ3jvGPn8Pmj7L_OmkJ"/>
+<span class="text-on-surface">Lic. Roberto Morales</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  07 al 13 Octubre 2024 • Planta y Almacén
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px] text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>PDF (4.2 MB)</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  Hoy 09:15 am
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+<span>Listo para descarga</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg bg-surface-container text-primary hover:bg-primary-container hover:text-on-primary transition text-label-md font-label-md flex items-center gap-1" title="Descargar archivo">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+<span>Descargar</span>
+</button>
+<button class="p-1 rounded-lg text-on-surface-variant hover:bg-surface-container transition" title="Opciones adicionales">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Processing State -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md font-semibold text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary" data-icon="sync">sync</span>
+<div>
+<div class="font-semibold text-primary">#REP-2024-1049</div>
+<div class="text-body-sm text-on-surface font-normal">Layout SUA Confronta IMSS Bimestre 5</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container text-primary flex items-center justify-center text-[10px] font-bold">
+                      RM
+                    </div>
+<span class="text-on-surface">Lic. Roberto Morales</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  Septiembre - Octubre 2024 • General
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="text_snippet">text_snippet</span>
+<span>TXT (~540 KB)</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  Hace 2 min
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container/60 text-secondary text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px] animate-spin" data-icon="sync">sync</span>
+<span>Generando 85%</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg bg-surface-container text-on-surface-variant/40 cursor-not-allowed text-label-md font-label-md flex items-center gap-1" disabled="">
+<span class="material-symbols-outlined text-[16px]" data-icon="hourglass_top">hourglass_top</span>
+<span>En proceso</span>
+</button>
+<button class="p-1 rounded-lg text-on-surface-variant hover:bg-surface-container transition" title="Opciones adicionales">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-space-md font-semibold text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="table_view">table_view</span>
+<div>
+<div class="font-semibold text-primary">#REP-2024-1046</div>
+<div class="text-body-sm text-on-surface font-normal">Kardex de Incidencias e Incapacidades ST-7</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Small round professional avatar headshot of Roberto Morales wearing a dark corporate suit against a clean studio backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqneU3c_C1A6xV6AhtX1z_lK7uf-q5a7iJerOiZzLL6993xCy3RtbKmrDIC-ynGLU0K4oc_ZwpCb5hkmomsUJ0I-eURhDgnZBRrdS8PMOyzMlbi7tgrXrM95yzQauniJ41lanmmjuKV7dc8NKH3GGS6NaESahrp7Tut7Ld_26wLvweOmawdU5bLcq82dNtsN_-gn-WZvpMj79h6m4GX6xvWDFp9I_DvIKWkc2uSzdq34gdUb_60-cwmiJDYwRpPVMVb6F4KoZevmqi"/>
+<span class="text-on-surface">Lic. Roberto Morales</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  01 al 30 Septiembre 2024 • Todas las áreas
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="table_chart">table_chart</span>
+<span>XLSX (2.4 MB)</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">
+                  Ayer 17:40 pm
+                </td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+<span>Listo para descarga</span>
+</span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg bg-surface-container text-primary hover:bg-primary-container hover:text-on-primary transition text-label-md font-label-md flex items-center gap-1" title="Descargar archivo">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+<span>Descargar</span>
+</button>
+<button class="p-1 rounded-lg text-on-surface-variant hover:bg-surface-container transition" title="Opciones adicionales">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="p-space-md bg-surface-container-lowest border-t border-outline-variant/30 flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span>Mostrando 4 de 48 reportes generados este mes</span>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1 rounded-lg border border-outline-variant/40 hover:bg-surface-container text-on-surface text-label-sm font-label-sm transition">
+              Anterior
+            </button>
+<button class="px-3 py-1 rounded-lg bg-primary-container text-on-primary text-label-sm font-label-sm font-semibold">
+              1
+            </button>
+<button class="px-3 py-1 rounded-lg border border-outline-variant/40 hover:bg-surface-container text-on-surface text-label-sm font-label-sm transition">
+              2
+            </button>
+<button class="px-3 py-1 rounded-lg border border-outline-variant/40 hover:bg-surface-container text-on-surface text-label-sm font-label-sm transition">
+              Siguiente
+            </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

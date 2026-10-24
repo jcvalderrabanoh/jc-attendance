@@ -1,0 +1,122 @@
+@if (loading() && !status()) { <mat-progress-bar mode="indeterminate" aria-label="Cargando tu estado" /> }
+<div class="page">
+  <header class="greet">
+    <span class="avatar" aria-hidden="true">{{ firstName().charAt(0) || '·' }}</span>
+    <div>
+      <h1>¡Hola{{ firstName() ? ', ' + firstName() : '' }}!</h1>
+      <p class="muted">{{ status()?.accountName ?? 'Tu empresa' }}@if (status()?.defaultLocation; as l) { · {{ l.name }} }</p>
+    </div>
+  </header>
+
+  @if (loadError(); as e) {
+    <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}
+      <button mat-button type="button" (click)="load()">Reintentar</button></p>
+  }
+
+  <section class="clock" aria-label="Hora actual">
+    <time class="time" [attr.datetime]="now().toISOString()">{{ clock() }}</time>
+    <p class="date">{{ dateLong() }}</p>
+    @if (status()?.defaultLocation; as l) {
+      <p class="chip info loc"><att-icon name="location_on" [size]="16" /> {{ l.name }} · se verifica al checar</p>
+    }
+  </section>
+
+  <div class="punch-wrap">
+    <button type="button" class="punch" [class]="'punch tone-' + primary().tone" (click)="start(primary())"
+            [disabled]="busy() || !status()" [attr.aria-describedby]="'punch-hint'">
+      <att-icon name="fingerprint" [size]="44" />
+      <span class="punch-label">{{ primary().label }}</span>
+    </button>
+  </div>
+  <p id="punch-hint" class="hint">
+    <att-icon [name]="state() === 'in' ? 'radio_button_checked' : state() === 'on_break' ? 'pause_circle' : 'radio_button_unchecked'" [size]="18" />
+    {{ state() === 'in' ? 'Estás dentro' : state() === 'on_break' ? 'Estás en descanso' : 'Estás fuera' }}
+    · presiona para marcar asistencia
+  </p>
+  @if (secondary().length) {
+    <div class="secondary">
+      @for (a of secondary(); track a.type) {
+        <button mat-stroked-button type="button" (click)="start(a)" [disabled]="busy()"><att-icon [name]="a.icon" [size]="20" /> {{ a.label }}</button>
+      }
+    </div>
+  }
+
+  <!-- Resultado del marcaje: lo anuncia el lector de pantalla -->
+  <div class="feedback-region" aria-live="assertive" aria-atomic="true">
+    @if (feedback(); as f) {
+      <div class="feedback" [class]="'feedback ' + f.tone">
+        <att-icon [name]="f.tone === 'ok' ? 'check_circle' : f.tone === 'warn' ? 'pending' : f.tone === 'queued' ? 'cloud_off' : 'error'" />
+        <div><strong>{{ f.title }}</strong>@if (f.detail) {<br /><span>{{ f.detail }}</span>}</div>
+      </div>
+    }
+  </div>
+
+  @for (r of rejected(); track r.idempotencyKey) {
+    <div class="form-error" role="alert">
+      <att-icon name="report" [size]="20" />
+      <div class="spacer">{{ typeLabel[r.body.type ?? 'in'] }} guardada sin conexión fue rechazada: {{ r.lastError }}</div>
+      <button mat-button type="button" (click)="dismissRejected(r.idempotencyKey)">Entendido</button>
+    </div>
+  }
+
+  <section class="card">
+    <div class="row">
+      <h2 class="card-title"><att-icon name="calendar_today" [size]="20" /> Turno de hoy</h2>
+      <span class="spacer"></span>
+    </div>
+    @if (status()?.shift; as sh) {
+      <p class="shift">{{ hhmm(sh.startTime) }} – {{ hhmm(sh.endTime) }} h @if (sh.breakMinutes) {<span class="muted">(comida {{ sh.breakMinutes }} min)</span>}</p>
+    } @else {
+      <p class="shift muted">Sin turno asignado hoy</p>
+    }
+    <div class="row between">
+      <span class="muted">Horas trabajadas hoy</span>
+      <strong class="counter" aria-live="off">{{ formatMinutes(todayMinutes()) }}</strong>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Avance de la jornada" [attr.aria-valuenow]="todayPercent()" aria-valuemin="0" aria-valuemax="100">
+      <span [style.width.%]="todayPercent()"></span>
+    </div>
+    <p class="muted small">Objetivo diario: {{ hoursShort(target()) }}</p>
+  </section>
+
+  <section class="card">
+    <div class="row">
+      <h2 class="card-title"><att-icon name="date_range" [size]="20" /> Resumen semanal</h2>
+      <span class="spacer"></span>
+      <strong>{{ hoursShort(weekMinutes()) }}</strong>
+    </div>
+    <ol class="week" role="list">
+      @for (b of bars(); track b.date) {
+        <li [class.today]="b.isToday" [class.future]="b.isFuture" [attr.aria-label]="b.label + ': ' + formatMinutes(b.minutes) + (b.isToday ? ' (hoy)' : '')">
+          <span class="day" aria-hidden="true">{{ b.label }}</span>
+          <span class="col" aria-hidden="true"><span [style.height.%]="b.percent"></span></span>
+          <span class="val" aria-hidden="true">{{ b.isFuture ? '—' : hoursShort(b.minutes) }}</span>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <section class="card">
+    <div class="row">
+      <h2 class="card-title">Último marcaje</h2>
+      <span class="spacer"></span>
+      <a mat-button routerLink="/historial">Ver todos</a>
+    </div>
+    @if (status()?.lastPunch; as lp) {
+      <div class="row last">
+        <span class="lp-icon" aria-hidden="true"><att-icon [name]="lp.type === 'in' || lp.type === 'break_end' ? 'login' : 'logout'" /></span>
+        <div class="spacer">
+          <strong>{{ typeLabel[lp.type] }}</strong>
+          <div class="muted small">{{ lp.at | date: 'EEE d MMM · HH:mm' : undefined : 'es-MX' }}</div>
+        </div>
+        @switch (lp.reviewStatus) {
+          @case ('pending') { <span class="chip warn"><att-icon name="pending" [size]="16" /> {{ lp.riskFlags.includes('offline') ? 'Por enviar' : 'En revisión' }}</span> }
+          @case ('rejected') { <span class="chip bad"><att-icon name="cancel" [size]="16" /> Rechazado</span> }
+          @default { <span class="chip ok"><att-icon name="check_circle" [size]="16" /> Normal</span> }
+        }
+      </div>
+    } @else {
+      <p class="muted">Aún no tienes marcajes.</p>
+    }
+  </section>
+</div>

@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>C3 · Directorio de Empleados - Checador PyME</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS Play CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration Script -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed-dim": "#9ecedd",
+            "surface": "#f9f9ff",
+            "surface-bright": "#f9f9ff",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "tertiary-fixed-dim": "#ffb963",
+            "surface-dim": "#cfdaf2",
+            "secondary": "#356572",
+            "surface-container": "#e7eeff",
+            "secondary-fixed": "#baeafa",
+            "on-tertiary-container": "#f1a440",
+            "surface-container-low": "#f0f3ff",
+            "on-secondary-fixed": "#001f27",
+            "inverse-primary": "#9acee1",
+            "on-background": "#111c2d",
+            "surface-variant": "#d8e3fb",
+            "background": "#f9f9ff",
+            "on-surface-variant": "#40484b",
+            "on-primary-fixed": "#001f28",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "tertiary-fixed": "#ffddb9",
+            "on-surface": "#111c2d",
+            "secondary-container": "#b7e7f7",
+            "on-secondary-container": "#3a6977",
+            "on-primary-fixed-variant": "#114d5d",
+            "tertiary-container": "#653d00",
+            "primary-fixed": "#b6ebfe",
+            "surface-tint": "#306576",
+            "inverse-on-surface": "#ecf1ff",
+            "primary-container": "#0f4c5c",
+            "on-tertiary-fixed": "#2b1700",
+            "inverse-surface": "#263143",
+            "error-container": "#ffdad6",
+            "outline-variant": "#c0c8cb",
+            "outline": "#70787c",
+            "primary": "#003441",
+            "surface-container-highest": "#d8e3fb",
+            "tertiary": "#462900",
+            "on-error": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#9acee1",
+            "surface-container-high": "#dee8ff",
+            "on-tertiary-fixed-variant": "#663e00",
+            "on-primary-container": "#87bbce",
+            "on-error-container": "#93000a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "margin": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-sm": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "title-md": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "display-clock": ["Inter"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #70787c;
+    }
+  </style>
+</head>
+<body class="h-full font-body-md text-on-surface antialiased bg-background">
+<div class="flex h-full min-h-screen">
+<!-- ========================================== -->
+<!-- COMPONENT: SideNavBar (Shared Component)  -->
+<!-- ========================================== -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col z-40 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="w-64 h-full p-4 flex flex-col justify-between overflow-y-auto custom-scrollbar">
+<!-- Brand / Header -->
+<div>
+<div class="flex items-center gap-3 px-2 py-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary font-bold text-title-lg shadow-sm">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="fingerprint">fingerprint</span>
+</div>
+<div>
+<h1 class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary leading-tight">Checador PyME</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Control Operativo v2.4</p>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<div class="mb-5">
+<button class="w-full flex items-center justify-center gap-2 bg-primary-container hover:bg-opacity-95 text-on-primary py-2.5 px-4 rounded-lg font-label-md text-label-md transition-colors duration-150 ease-in-out shadow-sm active:scale-[0.99]">
+<span class="material-symbols-outlined text-base" data-icon="fact_check">fact_check</span>
+<span>Pase de Lista</span>
+</button>
+</div>
+<!-- Navigation Links (11 items) -->
+<nav class="space-y-1">
+<!-- 1. Tablero (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- 2. En vivo (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- 3. Empleados (ACTIVE STATE) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-label-md text-label-md font-semibold transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-primary" data-icon="badge">badge</span>
+<span>Empleados</span>
+<span class="ml-auto bg-surface-container-lowest text-primary text-label-sm font-semibold px-2 py-0.5 rounded-full border border-outline-variant">96</span>
+</a>
+<!-- 4. Marcajes (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- 5. Hojas de horas (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span>Hojas de horas</span>
+</a>
+<!-- 6. Incidencias (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="event_busy">event_busy</span>
+<span>Incidencias</span>
+</a>
+<!-- 7. Turnos (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_week">calendar_view_week</span>
+<span>Turnos</span>
+</a>
+<!-- 8. Ubicaciones (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="store">store</span>
+<span>Ubicaciones</span>
+</a>
+<!-- 9. Reportes (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span>Reportes</span>
+</a>
+<!-- 10. Analítica (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span>Analítica</span>
+</a>
+<!-- 11. Configuración (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer / Support and Logout -->
+<div class="pt-4 mt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-error font-label-md text-label-md hover:bg-error-container hover:text-on-error-container transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- ========================================== -->
+<!-- MAIN CONTENT WRAPPER                       -->
+<!-- ========================================== -->
+<div class="flex-1 ml-64 flex flex-col min-w-0">
+<!-- ========================================== -->
+<!-- COMPONENT: TopNavBar (Shared Component)    -->
+<!-- ========================================== -->
+<header class="sticky top-0 right-0 h-16 w-full z-30 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm flex items-center justify-between px-6">
+<!-- Left: Search & Location Switcher -->
+<div class="flex items-center gap-5">
+<!-- Branch Context Selector -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant hover:bg-surface-container transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="store">store</span>
+<div class="text-left">
+<span class="block text-label-sm font-label-sm text-on-surface-variant leading-none">Panadería La Espiga S.A. de C.V.</span>
+<span class="text-title-md font-title-md font-semibold text-on-surface leading-tight">Sucursal Matriz CDMX</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-base ml-1" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Top Search -->
+<div class="relative w-72">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-on-surface" placeholder="Búsqueda rápida..." type="text"/>
+</div>
+</div>
+<!-- Right: Status indicator, Icon Actions & User Profile -->
+<div class="flex items-center gap-4">
+<!-- Sincronizado Pill -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="cloud_done">cloud_done</span>
+<span class="font-medium">Sincronizado</span>
+</div>
+<!-- Notification Action -->
+<button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Notificaciones">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<!-- Primary Trailing Action -->
+<button class="flex items-center gap-1.5 bg-primary-container text-on-primary px-3.5 py-1.5 rounded-lg text-label-md font-label-md hover:bg-opacity-95 transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="fingerprint">fingerprint</span>
+<span>Registrar Marcaje</span>
+</button>
+<!-- Separator -->
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Profile Info -->
+<div class="flex items-center gap-3 pl-1">
+<div class="text-right">
+<span class="block text-label-md font-label-md text-on-surface font-semibold leading-tight">Lic. Roberto Morales</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Administrador General RH</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-lg shadow-sm border border-outline-variant">
+              RM
+            </div>
+</div>
+</div>
+</header>
+<!-- ========================================== -->
+<!-- PAGE CANVAS: C3 · Directorio de Empleados  -->
+<!-- ========================================== -->
+<main class="flex-1 p-6 space-y-6">
+<!-- 1. Encabezado de la Página -->
+<div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 pb-2 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-3">
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Directorio de Empleados</h1>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-label-sm font-semibold border border-secondary-fixed-dim">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                96 Colaboradores activos · 4 Sucursales
+              </span>
+</div>
+<div class="flex items-center gap-2 mt-1.5">
+<span class="material-symbols-outlined text-primary text-base" data-icon="verified_user">verified_user</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                Cumplimiento LFT / Expedientes Digitales · Respaldado con firma biométrica y validación de RFC/NSS ante SAT e IMSS.
+              </p>
+</div>
+</div>
+<!-- Page Header Actions -->
+<div class="flex items-center gap-2.5 flex-wrap">
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-label-md font-label-md hover:bg-surface-container transition-colors shadow-sm" title="Bitácora de enrolamiento">
+<span class="material-symbols-outlined text-base text-primary" data-icon="description">description</span>
+<span>Reporte Plantilla</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-label-md font-label-md hover:bg-surface-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-base text-primary" data-icon="link">link</span>
+<span>Invitar por liga</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-label-md font-label-md hover:bg-surface-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-base text-primary" data-icon="upload_file">upload_file</span>
+<span>Importar Excel / CSV</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary text-label-md font-label-md hover:bg-opacity-90 transition-all shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span>Nuevo Empleado</span>
+</button>
+</div>
+</div>
+<!-- 2. Barra de Métricas Rápidas (KPI mini-cards) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1: Total Empleados -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm flex items-start justify-between">
+<div>
+<span class="text-label-md font-label-md text-on-surface-variant font-medium">Total Empleados</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md text-primary font-bold">96</span>
+<span class="text-label-sm font-label-sm text-secondary font-semibold">100% capacidad</span>
+</div>
+<div class="mt-2.5 flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="inline-flex items-center gap-1 text-on-surface"><span class="w-2 h-2 rounded-full bg-primary"></span> 88 activos</span>
+<span>·</span>
+<span class="inline-flex items-center gap-1 text-tertiary-container"><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span> 5 permiso</span>
+<span>·</span>
+<span class="text-on-surface-variant">3 pend.</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</div>
+</div>
+<!-- KPI 2: Enrolamiento Biométrico -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm flex items-start justify-between">
+<div>
+<span class="text-label-md font-label-md text-on-surface-variant font-medium">Enrolamiento Biométrico</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md text-primary font-bold">92%</span>
+<span class="text-label-sm font-label-sm text-primary font-semibold">88 de 96 reg.</span>
+</div>
+<div class="mt-2.5 w-full bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-primary-container h-2 rounded-full" style="width: 92%"></div>
+</div>
+<span class="block mt-1 text-label-sm font-label-sm text-on-surface-variant">8 con enrolamiento facial pendiente</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="face">face</span>
+</div>
+</div>
+<!-- KPI 3: Contratos & LFT -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm flex items-start justify-between">
+<div>
+<span class="text-label-md font-label-md text-on-surface-variant font-medium">Contratos &amp; LFT</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md text-primary font-bold">100%</span>
+<span class="text-label-sm font-label-sm text-primary font-semibold">Validado SAT/IMSS</span>
+</div>
+<div class="mt-2.5 flex items-center gap-1.5 text-label-sm font-label-sm text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+<span>RFC, CURP y NSS 100% cotejados</span>
+</div>
+<span class="block text-label-sm font-label-sm text-on-surface-variant mt-0.5">Expedientes digitales al día</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+</div>
+</div>
+<!-- KPI 4: Dispositivos Asignados -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm flex items-start justify-between">
+<div>
+<span class="text-label-md font-label-md text-on-surface-variant font-medium">Dispositivos y Canales</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md text-primary font-bold">74 / 22</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Móvil / Kiosco</span>
+</div>
+<div class="mt-2.5 flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-xs text-primary" data-icon="smartphone">smartphone</span> 74 App Móvil GPS</span>
+<span>·</span>
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-xs text-secondary" data-icon="tablet_mac">tablet_mac</span> 22 Kiosco</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="devices">devices</span>
+</div>
+</div>
+</div>
+<!-- 3. Barra de Búsqueda y Filtros Avanzados -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm space-y-3">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+<!-- Search bar: 4 cols -->
+<div class="lg:col-span-4 relative">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</span>
+<input class="w-full pl-10 pr-3.5 py-2 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-on-surface" placeholder="Buscar por nombre, RFC, matrícula #EMP, puesto o CURP..." type="text"/>
+</div>
+<!-- Filter: Sucursal (2 cols) -->
+<div class="lg:col-span-2">
+<select class="w-full py-2 px-3 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-primary">
+<option value="">Todas las sucursales (4)</option>
+<option selected="" value="matriz">Sucursal Matriz CDMX</option>
+<option value="reforma">Sucursal Reforma</option>
+<option value="insurgentes">Sucursal Insurgentes Sur</option>
+<option value="polanco">Sucursal Polanco</option>
+</select>
+</div>
+<!-- Filter: Departamento (2 cols) -->
+<div class="lg:col-span-2">
+<select class="w-full py-2 px-3 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-primary">
+<option value="">Todos los deptos</option>
+<option value="produccion">Producción / Hornos</option>
+<option value="ventas">Ventas y Mostrador</option>
+<option value="calidad">Control de Calidad</option>
+<option value="logistica">Logística y Reparto</option>
+<option value="admin">Administración</option>
+</select>
+</div>
+<!-- Filter: Estado (2 cols) -->
+<div class="lg:col-span-2">
+<select class="w-full py-2 px-3 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-primary">
+<option value="">Todos los estados</option>
+<option selected="" value="activo">Activo (88)</option>
+<option value="incapacidad">Permiso / Incapacidad LFT (5)</option>
+<option value="pendiente">Alta Pendiente (3)</option>
+<option value="baja">Baja Definitiva</option>
+</select>
+</div>
+<!-- Filter: Modo Marcaje (2 cols) -->
+<div class="lg:col-span-2">
+<select class="w-full py-2 px-3 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant rounded-lg text-on-surface focus:outline-none focus:border-primary">
+<option value="">Modo de Checado</option>
+<option value="kiosco">Kiosco Facial</option>
+<option value="movil">App Móvil GPS</option>
+<option value="ambos">Kiosco + Móvil</option>
+</select>
+</div>
+</div>
+<!-- Lower row: secondary controls -->
+<div class="flex items-center justify-between pt-1 border-t border-outline-variant/60 flex-wrap gap-2">
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Filtros activos:</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm bg-secondary-container text-on-secondary-container">
+                Sucursal: Matriz CDMX
+                <button class="hover:text-primary"><span class="material-symbols-outlined text-xs" data-icon="close">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm bg-secondary-container text-on-secondary-container">
+                Estado: Activo
+                <button class="hover:text-primary"><span class="material-symbols-outlined text-xs" data-icon="close">close</span></button>
+</span>
+<button class="text-label-sm font-label-sm text-primary hover:underline ml-1">Limpiar filtros</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 px-2.5 py-1 rounded text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="view_column">view_column</span>
+<span>Columnas configurables</span>
+</button>
+<span class="text-outline-variant">|</span>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="tune">tune</span>
+<span>Filtros avanzados</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 4. Barra de Acciones Masivas (Contextual Active Selection) -->
+<div class="bg-primary-container text-on-primary rounded-xl px-4 py-3 shadow-md flex items-center justify-between flex-wrap gap-3">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-surface-container-lowest/15 flex items-center justify-center font-bold text-label-md">
+              12
+            </span>
+<div>
+<p class="text-label-md font-label-md font-semibold text-surface-bright leading-none">12 colaboradores seleccionados en esta sucursal</p>
+<p class="text-label-sm font-label-sm text-inverse-primary leading-tight mt-0.5">Acciones grupales con registro en auditoría laboral</p>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/15 hover:bg-surface-container-lowest/25 text-label-sm font-label-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
+<span>Asignar Turno</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/15 hover:bg-surface-container-lowest/25 text-label-sm font-label-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="transfer_within_a_station">transfer_within_a_station</span>
+<span>Cambiar Sucursal</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/15 hover:bg-surface-container-lowest/25 text-label-sm font-label-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+<span>Enviar App WhatsApp/SMS</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest/15 hover:bg-surface-container-lowest/25 text-label-sm font-label-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="badge">badge</span>
+<span>Descargar Gafetes QR</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary text-label-sm font-label-sm font-semibold hover:bg-surface-bright transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="file_download">file_download</span>
+<span>Exportar Selección</span>
+</button>
+</div>
+</div>
+<!-- 5. Tabla de Empleados de Alta Densidad y Legibilidad -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4 w-12 text-center">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</th>
+<th class="py-3 px-4">Colaborador / Identificación</th>
+<th class="py-3 px-4">Puesto y Departamento</th>
+<th class="py-3 px-4">Sucursal y Geocerca</th>
+<th class="py-3 px-4">Turno Asignado</th>
+<th class="py-3 px-4">Método &amp; Biometría</th>
+<th class="py-3 px-4">Estatus LFT</th>
+<th class="py-3 px-4 text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/60 font-body-sm text-body-sm">
+<!-- Row 1: Selected, Facial OK -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-label-md">
+                        CH
+                      </div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface flex items-center gap-1.5">
+<span>Carlos Eduardo Hernández Morales</span>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified" title="Expediente completo">verified</span>
+</div>
+<div class="text-on-surface-variant text-label-sm font-label-sm flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">#EMP-1042</span>
+<span>·</span>
+<span>RFC: HEMC880415-K34</span>
+<span>·</span>
+<span>NSS: 34128890123</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Panadero Maestro</div>
+<div class="text-on-surface-variant text-label-sm">Producción / Hornos</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Sucursal Matriz CDMX</div>
+<div class="text-label-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="radar">radar</span>
+<span>Geocerca 50m activa</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Matutino Horno</div>
+<div class="text-label-sm text-on-surface-variant">05:30 - 13:30 hrs</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-surface-container text-primary border border-secondary-fixed-dim w-max">
+<span class="material-symbols-outlined text-xs" data-icon="face">face</span>
+<span>Facial Kiosco</span>
+</span>
+<span class="text-label-sm text-on-surface-variant">App Móvil GPS vinculada</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-surface-container text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                      Activo
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Editar empleado">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Ver Expediente / Asistencia">
+<span class="material-symbols-outlined text-lg" data-icon="folder_shared">folder_shared</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Más opciones">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Selected, Mobile GPS -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container text-primary flex items-center justify-center font-bold text-label-md">
+                        SM
+                      </div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface flex items-center gap-1.5">
+<span>Sofía Méndez Gómez</span>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified" title="Expediente completo">verified</span>
+</div>
+<div class="text-on-surface-variant text-label-sm font-label-sm flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">#EMP-1088</span>
+<span>·</span>
+<span>RFC: MEGS951103-PL9</span>
+<span>·</span>
+<span>NSS: 78990145210</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Cajera y Mostrador Líder</div>
+<div class="text-on-surface-variant text-label-sm">Ventas y Atención</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Sucursal Matriz CDMX</div>
+<div class="text-label-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="radar">radar</span>
+<span>Geocerca 30m activa</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Vespertino Mostrador</div>
+<div class="text-label-sm text-on-surface-variant">14:00 - 22:00 hrs</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-surface-container text-primary border border-secondary-fixed-dim w-max">
+<span class="material-symbols-outlined text-xs" data-icon="smartphone">smartphone</span>
+<span>App Móvil GPS</span>
+</span>
+<span class="text-label-sm text-secondary">Facial verificado</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-surface-container text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                      Activo
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="folder_shared">folder_shared</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Incapacidad IMSS -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-outline text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-bold text-label-md">
+                        MR
+                      </div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface flex items-center gap-1.5">
+<span>Miguel Ángel Reyes Tovar</span>
+<span class="material-symbols-outlined text-tertiary-container text-sm" data-icon="healing" title="Permiso médico IMSS">healing</span>
+</div>
+<div class="text-on-surface-variant text-label-sm font-label-sm flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">#EMP-1015</span>
+<span>·</span>
+<span>RFC: RETM820719-7H2</span>
+<span>·</span>
+<span>NSS: 45098231219</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Supervisor de Calidad</div>
+<div class="text-on-surface-variant text-label-sm">Control e Inocuidad</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Sucursal Matriz CDMX</div>
+<div class="text-label-sm text-on-surface-variant">Multisucursal (100m)</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Mixto Flexible</div>
+<div class="text-label-sm text-on-surface-variant">08:00 - 16:30 hrs</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-surface-container text-primary border border-secondary-fixed-dim w-max">
+<span class="material-symbols-outlined text-xs" data-icon="fingerprint">fingerprint</span>
+<span>Kiosco + Móvil</span>
+</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-xs text-tertiary-container" data-icon="sick">sick</span>
+                      Incapacidad IMSS
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="folder_shared">folder_shared</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Pendiente Biometría -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-label-md">
+                        LM
+                      </div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface flex items-center gap-1.5">
+<span>Laura Beatriz Morales Salgado</span>
+</div>
+<div class="text-on-surface-variant text-label-sm font-label-sm flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">#EMP-1102</span>
+<span>·</span>
+<span>RFC: MOSL980228-5R1</span>
+<span>·</span>
+<span>NSS: 92140288192</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Auxiliar de Pastelería</div>
+<div class="text-on-surface-variant text-label-sm">Producción y Decorado</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Sucursal Matriz CDMX</div>
+<div class="text-label-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="radar">radar</span>
+<span>Geocerca 50m activa</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Matutino Horno</div>
+<div class="text-label-sm text-on-surface-variant">06:00 - 14:00 hrs</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-tertiary-fixed text-on-tertiary-fixed border border-tertiary-fixed-dim w-max">
+<span class="material-symbols-outlined text-xs" data-icon="pending">pending</span>
+<span>Pendiente enrolar</span>
+</span>
+<span class="text-label-sm text-tertiary-container font-medium">Inv. WhatsApp enviada</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-surface-container text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                      Activo
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="folder_shared">folder_shared</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Normal Active -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-bold text-label-md">
+                        JG
+                      </div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface flex items-center gap-1.5">
+<span>Jorge Alberto Gutiérrez Castillo</span>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified">verified</span>
+</div>
+<div class="text-on-surface-variant text-label-sm font-label-sm flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">#EMP-1065</span>
+<span>·</span>
+<span>RFC: GUCJ850912-3D2</span>
+<span>·</span>
+<span>NSS: 61128549301</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Chofer Distribuidor</div>
+<div class="text-on-surface-variant text-label-sm">Logística y Reparto</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Ruta Metropolitana</div>
+<div class="text-label-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="location_on">location_on</span>
+<span>Ruta con Waypoints GPS</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Ruta Matutina</div>
+<div class="text-label-sm text-on-surface-variant">05:00 - 13:00 hrs</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-surface-container text-primary border border-secondary-fixed-dim w-max">
+<span class="material-symbols-outlined text-xs" data-icon="navigation">navigation</span>
+<span>Móvil con GPS Continuo</span>
+</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-surface-container text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                      Activo
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="folder_shared">folder_shared</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: Permiso de Paternidad LFT -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container/50 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="rounded border-outline text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed-variant flex items-center justify-center font-bold text-label-md">
+                        RV
+                      </div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface flex items-center gap-1.5">
+<span>Rodrigo Valenzuela Ortiz</span>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="verified">verified</span>
+</div>
+<div class="text-on-surface-variant text-label-sm font-label-sm flex items-center gap-2 mt-0.5">
+<span class="font-semibold text-primary">#EMP-1077</span>
+<span>·</span>
+<span>RFC: VAOR910504-2A1</span>
+<span>·</span>
+<span>NSS: 88129103941</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Hornero Especialista</div>
+<div class="text-on-surface-variant text-label-sm">Producción / Hornos</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-medium text-on-surface">Sucursal Matriz CDMX</div>
+<div class="text-label-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="radar">radar</span>
+<span>Geocerca 50m activa</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-semibold text-on-surface">Nocturno Repostería</div>
+<div class="text-label-sm text-on-surface-variant">22:00 - 05:30 hrs</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-surface-container text-primary border border-secondary-fixed-dim w-max">
+<span class="material-symbols-outlined text-xs" data-icon="face">face</span>
+<span>Facial Kiosco</span>
+</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-secondary-fixed text-on-secondary-fixed">
+<span class="material-symbols-outlined text-xs" data-icon="child_friendly">child_friendly</span>
+                      Permiso Paternidad LFT
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="folder_shared">folder_shared</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- 6. Paginación y Resumen -->
+<div class="p-4 bg-surface-container-low border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4 text-body-sm font-body-sm text-on-surface-variant">
+<span>Mostrando <strong>1 - 10</strong> de <strong>96</strong> colaboradores</span>
+<div class="flex items-center gap-1.5">
+<label class="text-label-sm font-label-sm" for="per-page">Por página:</label>
+<select class="py-1 px-2 text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant rounded focus:border-primary text-on-surface" id="per-page">
+<option>10</option>
+<option>25</option>
+<option>50</option>
+<option>100</option>
+</select>
+</div>
+</div>
+<!-- Pagination buttons -->
+<div class="flex items-center gap-1">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center gap-1" disabled="">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+<span>Anterior</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center font-semibold">1</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center transition-colors">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center transition-colors">10</button>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center gap-1">
+<span>Siguiente</span>
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 7. Pie con Nota de Privacidad y Resguardo INAI / LFT -->
+<footer class="pt-2 pb-6 flex flex-col md:flex-row items-center justify-between text-body-sm font-body-sm text-on-surface-variant border-t border-outline-variant gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-primary" data-icon="shield">shield</span>
+<span>
+              Resguardo de biometría cifrada (AES-256) con base en la <strong>Ley Federal de Protección de Datos Personales en Posesión de Particulares (INAI)</strong> y el Artículo 132 de la <strong>LFT</strong>.
+            </span>
+</div>
+<div class="flex items-center gap-4 text-label-sm font-label-sm">
+<a class="hover:text-primary transition-colors underline" href="#">Aviso de Privacidad Laboral</a>
+<span>·</span>
+<a class="hover:text-primary transition-colors underline" href="#">Consentimiento de Huella / Rostro</a>
+<span>·</span>
+<a class="hover:text-primary transition-colors" href="#">Registro STPS #CHEK-2024-MX</a>
+</div>
+</footer>
+</main>
+</div>
+</div>
+</body></html>

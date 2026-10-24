@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es-MX"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>C16 · Reglas de Validación de Alta | Checador PyME México</title>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#70787c",
+            "on-error": "#ffffff",
+            "primary": "#003441",
+            "on-background": "#111c2d",
+            "inverse-on-surface": "#ecf1ff",
+            "primary-container": "#0f4c5c",
+            "on-surface-variant": "#40484b",
+            "error-container": "#ffdad6",
+            "surface-dim": "#cfdaf2",
+            "inverse-surface": "#263143",
+            "on-tertiary-fixed": "#2b1700",
+            "on-secondary-fixed": "#001f27",
+            "surface-container-low": "#f0f3ff",
+            "primary-fixed": "#b6ebfe",
+            "secondary-fixed-dim": "#9ecedd",
+            "on-primary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-container": "#e7eeff",
+            "surface": "#f9f9ff",
+            "on-primary-fixed-variant": "#114d5d",
+            "on-secondary-container": "#3a6977",
+            "tertiary-container": "#653d00",
+            "outline-variant": "#c0c8cb",
+            "on-tertiary-fixed-variant": "#663e00",
+            "tertiary-fixed": "#ffddb9",
+            "tertiary": "#462900",
+            "surface-tint": "#306576",
+            "background": "#f9f9ff",
+            "surface-bright": "#f9f9ff",
+            "secondary-container": "#b7e7f7",
+            "error": "#ba1a1a",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#9acee1",
+            "surface-container-highest": "#d8e3fb",
+            "on-surface": "#111c2d",
+            "secondary-fixed": "#baeafa",
+            "surface-variant": "#d8e3fb",
+            "on-primary-fixed": "#001f28",
+            "on-error-container": "#93000a",
+            "on-tertiary": "#ffffff",
+            "surface-container-high": "#dee8ff",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-primary-container": "#87bbce",
+            "secondary": "#356572",
+            "on-tertiary-container": "#f1a440",
+            "inverse-primary": "#9acee1",
+            "tertiary-fixed-dim": "#ffb963"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "space-2xl": "3rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "display-clock-mobile": ["Inter"],
+            "display-clock": ["Inter"],
+            "title-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "title-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-sm": ["Inter"]
+          },
+          "fontSize": {
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    /* Ambient Elevation Rules according to Design System */
+    .elevation-level-1 {
+      box-shadow: 0 1px 3px 0 rgba(15, 76, 92, 0.05), 0 1px 2px -1px rgba(15, 76, 92, 0.04);
+    }
+    .elevation-level-2 {
+      box-shadow: 0 4px 6px -1px rgba(15, 76, 92, 0.07), 0 2px 4px -2px rgba(15, 76, 92, 0.05);
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex min-h-screen overflow-x-hidden selection:bg-secondary-container selection:text-primary">
+<!-- ========================================================================= -->
+<!-- 1. SideNavBar Component (Fixed Left Rail 256px / w-64)                     -->
+<!-- ========================================================================= -->
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col justify-between py-space-md z-40 bg-surface-container-lowest border-r border-outline-variant shadow-sm select-none">
+<!-- Header Brand Info -->
+<div>
+<div class="px-space-md pb-space-md border-b border-outline-variant/60 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold text-headline-md shadow-sm">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div>
+<h1 class="font-title-lg text-title-lg font-bold text-primary tracking-tight">Checador PyME</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SaaS Asistencia México</p>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<div class="px-space-md pt-space-md pb-2">
+<button class="w-full flex items-center justify-center gap-2 py-2 px-space-md bg-primary-container hover:bg-primary text-on-primary rounded-lg font-title-md text-title-md transition-colors duration-150 shadow-sm active:scale-[0.99]">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Registrar Marcaje</span>
+</button>
+</div>
+<!-- Navigation Menu Items (11 tabs strictly mapped) -->
+<nav class="px-3 pt-2 space-y-0.5 overflow-y-auto max-h-[calc(100vh-270px)]">
+<!-- 1. Tablero -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#tablero">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- 2. En vivo -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#en-vivo">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- 3. Empleados -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#empleados">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span>Empleados</span>
+</a>
+<!-- 4. Marcajes -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#marcajes">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- 5. Hojas de horas -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#hojas">
+<span class="material-symbols-outlined text-[20px]">history_toggle_off</span>
+<span>Hojas de horas</span>
+</a>
+<!-- 6. Incidencias -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#incidencias">
+<span class="material-symbols-outlined text-[20px]">event_busy</span>
+<span>Incidencias</span>
+</a>
+<!-- 7. Turnos -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#turnos">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+<span>Turnos</span>
+</a>
+<!-- 8. Ubicaciones -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#ubicaciones">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span>Ubicaciones</span>
+</a>
+<!-- 9. Reportes -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#reportes">
+<span class="material-symbols-outlined text-[20px]">assessment</span>
+<span>Reportes</span>
+</a>
+<!-- 10. Analítica -->
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#analitica">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+<span>Analítica</span>
+</a>
+<!-- 11. Configuración (ACTIVE NAVIGATION ITEM) -->
+<div class="pt-1">
+<a class="flex items-center gap-3 px-space-md py-2.5 bg-secondary-container text-on-secondary-container rounded-lg font-title-md text-title-md shadow-sm" href="#configuracion">
+<span class="material-symbols-outlined text-[20px] text-primary">settings</span>
+<span class="font-bold text-primary">Configuración</span>
+</a>
+<!-- Active submenu indicator -->
+<div class="ml-6 pl-4 border-l-2 border-primary-container mt-1.5 space-y-1">
+<div class="py-1 px-2 rounded font-label-md text-label-md bg-surface-container text-primary font-bold flex items-center justify-between">
+<span>Reglas de Validación</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<a class="block py-1 px-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#politicas">Políticas LFT</a>
+<a class="block py-1 px-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#dispositivos">Kioscos y QR</a>
+</div>
+</div>
+</nav>
+</div>
+<!-- SideNavBar Footer -->
+<div class="px-space-md pt-3 border-t border-outline-variant/60 space-y-1">
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#soporte">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span>Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-space-md py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150" href="#logout">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Cerrar sesión</span>
+</a>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. TopNavBar Component (Fixed Top 64px / left-64)                          -->
+<!-- ========================================================================= -->
+<header class="fixed top-0 right-0 left-64 h-16 flex items-center justify-between px-space-lg z-30 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+<!-- Left Navigation Trail & Branch Selector -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+<span>Configuración</span>
+<span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>
+<span>Admisión de Personal</span>
+<span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>
+<span class="text-primary font-bold font-title-md text-title-md">Reglas de Validación de Alta</span>
+</div>
+<div class="h-5 w-px bg-outline-variant hidden xl:block"></div>
+<!-- Sucursal Selector Dropdown Pill -->
+<div class="relative hidden lg:flex items-center">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low hover:bg-surface-container border border-outline-variant/80 rounded-lg text-primary font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary-container">domain</span>
+<span class="font-semibold">Todas las sucursales (Política Global)</span>
+<span class="material-symbols-outlined text-[18px] text-outline">arrow_drop_down</span>
+</button>
+</div>
+</div>
+<!-- Center/Right Live Government Sync & Actions -->
+<div class="flex items-center gap-4">
+<!-- Sync Status Badge -->
+<div class="hidden 2xl:flex items-center gap-2 px-3 py-1 bg-[#E8F5E9] border border-[#2E7D32]/20 rounded-full">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2E7D32] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-[#2E7D32]"></span>
+</span>
+<span class="font-label-sm text-label-sm font-semibold text-[#2E7D32]">Motores RENAPO, SAT e IMSS Conectados</span>
+</div>
+<!-- Icons Cluster -->
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-colors" title="Sincronización en la nube activa">
+<span class="material-symbols-outlined text-[20px]">cloud_done</span>
+</button>
+<button class="relative p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-colors" title="Notificaciones operativas">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#ba1a1a]"></span>
+</button>
+<button class="flex items-center gap-1 px-2.5 py-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-lg font-label-md text-label-md transition-colors" title="Historial de Auditoría">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="hidden md:inline">Ver Auditoría</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-2">
+<button class="px-3 py-2 border border-outline-variant hover:bg-surface-container text-on-surface rounded-lg font-label-md text-label-md transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span class="hidden sm:inline">Restablecer LFT</span>
+</button>
+<button class="px-4 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-lg font-label-lg text-label-lg font-semibold flex items-center gap-2 shadow-sm transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Guardar y Publicar Reglas</span>
+<span class="px-1.5 py-0.2 rounded-full bg-secondary-container text-primary text-[10px] font-bold">1 Modificada</span>
+</button>
+</div>
+<!-- User Profile Thumbnail -->
+<div class="flex items-center gap-2.5 pl-2">
+<div class="w-9 h-9 rounded-full bg-primary-container text-on-primary font-bold font-title-md text-title-md flex items-center justify-center border border-outline-variant/60">
+          RM
+        </div>
+<div class="hidden xl:block text-left">
+<p class="font-label-md text-label-md font-bold text-on-surface leading-tight">Lic. Roberto Morales</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Admin RRHH General</p>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 3. MAIN CONTENT CANVAS (Responsive Desktop)                                -->
+<!-- ========================================================================= -->
+<main class="ml-64 mt-16 flex-1 p-space-lg lg:p-space-xl max-w-7xl mx-auto space-y-space-lg">
+<!-- 3.1. Executive Banner & Header Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg elevation-level-1 relative overflow-hidden">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="space-y-1.5 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-secondary-container text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Módulo de Enrolamiento y Filtro Preventivo</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">
+            Reglas de Validación de Alta y Enrolamiento
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Configura los filtros de seguridad, cotejo oficial de identidad y umbrales de severidad (<span class="font-semibold text-[#ba1a1a]">Bloquear registro</span> vs. <span class="font-semibold text-[#653d00]">Advertir a RH</span>) aplicados cuando un colaborador se auto-registra mediante enlace de WhatsApp, QR de Kiosco o invitación digital.
+          </p>
+</div>
+<!-- Metric Badges Group -->
+<div class="flex flex-wrap lg:flex-nowrap items-center gap-3">
+<div class="px-4 py-3 bg-surface-container-low border border-outline-variant/70 rounded-xl text-center min-w-[130px]">
+<span class="block font-headline-md text-headline-md font-bold text-primary">7 / 8</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Reglas Activas</span>
+</div>
+<div class="px-4 py-3 bg-[#FFEBEE] border border-[#ba1a1a]/30 rounded-xl text-center min-w-[130px]">
+<span class="block font-headline-md text-headline-md font-bold text-[#ba1a1a]">5</span>
+<span class="font-label-sm text-label-sm text-[#ba1a1a] font-semibold">Bloqueo Crítico</span>
+</div>
+<div class="px-4 py-3 bg-[#E8F5E9] border border-[#2E7D32]/30 rounded-xl text-center min-w-[130px]">
+<span class="block font-headline-md text-headline-md font-bold text-[#2E7D32]">98.4%</span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">Antifraude Efectivo</span>
+</div>
+</div>
+</div>
+<!-- Legal Compliance Note Strip -->
+<div class="mt-space-md pt-space-md border-t border-outline-variant/60 flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px] text-primary">gavel</span>
+<span><strong>Conforme a la Ley Federal del Trabajo:</strong> Art. 25, Art. 132 y disposiciones vigentes del SAT y lineamientos INAI sobre tratamiento de datos biométricos.</span>
+</div>
+<div class="hidden sm:flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>88 altas procesadas con éxito este mes</span>
+</div>
+</div>
+</section>
+<!-- 3.2. Tabs and Quick Filters -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-outline-variant/80 pb-3">
+<div class="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0">
+<button class="px-4 py-2 rounded-lg font-label-lg text-label-lg font-semibold bg-primary-container text-on-primary shadow-sm flex items-center gap-2 whitespace-nowrap">
+<span>Todas las Reglas</span>
+<span class="bg-primary px-2 py-0.5 rounded-full text-[11px] text-primary-fixed">8</span>
+</button>
+<button class="px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors flex items-center gap-2 whitespace-nowrap">
+<span>Identidad Oficial y Fiscal</span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded-full text-[11px] text-on-surface">3</span>
+</button>
+<button class="px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors flex items-center gap-2 whitespace-nowrap">
+<span>Antifraude y Unicidad</span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded-full text-[11px] text-on-surface">2</span>
+</button>
+<button class="px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors flex items-center gap-2 whitespace-nowrap">
+<span>Biometría y Dispositivos</span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded-full text-[11px] text-on-surface">1</span>
+</button>
+<button class="px-4 py-2 rounded-lg font-label-lg text-label-lg font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors flex items-center gap-2 whitespace-nowrap">
+<span>Documentos y Expediente LFT</span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded-full text-[11px] text-on-surface">2</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[18px] text-outline">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Buscar regla o parámetro..." type="text"/>
+</div>
+</div>
+</div>
+<!-- 3.3. Main Two-Column Layout: Rules Matrix (Left 7 Cols) + Interactive Live Sandbox (Right 5 Cols) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- ========================================================================= -->
+<!-- RULES MATRIX LIST (8 Structured Operational Cards)                        -->
+<!-- ========================================================================= -->
+<div class="lg:col-span-8 space-y-space-md">
+<!-- REGLA 1: CURP / RENAPO -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 transition-all hover:border-primary/50">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">fingerprint</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">1. Cotejo oficial de CURP ante RENAPO</h3>
+<span class="px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    API Activa
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Cotejo en tiempo real de los 18 caracteres alfanuméricos contra la Base Nacional de Población (RENAPO). Bloquea registros si el estatus no es "ACTIVA" o "HISTÓRICA".
+                </p>
+</div>
+</div>
+<!-- Master Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Configuration & Severity Bar -->
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad de Fallo:</span>
+<div class="inline-flex rounded-lg border border-outline-variant p-0.5 bg-surface-container-lowest">
+<button class="px-2.5 py-1 rounded bg-[#ba1a1a] text-white font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                  Bloquear Registro
+                </button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface">
+                  Advertir a RH
+                </button>
+</div>
+</div>
+<!-- Config parameters inline tags -->
+<div class="flex items-center gap-2">
+<label class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary-container focus:ring-primary" type="checkbox"/>
+<span>Verificar Nombres y Fecha de Nac.</span>
+</label>
+</div>
+</div>
+</article>
+<!-- REGLA 2: RFC con Homoclave / SAT -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 transition-all hover:border-primary/50">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">receipt_long</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">2. Validación de RFC con homoclave ante SAT</h3>
+<span class="px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    LCO Sincronizado
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Exige que el RFC figure en el Padrón de Contribuyentes válidos del SAT (Lista LCO). Previene timbrados de nómina rechazados (CFDI 4.0 con complemento de nómina).
+                </p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad de Fallo:</span>
+<div class="inline-flex rounded-lg border border-outline-variant p-0.5 bg-surface-container-lowest">
+<button class="px-2.5 py-1 rounded bg-[#ba1a1a] text-white font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                  Bloquear Registro
+                </button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface">
+                  Advertir a RH
+                </button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<label class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary-container focus:ring-primary" type="checkbox"/>
+<span>Exigir Régimen Sueldos y Salarios (605)</span>
+</label>
+</div>
+</div>
+</article>
+<!-- REGLA 3: NSS IMSS -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 transition-all hover:border-primary/50">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">health_and_safety</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">3. Verificación de NSS ante base IMSS</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-primary font-label-sm text-label-sm font-semibold">
+                    11 Dígitos + Luhn
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Calcula el algoritmo verificador oficial del IMSS. Permite alta provisional condicionada para colaboradores en trámite de su primer número patronal.
+                </p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad de Fallo:</span>
+<div class="inline-flex rounded-lg border border-outline-variant p-0.5 bg-surface-container-lowest">
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface">
+                  Bloquear Registro
+                </button>
+<button class="px-2.5 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                  Advertir a RH
+                </button>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Período de gracia:</span>
+<span class="font-bold bg-surface-container px-2 py-0.5 rounded">5 días hábiles</span>
+</div>
+</div>
+</article>
+<!-- REGLA 4: Unicidad CURP y Teléfono -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 transition-all hover:border-primary/50">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">phonelink_lock</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">4. Unicidad estricta de CURP y Teléfono Celular</h3>
+<span class="px-2 py-0.5 rounded-full bg-[#FFEBEE] text-[#ba1a1a] font-label-sm text-label-sm font-bold">
+                    Candado Antifraude
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Impide que dos perfiles compartan el mismo número de WhatsApp o CURP dentro del tenant empresarial o historial de bajas disciplinarias recientes.
+                </p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad de Fallo:</span>
+<div class="inline-flex rounded-lg border border-outline-variant p-0.5 bg-surface-container-lowest">
+<button class="px-2.5 py-1 rounded bg-[#ba1a1a] text-white font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                  Bloquear Registro
+                </button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface">
+                  Advertir a RH
+                </button>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+              Revisión cruzada: <strong>Padrón Activo + Bajas &lt; 90 días</strong>
+</span>
+</div>
+</article>
+<!-- REGLA 5: Biometría Facial / Anti-spoofing -->
+<article class="bg-surface-container-lowest border-2 border-primary/20 rounded-xl p-space-md elevation-level-1">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">face</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-primary">5. Detección biométrica de rostro duplicado (Anti-spoofing 3D)</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-primary font-label-sm text-label-sm font-bold">
+                    IA Biométrica
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Compara vector facial en enrolamiento contra la galería corporativa para evitar que una persona use múltiples identidades o marque por terceros.
+                </p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Interactive Threshold Slider -->
+<div class="mt-4 p-3 bg-surface-container rounded-lg space-y-2">
+<div class="flex items-center justify-between text-on-surface font-label-md text-label-md">
+<span class="font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">tune</span>
+                Umbral de Similitud Facial para Alerta:
+              </span>
+<span class="font-bold text-primary px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant">
+                80% de Coincidencia Vectorial
+              </span>
+</div>
+<input class="w-full accent-primary cursor-pointer h-2 bg-outline-variant rounded-lg" max="95" min="60" type="range" value="80"/>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>60% (Permisivo)</span>
+<span>80% (Recomendado LFT / PyME)</span>
+<span>95% (Estricto Bancario)</span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad de Fallo:</span>
+<div class="inline-flex rounded-lg border border-outline-variant p-0.5 bg-surface-container-lowest">
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface">
+                  Bloquear Registro
+                </button>
+<button class="px-2.5 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                  Advertir a RH
+                </button>
+</div>
+</div>
+<label class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary-container focus:ring-primary" type="checkbox"/>
+<span>Exigir Prueba de Vida Activa (Liveness)</span>
+</label>
+</div>
+</article>
+<!-- REGLA 6: Edad Mínima LFT -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 transition-all hover:border-primary/50">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">escalator_warning</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">6. Restricción de edad mínima laboral (LFT)</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-primary font-label-sm text-label-sm font-bold">
+                    Art. 175 LFT
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Garantiza el cumplimiento legal estricto de edad mínima laboral a partir de la fecha de nacimiento oficial extraída de RENAPO.
+                </p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="mt-3 p-3 bg-surface-container-low rounded-lg space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Criterio Base:</span>
+<select class="px-3 py-1 bg-surface-container-lowest border border-outline-variant rounded font-label-sm text-label-sm text-primary font-bold">
+<option selected="">Mínimo 18 años cumplidos (Estándar General)</option>
+<option>Mayoría de edad estricta (18+ años sin excepción)</option>
+</select>
+</div>
+<div class="flex items-center gap-2 pt-1 border-t border-outline-variant/40">
+<input checked="" class="rounded border-outline-variant text-primary-container focus:ring-primary" id="lft16" type="checkbox"/>
+<label class="font-label-sm text-label-sm text-on-surface-variant cursor-pointer" for="lft16">
+                Permitir jóvenes de 16-17 años <strong>únicamente con carta responsiva de padres o tutores</strong> y jornada diurna legal máxima de 6 horas.
+              </label>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad de Fallo (&lt;16 años):</span>
+<span class="px-2.5 py-1 rounded bg-[#ba1a1a] text-white font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[14px]">block</span>
+                Bloqueo Absoluto Inmediato
+              </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Protección STPS activa</span>
+</div>
+</article>
+<!-- REGLA 7: Filtro de Correos y Anti-desechables -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 transition-all hover:border-primary/50">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">mark_email_read</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">7. Filtro de dominios de correo electrónico</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-primary font-label-sm text-label-sm font-bold">
+                    Anti-Spam
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Bloqueo automático de correos temporales (guerrillamail, tempmail, yopmail) y validación de sintaxis MX antes de remitir el enlace de asistencia.
+                </p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Tags list -->
+<div class="mt-3 flex flex-wrap items-center gap-1.5">
+<span class="px-2.5 py-1 bg-surface-container rounded-md font-label-sm text-label-sm text-on-surface flex items-center gap-1">
+<span>@mi-empresa.com.mx</span>
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="px-2.5 py-1 bg-surface-container rounded-md font-label-sm text-label-sm text-on-surface flex items-center gap-1">
+<span>@gmail.com</span>
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="px-2.5 py-1 bg-surface-container rounded-md font-label-sm text-label-sm text-on-surface flex items-center gap-1">
+<span>@outlook.com</span>
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<button class="px-2 py-1 border border-dashed border-outline-variant hover:border-primary rounded-md font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span>Añadir Dominio</span>
+</button>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad:</span>
+<div class="inline-flex rounded-lg border border-outline-variant p-0.5 bg-surface-container-lowest">
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface">Bloquear</button>
+<button class="px-2.5 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                  Advertir a RH
+                </button>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lista negra de 2,400+ dominios desechables activa</span>
+</div>
+</article>
+<!-- REGLA 8: Documentos Obligatorios Expediente LFT -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 transition-all hover:border-primary/50">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">folder_shared</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface">8. Expediente Digital de Documentos Obligatorios</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-primary font-label-sm text-label-sm font-bold">
+                    Auditoría STPS
+                  </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Checklist de archivos que el aspirante debe cargar desde su celular en el proceso de enrolamiento antes de presentarse al centro de trabajo.
+                </p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Document checklist table inside card -->
+<div class="mt-3 space-y-2 border border-outline-variant/60 rounded-lg p-3 bg-surface-container-low/50">
+<div class="flex items-center justify-between py-1 border-b border-outline-variant/40">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">badge</span>
+                1. Credencial INE / Pasaporte Vigente (Anverso y Reverso con OCR)
+              </span>
+<span class="px-2 py-0.5 rounded bg-error-container text-[#ba1a1a] font-label-sm text-label-sm font-bold">Obligatorio Inmediato</span>
+</div>
+<div class="flex items-center justify-between py-1 border-b border-outline-variant/40">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">description</span>
+                2. Constancia de Situación Fiscal (CSF) SAT actualizada (&lt; 3 meses)
+              </span>
+<span class="px-2 py-0.5 rounded bg-error-container text-[#ba1a1a] font-label-sm text-label-sm font-bold">Obligatorio Inmediato</span>
+</div>
+<div class="flex items-center justify-between py-1 border-b border-outline-variant/40">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">home</span>
+                3. Comprobante de domicilio reciente (CFE, Agua o Telmex)
+              </span>
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">Gracia 15 días</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">assignment_ind</span>
+                4. Número de Seguridad Social oficial IMSS (PDF / Captura)
+              </span>
+<span class="px-2 py-0.5 rounded bg-error-container text-[#ba1a1a] font-label-sm text-label-sm font-bold">Obligatorio Inmediato</span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between bg-surface-container-low/60 -mx-4 -mb-4 p-4 rounded-b-xl">
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Severidad General:</span>
+<span class="px-2.5 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                Advertir a RH para Validación Manual
+              </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">OCR Automático habilitado</span>
+</div>
+</article>
+</div>
+<!-- ========================================================================= -->
+<!-- 4. RIGHT COLUMN: Interactive Live Rule Simulator & Branch Inheritance     -->
+<!-- ========================================================================= -->
+<aside class="lg:col-span-4 space-y-space-md sticky top-20">
+<!-- SIMULADOR EN VIVO (SANDBOX) -->
+<div class="bg-surface-container-lowest border-2 border-primary-container/30 rounded-xl p-space-md elevation-level-2 space-y-space-md">
+<div class="flex items-center justify-between border-b border-outline-variant/60 pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[22px]">play_circle</span>
+<h4 class="font-title-md text-title-md font-bold text-primary">Simulador de Reglas en Vivo</h4>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-primary font-label-sm text-label-sm font-semibold">Sandbox Test</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Prueba cómo reaccionan las 8 reglas configuradas ante los datos reales de un postulante ficticio antes de enviar las políticas a producción.
+          </p>
+<!-- Test Profile Form Preview -->
+<div class="space-y-3 bg-surface-container-low p-3 rounded-lg border border-outline-variant/60 font-body-sm text-body-sm">
+<div>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Candidato de Prueba:</span>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-7 h-7 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xs">MH</div>
+<span class="font-semibold text-on-surface">Mariana Hernández Solís</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1 text-xs">
+<div>
+<span class="text-on-surface-variant block">CURP ingresada:</span>
+<span class="font-mono font-bold text-on-surface">HESM980415MDFR...</span>
+</div>
+<div>
+<span class="text-on-surface-variant block">RFC ingresado:</span>
+<span class="font-mono font-bold text-[#ba1a1a]">HESM980415-XXX</span>
+</div>
+<div>
+<span class="text-on-surface-variant block">Teléfono WhatsApp:</span>
+<span class="font-mono font-bold text-[#ba1a1a]">55-4819-0021</span>
+</div>
+<div>
+<span class="text-on-surface-variant block">Biometría 3D:</span>
+<span class="font-mono font-semibold text-[#2E7D32]">84% Match (Nuevo)</span>
+</div>
+</div>
+<button class="w-full py-2 bg-primary text-white rounded font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors flex items-center justify-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Ejecutar Validación con Reglas Actuales</span>
+</button>
+</div>
+<!-- Simulator Verdict Output -->
+<div class="space-y-2 border-t border-outline-variant/60 pt-3">
+<span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-[#ba1a1a]">gpp_bad</span>
+              Veredicto del Sistema: REGISTRO BLOQUEADO
+            </span>
+<div class="space-y-2">
+<!-- Block item -->
+<div class="p-2.5 rounded-lg bg-[#FFEBEE] border border-[#ba1a1a]/30 flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#ba1a1a] shrink-0 mt-0.5">cancel</span>
+<div class="text-xs">
+<span class="font-bold text-[#ba1a1a] block">Fallo Crítico: Regla 2 (SAT)</span>
+<p class="text-on-surface-variant">RFC con homoclave 'XXX' no localizada en lista LCO del SAT. Bloqueo obligatorio.</p>
+</div>
+</div>
+<!-- Warning item -->
+<div class="p-2.5 rounded-lg bg-[#FFF8E1] border border-[#B78103]/30 flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#B78103] shrink-0 mt-0.5">warning</span>
+<div class="text-xs">
+<span class="font-bold text-[#B78103] block">Alerta: Regla 4 (Teléfono Duplicado)</span>
+<p class="text-on-surface-variant">El número 55-4819-0021 coincide con ex-empleado dado de baja en 2023. Entraría a bandeja C6 para aprobación humana.</p>
+</div>
+</div>
+</div>
+<div class="p-2 bg-surface-container rounded font-label-sm text-label-sm text-center text-primary font-semibold">
+              El colaborador vería pantalla de error guiado para corregir su RFC con el SAT.
+            </div>
+</div>
+</div>
+<!-- SUCURSALES & HERENCIA DE POLÍTICAS -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1 space-y-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">corporate_fare</span>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Herencia por Sucursal</h4>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+            La política actual está definida como <strong>Global</strong>. Cualquier sucursal sin reglas específicas hereda estas 8 verificaciones de forma obligatoria.
+          </p>
+<div class="space-y-2 font-label-md text-label-md">
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="font-semibold text-on-surface">Matriz CDMX (Reforma)</span>
+<span class="px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-xs font-bold">Global (8)</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="font-semibold text-on-surface">Sucursal Monterrey (San Pedro)</span>
+<span class="px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-xs font-bold">Global (8)</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="font-semibold text-on-surface">Planta Guadalajara (Zapopan)</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-primary text-xs font-bold">Personalizada (9)</span>
+</div>
+</div>
+<button class="w-full py-2 border border-outline-variant hover:bg-surface-container text-primary rounded-lg font-label-md text-label-md font-semibold transition-colors">
+            Gestionar Excepciones por Sucursal
+          </button>
+</div>
+<!-- QUICK ACCESS TO C6 SCREEN -->
+<div class="p-space-md rounded-xl bg-gradient-to-br from-primary-container to-primary text-on-primary space-y-2 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary-container">assignment_turned_in</span>
+<h5 class="font-title-md text-title-md font-bold">Bandeja de Validación (C6)</h5>
+</div>
+<p class="font-body-sm text-body-sm text-primary-fixed opacity-95">
+            Las alertas de severidad "Advertir a RH" se envían directamente a la bandeja de pendientes de admisión para revisión humana.
+          </p>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md font-bold text-white hover:underline pt-1" href="#c6-validacion-altas">
+<span>Ir a C6 · Validar 12 Altas Pendientes</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</aside>
+</div>
+<!-- 3.4. Audit Trail / Historial Reciente Footer Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md elevation-level-1">
+<div class="flex items-center justify-between border-b border-outline-variant/60 pb-3 mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]">manage_history</span>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Últimas Modificaciones de Reglas (Auditoría de Cumplimiento)</h4>
+</div>
+<a class="font-label-md text-label-md text-primary hover:underline font-semibold" href="#auditoria-completa">
+          Descargar Bitácora Oficial en PDF
+        </a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-body-sm text-body-sm">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">edit</span>
+<div>
+<p class="font-semibold text-on-surface">Regla 5 (Biometría): Umbral ajustado de 75% a 80%</p>
+<p class="text-on-surface-variant text-xs">Por Lic. Roberto Morales · Hoy a las 09:14 AM</p>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px] shrink-0 mt-0.5">verified_user</span>
+<div>
+<p class="font-semibold text-on-surface">Regla 1 (RENAPO): Sincronización API validada</p>
+<p class="text-on-surface-variant text-xs">Sistema Automático SAT/RENAPO · Ayer a las 23:00 hrs</p>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[#ba1a1a] text-[18px] shrink-0 mt-0.5">toggle_on</span>
+<div>
+<p class="font-semibold text-on-surface">Regla 4: Activado bloqueo estricto por teléfono</p>
+<p class="text-on-surface-variant text-xs">Por Ing. Carlos Soto (Seguridad) · Hace 3 días</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

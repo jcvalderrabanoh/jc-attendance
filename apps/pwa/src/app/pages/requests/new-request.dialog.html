@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Nueva solicitud</h2>
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <mat-dialog-content>
+    <mat-button-toggle-group class="types" formControlName="type" aria-label="Tipo de solicitud" hideSingleSelectionIndicator>
+      @for (t of types; track t) {
+        <mat-button-toggle [value]="t"><att-icon [name]="typeIcon[t]" [size]="20" /> {{ typeLabel[t] }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+
+    @if (type === 'vacation' && data.balance; as b) {
+      <p class="form-info"><att-icon name="beach_access" [size]="20" /> Tienes {{ b.available }} de {{ b.entitled }} días disponibles en {{ b.year }}.</p>
+    }
+
+    @switch (type) {
+      @case ('punch_correction') {
+        <div class="two">
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha</mat-label>
+            <input matInput type="date" formControlName="fromDate" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Hora correcta</mat-label>
+            <input matInput type="time" formControlName="time" required />
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Marcaje</mat-label>
+          <mat-select formControlName="punchType">
+            @for (p of punchTypes; track p[0]) { <mat-option [value]="p[0]">{{ p[1] }}</mat-option> }
+          </mat-select>
+        </mat-form-field>
+      }
+      @case ('overtime') {
+        <div class="two">
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha</mat-label>
+            <input matInput type="date" formControlName="fromDate" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Minutos</mat-label>
+            <input matInput type="number" inputmode="numeric" min="1" max="720" formControlName="minutes" required />
+          </mat-form-field>
+        </div>
+      }
+      @default {
+        <div class="two">
+          <mat-form-field appearance="outline">
+            <mat-label>Desde</mat-label>
+            <input matInput type="date" formControlName="fromDate" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Hasta</mat-label>
+            <input matInput type="date" formControlName="toDate" />
+          </mat-form-field>
+        </div>
+      }
+    }
+
+    <mat-form-field appearance="outline">
+      <mat-label>Comentario</mat-label>
+      <textarea matInput formControlName="comment" rows="2" maxlength="500"></textarea>
+    </mat-form-field>
+
+    @if (error(); as e) {
+      <p class="form-error" role="alert"><att-icon name="error" [size]="20" /> {{ e }}</p>
+    }
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+    <button mat-flat-button type="submit" [disabled]="busy()">Enviar solicitud</button>
+  </mat-dialog-actions>
+</form>

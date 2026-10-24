@@ -1,0 +1,16 @@
+.who { display: flex; align-items: center; gap: 16px;
+  h2 { margin: 0; font-size: 1.2rem; }
+  p { margin: 4px 0 0; }
+}
+.avatar { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--att-primary); color: #fff; font-weight: 700; font-size: 1.4rem; flex: none; }
+.facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;
+  div { min-width: 0; }
+  dt { font-size: 0.8rem; color: var(--att-muted); }
+  dd { margin: 2px 0 0; font-weight: 600; overflow-wrap: anywhere; }
+}
+.consents { list-style: none; padding: 0; margin: 0 0 12px; }
+.consents li { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--att-line); min-height: 56px; }
+.small { font-size: 0.8rem; font-weight: 400; }
+.actions { margin-top: 8px; }
+.logout { color: var(--att-bad) !important; }
+mat-checkbox { display: block; margin-bottom: 16px; }

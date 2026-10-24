@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checador PyME - Políticas de Asistencia y Cumplimiento LFT</title>
+<!-- Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-tint": "#306576",
+            "primary-container": "#0f4c5c",
+            "surface-container-high": "#dee8ff",
+            "secondary": "#356572",
+            "error": "#ba1a1a",
+            "surface-bright": "#f9f9ff",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#ffddb9",
+            "surface-variant": "#d8e3fb",
+            "on-tertiary-container": "#f1a440",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "inverse-surface": "#263143",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+            "tertiary-container": "#653d00",
+            "tertiary": "#462900",
+            "surface-container-highest": "#d8e3fb",
+            "surface-container": "#e7eeff",
+            "on-tertiary-fixed": "#2b1700",
+            "inverse-on-surface": "#ecf1ff",
+            "surface-container-lowest": "#ffffff",
+            "outline-variant": "#c0c8cb",
+            "on-primary-container": "#87bbce",
+            "on-surface-variant": "#40484b",
+            "surface": "#f9f9ff",
+            "on-tertiary": "#ffffff",
+            "primary": "#003441",
+            "surface-dim": "#cfdaf2",
+            "secondary-container": "#b7e7f7",
+            "on-secondary-fixed": "#001f27",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#baeafa",
+            "on-primary-fixed-variant": "#114d5d",
+            "on-tertiary-fixed-variant": "#663e00",
+            "inverse-primary": "#9acee1",
+            "on-primary-fixed": "#001f28",
+            "outline": "#70787c",
+            "secondary-fixed-dim": "#9ecedd",
+            "background": "#f9f9ff",
+            "surface-container-low": "#f0f3ff",
+            "on-primary": "#ffffff",
+            "on-background": "#111c2d",
+            "primary-fixed-dim": "#9acee1",
+            "on-secondary-container": "#3a6977",
+            "tertiary-fixed-dim": "#ffb963",
+            "primary-fixed": "#b6ebfe",
+            "on-surface": "#111c2d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "0.75rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "3rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "1.5rem",
+            "space-lg": "1.5rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "display-clock": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "headline-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "title-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f0f3ff;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="h-full text-on-surface bg-surface flex overflow-hidden">
+<!-- ========================================================================= -->
+<!-- 1. SIDENAVBAR COMPONENT (Source of Truth JSON Executed)                   -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-64 z-50 flex flex-col bg-surface border-r border-outline-variant select-none">
+<div class="w-64 h-full flex flex-col justify-between p-4 overflow-y-auto custom-scrollbar">
+<!-- Top Brand Header -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-2 py-1">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-surface-container-lowest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[24px]" data-icon="schedule">schedule</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary leading-tight">Checador PyME</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Empresarial MX</p>
+</div>
+</div>
+<!-- Primary CTA button from JSON -->
+<button class="w-full h-11 bg-primary text-on-primary font-label-lg text-label-lg rounded-lg flex items-center justify-center gap-2 shadow-sm hover:bg-surface-tint active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="fingerprint">fingerprint</span>
+<span>Registrar Entrada</span>
+</button>
+<!-- Navigation Tabs List -->
+<nav class="flex flex-col gap-1 mt-2">
+<!-- 1. Tablero -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- 2. En vivo -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="sensors">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- 3. Empleados -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="badge">badge</span>
+<span>Empleados</span>
+</a>
+<!-- 4. Marcajes -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="schedule">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- 5. Hojas de horas -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="table_chart">table_chart</span>
+<span>Hojas de horas</span>
+</a>
+<!-- 6. Incidencias -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="warning">warning</span>
+<span>Incidencias</span>
+</a>
+<!-- 7. Turnos -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_month">calendar_month</span>
+<span>Turnos</span>
+</a>
+<!-- 8. Ubicaciones -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="location_on">location_on</span>
+<span>Ubicaciones</span>
+</a>
+<!-- 9. Reportes -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+<span>Reportes</span>
+</a>
+<!-- 10. Analítica -->
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-lg text-label-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="analytics">analytics</span>
+<span>Analítica</span>
+</a>
+<!-- 11. Configuración (ACTIVE NAVIGATION ITEM) -->
+<a class="bg-secondary-container text-on-secondary-container font-semibold rounded-lg px-3 py-2 flex items-center justify-between font-label-lg text-label-lg shadow-sm" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span>Configuración</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</a>
+</nav>
+</div>
+<!-- Footer SideNav Actions -->
+<div class="pt-4 border-t border-outline-variant flex flex-col gap-1">
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span>Ayuda y Soporte</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container rounded-lg px-3 py-2 flex items-center gap-3 font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="logout">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE CONTAINER (Offset by SideNav w-64)                         -->
+<!-- ========================================================================= -->
+<div class="ml-64 flex-1 flex flex-col h-screen overflow-hidden">
+<!-- ======================================================================= -->
+<!-- 2. TOPNAVBAR COMPONENT (Source of Truth JSON Executed)                  -->
+<!-- ======================================================================= -->
+<header class="docked full-width top-0 sticky z-40 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+<div class="flex justify-between items-center w-full px-6 py-3">
+<!-- Left Nav Cluster & Search -->
+<div class="flex items-center gap-5">
+<!-- Sucursal Dropdown Selector -->
+<div class="flex items-center gap-2 bg-surface-container px-3 py-2 rounded-lg border border-outline-variant hover:border-primary cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="storefront">storefront</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sucursal</span>
+<span class="font-label-md text-label-md font-semibold text-primary">Matriz CDMX (Central)</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+<!-- LFT Sync Status Chip -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed-variant border border-secondary-container">
+<span class="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
+<span class="font-label-sm text-label-sm font-semibold">Sincronizado LFT &amp; NOM-037</span>
+</div>
+<!-- Quick Global Search Input -->
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]" data-icon="search">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low text-on-surface border border-outline-variant rounded-lg font-body-sm text-body-sm focus:outline-none focus:border-primary transition-colors" placeholder="Buscar empleado, regla, nómina..." type="text"/>
+</div>
+</div>
+<!-- Right Action Cluster -->
+<div class="flex items-center gap-3">
+<!-- Trailing Icon: Sync from JSON -->
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors active:scale-[0.98]" title="Sincronizar regla">
+<span class="material-symbols-outlined text-[20px]" data-icon="sync">sync</span>
+</button>
+<!-- Trailing Icon: Notifications with badge from JSON -->
+<button class="relative w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors active:scale-[0.98]" title="Notificaciones">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant mx-1"></div>
+<!-- Trailing Primary Action from JSON: Pase de Lista -->
+<button class="h-10 px-4 rounded-lg bg-surface-container text-primary font-label-md text-label-md flex items-center gap-2 border border-outline-variant hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="checklist">checklist</span>
+<span>Pase de Lista</span>
+</button>
+<!-- Primary Save Button for Screen -->
+<button class="h-10 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-2 shadow-sm hover:bg-surface-tint transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="save">save</span>
+<span>Guardar Cambios</span>
+</button>
+<!-- User Profile Anchor -->
+<div class="flex items-center gap-2.5 pl-2">
+<div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-md text-label-md font-bold ring-2 ring-secondary-container">
+              RM
+            </div>
+<div class="flex flex-col text-left">
+<span class="font-label-md text-label-md font-semibold text-primary leading-tight">Lic. Roberto Morales</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-none">Admin RH &amp; Nómina</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ======================================================================= -->
+<!-- 3. SCROLLABLE CANVAS CONTENT                                            -->
+<!-- ======================================================================= -->
+<main class="flex-1 overflow-y-auto px-8 py-6 custom-scrollbar bg-surface space-y-6">
+<!-- Breadcrumb, Compliance Badge & Page Title Cluster -->
+<section class="space-y-3">
+<!-- Breadcrumbs & Chip -->
+<div class="flex items-center justify-between">
+<nav class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="home">home</span>
+<span>Inicio</span>
+</a>
+<span>/</span>
+<a class="hover:text-primary transition-colors" href="#">Configuración</a>
+<span>/</span>
+<span class="text-primary font-semibold">Políticas de Asistencia</span>
+</nav>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8F5E9] border border-[#A5D6A7] text-[#2E7D32]">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified_user">verified_user</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-wide">Normativa LFT Art. 58-68 y NOM-037</span>
+</div>
+</div>
+<!-- Headline & Primary Action Row -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Políticas de Asistencia y Horas Extra LFT</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+              Define las reglas automatizadas de tolerancia, penalizaciones, corte de jornada y cálculo fiscal de horas extras para el timbrado de prenómina en México.
+            </p>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="h-11 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant font-label-md text-label-md text-on-surface hover:bg-surface-container transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="history">history</span>
+<span>Restablecer sugeridos LFT</span>
+</button>
+<button class="h-11 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant font-label-md text-label-md text-primary hover:bg-surface-container transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>Descargar anexo laboral PDF</span>
+</button>
+<button class="h-11 px-5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint shadow-sm transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="published_with_changes">published_with_changes</span>
+<span>Guardar y Publicar Política</span>
+</button>
+</div>
+</div>
+<!-- Horizontal Config Subtabs -->
+<div class="flex items-center gap-2 border-b border-outline-variant pt-2 overflow-x-auto">
+<button class="px-4 py-2.5 font-label-md text-label-md font-semibold text-primary border-b-2 border-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="rule" style="font-variation-settings: 'FILL' 1;">rule</span>
+<span>Políticas de Asistencia</span>
+<span class="w-2 h-2 rounded-full bg-primary ml-1"></span>
+</button>
+<button class="px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="pin_drop">pin_drop</span>
+<span>Reglas de Geocercas</span>
+</button>
+<button class="px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span>Roles y Permisos</span>
+</button>
+<button class="px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+<span>Notificaciones y WhatsApp</span>
+</button>
+<button class="px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="account_balance">account_balance</span>
+<span>Integración Nómina (SUA/NOI)</span>
+</button>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- 4. ASYMMETRIC GRID (7 Cols Formulario + 5 Cols Simulador)             -->
+<!-- ===================================================================== -->
+<div class="grid grid-cols-12 gap-6 pb-12">
+<!-- LEFT COLUMN: FORMULARIO DE POLÍTICAS (7 COLUMNS) -->
+<div class="col-span-12 xl:col-span-7 space-y-6">
+<!-- BLOQUE 1: TOLERANCIAS Y REGLAS DE ENTRADA/SALIDA -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-sm space-y-6">
+<div class="flex items-center justify-between pb-4 border-b border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]" data-icon="timer">timer</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary">Bloque 1: Tolerancias y Reglas de Entrada/Salida</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Parámetros de puntualidad y umbrales de retardo para el cálculo quincenal.</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold">Regla Estándar</span>
+</div>
+<!-- Selector de Política Activa -->
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center justify-between">
+<span>Alcance y Política Asignada</span>
+<span class="text-outline font-normal">Aplica a 88 colaboradores</span>
+</label>
+<select class="w-full h-11 px-3 bg-surface text-on-surface border border-outline-variant rounded-lg font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary">
+<option selected="" value="matriz">General Matriz (Default Operativo - Administrativo y Operaciones)</option>
+<option value="suc_norte">Sucursal Monterrey Norte (Turnos Rotativos)</option>
+<option value="suc_gdl">Sucursal Guadalajara Centro (Ventas y Logística)</option>
+<option value="custom">Personalizado por Departamento...</option>
+</select>
+</div>
+<!-- Tolerancia de Entrada -->
+<div class="space-y-3 p-4 rounded-lg bg-surface-container-low border border-surface-container">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-label-lg text-label-lg text-primary font-semibold">Tolerancia de entrada antes de retardo</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Minutos de gracia permitidos posteriores a la hora oficial de ingreso.</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-md border border-outline-variant bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md">5 min</button>
+<button class="px-3 py-1.5 rounded-md border-2 border-primary bg-primary-container text-on-primary-container font-label-md text-label-md font-bold">10 min</button>
+<button class="px-3 py-1.5 rounded-md border border-outline-variant bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md">15 min</button>
+</div>
+</div>
+<!-- Input con steppers -->
+<div class="flex items-center gap-4 pt-1">
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface-container-lowest h-11 w-44">
+<button class="w-10 h-full flex items-center justify-center text-outline hover:text-primary hover:bg-surface-container rounded-l-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="remove">remove</span>
+</button>
+<input class="w-full text-center bg-transparent border-0 font-title-md text-title-md text-primary focus:ring-0" readonly="" type="number" value="10"/>
+<span class="font-label-sm text-label-sm text-outline pr-2">min</span>
+<button class="w-10 h-full flex items-center justify-center text-outline hover:text-primary hover:bg-surface-container rounded-r-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-[#2E7D32] bg-[#E8F5E9] px-3 py-2 rounded-lg border border-[#C8E6C9] flex-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium">Marcaje hasta las 08:10 hrs sin descuento ni amonestación.</span>
+</div>
+</div>
+</div>
+<!-- Escalación de Retardos (2 Niveles) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Retardo Leve -->
+<div class="p-3.5 rounded-lg border border-[#F2A541]/40 bg-[#FFF8E1] space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-[#B78103] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+                    Retardo Leve (11 a 20 min)
+                  </span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-white text-[#B78103] border border-[#F2A541]/30 font-medium">Amonestación</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                  Permite ingreso al centro de trabajo con registro de llamada de atención digital automática en expediente.
+                </p>
+</div>
+<!-- Retardo Mayor o Falta -->
+<div class="p-3.5 rounded-lg border border-[#C62828]/40 bg-[#FFEBEE] space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-[#C62828] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]" data-icon="error">error</span>
+                    Retardo Mayor (&gt; 21 min)
+                  </span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-white text-[#C62828] border border-[#C62828]/30 font-medium">Falta / Bloqueo</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                  3 retardos en la quincena computan como 1 falta injustificada según Reglamento Interior de Trabajo.
+                </p>
+</div>
+</div>
+<!-- Regla de Redondeo & Salida Automática -->
+<div class="space-y-4 pt-2">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-lg bg-surface border border-outline-variant">
+<div class="space-y-0.5">
+<span class="font-label-md text-label-md font-semibold text-primary">Criterio de Redondeo de Marcajes</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Alineado a las revisiones de inspección de la STPS.</p>
+</div>
+<div class="flex items-center gap-2">
+<select class="h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface focus:border-primary">
+<option selected="" value="exact">Exacto al minuto (Recomendado LFT)</option>
+<option value="15_favor">Redondeo a 15 min a favor del colaborador</option>
+<option value="5_exact">Bloques exactos de 5 minutos</option>
+</select>
+</div>
+</div>
+<!-- Auto-checkout Toggle -->
+<div class="flex items-start justify-between gap-4 p-3.5 rounded-lg bg-surface border border-outline-variant">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-semibold text-primary">Salida automática por olvido (Auto-checkout)</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">ACTIVO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Cerrar marcaje transcurridas 12 horas continuas con bandera de revisión obligatoria para el supervisor de área antes de nómina.
+                  </p>
+</div>
+<!-- Interactive Toggle Pill -->
+<div class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- BLOQUE 2: VERIFICACIÓN Y MÉTODOS ANTI-SUPLANTACIÓN -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-sm space-y-5">
+<div class="flex items-center justify-between pb-4 border-b border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]" data-icon="security">security</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary">Bloque 2: Requisitos de Verificación y Métodos Anti-suplantación</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Mecanismos biométricos y de posicionamiento geográfico obligatorios en terminal y móvil.</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-[#E8F5E9] text-[#2E7D32] font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="shield">shield</span>
+                Alta Seguridad
+              </span>
+</div>
+<!-- List of Anti-spoofing Switches -->
+<div class="divide-y divide-surface-container">
+<!-- Switch 1: Selfie Blink -->
+<div class="py-3.5 flex items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5" data-icon="face_retouching_natural">face_retouching_natural</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Exigir Selfie con Detección de Parpadeo (Anti-spoofing)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Evita el uso de fotografías impresas o pantallas secundarias frente a la cámara.</p>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<!-- Switch 2: Geocerca GPS -->
+<div class="py-3.5 flex items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5" data-icon="share_location">share_location</span>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Geocerca perimetral obligatoria (GPS ≤ 50m)</h4>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-semibold">Radio 50 mts</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Valida coordenadas de la sucursal asignada con tolerancia de señal celular débil.</p>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<!-- Switch 3: QR Rotativo Kiosco -->
+<div class="py-3.5 flex items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5" data-icon="qr_code_2">qr_code_2</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Código QR rotativo dinámico en Kiosco Tablet</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Genera un token cifrado cada 15 segundos para evitar capturas de pantalla compartidas entre empleados.</p>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<!-- Switch 4: Fuera de rango con justificación -->
+<div class="py-3.5 flex items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[#B78103] text-[20px] mt-0.5" data-icon="report_problem">report_problem</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Permitir marcaje fuera de rango con justificación obligatoria</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Habilita botón de emergencia cuando el GPS falle; solicita motivo escrito y foto obligatoria.</p>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- BLOQUE 3: HORAS EXTRA Y CRITERIO LEGAL LFT -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-sm space-y-5">
+<div class="flex items-center justify-between pb-4 border-b border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]" data-icon="gavel">gavel</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary">Bloque 3: Horas Extra y Criterio Legal LFT (México)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Automatización de bases de cálculo conforme a los Artículos 66, 67 y 68 de la Ley Laboral.</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Cálculo Fiscal SAT</span>
+</div>
+<!-- Esquema Selector -->
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Esquema Regulatorio de Cálculo Extraordinario</label>
+<select class="w-full h-11 px-3 bg-surface text-on-surface border border-outline-variant rounded-lg font-body-md text-body-md focus:border-primary">
+<option selected="" value="lft_standard">Ley Federal del Trabajo (Art. 67 y 68 Estándar México: 9 Dobles / Resto Triples)</option>
+<option value="pacto_colectivo">Contrato Colectivo Sindical (Tope 6 hrs dobles semanales)</option>
+<option value="sin_extras">Confianza / Sin autorización de horas extraordinarias sin oficio</option>
+</select>
+</div>
+<!-- Legal Breakdown Notice Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+<div class="p-4 rounded-lg bg-surface-container border border-surface-container-high space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-primary" data-icon="looks_two">looks_two</span>
+                    Horas Dobles (Art. 67 LFT)
+                  </span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-bold">+100% Salario</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                  Primeras <strong class="font-semibold text-primary">9 horas extraordinarias por semana</strong> se pagan al 200%. Límite sugerido: máximo 3 horas diarias en no más de 3 veces por semana.
+                </p>
+</div>
+<div class="p-4 rounded-lg bg-[#FFEBEE] border border-[#FFCDD2] space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg font-bold text-[#C62828] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-[#C62828]" data-icon="looks_3">looks_3</span>
+                    Horas Triples (Art. 68 LFT)
+                  </span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-[#FFCDD2] text-[#C62828] font-bold">+200% Salario</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                  A partir de la <strong class="font-semibold text-[#C62828]">10ª hora extra acumulada</strong> en la semana se cubren al 300%. Dispara alerta preventiva por riesgo de sanción ante inspección STPS.
+                </p>
+</div>
+</div>
+<!-- Flujo de Aprobación de Horas Extra -->
+<div class="space-y-3 pt-2">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Criterio de Autorización y Pago de Tiempo Extra</label>
+<div class="space-y-2">
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant bg-surface hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="approval_flow" type="radio"/>
+<div class="flex-1">
+<span class="font-label-md text-label-md font-semibold text-primary block">Requiere visto bueno previo del jefe de área inmediato</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">El empleado puede marcar la salida, pero las horas no se timbrarán hasta su aprobación digital en tablero.</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant bg-surface hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="approval_flow" type="radio"/>
+<div class="flex-1">
+<span class="font-label-md text-label-md font-semibold text-primary block">Auto-aprobación si el turno programado contempla jornada extendida</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Válido para turnos especiales de inventario o eventos previamente agendados en el calendario de turnos.</span>
+</div>
+</label>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low border border-surface-container">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Límite quincenal máximo sin autorización de Dirección General:</span>
+<span class="font-label-md text-label-md font-bold text-primary bg-surface px-2.5 py-1 rounded border border-outline-variant">18 horas por empleado</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: SIMULADOR DE CÁLCULO EN TIEMPO REAL (5 COLUMNS) -->
+<div class="col-span-12 xl:col-span-5 space-y-6">
+<div class="sticky top-20 space-y-6">
+<!-- PANEL SIMULADOR EN VIVO -->
+<div class="bg-surface-container-lowest rounded-xl border-2 border-primary/20 p-6 shadow-md space-y-6 relative overflow-hidden">
+<!-- Top accent bar -->
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-primary-container"></div>
+<!-- Header Simulador -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-[24px]" data-icon="calculate" style="font-variation-settings: 'FILL' 1;">calculate</span>
+<h3 class="font-title-md text-title-md text-primary font-bold">Simulador de Cálculo en Vivo</h3>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                  Vista Previa Prenómina
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Prueba interactiva del comportamiento de las políticas configuradas frente a un caso real de jornada ordinaria con horas extras.
+              </p>
+<!-- Inputs del caso simulado -->
+<div class="space-y-3.5 p-4 rounded-xl bg-surface-container-low border border-surface-container">
+<div class="flex items-center justify-between pb-2 border-b border-surface-container font-label-sm text-label-sm text-on-surface-variant">
+<span class="font-semibold text-primary">Parámetros del Turno Simulado</span>
+<span>Turno Diurno (8 hrs netas)</span>
+</div>
+<!-- Input Horario Asignado -->
+<div class="flex items-center justify-between text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Horario asignado oficial:</span>
+<span class="font-label-md text-label-md font-semibold text-primary bg-surface px-2.5 py-1 rounded border border-outline-variant">
+                    08:00 - 17:00 (1h comida)
+                  </span>
+</div>
+<!-- Marcaje Simulado Entrada -->
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="login">login</span>
+<span class="font-label-md text-label-md text-on-surface">Entrada registrada:</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-bold text-primary tabular-nums">08:14 hrs</span>
+<span class="text-[11px] font-semibold text-[#B78103] bg-[#FFF8E1] px-2 py-0.5 rounded border border-[#F2A541]/40">+14 min</span>
+</div>
+</div>
+<!-- Marcaje Simulado Salida -->
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md text-on-surface">Salida registrada:</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-bold text-primary tabular-nums">19:30 hrs</span>
+<span class="text-[11px] font-semibold text-primary bg-secondary-container px-2 py-0.5 rounded">+2.5 hrs extra</span>
+</div>
+</div>
+</div>
+<!-- Tarjeta de Desglose Automático -->
+<div class="space-y-4 pt-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg font-bold text-primary">Desglose Legal Resultante</span>
+<!-- Chip Estatus Resultante -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF8E1] border border-[#F2A541] text-[#B78103]">
+<span class="material-symbols-outlined text-[16px]" data-icon="alarm">alarm</span>
+<span class="font-label-sm text-label-sm font-semibold">Retardo Leve (Tolerancia 10m excedida)</span>
+</div>
+</div>
+<!-- Breakdown Items -->
+<div class="space-y-2.5">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#2E7D32] text-[20px]" data-icon="check_circle">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Horas ordinarias efectivas</span>
+</div>
+<span class="font-title-md text-title-md font-bold text-primary">8.0 hrs</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="more_time">more_time</span>
+<div>
+<span class="font-body-md text-body-md text-on-surface font-semibold block leading-tight">Horas extras generadas</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">2.5 hrs dobles (Art. 67 LFT)</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-title-md text-title-md font-bold text-primary block leading-tight">+2.5 hrs</span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">≈ $312.50 MXN est.</span>
+</div>
+</div>
+<!-- Alerta de Riesgo Laboral -->
+<div class="p-3.5 rounded-lg bg-[#E8F5E9] border border-[#C8E6C9] flex items-start gap-3">
+<span class="material-symbols-outlined text-[#2E7D32] text-[20px] mt-0.5" data-icon="health_and_safety">health_and_safety</span>
+<div class="text-body-sm">
+<span class="font-label-md text-label-md font-bold text-[#2E7D32] block">Cumplimiento Semanal LFT Art. 68 OK</span>
+<span class="text-on-surface">
+                        Acumulado semanal simulado: <strong class="font-semibold text-primary">7.5 / 9.0 hrs dobles</strong>. No rebasa el límite de 3 hrs en 3 días. No genera horas triples.
+                      </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Botones de prueba rápida de otros casos -->
+<div class="pt-2 border-t border-surface-container flex flex-wrap gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface border border-outline-variant font-label-sm text-label-sm text-on-surface hover:bg-surface-container hover:text-primary transition-colors">
+                  Probar Falta Injustificada
+                </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface border border-outline-variant font-label-sm text-label-sm text-on-surface hover:bg-surface-container hover:text-primary transition-colors">
+                  Turno Mixto (7.5 hrs)
+                </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface border border-outline-variant font-label-sm text-label-sm text-on-surface hover:bg-surface-container hover:text-primary transition-colors">
+                  Nocturno (+25% prima)
+                </button>
+</div>
+</div>
+<!-- WIDGET IMPACTO OPERATIVO PYME -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5 shadow-sm space-y-4">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="monitoring">monitoring</span>
+<h4 class="font-title-md text-title-md text-primary font-semibold">Impacto Operativo en Sucursales</h4>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 rounded-lg bg-surface-container-low border border-surface-container">
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Cobertura de la Política</span>
+<span class="font-headline-md text-headline-md font-bold text-primary block mt-0.5">3 Sucursales</span>
+<span class="font-label-sm text-label-sm text-outline">88 trabajadores activos</span>
+</div>
+<div class="p-3 rounded-lg bg-[#E8F5E9] border border-[#C8E6C9]">
+<span class="font-body-sm text-body-sm text-[#2E7D32] block font-medium">Aclaraciones en Nómina</span>
+<span class="font-headline-md text-headline-md font-bold text-[#2E7D32] block mt-0.5">-34%</span>
+<span class="font-label-sm text-label-sm text-[#2E7D32]">Disminución de reclamos</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm text-on-surface-variant pt-1 border-t border-surface-container">
+<span class="font-body-sm text-body-sm">Última auditoría de parámetros:</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">Hoy, 09:32 hrs (Lic. Roberto Morales)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

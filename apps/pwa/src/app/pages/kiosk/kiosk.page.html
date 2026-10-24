@@ -1,0 +1,82 @@
+<div class="kiosk">
+  <header class="top">
+    <img src="icons/icon-192.png" alt="" width="48" height="48" />
+    <div class="who">
+      <strong>{{ deviceName }}</strong>
+      <span class="status">
+        <att-icon [name]="online() ? 'wifi' : 'wifi_off'" [size]="16" /> {{ online() ? 'En línea' : 'Sin conexión' }}
+      </span>
+    </div>
+    <div class="clock">
+      <time>{{ clock() }}</time>
+      <span>{{ date() }}</span>
+    </div>
+    <button mat-icon-button type="button" (click)="toggleFullscreen()" [attr.aria-label]="fullscreen() ? 'Salir de pantalla completa' : 'Pantalla completa'">
+      <att-icon [name]="fullscreen() ? 'fullscreen_exit' : 'fullscreen'" />
+    </button>
+  </header>
+
+  <main class="grid">
+    <section class="panel qr-panel" aria-labelledby="qr-title">
+      <h1 id="qr-title" class="panel-title"><att-icon name="qr_code_2" /> Escanea con tu app Checador</h1>
+      <p class="muted">Abre la app, toca <strong>Registrar</strong> y elige «Escanear QR del kiosco».</p>
+      <div class="qr-box">
+        <canvas #qr [hidden]="!qrPayload()" role="img" aria-label="Código QR de registro, se renueva solo"></canvas>
+        @if (!qrPayload()) {
+          <div class="qr-empty" role="status">
+            <att-icon name="qr_code_2" [size]="64" />
+            <span>{{ qrError() ?? 'Generando código…' }}</span>
+          </div>
+        }
+      </div>
+      <div class="expiry">
+        <div class="row"><att-icon name="autorenew" [size]="18" /> Código rotativo <span class="spacer"></span> <strong>Se actualiza en {{ qrLeft() }} s</strong></div>
+        <div class="bar" role="progressbar" aria-label="Tiempo restante del código" [attr.aria-valuenow]="qrLeft()" aria-valuemin="0" [attr.aria-valuemax]="qrTotal()">
+          <span [style.width.%]="qrPercent()"></span>
+        </div>
+      </div>
+      <button mat-stroked-button type="button" class="btn-block" (click)="refreshQr()"><att-icon name="refresh" [size]="20" /> Generar nuevo código ahora</button>
+    </section>
+
+    <section class="panel pin-panel" aria-labelledby="pin-title">
+      <h2 id="pin-title" class="panel-title"><att-icon name="dialpad" /> Número de empleado y PIN</h2>
+      <div class="display" aria-live="polite">
+        <div class="field" [class.active]="keypad().step === 'number'">
+          <span class="lbl">No. de empleado</span>
+          <span class="val">{{ keypad().employeeNumber || '—' }}</span>
+        </div>
+        <div class="field" [class.active]="keypad().step === 'pin'">
+          <span class="lbl">PIN</span>
+          <span class="val" [attr.aria-label]="keypad().pin.length + ' dígitos escritos'">{{ keypad().pin ? '●'.repeat(keypad().pin.length) : '—' }}</span>
+        </div>
+      </div>
+      <p class="muted step">{{ keypad().step === 'number' ? 'Escribe tu número de empleado y toca OK' : 'Escribe tu PIN de 4 a 6 dígitos y toca Checar' }}</p>
+      <div class="keys" role="group" aria-label="Teclado numérico">
+        @for (k of keys; track k) {
+          @switch (k) {
+            @case ('back') { <button type="button" class="key aux" (click)="press('back')" aria-label="Borrar"><att-icon name="backspace" /></button> }
+            @case ('ok') {
+              <button type="button" class="key ok" (click)="press('ok')" [disabled]="busy() || (keypad().step === 'pin' && !canSubmit()) || (keypad().step === 'number' && !keypad().employeeNumber)">
+                {{ keypad().step === 'number' ? 'OK' : busy() ? '…' : 'Checar' }}
+              </button>
+            }
+            @default { <button type="button" class="key" (click)="press(k)">{{ k }}</button> }
+          }
+        }
+      </div>
+    </section>
+  </main>
+
+  <div class="confirm-region" aria-live="assertive" aria-atomic="true">
+    @if (confirmation(); as c) {
+      <div class="overlay" (click)="dismiss()">
+        <div class="confirm" [class.bad]="!c.ok" role="alertdialog" aria-modal="false" [attr.aria-label]="c.title">
+          <att-icon [name]="c.ok ? 'check_circle' : 'error'" [size]="72" [fill]="true" />
+          @if (c.name) { <p class="name">{{ c.name }}</p> }
+          <p class="title">{{ c.title }}</p>
+          @if (c.detail) { <p class="detail">{{ c.detail }}</p> }
+        </div>
+      </div>
+    }
+  </div>
+</div>

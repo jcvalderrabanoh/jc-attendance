@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Completar Registro | Checador</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-tint": "#306576",
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "background": "#f9f9ff",
+            "surface-container-highest": "#d8e3fb",
+            "secondary": "#356572",
+            "outline": "#70787c",
+            "primary": "#003441",
+            "surface-container-high": "#dee8ff",
+            "tertiary": "#462900",
+            "primary-fixed-dim": "#9acee1",
+            "on-primary-fixed-variant": "#114d5d",
+            "error-container": "#ffdad6",
+            "on-surface-variant": "#40484b",
+            "tertiary-container": "#653d00",
+            "error": "#ba1a1a",
+            "on-secondary-container": "#3a6977",
+            "secondary-fixed": "#baeafa",
+            "on-surface": "#111c2d",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#9ecedd",
+            "on-secondary-fixed": "#001f27",
+            "on-primary-container": "#87bbce",
+            "on-primary-fixed": "#001f28",
+            "surface-container-low": "#f0f3ff",
+            "surface-bright": "#f9f9ff",
+            "primary-fixed": "#b6ebfe",
+            "on-tertiary-fixed-variant": "#663e00",
+            "surface-container": "#e7eeff",
+            "outline-variant": "#c0c8cb",
+            "on-background": "#111c2d",
+            "on-tertiary-fixed": "#2b1700",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "secondary-container": "#b7e7f7",
+            "inverse-primary": "#9acee1",
+            "inverse-on-surface": "#ecf1ff",
+            "primary-container": "#0f4c5c",
+            "on-tertiary-container": "#f1a440",
+            "tertiary-fixed": "#ffddb9",
+            "surface-dim": "#cfdaf2",
+            "on-primary": "#ffffff",
+            "surface": "#f9f9ff",
+            "on-tertiary": "#ffffff",
+            "inverse-surface": "#263143",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-error-container": "#93000a",
+            "surface-variant": "#d8e3fb"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "0.75rem",
+            "margin": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem",
+            "space-2xl": "3rem",
+            "space-lg": "1.5rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "title-md": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "display-clock": ["Inter"],
+            "body-sm": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Touch Target & Polish */
+    .touch-target {
+      min-height: 48px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #0f4c5c;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-secondary-container selection:text-primary">
+<!-- Header Institucional Superior para Onboarding -->
+<header class="bg-surface-container-lowest border-b border-outline-variant/30 sticky top-0 z-30 shadow-sm">
+<div class="max-w-md mx-auto px-margin-mobile h-16 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold font-title-lg tracking-tight">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div>
+<span class="font-title-lg text-title-lg font-bold text-primary tracking-tight block leading-none">Checador</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Gestión laboral PyME</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container text-primary px-2.5 py-1 rounded-full border border-outline-variant/40">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-wide">Enlace seguro</span>
+</div>
+</div>
+</header>
+<!-- Contenedor Principal de la Experiencia Móvil -->
+<main class="max-w-md mx-auto w-full px-margin-mobile pt-space-md pb-space-2xl flex-1 flex flex-col gap-space-lg">
+<!-- Card de Invitación de la Empresa Empleadora -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md border border-outline-variant/30 shadow-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-surface-container-high rounded-full opacity-40 pointer-events-none"></div>
+<div class="flex items-start gap-space-md">
+<!-- Logo / Identidad de la Panadería -->
+<div class="w-14 h-14 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary shadow-sm flex-shrink-0 border border-outline-variant/20">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<div class="flex-1">
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container/60 text-on-secondary-container text-label-sm font-label-sm mb-1 font-semibold">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">mark_email_read</span>
+            Invitación de Empleo
+          </div>
+<h1 class="text-title-lg font-title-lg text-on-surface font-bold leading-tight">
+            Te invitó Panadería La Espiga
+          </h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1 leading-snug">
+            Completa tu registro para empezar a registrar asistencia en <span class="font-semibold text-primary">Sucursal Centro</span>.
+          </p>
+</div>
+</div>
+<!-- Badge de Rol Asignado -->
+<div class="mt-space-md pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-label-md font-label-md text-on-surface-variant">Puesto asignado:</span>
+</div>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md font-semibold border border-outline-variant/40">
+<span class="material-symbols-outlined text-sm">badge</span>
+          Panadero / Operativo
+        </span>
+</div>
+</section>
+<!-- Stepper de 3 Pasos Material 3 -->
+<nav aria-label="Progreso de registro" class="bg-surface-container-lowest p-space-sm rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="flex items-center justify-between relative px-2">
+<!-- Paso 1 -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none z-10 transition-transform active:scale-95" id="step-btn-1" onclick="setStep(1)" type="button">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md font-bold shadow-sm ring-4 ring-secondary-container/30" id="step-badge-1">
+            1
+          </div>
+<span class="text-label-sm font-label-sm font-bold text-primary" id="step-label-1">Personales</span>
+</button>
+<!-- Conector 1-2 -->
+<div class="flex-1 h-0.5 bg-outline-variant/40 mx-2 -mt-4 transition-colors" id="line-1"></div>
+<!-- Paso 2 -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none z-10 transition-transform active:scale-95" id="step-btn-2" onclick="setStep(2)" type="button">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-medium border border-outline-variant/40" id="step-badge-2">
+            2
+          </div>
+<span class="text-label-sm font-label-sm font-medium text-on-surface-variant" id="step-label-2">Laborales</span>
+</button>
+<!-- Conector 2-3 -->
+<div class="flex-1 h-0.5 bg-outline-variant/40 mx-2 -mt-4 transition-colors" id="line-2"></div>
+<!-- Paso 3 -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none z-10 transition-transform active:scale-95" id="step-btn-3" onclick="setStep(3)" type="button">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-medium border border-outline-variant/40" id="step-badge-3">
+            3
+          </div>
+<span class="text-label-sm font-label-sm font-medium text-on-surface-variant" id="step-label-3">INE y Legal</span>
+</button>
+</div>
+</nav>
+<!-- Formulario Multi-pasos -->
+<form class="space-y-space-md" id="onboarding-form" onsubmit="event.preventDefault(); handleSubmit();">
+<!-- PASO 1: DATOS PERSONALES -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md border border-outline-variant/30 shadow-sm space-y-space-md" id="step-content-1">
+<div class="border-b border-outline-variant/20 pb-space-sm flex justify-between items-center">
+<div>
+<h2 class="text-title-md font-title-md font-bold text-on-surface">Paso 1: Datos Personales</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Identifícate con tus datos oficiales</p>
+</div>
+<span class="inline-flex items-center text-label-sm font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded-full font-medium">1 de 3</span>
+</div>
+<!-- Nombre(s) -->
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="nombres">
+            Nombre(s) <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md text-on-surface placeholder:text-outline/70 focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="nombres" name="nombres" placeholder="Ej. Carlos Eduardo" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant text-xl pointer-events-none">person</span>
+</div>
+</div>
+<!-- Apellidos -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="apellido1">
+              Primer Apellido <span class="text-error">*</span>
+</label>
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md text-on-surface placeholder:text-outline/70 focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="apellido1" name="apellido1" placeholder="Hernández" required="" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="apellido2">
+              Segundo Apellido
+            </label>
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md text-on-surface placeholder:text-outline/70 focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="apellido2" name="apellido2" placeholder="Morales" type="text"/>
+</div>
+</div>
+<!-- Teléfono WhatsApp con lada +52 -->
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="telefono">
+            Teléfono Móvil (WhatsApp) <span class="text-error">*</span>
+</label>
+<div class="relative flex rounded-lg border border-outline-variant/80 bg-surface focus-within:border-primary-container focus-within:bg-surface-container-lowest">
+<div class="flex items-center gap-1 px-3 border-r border-outline-variant/60 bg-surface-container text-on-surface font-medium font-body-md select-none rounded-l-lg">
+<span class="text-base leading-none">🇲🇽</span>
+<span>+52</span>
+</div>
+<input class="w-full h-14 px-space-md bg-transparent border-0 focus:ring-0 text-body-md font-body-md text-on-surface placeholder:text-outline/70" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="55 1234 5678" required="" type="tel"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant text-xl pointer-events-none">smartphone</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm">sms</span>
+            Recibirás tu código de acceso temporal vía WhatsApp o SMS.
+          </p>
+</div>
+<!-- Correo Electrónico (Opcional) -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="email">
+              Correo Electrónico
+            </label>
+<span class="text-label-sm font-label-sm text-outline px-2 py-0.5 rounded bg-surface-container-low font-medium">Opcional</span>
+</div>
+<div class="relative">
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md text-on-surface placeholder:text-outline/70 focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="email" name="email" placeholder="carlos.morales@correo.com" type="email"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant text-xl pointer-events-none">mail</span>
+</div>
+</div>
+<!-- Botón Siguiente Paso 1 -->
+<div class="pt-space-sm">
+<button class="w-full h-13 py-3.5 bg-primary-container text-on-primary rounded-lg font-title-md text-title-md font-semibold flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-transform" onclick="setStep(2)" type="button">
+<span>Continuar a Datos Laborales</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- PASO 2: DATOS LABORALES (MÉXICO) -->
+<section class="hidden bg-surface-container-lowest rounded-xl p-space-md border border-outline-variant/30 shadow-sm space-y-space-md" id="step-content-2">
+<div class="border-b border-outline-variant/20 pb-space-sm flex justify-between items-center">
+<div>
+<h2 class="text-title-md font-title-md font-bold text-on-surface">Paso 2: Datos Laborales (México)</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Requeridos por Ley para darte de alta en nómina</p>
+</div>
+<span class="inline-flex items-center text-label-sm font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded-full font-medium">2 de 3</span>
+</div>
+<!-- CURP -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="curp">
+              CURP (18 caracteres) <span class="text-error">*</span>
+</label>
+<a class="text-label-sm font-label-sm text-primary hover:underline flex items-center gap-0.5" href="https://www.gob.mx/curp/" rel="noopener noreferrer" target="_blank">
+<span>¿No recuerdas tu CURP?</span>
+<span class="material-symbols-outlined text-xs">open_in_new</span>
+</a>
+</div>
+<div class="relative">
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md font-mono uppercase tracking-wider text-on-surface placeholder:text-outline/70 focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="curp" maxlength="18" name="curp" oninput="this.value = this.value.toUpperCase(); validateCURP(this.value);" placeholder="HEMC900812HDFRR02" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant text-xl" id="curp-valid-icon">fingerprint</span>
+</div>
+<p class="text-label-sm font-label-sm text-outline" id="curp-hint">Introduce los 18 dígitos alfanuméricos tal como aparecen en tu INE.</p>
+</div>
+<!-- RFC con Homoclave -->
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="rfc">
+            RFC con Homoclave (13 caracteres) <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md font-mono uppercase tracking-wider text-on-surface placeholder:text-outline/70 focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="rfc" maxlength="13" name="rfc" oninput="this.value = this.value.toUpperCase()" placeholder="HEMC900812AB1" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant text-xl pointer-events-none">receipt_long</span>
+</div>
+</div>
+<!-- NSS -->
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="nss">
+            Número de Seguridad Social (NSS - 11 dígitos) <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md font-mono text-on-surface placeholder:text-outline/70 focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="nss" maxlength="11" name="nss" pattern="[0-9]{11}" placeholder="12345678901" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant text-xl pointer-events-none">health_and_safety</span>
+</div>
+<p class="text-label-sm font-label-sm text-outline">11 dígitos asignados por el Instituto Mexicano del Seguro Social (IMSS).</p>
+</div>
+<!-- CAMPOS PERSONALIZADOS POR LA EMPRESA -->
+<div class="pt-space-sm border-t border-outline-variant/20">
+<div class="mb-3">
+<span class="text-label-sm font-label-sm font-semibold uppercase tracking-wider text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">settings</span>
+              Campos de Panadería La Espiga
+            </span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Talla de Uniforme -->
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="talla">
+                Talla de filipina <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md text-on-surface focus:border-primary-container focus:bg-surface-container-lowest transition-all appearance-none" id="talla" name="talla">
+<option disabled="" selected="" value="">Elegir</option>
+<option value="CH">Chica (CH)</option>
+<option value="M">Mediana (M)</option>
+<option value="G">Grande (G)</option>
+<option value="XG">Extra G. (XG)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant text-xl pointer-events-none">unfold_more</span>
+</div>
+</div>
+<!-- Fecha estimada de ingreso -->
+<div class="space-y-1">
+<label class="block text-label-md font-label-md text-on-surface font-medium" for="fecha_ingreso">
+                Fecha de ingreso <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-14 px-space-md bg-surface border border-outline-variant/80 rounded-lg text-body-md font-body-md text-on-surface focus:border-primary-container focus:bg-surface-container-lowest transition-all" id="fecha_ingreso" name="fecha_ingreso" type="date" value="2025-03-01"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Acciones Paso 2 -->
+<div class="pt-space-sm flex gap-space-sm">
+<button class="w-1/3 h-13 py-3 border border-outline-variant/80 text-on-surface-variant rounded-lg font-title-md text-title-md font-medium active:scale-[0.98] transition-transform" onclick="setStep(1)" type="button">
+            Volver
+          </button>
+<button class="w-2/3 h-13 py-3.5 bg-primary-container text-on-primary rounded-lg font-title-md text-title-md font-semibold flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-transform" onclick="setStep(3)" type="button">
+<span>Ir a Documentos</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- PASO 3: INE, PERMISOS Y AVISO DE PRIVACIDAD -->
+<section class="hidden bg-surface-container-lowest rounded-xl p-space-md border border-outline-variant/30 shadow-sm space-y-space-md" id="step-content-3">
+<div class="border-b border-outline-variant/20 pb-space-sm flex justify-between items-center">
+<div>
+<h2 class="text-title-md font-title-md font-bold text-on-surface">Paso 3: INE y Consentimientos</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Documentación oficial y validaciones legales</p>
+</div>
+<span class="inline-flex items-center text-label-sm font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded-full font-medium">3 de 3</span>
+</div>
+<!-- Subida de INE -->
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface font-medium">
+            Foto de Identificación Oficial (INE / IFE) <span class="text-error">*</span>
+</label>
+<!-- Dropzone interactivo / botón táctil de captura -->
+<div class="border-2 border-dashed border-outline-variant/80 rounded-xl p-space-md bg-surface-container-low/40 hover:bg-surface-container-low flex flex-col items-center justify-center text-center cursor-pointer transition-colors active:scale-[0.99] touch-target" id="dropzone-ine" onclick="document.getElementById('ine_file').click()">
+<input accept="image/*,.pdf" class="hidden" id="ine_file" onchange="handleFileSelected(this)" type="file"/>
+<div class="flex flex-col items-center gap-2" id="upload-idle-state">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">add_a_photo</span>
+</div>
+<div>
+<p class="text-title-md font-title-md font-semibold text-primary">Tomar foto o subir archivo</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Frente y reverso legibles (JPG, PNG o PDF máx. 10MB)</p>
+</div>
+<div class="inline-flex items-center gap-1 text-label-sm font-label-sm text-secondary bg-surface-container px-3 py-1 rounded-full mt-1">
+<span class="material-symbols-outlined text-sm">security</span>
+                Cifrado bajo estándar bancario
+              </div>
+</div>
+<div class="hidden flex-col items-center gap-1.5 py-1" id="upload-success-state">
+<span class="material-symbols-outlined text-3xl text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="text-title-md font-title-md font-semibold text-on-surface" id="file-name-display">INE_Carlos_Hernandez.jpg</p>
+<p class="text-label-sm font-label-sm text-outline">Documento listo para validación</p>
+<button class="mt-1 text-label-sm font-label-sm text-error underline" onclick="event.stopPropagation(); resetFileUpload();" type="button">Cambiar archivo</button>
+</div>
+</div>
+</div>
+<!-- Casillas de Verificación y Permisos (México / LFPDPPP) -->
+<div class="space-y-space-sm pt-space-xs">
+<label class="block text-label-md font-label-md text-on-surface font-semibold">
+            Permisos requeridos para checador móvil:
+          </label>
+<!-- Checkbox 1: Geolocalización -->
+<label class="flex items-start gap-3 p-3 rounded-lg border border-outline-variant/40 bg-surface hover:bg-surface-container-lowest transition-colors cursor-pointer select-none">
+<input checked="" class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary-container" id="perm_geo" name="perm_geo" required="" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-body-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-primary">location_on</span>
+                Geolocalización laboral delimitada
+              </span>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-tight mt-0.5">
+                Acepto el uso de GPS <strong>únicamente al momento de checar entrada y salida</strong> dentro del perímetro de Sucursal Centro. No hay rastreo fuera de horario.
+              </p>
+</div>
+</label>
+<!-- Checkbox 2: Biometría -->
+<label class="flex items-start gap-3 p-3 rounded-lg border border-outline-variant/40 bg-surface hover:bg-surface-container-lowest transition-colors cursor-pointer select-none">
+<input checked="" class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary-container" id="perm_bio" name="perm_bio" required="" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-body-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-primary">face</span>
+                Registro y validación biométrica
+              </span>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-tight mt-0.5">
+                Autorizo el registro fotográfico facial / huella dactilar para fines exclusivos de prevención de suplantación de identidad en el pase de lista.
+              </p>
+</div>
+</label>
+<!-- Checkbox 3: Términos y Aviso de Privacidad -->
+<label class="flex items-start gap-3 p-3 rounded-lg border border-outline-variant/40 bg-surface hover:bg-surface-container-lowest transition-colors cursor-pointer select-none">
+<input checked="" class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary-container" id="perm_terminos" name="perm_terminos" required="" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-body-md font-semibold text-on-surface">
+                Términos y Aviso de Privacidad (LFPDPPP)
+              </span>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-tight mt-0.5">
+                He leído y acepto los <a class="text-primary font-medium underline" href="#">Términos del Servicio</a> y el <a class="text-primary font-medium underline" href="#">Aviso de Privacidad</a> de acuerdo a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
+              </p>
+</div>
+</label>
+</div>
+<!-- Banner Informativo Final -->
+<div class="p-3.5 bg-surface-container rounded-lg border border-secondary/20 flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-xl flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-snug">
+<strong class="text-on-surface">¿Qué sigue tras enviar?</strong> Tu expediente quedará en revisión por Recursos Humanos de <strong>Panadería La Espiga</strong>. Recibirás confirmación en cuanto tu pase de lista quede habilitado.
+          </p>
+</div>
+<!-- Acciones Paso 3 -->
+<div class="pt-space-sm flex gap-space-sm">
+<button class="w-1/3 h-14 py-3 border border-outline-variant/80 text-on-surface-variant rounded-lg font-title-md text-title-md font-medium active:scale-[0.98] transition-transform" onclick="setStep(2)" type="button">
+            Volver
+          </button>
+<!-- Botón Principal de Envío (Touch Target 56px) -->
+<button class="w-2/3 h-14 bg-primary-container hover:bg-primary text-on-primary rounded-lg font-title-md text-title-md font-bold flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] transition-all" type="submit">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Enviar para validación</span>
+</button>
+</div>
+</section>
+</form>
+<!-- Estado de Confirmación / Modal Simulado (Oculto inicialmente) -->
+<div class="hidden bg-surface-container-lowest border-2 border-secondary rounded-xl p-space-lg shadow-xl text-center space-y-space-md animate-fade-in" id="success-banner">
+<div class="w-16 h-16 bg-secondary-container text-primary rounded-full flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">¡Registro Enviado con Éxito!</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-2">
+          Hemos recibido tu información y documentos para la vacante en <strong>Panadería La Espiga - Sucursal Centro</strong>.
+        </p>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface-variant text-left border border-outline-variant/40">
+<span class="font-semibold block text-primary mb-1">Folio de solicitud: #EXP-2025-ESP98</span>
+        Recibirás una alerta por WhatsApp al número registrado en un plazo estimado de 2 a 4 horas hábiles.
+      </div>
+<button class="w-full h-12 bg-secondary text-on-secondary rounded-lg font-title-md font-semibold" onclick="window.location.reload()" type="button">
+        Entendido
+      </button>
+</div>
+<!-- Soporte Técnico y Ayuda Rápida WhatsApp al pie -->
+<footer class="pt-space-sm border-t border-outline-variant/30 flex flex-col items-center gap-2">
+<p class="text-label-md font-label-md text-on-surface-variant flex items-center gap-1 text-center">
+        ¿Tienes dudas o problemas con tu invitación?
+      </p>
+<a class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high border border-outline-variant/40 active:scale-95 transition-all" href="https://wa.me/525500000000?text=Hola,%20tengo%20dudas%20con%20mi%20registro%20en%20Checador" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-green-700 text-lg" style="font-variation-settings: 'FILL' 1;">chat</span>
+        Contactar soporte de Panadería La Espiga
+      </a>
+<span class="text-label-sm font-label-sm text-outline mt-1">Plataforma Checador México • v2.4.1</span>
+</footer>
+</main>
+<!-- Script Lógica Ligera de Stepper y Validación de UI -->
+<script>
+    let currentStep = 1;
+
+    function setStep(step) {
+      currentStep = step;
+      
+      // Ocultar todos los pasos
+      document.getElementById('step-content-1').classList.add('hidden');
+      document.getElementById('step-content-2').classList.add('hidden');
+      document.getElementById('step-content-3').classList.add('hidden');
+      
+      // Mostrar paso seleccionado
+      document.getElementById('step-content-' + step).classList.remove('hidden');
+
+      // Actualizar indicadores del Stepper
+      updateStepperUI(step);
+
+      // Scroll arriba suave
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function updateStepperUI(activeStep) {
+      for (let i = 1; i <= 3; i++) {
+        const badge = document.getElementById('step-badge-' + i);
+        const label = document.getElementById('step-label-' + i);
+        
+        if (i < activeStep) {
+          // Completado
+          badge.className = "w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-md text-label-md font-bold shadow-sm";
+          badge.innerHTML = '<span class="material-symbols-outlined text-base">check</span>';
+          label.className = "text-label-sm font-label-sm font-semibold text-secondary";
+        } else if (i === activeStep) {
+          // Activo
+          badge.className = "w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md font-bold shadow-sm ring-4 ring-secondary-container/40";
+          badge.innerText = i;
+          label.className = "text-label-sm font-label-sm font-bold text-primary";
+        } else {
+          // Pendiente
+          badge.className = "w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-medium border border-outline-variant/40";
+          badge.innerText = i;
+          label.className = "text-label-sm font-label-sm font-medium text-on-surface-variant";
+        }
+      }
+
+      // Líneas conectoras
+      const line1 = document.getElementById('line-1');
+      const line2 = document.getElementById('line-2');
+      if (activeStep >= 2) {
+        line1.className = "flex-1 h-0.5 bg-secondary mx-2 -mt-4 transition-colors";
+      } else {
+        line1.className = "flex-1 h-0.5 bg-outline-variant/40 mx-2 -mt-4 transition-colors";
+      }
+
+      if (activeStep >= 3) {
+        line2.className = "flex-1 h-0.5 bg-secondary mx-2 -mt-4 transition-colors";
+      } else {
+        line2.className = "flex-1 h-0.5 bg-outline-variant/40 mx-2 -mt-4 transition-colors";
+      }
+    }
+
+    function validateCURP(val) {
+      const icon = document.getElementById('curp-valid-icon');
+      const hint = document.getElementById('curp-hint');
+      if (val.length === 18) {
+        icon.innerText = "check_circle";
+        icon.classList.remove('text-outline-variant');
+        icon.classList.add('text-secondary');
+        hint.innerText = "Formato de 18 caracteres completado correctamente.";
+        hint.classList.add('text-secondary');
+      } else {
+        icon.innerText = "fingerprint";
+        icon.classList.remove('text-secondary');
+        icon.classList.add('text-outline-variant');
+        hint.innerText = `Llevas ${val.length} de 18 dígitos alfanuméricos.`;
+        hint.classList.remove('text-secondary');
+      }
+    }
+
+    function handleFileSelected(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        document.getElementById('upload-idle-state').classList.add('hidden');
+        document.getElementById('upload-success-state').classList.remove('hidden');
+        document.getElementById('upload-success-state').classList.add('flex');
+        document.getElementById('file-name-display').innerText = file.name;
+        document.getElementById('dropzone-ine').classList.add('border-secondary', 'bg-surface-container-high/40');
+      }
+    }
+
+    function resetFileUpload() {
+      const input = document.getElementById('ine_file');
+      input.value = '';
+      document.getElementById('upload-idle-state').classList.remove('hidden');
+      document.getElementById('upload-success-state').classList.add('hidden');
+      document.getElementById('upload-success-state').classList.remove('flex');
+      document.getElementById('dropzone-ine').classList.remove('border-secondary', 'bg-surface-container-high/40');
+    }
+
+    function handleSubmit() {
+      document.getElementById('onboarding-form').classList.add('hidden');
+      document.getElementById('success-banner').classList.remove('hidden');
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    }
+  </script>
+</body></html>

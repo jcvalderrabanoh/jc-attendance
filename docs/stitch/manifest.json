@@ -1,0 +1,151 @@
+{
+  "screens": {
+    "A4": {
+      "name": "Checar",
+      "screen": "projects/17859620597435208577/screens/c20bb69ed22342c5adf3af4783978d17",
+      "generatedAt": "2026-10-21T00:10:39.079Z"
+    },
+    "A1": {
+      "name": "Alta por liga",
+      "screen": "projects/17859620597435208577/screens/52c80604aa084aa3bc888ead967e3778",
+      "generatedAt": "2026-10-21T00:12:43.821Z"
+    },
+    "A2": {
+      "name": "Acceso por OTP",
+      "screen": "projects/17859620597435208577/screens/bcc03d8cf04a462a9a05f5c499f53e1f",
+      "generatedAt": "2026-10-21T00:14:29.499Z"
+    },
+    "A3": {
+      "name": "Selector de patrón",
+      "screen": "projects/17859620597435208577/screens/c4d39bd78a9949b6a404915cbace76c1",
+      "generatedAt": "2026-10-21T00:15:35.199Z"
+    },
+    "A5": {
+      "name": "Verificación",
+      "screen": "projects/17859620597435208577/screens/e07184984a884dc48af5358982097cc6",
+      "generatedAt": "2026-10-21T00:16:46.544Z"
+    },
+    "A6": {
+      "name": "Mis registros",
+      "screen": "projects/17859620597435208577/screens/6cfddc28d8594ce49a9718b5c477d0c7",
+      "generatedAt": "2026-10-21T00:18:24.279Z"
+    },
+    "A7": {
+      "name": "Solicitudes",
+      "screen": "projects/17859620597435208577/screens/f2a05a9cfa2149caa011266a538446b2",
+      "generatedAt": "2026-10-21T00:20:08.412Z"
+    },
+    "A8": {
+      "name": "Mi perfil",
+      "screen": "projects/17859620597435208577/screens/43da627890d24330afea7397ed4c3e25",
+      "generatedAt": "2026-10-21T00:21:35.668Z"
+    },
+    "B1": {
+      "name": "Kiosco",
+      "screen": "projects/17859620597435208577/screens/4746f7aacd014a6fbd834e63b0b699a9",
+      "generatedAt": "2026-10-21T00:23:43.092Z"
+    },
+    "B2": {
+      "name": "Activar kiosco",
+      "screen": "projects/17859620597435208577/screens/6ca26ecac4e84fccbcd2c8f061d22b88",
+      "generatedAt": "2026-10-21T00:25:21.538Z"
+    },
+    "C1": {
+      "name": "Tablero",
+      "screen": "projects/17859620597435208577/screens/7ea8dcad9c4046abb253d148f3a9c746",
+      "generatedAt": "2026-10-21T00:28:07.496Z"
+    },
+    "C2": {
+      "name": "Asistencia en vivo",
+      "screen": "projects/17859620597435208577/screens/86be4d18598b48c6a19e00f40ad27f8d",
+      "generatedAt": "2026-10-21T00:30:20.420Z"
+    },
+    "C3": {
+      "name": "Empleados",
+      "screen": "projects/17859620597435208577/screens/ae7eb2fdd2444d44bc8c31bc7192d5fc",
+      "generatedAt": "2026-10-21T00:32:40.469Z"
+    },
+    "C4": {
+      "name": "Ficha de empleado",
+      "screen": "projects/17859620597435208577/screens/fad0ab8f1d024f65936eba83af9ab300",
+      "generatedAt": "2026-10-21T00:35:17.344Z"
+    },
+    "C5": {
+      "name": "Ligas de alta",
+      "screen": "projects/17859620597435208577/screens/48aca35514b049769c6571c40a63342b",
+      "generatedAt": "2026-10-21T00:39:56.288Z"
+    },
+    "C6": {
+      "name": "Validación de altas",
+      "screen": "projects/17859620597435208577/screens/cecf160f9c7a4de09493a3f5bdc8e15c",
+      "generatedAt": "2026-10-21T00:42:25.480Z"
+    },
+    "C7": {
+      "name": "Marcajes",
+      "screen": "projects/17859620597435208577/screens/84c84e2b5b6c409584565769645342a0",
+      "generatedAt": "2026-10-21T00:45:07.502Z"
+    },
+    "C8": {
+      "name": "Hojas de horas",
+      "screen": "projects/17859620597435208577/screens/8e4aaa18f24641aa9f8e64825954e298",
+      "generatedAt": "2026-10-21T00:47:39.935Z"
+    },
+    "C9": {
+      "name": "Incidencias y solicitudes",
+      "screen": "projects/17859620597435208577/screens/dc377584a39f4535a0131645d0a80c74",
+      "generatedAt": "2026-10-21T00:49:57.325Z"
+    },
+    "C10": {
+      "name": "Turnos",
+      "screen": "projects/17859620597435208577/screens/5636953b5e9c46dfa33a8d03bc9c3b32",
+      "generatedAt": "2026-10-21T00:52:40.643Z"
+    },
+    "C11": {
+      "name": "Ubicaciones",
+      "screen": "projects/17859620597435208577/screens/0f11469c2c9c4cfd881c38043c4b32e7",
+      "generatedAt": "2026-10-21T00:55:06.943Z"
+    },
+    "C12": {
+      "name": "Reportes",
+      "screen": "projects/17859620597435208577/screens/d5b667f67d7646019f726bed51c51235",
+      "generatedAt": "2026-10-21T00:57:41.075Z"
+    },
+    "C13": {
+      "name": "Analítica",
+      "screen": "projects/17859620597435208577/screens/e870f7b6fb844d008fc7f8ace1ce8eb5",
+      "generatedAt": "2026-10-21T01:00:08.831Z"
+    },
+    "C14": {
+      "name": "Políticas",
+      "screen": "projects/17859620597435208577/screens/a6952d31c4544868bf2e12b71ffa51c0",
+      "generatedAt": "2026-10-21T01:02:35.168Z"
+    },
+    "C15": {
+      "name": "Campos personalizados",
+      "screen": "projects/17859620597435208577/screens/30758b8d57894a8cab85e73144609c43",
+      "generatedAt": "2026-10-21T01:05:16.912Z"
+    },
+    "C16": {
+      "name": "Reglas de validación",
+      "screen": "projects/17859620597435208577/screens/7461744ea37c4b81bb28020fa67b6e50",
+      "generatedAt": "2026-10-21T01:08:09.214Z"
+    },
+    "C17": {
+      "name": "General",
+      "screen": "projects/17859620597435208577/screens/58180b57a28c410ebc09499d7db84ce6",
+      "generatedAt": "2026-10-21T01:10:34.377Z"
+    },
+    "C18": {
+      "name": "Bitácora",
+      "screen": "projects/17859620597435208577/screens/325ffc6b1c8e4a898c15565f72275b11",
+      "generatedAt": "2026-10-21T01:13:11.912Z"
+    },
+    "D1": {
+      "name": "D1",
+      "screen": "projects/17859620597435208577/screens/4c2852eb489746f583520b6ceb195bfc",
+      "generatedAt": "2026-10-21T01:15:34.652Z"
+    }
+  },
+  "projectId": "17859620597435208577",
+  "designSystem": "assets/49"
+}

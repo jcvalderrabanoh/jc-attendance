@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>C15 · Campos Personalizados · Checador PyME</title>
+<!-- Material Symbols Outlined font -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed-variant": "#663e00",
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-secondary-container": "#3a6977",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#ecf1ff",
+            "surface": "#f9f9ff",
+            "surface-container-high": "#dee8ff",
+            "secondary-fixed": "#baeafa",
+            "background": "#f9f9ff",
+            "surface-dim": "#cfdaf2",
+            "primary-fixed-dim": "#9acee1",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed": "#001f27",
+            "on-primary-fixed": "#001f28",
+            "tertiary-fixed": "#ffddb9",
+            "tertiary-container": "#653d00",
+            "inverse-primary": "#9acee1",
+            "inverse-surface": "#263143",
+            "surface-container-highest": "#d8e3fb",
+            "on-surface": "#111c2d",
+            "on-tertiary-fixed": "#2b1700",
+            "on-primary-container": "#87bbce",
+            "surface-variant": "#d8e3fb",
+            "surface-container-low": "#f0f3ff",
+            "surface-container": "#e7eeff",
+            "primary": "#003441",
+            "tertiary": "#462900",
+            "secondary-container": "#b7e7f7",
+            "on-surface-variant": "#40484b",
+            "on-background": "#111c2d",
+            "primary-fixed": "#b6ebfe",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-primary-fixed-variant": "#114d5d",
+            "outline": "#70787c",
+            "on-primary": "#ffffff",
+            "secondary": "#356572",
+            "primary-container": "#0f4c5c",
+            "on-secondary": "#ffffff",
+            "outline-variant": "#c0c8cb",
+            "on-error": "#ffffff",
+            "surface-tint": "#306576",
+            "error": "#ba1a1a",
+            "surface-bright": "#f9f9ff",
+            "secondary-fixed-dim": "#9ecedd",
+            "on-tertiary-container": "#f1a440"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-2xl": "3rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "margin": "1.5rem"
+          },
+          "fontFamily": {
+            "display-clock": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-md": ["Inter"],
+            "title-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="h-full bg-background text-on-surface antialiased overflow-x-hidden flex">
+<!-- ========================================== -->
+<!-- 1. COMPONENTE COMPARTIDO: SideNavBar (JSON) -->
+<!-- ========================================== -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col justify-between p-4 z-40 bg-surface-container-low border-r border-outline-variant">
+<div class="flex flex-col gap-4">
+<!-- Encabezado de la barra lateral -->
+<div class="flex items-center gap-3 px-2 py-1">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-white flex items-center justify-center font-bold text-title-lg shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 24px;">schedule</span>
+</div>
+<div>
+<h1 class="font-title-lg text-title-lg font-bold text-primary leading-tight">Checador PyME</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SaaS de Asistencia</p>
+</div>
+</div>
+<!-- Menú principal de pestañas (11 según JSON) -->
+<nav class="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-220px)] pr-1">
+<!-- Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span>Empleados</span>
+</a>
+<!-- Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span>Hojas de horas</span>
+</a>
+<!-- Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">event_busy</span>
+<span>Incidencias</span>
+</a>
+<!-- Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Turnos</span>
+</a>
+<!-- Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span>Ubicaciones</span>
+</a>
+<!-- Reportes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span>Reportes</span>
+</a>
+<!-- Analítica -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Analítica</span>
+</a>
+<!-- Configuración (ACTIVO: según la intención de la página /configuracion/campos) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container text-on-secondary-container font-label-lg text-label-lg font-semibold shadow-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span>Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer de la barra lateral (JSON) -->
+<div class="pt-3 border-t border-outline-variant flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:text-on-surface transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Cerrar sesión</span>
+</a>
+</div>
+</aside>
+<!-- ========================================== -->
+<!-- CONTENEDOR PRINCIPAL DERECHO              -->
+<!-- ========================================== -->
+<div class="pl-64 flex-1 flex flex-col min-w-0">
+<!-- ========================================== -->
+<!-- 2. COMPONENTE COMPARTIDO: TopNavBar (JSON) -->
+<!-- ========================================== -->
+<header class="sticky top-0 right-0 h-16 bg-surface border-b border-outline-variant shadow-sm flex items-center justify-between px-6 z-30">
+<!-- Izquierda: Buscador & Navegación -->
+<div class="flex items-center gap-6">
+<!-- Barra de búsqueda a la izquierda (search_bar: "on_left") -->
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant text-body-md font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container" placeholder="Buscar empleados, marcajes, campos..." type="text"/>
+</div>
+<!-- Links de navegación de contexto de la barra superior (navigation_links: ["Sucursal Central", "Sincronizado"]) -->
+<div class="hidden xl:flex items-center gap-3">
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">store</span>
+<span class="font-semibold">Sucursal Matriz CDMX (Todas las áreas)</span>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span>Sincronizado LFT</span>
+</div>
+</div>
+</div>
+<!-- Derecha: Acciones y Perfil -->
+<div class="flex items-center gap-4">
+<!-- Acción primaria rápida (trailing_primary_action: "Registrar Entrada") adaptada a control de admin -->
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-white font-label-md text-label-md hover:opacity-95 transition-all shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">touch_app</span>
+<span>Registrar Marcaje</span>
+</button>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Icon actions (trailing_icon_actions: ["notifications", "help_outline"]) -->
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors relative" title="Notificaciones">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" title="Ayuda">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Perfil Administrador -->
+<div class="flex items-center gap-3 pl-1">
+<div class="w-9 h-9 rounded-full bg-primary-container text-white flex items-center justify-center font-semibold text-body-sm shadow-xs border border-white">
+            RM
+          </div>
+<div class="hidden sm:block text-left">
+<div class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Lic. Roberto Morales</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Admin General · PyME</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================== -->
+<!-- SUB-BARRA DE NAVEGACIÓN CONFIGURACIÓN      -->
+<!-- ========================================== -->
+<div class="bg-surface border-b border-outline-variant px-8 pt-3">
+<div class="flex items-center justify-between pb-3">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Inicio</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Configuración</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Campos Personalizados</span>
+</div>
+<!-- Badge Normativo LFT e INAI -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container border border-outline-variant text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">gavel</span>
+<span>Cumplimiento LFT Art. 132 &amp; Protección de Datos INAI</span>
+</div>
+</div>
+<!-- Subpestañas de Configuración Laboral -->
+<nav class="flex items-center gap-6 overflow-x-auto no-scrollbar">
+<a class="pb-2.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-colors" href="#">Políticas de Asistencia LFT</a>
+<a class="pb-2.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-colors" href="#">Reglas de Geocercas</a>
+<a class="pb-2.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-colors" href="#">Roles y Permisos</a>
+<a class="pb-2.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-colors" href="#">Notificaciones</a>
+<a class="pb-2.5 font-label-md text-label-md text-primary font-bold border-b-2 border-primary-container flex items-center gap-1.5" href="#">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Campos Personalizados</span>
+<span class="px-1.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold">14</span>
+</a>
+<a class="pb-2.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-colors" href="#">Integración Nómina</a>
+</nav>
+</div>
+<!-- ========================================== -->
+<!-- CONTENIDO PRINCIPAL                        -->
+<!-- ========================================== -->
+<main class="flex-1 p-8 max-w-7xl w-full mx-auto space-y-6">
+<!-- ENCABEZADO DE SECCIÓN -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Campos Personalizados del Colaborador y Marcaje</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+            Define y organiza atributos dinámicos para los expedientes de empleados, terminales de kiosco, filtros de reportes y cruces analíticos sin tocar código.
+          </p>
+</div>
+<!-- Botones de Acción de Cabecera -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container transition-all active:scale-[0.98] shadow-xs">
+<span class="material-symbols-outlined text-[18px]">drag_indicator</span>
+<span>Reordenar prioridad</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container transition-all active:scale-[0.98] shadow-xs">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar esquema JSON</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-white font-label-md text-label-md font-semibold hover:brightness-110 transition-all shadow-md active:scale-[0.98]" id="openModalBtn">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>+ Crear Nuevo Campo</span>
+</button>
+</div>
+</div>
+<!-- BARRA DE MÉTRICAS / KPIS RESUMEN -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 shadow-sm flex items-start justify-between">
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant">Campos Activos</div>
+<div class="font-headline-md text-headline-md font-bold text-on-surface mt-1">14 <span class="text-body-sm font-normal text-on-surface-variant font-body-sm">en 4 categorías</span></div>
+<div class="font-body-sm text-body-sm text-secondary mt-1 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+              88 colaboradores sincronizados
+            </div>
+</div>
+<div class="p-2.5 rounded-lg bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[22px]">format_list_bulleted</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 shadow-sm flex items-start justify-between">
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant">Campos Obligatorios</div>
+<div class="font-headline-md text-headline-md font-bold text-primary mt-1">5 <span class="text-body-sm font-normal text-on-surface-variant font-body-sm">atributos clave</span></div>
+<div class="font-body-sm text-body-sm text-[#2E7D32] mt-1 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Cumplimiento LFT (NSS, CURP, etc.)
+            </div>
+</div>
+<div class="p-2.5 rounded-lg bg-[#E8F5E9] text-[#2E7D32]">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 shadow-sm flex items-start justify-between">
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant">Visibles en App Empleado</div>
+<div class="font-headline-md text-headline-md font-bold text-on-surface mt-1">9 <span class="text-body-sm font-normal text-on-surface-variant font-body-sm">atributos</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[14px]">smartphone</span>
+              Permisos de consulta/edición móvil
+            </div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-high text-primary">
+<span class="material-symbols-outlined text-[22px]">stay_current_portrait</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 shadow-sm flex items-start justify-between">
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant">Vinculados a Reportes y Analítica</div>
+<div class="font-headline-md text-headline-md font-bold text-on-surface mt-1">11 <span class="text-body-sm font-normal text-on-surface-variant font-body-sm">campos</span></div>
+<div class="font-body-sm text-body-sm text-[#0F4C5C] mt-1 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[14px]">insights</span>
+              Indexados en constructor C12/C13
+            </div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container text-primary">
+<span class="material-symbols-outlined text-[22px]">monitoring</span>
+</div>
+</div>
+</div>
+<!-- TABS / FILTROS DE CATEGORÍA Y BUSCADOR DE TABLA -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm p-4 space-y-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<!-- Filtros de categoría estilo Pill Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 no-scrollbar">
+<button class="px-3.5 py-1.5 rounded-full bg-primary-container text-white font-label-md text-label-md font-medium shrink-0 shadow-xs">
+              Todos los campos (14)
+            </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors shrink-0">
+              Ficha de Empleado y RH (6)
+            </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors shrink-0">
+              Kiosco y Verificación (3)
+            </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors shrink-0">
+              Turnos y Operación (3)
+            </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors shrink-0">
+              Salud y Seguridad NOM-035 (2)
+            </button>
+</div>
+<!-- Controles de búsqueda rápida y filtro de estado -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">filter_alt</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-sm font-body-sm rounded-lg bg-surface border border-outline-variant text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container" placeholder="Filtrar por etiqueta, slug..." type="text"/>
+</div>
+<select class="px-3 py-1.5 text-body-sm font-body-sm rounded-lg bg-surface border border-outline-variant text-on-surface focus:outline-none focus:border-primary-container">
+<option value="activos">Estado: Activos</option>
+<option value="archivados">Estado: Archivados</option>
+<option value="todos">Todos los estados</option>
+</select>
+</div>
+</div>
+<!-- TABLA CON INTERACCIÓN DRAG-AND-DROP (LISTA) -->
+<div class="overflow-x-auto border border-outline-variant rounded-lg">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant text-on-surface-variant font-label-md text-label-md">
+<th class="py-3 px-3 w-10 text-center font-normal">#</th>
+<th class="py-3 px-4 font-semibold">Campo / Identificador (Slug)</th>
+<th class="py-3 px-4 font-semibold">Tipo de Dato</th>
+<th class="py-3 px-4 font-semibold">Módulo / Contexto</th>
+<th class="py-3 px-4 font-semibold text-center">Obligatorio</th>
+<th class="py-3 px-4 font-semibold">Visibilidad en App Móvil</th>
+<th class="py-3 px-4 font-semibold text-center">Reportes &amp; BI</th>
+<th class="py-3 px-4 font-semibold text-center">Estado</th>
+<th class="py-3 px-4 text-right font-semibold">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/60 font-body-md text-body-md text-on-surface">
+<!-- Fila 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-3.5 px-3 text-center text-outline cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors">drag_indicator</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-title-md text-on-surface font-semibold">Talla de Calzado y Uniforme</div>
+<div class="font-body-sm text-body-sm text-outline font-mono">talla_calzado_uniforme</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">arrow_drop_down_circle</span>
+<span>Lista desplegable (Select)</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-body-sm text-body-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Ficha RH</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span> Sí
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-outline">visibility</span>
+                    Solo Lectura
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-secondary-container text-on-secondary-container">
+                    Activo (C12)
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="w-2.5 h-2.5 inline-block rounded-full bg-[#2E7D32] mr-1"></span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">Activo</span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Editar Campo">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-1.5 rounded hover:bg-error-container text-on-surface-variant hover:text-error transition-colors" title="Archivar">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fila 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-3.5 px-3 text-center text-outline cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors">drag_indicator</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-title-md text-on-surface font-semibold">Número de Casillero / Locker</div>
+<div class="font-body-sm text-body-sm text-outline font-mono">num_casillero_locker</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">short_text</span>
+<span>Texto corto</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-body-sm text-body-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Operación</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">
+                    No
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-outline">
+<span class="material-symbols-outlined text-[16px]">visibility_off</span>
+                    No visible
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-secondary-container text-on-secondary-container">
+                    Activo (C12)
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="w-2.5 h-2.5 inline-block rounded-full bg-[#2E7D32] mr-1"></span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">Activo</span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Editar Campo">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-1.5 rounded hover:bg-error-container text-on-surface-variant hover:text-error transition-colors" title="Archivar">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fila 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-3.5 px-3 text-center text-outline cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors">drag_indicator</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-title-md text-on-surface font-semibold flex items-center gap-1.5">
+<span>Alergias o Condiciones Médicas</span>
+<span class="material-symbols-outlined text-amber-600 text-[16px]" title="Datos sensibles NOM-035">lock</span>
+</div>
+<div class="font-body-sm text-body-sm text-outline font-mono">condiciones_medicas_alergias</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">notes</span>
+<span>Texto largo</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-body-sm text-body-sm">
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-medium">Salud NOM-035</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">
+                    No
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-[#0F4C5C] font-medium">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+                    Editable
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container text-outline">
+                    Inactivo (Confidencial)
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="w-2.5 h-2.5 inline-block rounded-full bg-[#2E7D32] mr-1"></span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">Activo</span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Editar Campo">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-1.5 rounded hover:bg-error-container text-on-surface-variant hover:text-error transition-colors" title="Archivar">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fila 4 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-3.5 px-3 text-center text-outline cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors">drag_indicator</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-title-md text-on-surface font-semibold flex items-center gap-1.5">
+<span>Contacto de Emergencia LFT</span>
+<span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">LFT</span>
+</div>
+<div class="font-body-sm text-body-sm text-outline font-mono">contacto_emergencia_tel</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">call</span>
+<span>Teléfono / WhatsApp</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-body-sm text-body-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Ficha RH</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span> Sí
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-[#0F4C5C] font-medium">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+                    Editable con validación
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-secondary-container text-on-secondary-container">
+                    Activo (C12)
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="w-2.5 h-2.5 inline-block rounded-full bg-[#2E7D32] mr-1"></span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">Activo</span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Editar Campo">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-1.5 rounded hover:bg-error-container text-on-surface-variant hover:text-error transition-colors" title="Archivar">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fila 5 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-3.5 px-3 text-center text-outline cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors">drag_indicator</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-title-md text-on-surface font-semibold">Dispositivo Autorizado ID (MAC/IMEI)</div>
+<div class="font-body-sm text-body-sm text-outline font-mono">dispositivo_autorizado_id</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">fingerprint</span>
+<span>Identificador único</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-body-sm text-body-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Kiosco &amp; App</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#E8F5E9] text-[#2E7D32] font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span> Sí
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-outline">visibility</span>
+                    Solo lectura
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-secondary-container text-on-secondary-container">
+                    Activo (C12)
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="w-2.5 h-2.5 inline-block rounded-full bg-[#2E7D32] mr-1"></span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">Activo</span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Editar Campo">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-1.5 rounded hover:bg-error-container text-on-surface-variant hover:text-error transition-colors" title="Archivar">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Fila 6 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="py-3.5 px-3 text-center text-outline cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors">drag_indicator</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="font-title-md text-title-md text-on-surface font-semibold">Ruta de Transporte Asignada</div>
+<div class="font-body-sm text-body-sm text-outline font-mono">ruta_transporte_turno</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">checklist</span>
+<span>Opción múltiple</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-body-sm text-body-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Turnos</span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">
+                    No
+                  </span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">visibility</span>
+                    Visible
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-secondary-container text-on-secondary-container">
+                    Activo (C12)
+                  </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="w-2.5 h-2.5 inline-block rounded-full bg-[#2E7D32] mr-1"></span>
+<span class="font-label-sm text-label-sm text-[#2E7D32] font-semibold">Activo</span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Editar Campo">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-1.5 rounded hover:bg-error-container text-on-surface-variant hover:text-error transition-colors" title="Archivar">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer de la tabla con paginación y notas de ayuda -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm font-body-sm text-on-surface-variant pt-2 gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline">info</span>
+<span>Arrastra <span class="font-semibold text-on-surface">⋮⋮</span> para alterar el orden en la ficha del colaborador y pantallas de captura.</span>
+</div>
+<div class="flex items-center gap-4">
+<span>Mostrando 6 de 14 campos configurados</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded border border-outline-variant hover:bg-surface-container disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<button class="p-1 rounded border border-outline-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- ========================================== -->
+<!-- MODAL ACTIVO / PREVISUALIZACIÓN ELEGANTE   -->
+<!-- 'Crear Nuevo Campo Personalizado'          -->
+<!-- ========================================== -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm transition-opacity" id="createFieldModal">
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant w-full max-w-2xl max-h-[942px] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Encabezado del Modal -->
+<div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-white flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined" style="font-size: 22px;">post_add</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg font-bold text-on-surface">Crear Nuevo Campo Personalizado</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Agrega un atributo dinámico con reglas de privacidad y reporte</p>
+</div>
+</div>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" id="closeModalBtn">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Cuerpo del Modal (Scrollable) -->
+<div class="p-6 overflow-y-auto space-y-5">
+<!-- Campo 1 & 2: Nombre y Slug -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">
+              Etiqueta del Campo / Nombre visible <span class="text-error">*</span>
+</label>
+<input class="w-full px-3.5 py-2.5 rounded-lg border border-outline-variant bg-surface text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container" placeholder="Ej. Talla de Casco, Alergias..." type="text" value="Nivel de Certificación en Hornos"/>
+<span class="text-[11px] text-outline mt-1 block">Etiqueta que verán supervisores y colaboradores</span>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">
+              Identificador único en sistema (Slug) <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full pl-3.5 pr-8 py-2.5 rounded-lg border border-outline-variant bg-surface-container font-mono text-body-sm font-body-sm text-primary focus:outline-none" readonly="" type="text" value="certificacion_hornos_nivel"/>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-outline" title="Generado automáticamente">lock</span>
+</div>
+<span class="text-[11px] text-outline mt-1 block">Clave inmutable para reportes, APIs y nóminas</span>
+</div>
+</div>
+<!-- Módulo / Contexto -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">
+            Categoría o Módulo Perteneciente <span class="text-error">*</span>
+</label>
+<select class="w-full px-3.5 py-2 rounded-lg border border-outline-variant bg-surface text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary-container">
+<option>Ficha de Empleado y Expediente RH</option>
+<option selected="">Turnos y Asignación Operativa</option>
+<option>Kiosco y Terminal de Verificación</option>
+<option>Salud en el Trabajo (NOM-035 / NOM-017)</option>
+</select>
+</div>
+<!-- Campo 3: Selector visual de Tipo de dato -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-2">
+            Tipo de dato admitido <span class="text-error">*</span>
+</label>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+<!-- Opción: Texto corto -->
+<label class="border border-outline-variant rounded-lg p-2.5 flex items-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary-container focus:ring-0" name="tipo_dato" type="radio"/>
+<div class="text-left">
+<div class="font-label-md text-label-md font-semibold text-on-surface">Texto corto</div>
+<div class="font-body-sm text-body-sm text-outline text-[11px]">Hasta 80 caracteres</div>
+</div>
+</label>
+<!-- Opción: Número -->
+<label class="border border-outline-variant rounded-lg p-2.5 flex items-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary-container focus:ring-0" name="tipo_dato" type="radio"/>
+<div class="text-left">
+<div class="font-label-md text-label-md font-semibold text-on-surface">Número</div>
+<div class="font-body-sm text-body-sm text-outline text-[11px]">Entero o decimal</div>
+</div>
+</label>
+<!-- Opción: Selección única / Dropdown (SELECCIONADA) -->
+<label class="border-2 border-primary-container bg-surface-container-high/40 rounded-lg p-2.5 flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-primary-container focus:ring-0" name="tipo_dato" type="radio"/>
+<div class="text-left">
+<div class="font-label-md text-label-md font-semibold text-primary">Selección (Dropdown)</div>
+<div class="font-body-sm text-body-sm text-primary text-[11px]">Lista con opciones fijas</div>
+</div>
+</label>
+<!-- Opción: Fecha -->
+<label class="border border-outline-variant rounded-lg p-2.5 flex items-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary-container focus:ring-0" name="tipo_dato" type="radio"/>
+<div class="text-left">
+<div class="font-label-md text-label-md font-semibold text-on-surface">Fecha / Vigencia</div>
+<div class="font-body-sm text-body-sm text-outline text-[11px]">Selector calendario</div>
+</div>
+</label>
+<!-- Opción: Archivo/Documento -->
+<label class="border border-outline-variant rounded-lg p-2.5 flex items-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary-container focus:ring-0" name="tipo_dato" type="radio"/>
+<div class="text-left">
+<div class="font-label-md text-label-md font-semibold text-on-surface">Archivo / PDF</div>
+<div class="font-body-sm text-body-sm text-outline text-[11px]">Documentos adjuntos</div>
+</div>
+</label>
+<!-- Opción: Casilla Booleana -->
+<label class="border border-outline-variant rounded-lg p-2.5 flex items-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary-container focus:ring-0" name="tipo_dato" type="radio"/>
+<div class="text-left">
+<div class="font-label-md text-label-md font-semibold text-on-surface">Casilla Sí / No</div>
+<div class="font-body-sm text-body-sm text-outline text-[11px]">Booleano simple</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Campo 4: Opciones de lista (Visible al ser Dropdown) -->
+<div class="p-3.5 rounded-lg bg-surface-container-low border border-outline-variant space-y-2">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Opciones permitidas en la lista desplegable</label>
+<span class="text-[11px] text-outline">Presiona Enter para agregar</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 p-2 rounded-lg bg-surface border border-outline-variant">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+              Básico (Operador Jr.)
+              <button class="hover:text-error"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+              Intermedio (Capacitado)
+              <button class="hover:text-error"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+              Maestro Hornos (Supervisor)
+              <button class="hover:text-error"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<input class="border-0 bg-transparent text-body-sm font-body-sm p-1 focus:ring-0 focus:outline-none w-36 text-on-surface" placeholder="+ Añadir otra opción..." type="text"/>
+</div>
+</div>
+<!-- Sección de Reglas de Negocio y Privacidad (Toggles M3) -->
+<div class="border-t border-outline-variant pt-4 space-y-3.5">
+<h4 class="font-title-md text-title-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">admin_panel_settings</span>
+<span>Reglas de Negocio, Visibilidad y Cumplimiento</span>
+</h4>
+<div class="space-y-3">
+<!-- Toggle 1: Obligatorio -->
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Campo obligatorio durante el alta</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Requerido en Enrolamiento / Invitación de nuevo colaborador (C5/C6)</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 2: Visible en App móvil -->
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Visible en la app del colaborador</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Se mostrará en la pestaña 'Mi Perfil' de la aplicación móvil (C16)</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 3: Permitir edición libre -->
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Permitir al colaborador editar este dato sin aprobación</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Si está inactivo, requerirá visto bueno de RRHH antes de actualizarse</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 4: Reportes Excel / PDF -->
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Disponible como columna en reportes Excel/PDF</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Indexado en el constructor de reportes periódicos de asistencia (C12)</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 5: Analítica y gráficos -->
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors">
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Habilitar en filtros de Analítica y gráficos BI</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Permite segmentar rotación, retardos y ausentismo por este atributo (C13)</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Pie del Modal con Botones -->
+<div class="px-6 py-4 bg-surface-container-low border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-[#2E7D32]">shield_lock</span>
+<span>Encriptado con norma INAI México</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors" id="cancelModalBtn">
+            Cancelar
+          </button>
+<button class="px-5 py-2 rounded-lg bg-primary-container text-white font-label-md text-label-md font-semibold hover:brightness-110 shadow-md active:scale-[0.98] transition-all flex items-center gap-2" id="saveFieldBtn">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Guardar y Publicar Campo</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interacción ligera con Vanilla JS para el Modal -->
+<script>
+    const modal = document.getElementById('createFieldModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelModalBtn');
+    const saveBtn = document.getElementById('saveFieldBtn');
+
+    function toggleModal(show) {
+      if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    openBtn?.addEventListener('click', () => toggleModal(true));
+    closeBtn?.addEventListener('click', () => toggleModal(false));
+    cancelBtn?.addEventListener('click', () => toggleModal(false));
+    
+    saveBtn?.addEventListener('click', () => {
+      // Simular guardado exitoso
+      toggleModal(false);
+    });
+
+    // Cerrar al dar click fuera del contenedor blanco
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        toggleModal(false);
+      }
+    });
+  </script>
+</body></html>

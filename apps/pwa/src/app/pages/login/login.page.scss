@@ -1,0 +1,11 @@
+.field-label { font-weight: 600; font-size: 0.95rem; }
+.phone {
+  display: flex; align-items: stretch; border: 1.5px solid #b8c7cc; border-radius: 12px; overflow: hidden; background: #fff;
+  &:focus-within { border-color: var(--att-primary); box-shadow: 0 0 0 3px rgb(15 76 92 / 18%); }
+}
+.prefix { display: flex; align-items: center; padding: 0 14px; background: var(--att-primary-soft); font-weight: 600; font-size: 1.05rem; }
+.phone input { flex: 1; min-width: 0; border: 0; outline: none; padding: 0 14px; height: 56px; font: 500 1.15rem Inter, sans-serif; letter-spacing: .5px; }
+.hint { display: flex; gap: 6px; align-items: center; margin: 0; color: var(--att-primary); font-size: 0.85rem; }
+.link { align-self: center; }
+.resend { text-align: center; margin: 0; color: var(--att-muted); min-height: 48px; display: flex; align-items: center; justify-content: center; }
+mat-spinner { margin: 0 auto; }

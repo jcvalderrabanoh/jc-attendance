@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configuración General · Checador Pro</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration with Design System Tokens -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#9acee1",
+            "on-tertiary": "#ffffff",
+            "inverse-primary": "#9acee1",
+            "error-container": "#ffdad6",
+            "tertiary": "#462900",
+            "background": "#f9f9ff",
+            "inverse-surface": "#263143",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#ffddb9",
+            "surface-variant": "#d8e3fb",
+            "surface": "#f9f9ff",
+            "outline-variant": "#c0c8cb",
+            "error": "#ba1a1a",
+            "secondary-fixed": "#baeafa",
+            "outline": "#70787c",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#2b1700",
+            "on-surface": "#111c2d",
+            "primary-container": "#0f4c5c",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#40484b",
+            "surface-container-highest": "#d8e3fb",
+            "surface-bright": "#f9f9ff",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "secondary-container": "#b7e7f7",
+            "secondary": "#356572",
+            "on-primary-fixed-variant": "#114d5d",
+            "on-tertiary-container": "#f1a440",
+            "surface-container": "#e7eeff",
+            "secondary-fixed-dim": "#9ecedd",
+            "on-primary-container": "#87bbce",
+            "tertiary-container": "#653d00",
+            "surface-container-low": "#f0f3ff",
+            "on-background": "#111c2d",
+            "on-error-container": "#93000a",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed-variant": "#663e00",
+            "primary": "#003441",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-secondary-fixed": "#001f27",
+            "primary-fixed": "#b6ebfe",
+            "surface-dim": "#cfdaf2",
+            "surface-container-high": "#dee8ff",
+            "on-secondary-container": "#3a6977",
+            "surface-tint": "#306576",
+            "on-primary-fixed": "#001f28",
+            "inverse-on-surface": "#ecf1ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "margin": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "display-clock-mobile": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "title-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-clock": ["Inter"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1;
+    }
+    /* Custom scrollbar for clean internal panels */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f0f3ff;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="h-full bg-background text-on-surface antialiased overflow-x-hidden font-body-md text-body-md">
+<!-- ========================================================================= -->
+<!-- 1. SHARED COMPONENT: SideNavBar (Strict compliance with JSON blueprint)   -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-64 z-40 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant/30 dark:border-outline/20 shadow-sm dark:shadow-none flex flex-col justify-between p-4">
+<!-- Top Branding & Navigation -->
+<div class="flex flex-col gap-3">
+<!-- App Brand Header -->
+<div class="flex items-center gap-3 px-2 py-1 mb-1">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary tracking-tight">Checador Pro</span>
+<span class="text-label-sm font-label-sm text-outline">SaaS PyME México</span>
+</div>
+</div>
+<!-- Quick Action CTA: Pase de Lista / Marcaje -->
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg hover:opacity-95 shadow-sm active:scale-[0.98] transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+<span>Pase de Lista Rápido</span>
+</button>
+<!-- Scrollable Navigation Items -->
+<nav class="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-280px)] pr-1">
+<!-- 0. Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- 1. En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+<span>En vivo</span>
+</a>
+<!-- 2. Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span>Empleados</span>
+</a>
+<!-- 3. Validaciones de Alta -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+<span>Validaciones de Alta</span>
+</a>
+<!-- 4. Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+<span>Marcajes</span>
+</a>
+<!-- 5. Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span>Hojas de horas</span>
+</a>
+<!-- 6. Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">event_busy</span>
+<span>Incidencias</span>
+</a>
+<!-- 7. Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+<span>Turnos</span>
+</a>
+<!-- 8. Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">distance</span>
+<span>Ubicaciones</span>
+</a>
+<!-- 9. Reportes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]">summarize</span>
+<span>Reportes</span>
+</a>
+<!-- 10. Configuracion [ACTIVE STATE - EXACT MATCH TO PAGE INTENT] -->
+<div class="flex flex-col gap-1 mt-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-label-md text-label-md transition-colors active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px] fill">settings</span>
+<span class="flex-1">Configuración</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</a>
+<!-- Expanded Settings Sub-levels -->
+<div class="ml-7 pl-3 border-l-2 border-primary/20 flex flex-col gap-1 my-1">
+<a class="py-1 px-2 rounded font-label-sm text-label-sm text-primary font-bold bg-surface-container" href="#">General</a>
+<a class="py-1 px-2 rounded font-label-sm text-label-sm text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors" href="#">Políticas LFT</a>
+<a class="py-1 px-2 rounded font-label-sm text-label-sm text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors" href="#">Reglas de Validación</a>
+<a class="py-1 px-2 rounded font-label-sm text-label-sm text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors" href="#">Geocercas y Kioscos</a>
+<a class="py-1 px-2 rounded font-label-sm text-label-sm text-outline hover:text-on-surface hover:bg-surface-container-low transition-colors" href="#">Campos Personalizados</a>
+</div>
+</div>
+</nav>
+</div>
+<!-- SideNavBar Footer -->
+<div class="pt-3 border-t border-outline-variant/30 dark:border-outline/20 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span>Soporte LFT</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-error font-label-md text-label-md hover:bg-error-container/40 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Cerrar sesión</span>
+</a>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. SHARED COMPONENT: TopNavBar (Strict compliance with JSON blueprint)    -->
+<!-- ========================================================================= -->
+<header class="fixed top-0 right-0 left-64 h-16 z-30 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant/30 dark:border-outline/20 shadow-sm dark:shadow-none flex justify-between items-center px-6">
+<!-- Left Area: Breadcrumbs & Branch Selector -->
+<div class="flex items-center gap-4">
+<!-- Breadcrumbs Path -->
+<div class="flex items-center gap-2 font-label-md text-label-md">
+<span class="text-outline">Configuración</span>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-primary font-bold">Configuración General</span>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-on-surface-variant bg-surface-container px-2 py-0.5 rounded text-label-sm">Empresa: Panadería La Espiga S.A. de C.V.</span>
+</div>
+<!-- Branch Dropdown Selector -->
+<div class="relative hidden xl:block">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">storefront</span>
+<span class="font-title-md text-title-md font-semibold text-on-surface">Sucursal: Matriz CDMX</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</button>
+</div>
+<!-- Sync Status Badge -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] border border-[#2E7D32]/20 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] fill">check_circle</span>
+<span>Sincronizado SAT/IMSS/LFT</span>
+</div>
+</div>
+<!-- Right Area: Action Buttons & Admin Profile -->
+<div class="flex items-center gap-3">
+<!-- Discard Secondary Action -->
+<button class="px-3.5 py-1.5 rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors active:scale-[0.97]" type="button">
+        Descartar
+      </button>
+<!-- Save Primary Action -->
+<button class="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:opacity-90 shadow-sm transition-colors active:scale-[0.97]" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Guardar Cambios</span>
+</button>
+<div class="h-6 w-px bg-outline-variant/40 mx-1"></div>
+<!-- Trailing Icon Actions -->
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors relative" title="Notificaciones de nómina" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" title="Ayuda y manuales LFT" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<!-- User Profile Header -->
+<div class="flex items-center gap-2.5 pl-2">
+<div class="w-9 h-9 rounded-full bg-surface-container-highest border border-outline-variant/50 overflow-hidden flex items-center justify-center font-bold text-primary text-label-md">
+          RM
+        </div>
+<div class="hidden 2xl:flex flex-col text-left">
+<span class="text-label-md font-label-md text-on-surface font-semibold leading-none">Lic. Roberto Morales</span>
+<span class="text-label-sm font-label-sm text-outline mt-0.5">Admin General RH</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 3. MAIN CONTENT CANVAS (Offset: left-64, top-16)                          -->
+<!-- ========================================================================= -->
+<main class="ml-64 pt-16 min-h-screen pb-28">
+<div class="max-w-[1280px] mx-auto p-6 md:p-8 space-y-6">
+<!-- ========================================== -->
+<!-- A. PAGE HEADER & LFT AUDIT ALERT           -->
+<!-- ========================================== -->
+<div class="flex flex-col gap-4">
+<!-- Title & Subtitle -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Configuración General de la Empresa</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">
+              Define los parámetros base de cálculo de nómina, inicio de semana laboral, calendario de días inhábiles oficiales LFT, zona horaria y políticas de privacidad conforme al INAI y la STPS.
+            </p>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-outline-variant/40 text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+              Tenant ID: <span class="font-bold text-on-surface">ESPIGA-MX-8491</span>
+</span>
+</div>
+</div>
+<!-- STPS / LFT Regulatory Warning Card -->
+<div class="flex items-start gap-3 p-4 rounded-xl bg-[#FFF8E1] border border-[#F2A541]/40 text-[#462900]">
+<span class="material-symbols-outlined text-[#B78103] text-[24px] mt-0.5">warning</span>
+<div class="text-body-sm font-body-sm leading-relaxed">
+<strong class="font-semibold text-[#2B1700]">Impacto Regulatorio Federal:</strong> Los ajustes en el ciclo semanal y la zona horaria oficial impactan el cálculo automatizado de horas extras (Arts. 67 y 68 de la Ley Federal del Trabajo), los turnos mixtos/nocturnos (Art. 60 LFT) y el foliado de marcajes ante requerimientos de inspección de la STPS y comprobación de CFDI nómina SAT/IMSS.
+          </div>
+</div>
+<!-- Horizontal Section Nav Tabs -->
+<div class="border-b border-outline-variant/30 flex items-center gap-2 overflow-x-auto pt-2">
+<button class="px-4 py-2.5 font-label-lg text-label-lg border-b-2 border-primary text-primary font-bold whitespace-nowrap flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+            1. Parámetros de Nómina y Ciclo
+          </button>
+<button class="px-4 py-2.5 font-label-lg text-label-lg border-b-2 border-transparent text-outline hover:text-on-surface whitespace-nowrap flex items-center gap-2 hover:border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">event_available</span>
+            2. Días Festivos LFT (Precargados)
+          </button>
+<button class="px-4 py-2.5 font-label-lg text-label-lg border-b-2 border-transparent text-outline hover:text-on-surface whitespace-nowrap flex items-center gap-2 hover:border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+            3. Zona Horaria y Región
+          </button>
+<button class="px-4 py-2.5 font-label-lg text-label-lg border-b-2 border-transparent text-outline hover:text-on-surface whitespace-nowrap flex items-center gap-2 hover:border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+            4. Privacidad y Retención INAI
+          </button>
+<button class="px-4 py-2.5 font-label-lg text-label-lg border-b-2 border-transparent text-outline hover:text-on-surface whitespace-nowrap flex items-center gap-2 hover:border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">branding_watermark</span>
+            5. Identidad y Marca PyME
+          </button>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- BENTO / MODULAR GRID OF CONFIGURATION      -->
+<!-- ========================================== -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- ========================================== -->
+<!-- SECCIÓN A: Ciclo Operativo y Nómina (Col 7)-->
+<!-- ========================================== -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-6 shadow-sm space-y-6">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">event_repeat</span>
+</span>
+<div>
+<h2 class="text-title-lg font-title-lg text-on-surface">Ciclo Operativo y Periodicidad de Nómina</h2>
+<p class="text-body-sm font-body-sm text-outline">Definición de fechas de corte y periodos de dispersión bancaria.</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-semibold">Base LFT</span>
+</div>
+<!-- Periodicidad Selector Radios -->
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface">Periodicidad de nómina de la empresa *</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- Quincenal (Selected) -->
+<label class="relative flex flex-col p-3.5 rounded-lg border-2 border-primary bg-surface-container-low cursor-pointer transition-all">
+<div class="flex items-center justify-between">
+<span class="text-title-md font-title-md font-bold text-primary">Quincenal</span>
+<input checked="" class="text-primary focus:ring-primary w-4 h-4" name="pay_period" type="radio" value="quincenal"/>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant mt-1">Días 15 y último día del mes</span>
+<span class="text-label-sm font-label-sm text-primary font-semibold mt-2">Recomendado para 85% de PyMEs</span>
+</label>
+<!-- Semanal -->
+<label class="relative flex flex-col p-3.5 rounded-lg border border-outline-variant/70 hover:border-outline bg-surface-container-lowest cursor-pointer transition-all">
+<div class="flex items-center justify-between">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Semanal</span>
+<input class="text-primary focus:ring-primary w-4 h-4" name="pay_period" type="radio" value="semanal"/>
+</div>
+<span class="text-body-sm font-body-sm text-outline mt-1">Corte cada domingo / Pago viernes</span>
+<span class="text-label-sm font-label-sm text-outline mt-2">Personal operativo y planta</span>
+</label>
+<!-- Catorcenal -->
+<label class="relative flex flex-col p-3.5 rounded-lg border border-outline-variant/70 hover:border-outline bg-surface-container-lowest cursor-pointer transition-all">
+<div class="flex items-center justify-between">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Catorcenal</span>
+<input class="text-primary focus:ring-primary w-4 h-4" name="pay_period" type="radio" value="catorcenal"/>
+</div>
+<span class="text-body-sm font-body-sm text-outline mt-1">Cada 14 días naturales</span>
+<span class="text-label-sm font-label-sm text-outline mt-2">26 ciclos al año</span>
+</label>
+<!-- Mensual -->
+<label class="relative flex flex-col p-3.5 rounded-lg border border-outline-variant/70 hover:border-outline bg-surface-container-lowest cursor-pointer transition-all">
+<div class="flex items-center justify-between">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Mensual</span>
+<input class="text-primary focus:ring-primary w-4 h-4" name="pay_period" type="radio" value="mensual"/>
+</div>
+<span class="text-body-sm font-body-sm text-outline mt-1">Día final de cada mes calendario</span>
+<span class="text-label-sm font-label-sm text-outline mt-2">Planta directiva / honorarios</span>
+</label>
+</div>
+</div>
+<!-- Dual Selectors: Inicio de semana & Tolerancia -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1.5">Inicio de la semana laboral</label>
+<select class="w-full rounded-lg border border-outline-variant/80 bg-surface px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary text-on-surface">
+<option selected="">Lunes (Predeterminado legal LFT Art. 69)</option>
+<option>Domingo</option>
+<option>Sábado</option>
+</select>
+<p class="text-body-sm font-body-sm text-outline mt-1">Determina el cómputo de la prima dominical.</p>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1.5">Ventana de conciliación de incidencias</label>
+<select class="w-full rounded-lg border border-outline-variant/80 bg-surface px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary text-on-surface">
+<option selected="">48 horas previas al corte de nómina</option>
+<option>24 horas previas al corte</option>
+<option>72 horas previas al corte</option>
+<option>Mismo día a las 14:00 hrs</option>
+</select>
+<p class="text-body-sm font-body-sm text-outline mt-1">Margen para aclaración de checadas.</p>
+</div>
+</div>
+<!-- Strict Lock Switch -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface-container-low border border-outline-variant/40">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[24px]">lock_clock</span>
+<div>
+<h4 class="text-label-lg font-label-lg text-on-surface font-semibold">Bloqueo estricto post-cierre de periodo</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Impide modificaciones a registros de asistencia una vez generada la prenómina. Requiere autorización explícita de RH.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- SECCIÓN C & D: Zona Horaria & NTP (Col 5)  -->
+<!-- ========================================== -->
+<div class="lg:col-span-5 space-y-6">
+<!-- Huso Horario Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-6 shadow-sm space-y-4">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</span>
+<div>
+<h2 class="text-title-lg font-title-lg text-on-surface">Zona Horaria Oficial</h2>
+<p class="text-body-sm font-body-sm text-outline">Sincronización horaria para evitar fraudes</p>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1.5">Huso Horario Matriz</label>
+<div class="relative">
+<select class="w-full rounded-lg border border-outline-variant/80 bg-surface px-3 py-2.5 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary text-on-surface">
+<option selected="">América/Ciudad de México (UTC-6) [Oficial LFT]</option>
+<option>América/Tijuana (UTC-8 - Frontera Norte)</option>
+<option>América/Hermosillo (UTC-7 - Noroeste)</option>
+<option>América/Cancún (UTC-5 - Quintana Roo)</option>
+</select>
+</div>
+</div>
+<!-- CENAM Time Sync Pill Box -->
+<div class="p-3.5 rounded-lg bg-surface-container border border-outline-variant/40 flex items-start gap-3">
+<span class="material-symbols-outlined text-[#2E7D32] text-[22px] mt-0.5">timer</span>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md font-bold text-on-surface">Servidor NTP Certificado (CENAM)</span>
+<span class="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                  Conexión activa a <code>time.cenam.mx</code> con tolerancia <strong class="text-primary font-semibold">±0.05 seg</strong>. Bloquea la alteración de hora local en celulares Android e iOS del trabajador.
+                </p>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-1">
+<span class="text-outline">Hora CENAM validada:</span>
+<span class="font-display-clock-mobile text-body-lg font-bold text-primary font-mono tracking-tight">14:32:08 CDT</span>
+</div>
+</div>
+<!-- Quick Stat/Kiosk Widget -->
+<div class="bg-primary text-on-primary rounded-xl p-5 shadow-sm relative overflow-hidden">
+<div class="relative z-10 space-y-2">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm bg-white/20 text-white px-2.5 py-0.5 rounded-full font-semibold uppercase tracking-wider">Kioscos Vinculados</span>
+<span class="material-symbols-outlined text-[20px] text-primary-fixed">tablet_mac</span>
+</div>
+<h3 class="text-title-lg font-title-lg font-bold">22 Kioscos Físicos Operando</h3>
+<p class="text-body-sm font-body-sm text-primary-fixed opacity-90">
+                La política global sincronizada asegura que todas las terminales en sucursales apliquen los mismos criterios de retardo y cortes.
+              </p>
+</div>
+<div class="absolute -right-4 -bottom-6 opacity-10 text-white pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">fingerprint</span>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- SECCIÓN B: Días Festivos LFT (Col 12)      -->
+<!-- ========================================== -->
+<div class="lg:col-span-12 bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-6 shadow-sm space-y-5">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-outline-variant/30">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+</span>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="text-title-lg font-title-lg text-on-surface">Calendario de Días Festivos Obligatorios (LFT Art. 74)</h2>
+<span class="px-2 py-0.5 rounded text-label-sm font-label-sm bg-[#E8F5E9] text-[#2E7D32] font-bold">Oficial 2024</span>
+</div>
+<p class="text-body-sm font-body-sm text-outline">Los colaboradores que laboren en estas fechas devengan salario ordinario más compensación doble (pago triple).</p>
+</div>
+</div>
+<button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-primary text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ Agregar Día Festivo Local o de Empresa</span>
+</button>
+</div>
+<!-- Grid of Official Pre-loaded Holidays -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
+<!-- 1 Enero -->
+<div class="p-3.5 rounded-lg border border-outline-variant/50 bg-surface flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline block">1 de Enero</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Año Nuevo</span>
+</div>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Pago Triple LFT</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+<!-- 5 Febrero -->
+<div class="p-3.5 rounded-lg border border-outline-variant/50 bg-surface flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline block">Primer lun Feb (5 Feb)</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Día de la Constitución</span>
+</div>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Pago Triple LFT</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+<!-- 21 Marzo -->
+<div class="p-3.5 rounded-lg border border-outline-variant/50 bg-surface flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline block">Tercer lun Mar (21 Mar)</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Natalicio Benito Juárez</span>
+</div>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Pago Triple LFT</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+<!-- 1 Mayo -->
+<div class="p-3.5 rounded-lg border border-outline-variant/50 bg-surface flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline block">1 de Mayo</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Día del Trabajo</span>
+</div>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Pago Triple LFT</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+<!-- 16 Septiembre -->
+<div class="p-3.5 rounded-lg border border-outline-variant/50 bg-surface flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline block">16 de Septiembre</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Día de la Independencia</span>
+</div>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Pago Triple LFT</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+<!-- 1 Octubre 2024 -->
+<div class="p-3.5 rounded-lg border border-[#F2A541]/80 bg-[#FFF8E1]/30 flex flex-col justify-between hover:border-primary transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-[#B78103] font-bold">1 de Octubre (Sexenal)</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Poder Ejecutivo Federal</span>
+</div>
+<span class="px-1.5 py-0.5 rounded text-[10px] bg-[#FFF8E1] text-[#B78103] font-bold border border-[#F2A541]/40">NUEVO LFT</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Transición Presidencial</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+<!-- Tercer lun Nov -->
+<div class="p-3.5 rounded-lg border border-outline-variant/50 bg-surface flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline block">Tercer lun Nov (20 Nov)</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Revolución Mexicana</span>
+</div>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Pago Triple LFT</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+<!-- 25 Diciembre -->
+<div class="p-3.5 rounded-lg border border-outline-variant/50 bg-surface flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-outline block">25 de Diciembre</span>
+<span class="text-title-md font-title-md font-bold text-on-surface">Navidad</span>
+</div>
+<span class="material-symbols-outlined text-[#2E7D32] text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2 border-t border-outline-variant/30 text-label-sm font-label-sm">
+<span class="text-primary font-semibold">Pago Triple LFT</span>
+<span class="text-[#2E7D32] font-semibold">Activo</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- SECCIÓN D: Privacidad y Retención INAI     -->
+<!-- ========================================== -->
+<div class="lg:col-span-6 bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-6 shadow-sm space-y-6">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">security</span>
+</span>
+<div>
+<h2 class="text-title-lg font-title-lg text-on-surface">Privacidad, Datos Personales y Retención</h2>
+<p class="text-body-sm font-body-sm text-outline">Cumplimiento con Ley Federal de Protección de Datos (INAI)</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm bg-surface-container text-on-surface px-2 py-0.5 rounded font-mono">INAI/STPS</span>
+</div>
+<!-- Periodo Retención -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1.5">Plazo de retención de registros de checado y logs</label>
+<select class="w-full rounded-lg border border-outline-variant/80 bg-surface px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary text-on-surface">
+<option selected="">5 años (Recomendado para auditorías fiscales del IMSS/SAT y LFT Art. 516)</option>
+<option>3 años (Mínimo de prescripción laboral ordinaria)</option>
+<option>10 años (Historial permanente consolidado)</option>
+</select>
+<p class="text-body-sm font-body-sm text-outline mt-1">Garantiza evidencia jurídica ante requerimientos laborales de la Procuraduría de la Defensa del Trabajo (PROFEDET).</p>
+</div>
+<!-- Facial Biometrics Depuration Switch -->
+<div class="p-3.5 rounded-lg border border-outline-variant/40 bg-surface-container-low flex items-start justify-between gap-3">
+<div>
+<h4 class="text-label-lg font-label-lg font-semibold text-on-surface">Depuración de biometría facial por baja</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                Elimina permanentemente los vectores faciales y hashes biométricos 30 días posteriores al finiquito laboral del empleado para cumplir con la directiva INAI de minimización de datos sensibles.
+              </p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Document Upload & Acceptance -->
+<div class="space-y-3">
+<label class="block text-label-md font-label-md text-on-surface">Aviso de Privacidad Integral para Colaboradores</label>
+<div class="flex items-center gap-3 p-3 rounded-lg border border-dashed border-outline-variant bg-surface">
+<span class="material-symbols-outlined text-[32px] text-primary">picture_as_pdf</span>
+<div class="flex-1 min-w-0">
+<span class="text-label-md font-label-md text-on-surface font-semibold truncate block">aviso_privacidad_integral_espiga_2024.pdf</span>
+<span class="text-body-sm font-body-sm text-outline">Cargado el 12 de Enero, 2024 · 1.4 MB · Válido</span>
+</div>
+<button class="px-3 py-1 text-label-sm font-label-sm text-primary hover:bg-surface-container rounded transition-colors" type="button">
+                Reemplazar
+              </button>
+</div>
+<div class="flex items-center gap-2">
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4" id="req_sign" type="checkbox"/>
+<label class="text-body-sm font-body-sm text-on-surface select-none" for="req_sign">
+                Requerir firma y consentimiento digital obligatorio al enrolar al colaborador en la App Checador.
+              </label>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- SECCIÓN E: Identidad y Marca PyME (Col 6)  -->
+<!-- ========================================== -->
+<div class="lg:col-span-6 bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-6 shadow-sm space-y-6">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</span>
+<div>
+<h2 class="text-title-lg font-title-lg text-on-surface">Identidad y Marca PyME</h2>
+<p class="text-body-sm font-body-sm text-outline">Personalización en Kioscos de tablet y App del empleado</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-semibold">Branding</span>
+</div>
+<!-- Company Fiscal & Commercial Names -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1">Razón Social Legal *</label>
+<input class="w-full rounded-lg border border-outline-variant/80 bg-surface px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary text-on-surface font-semibold" type="text" value="Panadería La Espiga S.A. de C.V."/>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1">Nombre Comercial / App *</label>
+<input class="w-full rounded-lg border border-outline-variant/80 bg-surface px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary text-on-surface" type="text" value="La Espiga Tradicional"/>
+</div>
+</div>
+<!-- Logo Upload with Preview -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1.5">Logotipo para Pantallas y Reportes PDF</label>
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg border border-outline-variant/60 bg-surface-container-low flex items-center justify-center p-2 shadow-inner">
+<span class="material-symbols-outlined text-primary text-[36px]">bakery_dining</span>
+</div>
+<div class="space-y-1">
+<button class="px-3.5 py-1.5 rounded-lg border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors inline-flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[18px]">upload</span>
+<span>Subir nuevo logotipo</span>
+</button>
+<p class="text-body-sm font-body-sm text-outline">Formato PNG o SVG transparente. Máx. 2MB. Relación 1:1 o 3:1.</p>
+</div>
+</div>
+</div>
+<!-- Color & Preview Mockup -->
+<div class="space-y-3 pt-1">
+<label class="block text-label-md font-label-md text-on-surface">Color Corporativo en Terminales</label>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 border border-outline-variant/70 rounded-lg px-3 py-1.5 bg-surface">
+<div class="w-5 h-5 rounded-full bg-primary-container border border-white shadow-sm"></div>
+<span class="text-body-md font-body-md font-mono text-on-surface">#0F4C5C</span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="w-7 h-7 rounded-full bg-[#0F4C5C] ring-2 ring-offset-2 ring-primary"></button>
+<button class="w-7 h-7 rounded-full bg-[#006874] hover:scale-105 transition-transform"></button>
+<button class="w-7 h-7 rounded-full bg-[#1B5E20] hover:scale-105 transition-transform"></button>
+<button class="w-7 h-7 rounded-full bg-[#1A237E] hover:scale-105 transition-transform"></button>
+<button class="w-7 h-7 rounded-full bg-[#37474F] hover:scale-105 transition-transform"></button>
+</div>
+</div>
+</div>
+<!-- Kiosk Custom Welcome Message -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1">Mensaje de Bienvenida en Pantalla de Kiosco</label>
+<input class="w-full rounded-lg border border-outline-variant/80 bg-surface px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary text-on-surface" type="text" value="¡Bienvenido a tu jornada en La Espiga! Por favor verifica tu asistencia."/>
+<span class="text-body-sm font-body-sm text-outline mt-1 block">Aparece en la pantalla de descanso antes de leer la huella o rostro del trabajador.</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- ========================================================================= -->
+<!-- 5. FIXED BOTTOM ACTION BAR / SYNC FOOTER                                  -->
+<!-- ========================================================================= -->
+<footer class="fixed bottom-0 right-0 left-64 h-16 bg-surface-container-lowest border-t border-outline-variant/30 px-8 flex items-center justify-between z-30 shadow-md">
+<!-- Sync & Scope Indicator -->
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface font-semibold">Política de Aplicación Global</span>
+<span class="text-body-sm font-body-sm text-outline">Los cambios en esta pantalla se propagarán automáticamente a 4 sucursales y 22 kioscos vinculados.</span>
+</div>
+</div>
+<!-- Action Buttons Group -->
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors active:scale-[0.98]" type="button">
+        Restablecer a valores sugeridos STPS
+      </button>
+<button class="flex items-center gap-2 px-5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:opacity-90 shadow-sm transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+<span>Guardar y Aplicar Cambios</span>
+</button>
+</div>
+</footer>
+<!-- Micro-interactions JS -->
+<script>
+    // Tab switching interactivity simulation
+    document.querySelectorAll('.border-b.border-outline-variant\\/30 button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.border-b.border-outline-variant\\/30 button').forEach(btn => {
+          btn.classList.remove('border-primary', 'text-primary', 'font-bold');
+          btn.classList.add('border-transparent', 'text-outline');
+        });
+        this.classList.remove('border-transparent', 'text-outline');
+        this.classList.add('border-primary', 'text-primary', 'font-bold');
+      });
+    });
+  </script>
+</body></html>

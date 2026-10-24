@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background text-on-surface" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Asistencia en Vivo y Geolocalización | Checador PyME</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#d8e3fb",
+            "outline-variant": "#c0c8cb",
+            "primary": "#003441",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#d8e3fb",
+            "secondary-fixed": "#baeafa",
+            "tertiary-container": "#653d00",
+            "inverse-primary": "#9acee1",
+            "error-container": "#ffdad6",
+            "surface-container": "#e7eeff",
+            "inverse-surface": "#263143",
+            "on-tertiary": "#ffffff",
+            "inverse-on-surface": "#ecf1ff",
+            "on-tertiary-container": "#f1a440",
+            "surface-container-lowest": "#ffffff",
+            "secondary": "#356572",
+            "tertiary-fixed-dim": "#ffb963",
+            "surface-container-low": "#f0f3ff",
+            "on-secondary-fixed": "#001f27",
+            "on-primary-container": "#87bbce",
+            "secondary-container": "#b7e7f7",
+            "on-secondary": "#ffffff",
+            "tertiary": "#462900",
+            "secondary-fixed-dim": "#9ecedd",
+            "tertiary-fixed": "#ffddb9",
+            "surface-tint": "#306576",
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#663e00",
+            "on-background": "#111c2d",
+            "primary-fixed-dim": "#9acee1",
+            "background": "#f9f9ff",
+            "surface-dim": "#cfdaf2",
+            "error": "#ba1a1a",
+            "surface-container-high": "#dee8ff",
+            "outline": "#70787c",
+            "on-surface": "#111c2d",
+            "on-secondary-container": "#3a6977",
+            "surface-bright": "#f9f9ff",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#40484b",
+            "surface": "#f9f9ff",
+            "primary-container": "#0f4c5c",
+            "on-primary-fixed": "#001f28",
+            "primary-fixed": "#b6ebfe",
+            "on-tertiary-fixed": "#2b1700",
+            "on-primary-fixed-variant": "#114d5d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-2xl": "3rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "0.75rem"
+          },
+          "fontFamily": {
+            "title-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "display-clock-mobile": ["Inter"],
+            "display-clock": ["Inter"],
+            "body-md": ["Inter"],
+            "label-md": ["Inter"],
+            "body-sm": ["Inter"]
+          },
+          "fontSize": {
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-clock-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-clock": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 0.2; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+    .animate-pulse-ring {
+      animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="h-full bg-background font-body-md text-on-surface antialiased overflow-x-hidden">
+<!-- SideNavBar Anchor (Shared Component Execution) -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col z-40 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="w-64 h-full p-4 flex flex-col justify-between overflow-y-auto">
+<div>
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-2 py-3 mb-4 border-b border-outline-variant/40">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary leading-tight">Checador PyME</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant leading-none mt-1">Control Operativo v2.4</span>
+</div>
+</div>
+<!-- Quick Primary Action -->
+<button class="w-full mb-4 px-3 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm hover:opacity-95 transition-opacity active:scale-[0.99]">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+<span>Pase de Lista</span>
+</button>
+<!-- Navigation Tabs: Exact JSON labels & icons, "En vivo" is ACTIVE -->
+<nav class="space-y-1">
+<!-- Tablero -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- En vivo (Active Tab) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container font-label-md text-label-md font-semibold transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">sensors</span>
+<span class="flex-1">En vivo</span>
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+</a>
+<!-- Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span>Empleados</span>
+</a>
+<!-- Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+<span>Hojas de horas</span>
+</a>
+<!-- Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">event_busy</span>
+<span>Incidencias</span>
+</a>
+<!-- Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">calendar_view_week</span>
+<span>Turnos</span>
+</a>
+<!-- Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">store</span>
+<span>Ubicaciones</span>
+</a>
+<!-- Reportes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span>Reportes</span>
+</a>
+<!-- Analítica -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">insights</span>
+<span>Analítica</span>
+</a>
+<!-- Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high dark:hover:bg-surface-container hover:text-on-surface dark:hover:text-inverse-on-surface active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span>Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer navigation -->
+<div class="pt-4 border-t border-outline-variant/40 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+<span>Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-error font-label-md text-label-md hover:bg-error-container/40 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Anchor (Shared Component Execution) -->
+<header class="sticky top-0 right-0 h-16 w-full z-30 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 h-16 w-full pl-72">
+<!-- Sucursal Selector & Sync Indicator -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant/60">
+<span class="material-symbols-outlined text-primary text-[20px]">storefront</span>
+<select class="bg-transparent border-0 text-title-md font-title-md font-semibold text-on-surface p-0 pr-8 focus:ring-0 cursor-pointer">
+<option>Todas las sucursales (4 activas)</option>
+<option>Sucursal Matriz Centro (CDMX)</option>
+<option>Sucursal Reforma</option>
+<option>Sucursal Insurgentes Sur</option>
+<option>Sucursal Polanco Express</option>
+</select>
+</div>
+<div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/40 text-primary border border-secondary-container">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+</span>
+<span class="text-label-md font-label-md text-on-secondary-container font-medium">En vivo · Sincronizado hace 3s</span>
+</div>
+</div>
+<!-- Trailing Action Cluster & User Profile -->
+<div class="flex items-center gap-3">
+<!-- Secondary Action: Sincronizado status pill / Actualizar -->
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all active:scale-95" title="Actualizar vista">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="hidden sm:inline">Actualizar</span>
+</button>
+<!-- Primary Action from JSON: Registrar Marcaje / Exportar -->
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar pase de lista</span>
+</button>
+<!-- Notification Icon with indicator -->
+<button aria-label="Notificaciones" class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+</button>
+<div class="h-6 w-px bg-outline-variant/60 mx-1"></div>
+<!-- Profile: Lic. Roberto Morales (Admin General · RH) -->
+<div class="flex items-center gap-3 pl-1">
+<div class="relative">
+<img alt="Foto de perfil del Administrador General" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/20" data-alt="Professional headshot of a Mexican human resources manager in his early forties with neatly styled hair and friendly expression, wearing a navy blue blazer over a light shirt, captured in clean corporate lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN8cUfU3mU81l3Oif35R5zU8K4rZjEEFCk866RipLOBFziV60miR9wMFMmUvvIOKAVlAI9oAaFnZDs79Vrrs4XLWI4VTU3WJhpgazvkbI268Z5KusNY6wsvvweAPYy9vhoD4LdVhHbjXchdqCDe3cjCytyu-HHDRCTI3OEQkkLrTw0arMlpyykDfmxwaQu5bPh0MoVN2te-YtXr8QWgV13nKQdQibaoxnWnRp_XXCkDDoQgf6tPxxoiE8KSEkfxUQpv8cHisOcAMKW"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#2E7D32] border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<div class="hidden lg:flex flex-col text-left">
+<span class="text-label-md font-label-md font-semibold text-on-surface leading-snug">Lic. Roberto Morales</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Admin General · RH</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Viewport Canvas (Desktop Offset: 256px / 64 for SideNavBar) -->
+<main class="ml-64 p-6 bg-background space-y-6">
+<!-- Section Header & Real-time KPIs -->
+<section class="space-y-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-headline-lg font-headline-lg font-bold text-on-surface tracking-tight">Asistencia en Vivo y Geolocalización</h1>
+<span class="px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-container text-on-secondary-container font-semibold">LFT MÉXICO</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">
+            Monitoreo en tiempo real de colaboradores por sucursal, geocerca activa y estados de turno al momento.
+          </p>
+</div>
+<!-- Real-time Status Badge -->
+<div class="flex items-center gap-2 self-start md:self-auto px-3.5 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant/60 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">fmd_good</span>
+<span class="text-label-md font-label-md font-semibold text-on-surface">3 Sucursales Activas en CDMX</span>
+</div>
+</div>
+<!-- KPI Bento Summary Bar -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+<!-- Presentes -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex items-center justify-between">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant font-medium">Presentes en turno</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-title-lg font-title-lg font-bold text-on-surface">84 <span class="text-body-sm font-body-sm font-normal text-on-surface-variant">/ 96</span></span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#2E7D32] bg-[#E8F5E9] px-2 py-0.5 rounded-full">
+                87.5%
+              </span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- En descanso -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex items-center justify-between">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant font-medium">En descanso / comida</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-title-lg font-title-lg font-bold text-[#B78103]">6</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">pausa legal</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-[#FFF8E1] text-[#B78103] flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">restaurant</span>
+</div>
+</div>
+<!-- Salieron -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex items-center justify-between">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant font-medium">Salieron</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-title-lg font-title-lg font-bold text-secondary">3</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">turno concluido</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">logout</span>
+</div>
+</div>
+<!-- Ausentes con atención -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex items-center justify-between">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant font-medium">No han llegado / Ausentes</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-title-lg font-title-lg font-bold text-[#C62828]">3</span>
+<span class="inline-flex items-center text-[10px] font-semibold text-[#C62828] bg-[#FFEBEE] px-1.5 py-0.5 rounded">
+                Atención
+              </span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-[#FFEBEE] text-[#C62828] flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">person_off</span>
+</div>
+</div>
+<!-- Alertas de geocerca -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-amber-200 shadow-sm flex items-center justify-between bg-amber-50/30">
+<div>
+<div class="text-label-sm font-label-sm text-tertiary-container font-medium">Alertas de geocerca</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-title-lg font-title-lg font-bold text-[#B78103]">1</span>
+<span class="text-[11px] font-semibold text-[#B78103] bg-[#FFF8E1] px-1.5 py-0.5 rounded border border-[#B78103]/20">Fuera de perímetro</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-[#FFF8E1] text-[#B78103] flex items-center justify-center animate-pulse">
+<span class="material-symbols-outlined text-[22px]">wrong_location</span>
+</div>
+</div>
+</div>
+<!-- Toolbar: Buscador y Filtros -->
+<div class="p-3 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-3 flex-1 min-w-[320px]">
+<!-- Input Buscador rápido -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-surface-container-low border border-outline-variant/50 text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Buscar por nombre, matrícula de empleado o puesto..." type="text"/>
+</div>
+<!-- Filtro Departamento -->
+<div class="relative">
+<select class="px-3.5 py-2 rounded-lg bg-surface-container-low border border-outline-variant/50 text-label-md font-label-md font-medium text-on-surface focus:outline-none focus:border-primary pr-9 cursor-pointer">
+<option>Todos los departamentos</option>
+<option>Producción / Hornos</option>
+<option>Ventas y Mostrador</option>
+<option>Calidad / Almacén</option>
+<option>Administrativo</option>
+</select>
+</div>
+<!-- Filtro Estado -->
+<div class="relative">
+<select class="px-3.5 py-2 rounded-lg bg-surface-container-low border border-outline-variant/50 text-label-md font-label-md font-medium text-on-surface focus:outline-none focus:border-primary pr-9 cursor-pointer">
+<option>Todos los estados</option>
+<option>Dentro (En sitio)</option>
+<option>En descanso</option>
+<option>Salió</option>
+<option>No ha llegado</option>
+</select>
+</div>
+</div>
+<!-- Switch / Toggle de Vistas -->
+<div class="flex items-center bg-surface-container-low p-1 rounded-lg border border-outline-variant/50">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface-container-lowest text-primary shadow-xs font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[18px]">view_column</span>
+<span>Vista Dividida</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">map</span>
+<span>Solo Mapa</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+<span>Solo Lista</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Split View Area (60% Map / 40% Live Staff Panel) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Column / Central Map Panel (60% -> 7 Cols in lg grid or 5/7 split) -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden flex flex-col h-[760px] relative">
+<!-- Map Header bar -->
+<div class="p-4 border-b border-outline-variant/40 flex items-center justify-between bg-surface-container-lowest z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">share_location</span>
+<span class="text-title-md font-title-md font-semibold text-on-surface">Mapa de Sucursales y Geocercas en Tiempo Real</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-label-sm font-label-sm bg-secondary-container/40 text-secondary font-semibold">Radio Geocerca: 50m LFT</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] cursor-pointer hover:text-primary">info</span>
+</div>
+</div>
+<!-- Stylized Map Canvas Container -->
+<div class="relative flex-1 bg-[#EEF2F6] overflow-hidden" data-location="Ciudad de Mexico" style="">
+<!-- Stylized map road/geometry representation -->
+<svg class="absolute inset-0 w-full h-full opacity-40 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="60" id="grid-map" patternunits="userSpaceOnUse" width="60">
+<path d="M 60 0 L 0 0 0 60" fill="none" stroke="#CBD5E1" stroke-width="1"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid-map)" height="100%" width="100%"></rect>
+<!-- Stylized CDMX thoroughfares -->
+<path d="M -50 180 C 150 200, 320 280, 520 260 S 800 320, 1000 300" fill="none" stroke="#CBD5E1" stroke-width="12"></path>
+<path d="M 280 -50 C 310 150, 360 400, 420 800" fill="none" stroke="#CBD5E1" stroke-width="10"></path>
+<path d="M -20 450 C 200 420, 500 500, 900 480" fill="none" stroke="#E2E8F0" stroke-width="8"></path>
+<path d="M 120 700 C 260 520, 500 350, 750 150" fill="none" stroke="#E2E8F0" stroke-width="8"></path>
+</svg>
+<!-- Pin 1: Sucursal Matriz Centro (Selected / Active Focus) -->
+<div class="absolute top-[32%] left-[45%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group z-20">
+<!-- 50m Geofence Perimeter visualization (Green Circle) -->
+<div class="absolute -inset-16 rounded-full bg-[#2E7D32]/10 border-2 border-dashed border-[#2E7D32]/60 animate-pulse-ring pointer-events-none"></div>
+<!-- Pin Anchor & Card -->
+<div class="relative flex flex-col items-center">
+<div class="px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-lg border border-[#2E7D32] flex items-center gap-2 whitespace-nowrap transform group-hover:scale-105 transition-transform">
+<span class="w-2.5 h-2.5 rounded-full bg-[#2E7D32] animate-ping"></span>
+<span class="text-label-md font-label-md font-bold text-on-surface">Sucursal Matriz Centro</span>
+<span class="text-label-sm font-label-sm font-semibold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.5 rounded">42/48 en sitio</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md -mt-1 ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+</div>
+</div>
+<!-- Pin 2: Sucursal Reforma -->
+<div class="absolute top-[22%] left-[28%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group z-10">
+<!-- Geocence ring -->
+<div class="absolute -inset-12 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/40 pointer-events-none"></div>
+<div class="relative flex flex-col items-center">
+<div class="px-2.5 py-1 rounded-lg bg-surface-container-lowest/95 shadow-md border border-outline-variant/60 flex items-center gap-2 whitespace-nowrap">
+<span class="text-label-sm font-label-sm font-bold text-on-surface">Reforma</span>
+<span class="text-label-sm font-label-sm text-[#2E7D32] font-semibold">24/26</span>
+</div>
+<div class="w-7 h-7 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow -mt-1 ring-2 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+</div>
+</div>
+</div>
+<!-- Pin 3: Sucursal Insurgentes Sur (With Geofence Alert) -->
+<div class="absolute top-[68%] left-[58%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group z-20">
+<!-- Alert perimeter -->
+<div class="absolute -inset-14 rounded-full bg-amber-500/10 border-2 border-dashed border-[#F2A541] animate-pulse pointer-events-none"></div>
+<div class="relative flex flex-col items-center">
+<div class="px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-lg border border-[#F2A541] flex items-center gap-2 whitespace-nowrap">
+<span class="w-2.5 h-2.5 rounded-full bg-[#B78103] animate-bounce"></span>
+<span class="text-label-md font-label-md font-bold text-on-surface">Insurgentes Sur</span>
+<span class="text-label-sm font-label-sm text-[#B78103] bg-[#FFF8E1] px-1.5 py-0.5 rounded font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">warning</span> 1 fuera de geocerca
+                </span>
+</div>
+<div class="w-8 h-8 rounded-full bg-[#B78103] text-white flex items-center justify-center shadow -mt-1 ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+</div>
+</div>
+<!-- Floating Map Controls (Zoom, Layers, Recenter) -->
+<div class="absolute top-4 right-4 flex flex-col gap-2 z-20">
+<div class="bg-surface-container-lowest rounded-lg shadow-md border border-outline-variant/60 overflow-hidden flex flex-col">
+<button class="p-2 hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Acercar">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+<div class="h-px bg-outline-variant/40"></div>
+<button class="p-2 hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Alejar">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+</div>
+<button class="p-2 bg-surface-container-lowest rounded-lg shadow-md border border-outline-variant/60 text-on-surface-variant hover:text-on-surface transition-colors" title="Recentrar mapa">
+<span class="material-symbols-outlined text-[20px]">my_location</span>
+</button>
+<button class="p-2 bg-surface-container-lowest rounded-lg shadow-md border border-outline-variant/60 text-on-surface-variant hover:text-on-surface transition-colors" title="Cambiar capas">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+</button>
+</div>
+<!-- Floating Detail Card for Selected Sucursal (Matriz Centro) -->
+<div class="absolute bottom-4 left-4 right-4 md:right-auto md:w-96 bg-surface-container-lowest/95 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-outline-variant/70 z-20">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-secondary font-bold">Sucursal Seleccionada</span>
+<h2 class="text-title-md font-title-md font-bold text-on-surface">Sucursal Matriz Centro</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Eje Central Lázaro Cárdenas #140, Cuauhtémoc, CDMX</p>
+</div>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-[#E8F5E9] text-[#2E7D32] font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span> 50m OK
+              </span>
+</div>
+<div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-outline-variant/40 text-center">
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Activos</div>
+<div class="text-title-md font-title-md font-bold text-on-surface">42</div>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Puntualidad</div>
+<div class="text-title-md font-title-md font-bold text-[#2E7D32]">95.2%</div>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Kiosco Facial</div>
+<div class="text-title-md font-title-md font-bold text-primary">En línea</div>
+</div>
+</div>
+<div class="mt-3 flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-primary">history</span>
+<span>Último marcaje: <strong>hace 45 seg</strong> por Sofía Méndez Gómez</span>
+</div>
+</div>
+<!-- Map Legend Bar (Bottom Right) -->
+<div class="hidden sm:flex absolute bottom-4 right-4 bg-surface-container-lowest/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-outline-variant/60 shadow-sm items-center gap-4 text-label-sm font-label-sm z-20">
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-[#2E7D32]"></span> En sitio
+            </span>
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-[#F2A541]"></span> En descanso
+            </span>
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-[#C62828]"></span> Ausente / Retardo
+            </span>
+</div>
+</div>
+</div>
+<!-- Right Column: Panel Lateral de Colaboradores en Vivo (40% -> 5 cols in lg grid) -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm flex flex-col h-[760px] overflow-hidden">
+<!-- Panel Header -->
+<div class="p-4 border-b border-outline-variant/40 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">group</span>
+<div>
+<h2 class="text-title-md font-title-md font-semibold text-on-surface leading-tight">Colaboradores en Vivo</h2>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Total: 84 presentes en 3 sucursales</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm font-semibold text-secondary px-2.5 py-1 bg-secondary-container/40 rounded-full">
+            Tiempo Real
+          </span>
+</div>
+<!-- Branch Selection Tabs (Acordeón horizontal / Tabs) -->
+<div class="flex border-b border-outline-variant/40 bg-surface-container-low px-2 pt-2 gap-1 overflow-x-auto">
+<button class="px-3 py-2 rounded-t-lg bg-surface-container-lowest border-t border-x border-outline-variant/40 text-primary font-label-md text-label-md font-bold flex items-center gap-2 shrink-0">
+<span>Matriz Centro</span>
+<span class="px-1.5 py-0.2 rounded-full text-[11px] bg-[#E8F5E9] text-[#2E7D32]">42</span>
+</button>
+<button class="px-3 py-2 text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-2 shrink-0 transition-colors">
+<span>Reforma</span>
+<span class="px-1.5 py-0.2 rounded-full text-[11px] bg-surface-container text-on-surface-variant">24</span>
+</button>
+<button class="px-3 py-2 text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-2 shrink-0 transition-colors">
+<span>Insurgentes Sur</span>
+<span class="px-1.5 py-0.2 rounded-full text-[11px] bg-[#FFF8E1] text-[#B78103]">18</span>
+</button>
+</div>
+<!-- Colaboradores List Container (Scrollable, min 48px touch surfaces) -->
+<div class="flex-1 overflow-y-auto divide-y divide-outline-variant/30 p-2 space-y-1">
+<!-- Card 1: Sofía Méndez (Dentro - A tiempo) -->
+<div class="p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0 mt-0.5">
+<img alt="Sofía Méndez Gómez" class="w-10 h-10 rounded-full object-cover ring-2 ring-[#2E7D32]/40" data-alt="Warm studio portrait of a young Hispanic female bakery shop assistant smiling warmly with hair tied in a clean apron, soft workplace lighting, realistic corporate headshot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvC9RtYWJ90ldZkjjSdALcDoYksQ683HMX8hCNh9WxUjyronx24qb9qRankjYLIsmC9crRtZp3YTaZMQ8oDcfYBIuYQYe_zV9ehplIYLSTsyXdovIXUh578PTD0aloKo2Shsg_c-bMoLwtzwo-M-zjQbwpE2IPQQS4NN5YkaEWjImSClE8mqtzjm6Wv-ZWBd1lFT6Z_0oI_uzr6KiidqBP8FLtBLaY4GCfHbBf4_pY5a42MBVbYR-_Je1DLVBUN1aN6uTsp5uB5w-A"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#2E7D32] border-2 border-surface-container-lowest"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Sofía Méndez Gómez</span>
+<span class="text-label-sm font-label-sm font-semibold text-[#2E7D32] bg-[#E8F5E9] px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse"></span> Dentro
+                    </span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                    Cajera y Mostrador · Ventas
+                  </div>
+<div class="flex flex-wrap items-center gap-2 mt-2">
+<span class="text-[11px] font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">login</span> Entró 06:45 hrs
+                    </span>
+<span class="text-[11px] font-semibold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.2 rounded">A tiempo</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px] text-secondary">face</span> Kiosco Facial
+                    </span>
+</div>
+</div>
+</div>
+<!-- Quick action -->
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Opciones">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Carlos Eduardo Hernández (En descanso / Comida) -->
+<div class="p-3 rounded-lg hover:bg-surface-container-low transition-colors group bg-amber-50/20">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0 mt-0.5">
+<img alt="Carlos Eduardo Hernández Morales" class="w-10 h-10 rounded-full object-cover ring-2 ring-[#F2A541]/50" data-alt="Front portrait of an experienced Mexican master baker in his late forties wearing a clean white baker uniform and apron in an artisan bakery setting with natural morning lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtLAqoADJf3IHw9LTQg4RTgzVWxGqln06KTQznEREzCkloptnmMvAQSqWalE-Z5Hluc8HvghSuiuQFOPl9gMi3Qg7bjM7TeyXRwIb5UiOw6AKEQDwBWnCyOZR2cU3WAaW1YbbaL2HL2_5xh862hvuLnOwBW7-aTK1pN-1yi2sutuKrR1aqNVAJD9o1JyezkHBzVmsPWiCYFqarqnwbTjvgiZf3Pd5xsWFxvda72ezP4uZ39gZMwfUOSYyRs12EuoIDEsJmyKmIiNn5"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#F2A541] border-2 border-surface-container-lowest"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Carlos Eduardo Hernández</span>
+<span class="text-label-sm font-label-sm font-semibold text-[#B78103] bg-[#FFF8E1] px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">restaurant</span> En descanso
+                    </span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                    Panadero Maestro · Producción / Hornos
+                  </div>
+<div class="flex flex-wrap items-center gap-2 mt-2">
+<span class="text-[11px] font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span> Pausa desde 13:10 hrs (22 min)
+                    </span>
+<span class="text-[11px] font-semibold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.2 rounded">Entrada 05:58 hrs</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px] text-secondary">smartphone</span> App Móvil (Geocerca OK)
+                    </span>
+</div>
+</div>
+</div>
+<!-- Quick Action WhatsApp / Phone -->
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Contactar">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Miguel Ángel Reyes (Tolerancia / Alerta de turno) -->
+<div class="p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0 mt-0.5">
+<img alt="Miguel Ángel Reyes" class="w-10 h-10 rounded-full object-cover ring-2 ring-[#2E7D32]/40" data-alt="Portrait of a young male logistics assistant of Mexican descent wearing a high-visibility polo shirt and clean cap, neutral indoor warehouse background with diffused soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_NqGlll6dX1nB2l4R_6rAYViaBpZuOBS7PvN54raQexQdDp2ZXjiCSysDz6VGwmw2kGWfzcxEfU0O5rmL99xHBuUBP-r4AQlVERS2BwmsNMnY8FQmzoka3ZVEAPFDlJR_claW5QED60uw7N8JXDfUWFgWF5porRXx53L-b98WbhZf7zyoS69I-27ovqwq3hZAjy9famIvce5KqjWAA_DEoBX9VKJyomVrA79SFYFmB2fAr49BpTpVU-HFe1yANYi9zeqoQfZCV_zb"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#2E7D32] border-2 border-surface-container-lowest"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Miguel Ángel Reyes Tovar</span>
+<span class="text-label-sm font-label-sm font-semibold text-[#2E7D32] bg-[#E8F5E9] px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D32]"></span> Dentro
+                    </span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                    Auxiliar de Despacho · Calidad / Almacén
+                  </div>
+<div class="flex flex-wrap items-center gap-2 mt-2">
+<span class="text-[11px] font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">login</span> Entró 07:11 hrs
+                    </span>
+<span class="text-[11px] font-semibold text-[#B78103] bg-[#FFF8E1] px-1.5 py-0.2 rounded border border-[#B78103]/20">Tolerancia +11m</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px] text-secondary">face</span> Kiosco Facial
+                    </span>
+</div>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Opciones">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Raúl Montes (No ha llegado / Ausente) -->
+<div class="p-3 rounded-lg hover:bg-surface-container-low transition-colors group bg-red-50/20">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0 mt-0.5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold text-title-md">
+                    RM
+                  </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#C62828] border-2 border-surface-container-lowest"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Raúl Montes Cárdenas</span>
+<span class="text-label-sm font-label-sm font-semibold text-[#C62828] bg-[#FFEBEE] px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">close</span> No ha llegado
+                    </span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                    Operador de Empaque · Producción
+                  </div>
+<div class="flex flex-wrap items-center gap-2 mt-2">
+<span class="text-[11px] font-medium text-[#C62828] flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">warning</span> Turno programado: 07:00 hrs (-55 min)
+                    </span>
+<span class="text-[11px] text-on-surface-variant bg-surface-container px-1.5 py-0.2 rounded">Marcaje Pendiente</span>
+</div>
+</div>
+</div>
+<!-- Urgent Action -->
+<button class="px-2.5 py-1 rounded bg-[#FFEBEE] text-[#C62828] hover:bg-red-200 transition-colors font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">phone</span> Llamar
+              </button>
+</div>
+</div>
+<!-- Card 5: Carmen Salinas (Salió / Fin de Jornada) -->
+<div class="p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0 mt-0.5">
+<img alt="Carmen Salinas Vega" class="w-10 h-10 rounded-full object-cover ring-2 ring-outline-variant" data-alt="Professional headshot of a friendly Mexican middle-aged administrative assistant with glasses smiling warmly against a soft office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb3tatFF3bt2TVFR0Z3cO2a60obObk9Yuo0lP2mJtELWjlBI1cVS1mB06c2jVHUpYSZzBhspIbUXY11ULfS-dvFx0U6HqunyHKifeVKTlXOwiQah_a9MKSt3qBPYAgpv3E5PJDZswag6W_AYq0Yo-qZidrma_fibEaEJZFybdHyXN5Z8_9lc8297AJ70xYuKfpbQmTYXfshNg22R_zZFGAukArK3kccxigr8HKVbk17Qpo6doGKiCLs2L9VMEaTe9HdHjm9N26YROK"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-outline border-2 border-surface-container-lowest"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-title-md font-semibold text-on-surface">Carmen Salinas Vega</span>
+<span class="text-label-sm font-label-sm font-semibold text-secondary bg-surface-container px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">logout</span> Salió
+                    </span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">
+                    Contabilidad y Nómina · Administrativo
+                  </div>
+<div class="flex flex-wrap items-center gap-2 mt-2">
+<span class="text-[11px] font-medium text-on-surface-variant flex items-center gap-1">
+                      Salida registrada: 13:30 hrs
+                    </span>
+<span class="text-[11px] font-semibold text-secondary bg-surface-container-low px-1.5 py-0.2 rounded">Jornada 7.5 hrs OK</span>
+<span class="text-[11px] text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px] text-secondary">face</span> Kiosco Facial
+                    </span>
+</div>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Opciones">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Panel Actions -->
+<div class="p-3 border-t border-outline-variant/40 bg-surface-container-lowest flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Mostrando 5 de 42 colaboradores en sucursal</span>
+<button class="text-label-sm font-label-sm font-bold text-primary hover:underline flex items-center gap-1">
+<span>Ver los 42 de Centro</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Status Bar (Regulatory Compliance & WebSocket Real-time Feed) -->
+<footer class="p-3.5 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2E7D32] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#2E7D32]"></span>
+</span>
+<span class="font-medium text-on-surface">Canal seguro WebSocket en línea (wss://stream.checador.mx/live-v2)</span>
+</div>
+<span class="hidden md:inline text-outline-variant">•</span>
+<span class="hidden md:inline">Frecuencia de muestreo GPS: Cada 5 segundos</span>
+</div>
+<div class="flex items-center gap-4 text-label-sm font-label-sm">
+<span class="flex items-center gap-1 text-[#2E7D32] font-semibold bg-[#E8F5E9] px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+          Art. 132 Fracc. I y VIII LFT (México)
+        </span>
+<span class="text-on-surface-variant">NOM-035-STPS Validada</span>
+</div>
+</footer>
+</main>
+</body></html>

@@ -110,6 +110,11 @@ async function main() {
       continue;
     }
 
+    if (!manifest.designSystem) {
+      // La generación puede no devolver respuesta (corte del proxy); el sistema de diseño se lee del proyecto.
+      const ds = JSON.stringify(await call('list_design_systems', { projectId: manifest.projectId })).match(/assets\/\d+/);
+      if (ds) manifest.designSystem = ds[0];
+    }
     const detail = await call('get_screen', { name: created.name });
     const htmlName = detail.html_code?.name ?? detail.htmlCode?.name;
     const shotName = detail.screenshot?.name;

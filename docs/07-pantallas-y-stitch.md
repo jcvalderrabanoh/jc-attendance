@@ -5,6 +5,14 @@ listo para Google Stitch** (stitch.withgoogle.com). Flujo acordado: al
 construir cada pantalla se genera su propuesta en Stitch con este prompt, se
 revisa, se exporta (HTML/Figma) y se enlaza aquí en la columna «Stitch».
 
+> **Propuestas generadas (2026-10-21):** proyecto de Stitch
+> [Checador — Registro de entradas y salidas](https://stitch.withgoogle.com/projects/17859620597435208577)
+> con 29 pantallas (A1–A8, B1–B2, C1–C18, D1). Cada fila enlaza la captura
+> (PNG) y el HTML exportado en `docs/stitch/`. Se regeneran con
+> `node scripts/stitch/generate-screens.mjs [IDs]` (requiere `STITCH_API_KEY`).
+> Stitch no genera Angular: el código final se reescribe en Angular Material
+> (consola en core-front, empleado/kiosco en `apps/pwa`).
+
 **Prefijo común para todos los prompts (pegar antes de cada uno):**
 
 > Diseña una pantalla para "Checador", un SaaS de control de asistencia para
@@ -17,14 +25,14 @@ revisa, se exporta (HTML/Figma) y se enlaza aquí en la columna «Stitch».
 
 | # | Ruta | Pantalla | Propósito | Stitch |
 |---|---|---|---|---|
-| A1 | `/unirse/:token` | Alta por liga | Registro del empleado desde la invitación | — |
-| A2 | `/entrar` | Acceso por OTP | Teléfono/email → código WhatsApp/SMS | — |
-| A3 | `/cuentas` | Selector de patrón | Empleado que trabaja para varias cuentas | — |
-| A4 | `/` | Checar | Botón único de entrada/salida, estado y ubicación | — |
-| A5 | `/checar/confirmar` | Verificación | Selfie / QR / geocerca antes de confirmar | — |
-| A6 | `/historial` | Mis registros | Marcajes y horas por día/semana | — |
-| A7 | `/solicitudes` | Solicitudes | Permisos, vacaciones, corrección de marcaje | — |
-| A8 | `/perfil` | Mi perfil | Datos, campos personalizados editables, consentimientos | — |
+| A1 | `/unirse/:token` | Alta por liga | Registro del empleado desde la invitación | [PNG](stitch/A1.png) · [HTML](stitch/A1.html) |
+| A2 | `/entrar` | Acceso por OTP | Teléfono/email → código WhatsApp/SMS | [PNG](stitch/A2.png) · [HTML](stitch/A2.html) |
+| A3 | `/cuentas` | Selector de patrón | Empleado que trabaja para varias cuentas | [PNG](stitch/A3.png) · [HTML](stitch/A3.html) |
+| A4 | `/` | Checar | Botón único de entrada/salida, estado y ubicación | [PNG](stitch/A4.png) · [HTML](stitch/A4.html) |
+| A5 | `/checar/confirmar` | Verificación | Selfie / QR / geocerca antes de confirmar | [PNG](stitch/A5.png) · [HTML](stitch/A5.html) |
+| A6 | `/historial` | Mis registros | Marcajes y horas por día/semana | [PNG](stitch/A6.png) · [HTML](stitch/A6.html) |
+| A7 | `/solicitudes` | Solicitudes | Permisos, vacaciones, corrección de marcaje | [PNG](stitch/A7.png) · [HTML](stitch/A7.html) |
+| A8 | `/perfil` | Mi perfil | Datos, campos personalizados editables, consentimientos | [PNG](stitch/A8.png) · [HTML](stitch/A8.html) |
 
 **Prompts:**
 - **A1** — Pantalla móvil de registro por invitación. Encabezado con logo y nombre de la empresa que invita ("Te invitó Panadería La Espiga"). Formulario por pasos (stepper de 3): 1) nombre, apellidos, teléfono WhatsApp, email opcional; 2) datos laborales: CURP, RFC, NSS y campos personalizados de la empresa (un select "Talla de uniforme", un campo fecha); 3) aviso de privacidad con casillas separadas para consentir geolocalización y biometría, y subir foto de INE. Botón "Enviar para validación". Mensaje final: "Tu alta está en revisión".
@@ -40,8 +48,8 @@ revisa, se exporta (HTML/Figma) y se enlaza aquí en la columna «Stitch».
 
 | # | Ruta | Pantalla | Propósito | Stitch |
 |---|---|---|---|---|
-| B1 | `/kiosco` | Kiosco | QR rotativo + checado por rostro/PIN | — |
-| B2 | `/kiosco/activar` | Activar kiosco | Vincular tablet a sucursal con código | — |
+| B1 | `/kiosco` | Kiosco | QR rotativo + checado por rostro/PIN | [PNG](stitch/B1.png) · [HTML](stitch/B1.html) |
+| B2 | `/kiosco/activar` | Activar kiosco | Vincular tablet a sucursal con código | [PNG](stitch/B2.png) · [HTML](stitch/B2.html) |
 
 - **B1** — Pantalla horizontal de tablet: a la izquierda QR grande que se renueva cada 30 s con barra de tiempo; a la derecha cámara para reconocimiento facial y teclado numérico para PIN. Arriba nombre de la sucursal y reloj. Al checar, tarjeta de confirmación con foto, nombre y "Entrada registrada 08:57 · A tiempo".
 - **B2** — Activación: campo de código de 8 caracteres generado desde la consola, selección de sucursal, botón "Activar este dispositivo".
@@ -50,24 +58,24 @@ revisa, se exporta (HTML/Figma) y se enlaza aquí en la columna «Stitch».
 
 | # | Ruta | Pantalla | Propósito | Stitch |
 |---|---|---|---|---|
-| C1 | `/tablero` | Tablero | KPIs de hoy y tendencias | — |
-| C2 | `/en-vivo` | Asistencia en vivo | Quién está dentro, por sucursal, en mapa | — |
-| C3 | `/empleados` | Empleados | Lista, filtros, alta, importación | — |
-| C4 | `/empleados/:id` | Ficha de empleado | Datos, turno, historial, horas, incidencias | — |
-| C5 | `/invitaciones` | Ligas de alta | Crear y administrar ligas/QR de registro | — |
-| C6 | `/validaciones` | Validación de altas | Cola de solicitudes con resultado de reglas | — |
-| C7 | `/marcajes` | Marcajes | Registro, revisión de banderas, corrección | — |
-| C8 | `/hojas-de-horas` | Hojas de horas | Jornadas por periodo, aprobación y cierre | — |
-| C9 | `/incidencias` | Incidencias y solicitudes | Retardos, faltas, permisos, aprobaciones | — |
-| C10 | `/turnos` | Turnos | Calendario de turnos y asignación | — |
-| C11 | `/ubicaciones` | Ubicaciones | Sucursales, geocercas en mapa, kioscos | — |
-| C12 | `/reportes` | Reportes | Generar PDF/Excel y descargar | — |
-| C13 | `/analitica` | Analítica | Gráficos configurables (incluye campos personalizados) | — |
-| C14 | `/configuracion/politicas` | Políticas | Tolerancias, redondeo, horas extra | — |
-| C15 | `/configuracion/campos` | Campos personalizados | Definir campos | — |
-| C16 | `/configuracion/reglas-alta` | Reglas de validación | Reglas de alta por liga | — |
-| C17 | `/configuracion/general` | General | Periodos de pago, días festivos, privacidad, marca | — |
-| C18 | `/auditoria` | Bitácora | Quién cambió qué | — |
+| C1 | `/tablero` | Tablero | KPIs de hoy y tendencias | [PNG](stitch/C1.png) · [HTML](stitch/C1.html) |
+| C2 | `/en-vivo` | Asistencia en vivo | Quién está dentro, por sucursal, en mapa | [PNG](stitch/C2.png) · [HTML](stitch/C2.html) |
+| C3 | `/empleados` | Empleados | Lista, filtros, alta, importación | [PNG](stitch/C3.png) · [HTML](stitch/C3.html) |
+| C4 | `/empleados/:id` | Ficha de empleado | Datos, turno, historial, horas, incidencias | [PNG](stitch/C4.png) · [HTML](stitch/C4.html) |
+| C5 | `/invitaciones` | Ligas de alta | Crear y administrar ligas/QR de registro | [PNG](stitch/C5.png) · [HTML](stitch/C5.html) |
+| C6 | `/validaciones` | Validación de altas | Cola de solicitudes con resultado de reglas | [PNG](stitch/C6.png) · [HTML](stitch/C6.html) |
+| C7 | `/marcajes` | Marcajes | Registro, revisión de banderas, corrección | [PNG](stitch/C7.png) · [HTML](stitch/C7.html) |
+| C8 | `/hojas-de-horas` | Hojas de horas | Jornadas por periodo, aprobación y cierre | [PNG](stitch/C8.png) · [HTML](stitch/C8.html) |
+| C9 | `/incidencias` | Incidencias y solicitudes | Retardos, faltas, permisos, aprobaciones | [PNG](stitch/C9.png) · [HTML](stitch/C9.html) |
+| C10 | `/turnos` | Turnos | Calendario de turnos y asignación | [PNG](stitch/C10.png) · [HTML](stitch/C10.html) |
+| C11 | `/ubicaciones` | Ubicaciones | Sucursales, geocercas en mapa, kioscos | [PNG](stitch/C11.png) · [HTML](stitch/C11.html) |
+| C12 | `/reportes` | Reportes | Generar PDF/Excel y descargar | [PNG](stitch/C12.png) · [HTML](stitch/C12.html) |
+| C13 | `/analitica` | Analítica | Gráficos configurables (incluye campos personalizados) | [PNG](stitch/C13.png) · [HTML](stitch/C13.html) |
+| C14 | `/configuracion/politicas` | Políticas | Tolerancias, redondeo, horas extra | [PNG](stitch/C14.png) · [HTML](stitch/C14.html) |
+| C15 | `/configuracion/campos` | Campos personalizados | Definir campos | [PNG](stitch/C15.png) · [HTML](stitch/C15.html) |
+| C16 | `/configuracion/reglas-alta` | Reglas de validación | Reglas de alta por liga | [PNG](stitch/C16.png) · [HTML](stitch/C16.html) |
+| C17 | `/configuracion/general` | General | Periodos de pago, días festivos, privacidad, marca | [PNG](stitch/C17.png) · [HTML](stitch/C17.html) |
+| C18 | `/auditoria` | Bitácora | Quién cambió qué | [PNG](stitch/C18.png) · [HTML](stitch/C18.html) |
 
 - **C1** — Dashboard web desktop con barra lateral (Tablero, En vivo, Empleados, Marcajes, Hojas de horas, Incidencias, Turnos, Ubicaciones, Reportes, Analítica, Configuración) y selector de cuenta arriba. Fila de 6 tarjetas KPI: Presentes ahora (84/96), Puntualidad hoy 91 %, Ausentismo del mes 3.2 %, Horas extra semana 126 h, Marcajes por revisar 7, Altas pendientes 3. Debajo: gráfico de líneas de asistencia 30 días, mapa de calor de entradas por hora y día, barras de horas extra por sucursal, tabla "Retardos de hoy".
 - **C2** — Vista en vivo: mapa con pines por sucursal y contador, lista lateral agrupada por sucursal con avatar, hora de entrada y estado (Dentro, En descanso, Salió, No ha llegado). Filtros por departamento.

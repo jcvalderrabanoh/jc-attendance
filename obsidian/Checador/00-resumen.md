@@ -1,7 +1,7 @@
 ---
 proyecto: Checador
 fuente: jc-attendance/docs/00-resumen.md
-sincronizado: 2026-10-20
+sincronizado: 2026-10-21
 tags: [checador, asistencia]
 ---
 
@@ -53,3 +53,4 @@ Las referencias globales más cercanas son Connecteam (liga con aprobación) y J
 4. Antifraude por puntaje de riesgo: lo dudoso va a revisión, no se bloquea.
 5. El motor de reglas de la LFT se versiona por fecha de vigencia.
 6. Primero una PWA offline-first; las apps nativas llegan en la fase 4.
+7. **Acceso integral:** el mismo usuario de jc-core entra a lumen-view, anestesia y asistencia. Las pantallas del patrón viven en core-front; la del empleado y el kiosco son una PWA aparte.

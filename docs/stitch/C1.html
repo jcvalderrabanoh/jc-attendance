@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es-MX"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checador PyME · Tablero de Control de Asistencia</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#1a4d5a",
+            "on-error-container": "#93000a",
+            "outline-variant": "#c0c8cb",
+            "surface": "#f9f9ff",
+            "surface-container-lowest": "#ffffff",
+            "inverse-primary": "#9acee1",
+            "on-background": "#111c2d",
+            "surface-variant": "#d8e3fb",
+            "primary-container": "#0f4c5c",
+            "inverse-surface": "#263143",
+            "secondary-container": "#b7e7f7",
+            "tertiary-fixed-dim": "#ffb963",
+            "on-tertiary-container": "#f1a440",
+            "secondary": "#356572",
+            "background": "#f9f9ff",
+            "surface-dim": "#cfdaf2",
+            "on-secondary-fixed": "#001f27",
+            "on-surface": "#111c2d",
+            "surface-container-highest": "#d8e3fb",
+            "on-surface-variant": "#40484b",
+            "on-tertiary": "#ffffff",
+            "surface-container-low": "#f0f3ff",
+            "surface-container-high": "#dee8ff",
+            "on-tertiary-fixed": "#2b1700",
+            "secondary-fixed-dim": "#9ecedd",
+            "primary-fixed-dim": "#9acee1",
+            "secondary-fixed": "#baeafa",
+            "primary-fixed": "#b6ebfe",
+            "primary": "#003441",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#114d5d",
+            "surface-bright": "#f9f9ff",
+            "on-primary-fixed": "#001f28",
+            "tertiary": "#462900",
+            "on-tertiary-fixed-variant": "#663e00",
+            "outline": "#70787c",
+            "on-primary": "#ffffff",
+            "tertiary-fixed": "#ffddb9",
+            "on-primary-container": "#87bbce",
+            "on-error": "#ffffff",
+            "inverse-on-surface": "#ecf1ff",
+            "on-secondary-container": "#3a6977",
+            "tertiary-container": "#653d00",
+            "error-container": "#ffdad6",
+            "surface-container": "#e7eeff",
+            "surface-tint": "#306576",
+            "on-secondary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "space-xs": "0.25rem",
+            "gutter": "1rem",
+            "space-sm": "0.5rem",
+            "space-2xl": "3rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "0.75rem"
+          },
+          "fontFamily": {
+            "label-lg": [
+              "Inter"
+            ],
+            "display-clock-mobile": [
+              "Inter"
+            ],
+            "headline-lg": [
+              "Inter"
+            ],
+            "display-clock": [
+              "Inter"
+            ],
+            "headline-lg-mobile": [
+              "Inter"
+            ],
+            "body-md": [
+              "Inter"
+            ],
+            "label-sm": [
+              "Inter"
+            ],
+            "title-md": [
+              "Inter"
+            ],
+            "label-md": [
+              "Inter"
+            ],
+            "headline-md": [
+              "Inter"
+            ],
+            "title-lg": [
+              "Inter"
+            ],
+            "body-lg": [
+              "Inter"
+            ],
+            "body-sm": [
+              "Inter"
+            ]
+          },
+          "fontSize": {
+            "label-lg": [
+              "14px",
+              {
+                "lineHeight": "20px",
+                "letterSpacing": "0.01em",
+                "fontWeight": "600"
+              }
+            ],
+            "display-clock-mobile": [
+              "40px",
+              {
+                "lineHeight": "48px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "700"
+              }
+            ],
+            "headline-lg": [
+              "32px",
+              {
+                "lineHeight": "40px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "600"
+              }
+            ],
+            "display-clock": [
+              "56px",
+              {
+                "lineHeight": "64px",
+                "letterSpacing": "-0.03em",
+                "fontWeight": "700"
+              }
+            ],
+            "headline-lg-mobile": [
+              "26px",
+              {
+                "lineHeight": "34px",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-md": [
+              "14px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "400"
+              }
+            ],
+            "label-sm": [
+              "11px",
+              {
+                "lineHeight": "14px",
+                "letterSpacing": "0.04em",
+                "fontWeight": "500"
+              }
+            ],
+            "title-md": [
+              "16px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "600"
+              }
+            ],
+            "label-md": [
+              "12px",
+              {
+                "lineHeight": "16px",
+                "letterSpacing": "0.02em",
+                "fontWeight": "600"
+              }
+            ],
+            "headline-md": [
+              "22px",
+              {
+                "lineHeight": "28px",
+                "fontWeight": "600"
+              }
+            ],
+            "title-lg": [
+              "18px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "600"
+              }
+            ],
+            "body-lg": [
+              "16px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "400"
+              }
+            ],
+            "body-sm": [
+              "12px",
+              {
+                "lineHeight": "16px",
+                "fontWeight": "400"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #c0c8cb;
+      border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen flex selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- 1. SIDE NAVIGATION BAR (SHARED COMPONENT ANCHOR) -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col z-40 bg-surface-container-lowest border-r border-outline-variant shadow-sm">
+<div class="w-64 h-full p-4 flex flex-col justify-between overflow-y-auto custom-scroll">
+<!-- Header Brand -->
+<div class="space-y-4">
+<div class="flex items-center gap-3 px-2 py-1">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm ring-2 ring-primary/10">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg font-bold text-primary tracking-tight">Checador PyME</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Control Operativo v2.4</span>
+</div>
+</div>
+<!-- Quick CTA inside SideBar -->
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-primary text-on-primary rounded-lg font-label-md text-label-md font-semibold shadow-sm hover:bg-primary/90 transition-colors duration-150 active:scale-[0.99]">
+<span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+          Pase de Lista
+        </button>
+<div class="h-px bg-outline-variant/60 my-1"></div>
+<!-- Nav tabs (11 strictly from JSON) -->
+<nav class="space-y-1">
+<!-- 1. Tablero (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Tablero</span>
+</a>
+<!-- 2. En vivo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+<span>En vivo</span>
+<span class="ml-auto w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+</a>
+<!-- 3. Empleados -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span>Empleados</span>
+</a>
+<!-- 4. Marcajes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span>Marcajes</span>
+</a>
+<!-- 5. Hojas de horas -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+<span>Hojas de horas</span>
+</a>
+<!-- 6. Incidencias -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">event_busy</span>
+<span>Incidencias</span>
+<span class="ml-auto px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-label-sm text-label-sm font-semibold">7</span>
+</a>
+<!-- 7. Turnos -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">calendar_view_week</span>
+<span>Turnos</span>
+</a>
+<!-- 8. Ubicaciones -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">store</span>
+<span>Ubicaciones</span>
+</a>
+<!-- 9. Reportes -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span>Reportes</span>
+</a>
+<!-- 10. Analítica -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">insights</span>
+<span>Analítica</span>
+</a>
+<!-- 11. Configuración -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span>Configuración</span>
+</a>
+</nav>
+</div>
+<!-- Footer Tabs & Compliance Info -->
+<div class="pt-4 border-t border-outline-variant/60 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+<span>Soporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md transition-colors hover:bg-surface-container-high hover:text-error" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+<div class="px-3 pt-2 text-[10px] text-outline font-medium flex items-center justify-between">
+<span>Norma LFT Art. 132</span>
+<span>NOM-035</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- MAIN CANVAS WRAPPER -->
+<div class="flex-1 ml-64 min-h-screen flex flex-col bg-background">
+<!-- 2. TOP NAVIGATION BAR (SHARED COMPONENT ANCHOR) -->
+<header class="sticky top-0 h-16 w-full z-30 bg-surface-container-lowest border-b border-outline-variant shadow-sm px-6 flex items-center justify-between">
+<!-- Left: Branch / Account Dropdown & Live Geocerca Pills -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-lg border border-outline-variant/60 cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary text-[20px]">storefront</span>
+<div class="flex flex-col text-left">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1.5">
+              Panadería La Espiga S.A. de C.V. · Sucursal Matriz Centro (Todas las áreas)
+              <span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</span>
+</div>
+</div>
+<div class="hidden xl:flex items-center gap-2">
+<!-- Live Sync Status Chip -->
+<div class="h-8 rounded-full px-3 bg-[#E0F2F1] text-primary flex items-center gap-1.5 font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse"></span>
+<span>En vivo · Sincronizado</span>
+</div>
+<!-- Geocence Chip -->
+<div class="h-8 rounded-full px-3 bg-secondary-container text-on-secondary-fixed-variant flex items-center gap-1.5 font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Geocerca activa</span>
+</div>
+</div>
+</div>
+<!-- Right: Quick Actions, Notifications, & Profile -->
+<div class="flex items-center gap-3">
+<!-- Registrar Marcaje Manual -->
+<button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold flex items-center gap-2 hover:bg-primary-container/90 shadow-sm transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Registrar Marcaje</span>
+</button>
+<!-- Sincronizado button indicator -->
+<div class="flex items-center justify-center w-10 h-10 rounded-lg text-primary hover:bg-surface-container cursor-pointer transition-colors" title="Servidor CDMX Conectado">
+<span class="material-symbols-outlined text-[20px]">cloud_done</span>
+</div>
+<!-- Notification Bell -->
+<button class="relative w-10 h-10 rounded-lg text-on-surface-variant flex items-center justify-center hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#BA1A1A]"></span>
+</button>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Admin Profile -->
+<div class="flex items-center gap-3 pl-1 cursor-pointer group">
+<div class="w-9 h-9 rounded-full ring-2 ring-primary/20 overflow-hidden bg-primary-fixed flex items-center justify-center text-primary font-bold text-sm">
+            RM
+          </div>
+<div class="flex flex-col text-left hidden lg:block">
+<span class="font-label-md text-label-md font-semibold text-on-surface group-hover:text-primary transition-colors">Lic. Roberto Morales</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Admin General · RH</span>
+</div>
+</div>
+</div>
+</header>
+<!-- CONTENT WORKSPACE -->
+<main class="p-6 space-y-6 max-w-[1440px] w-full mx-auto">
+<!-- Welcome & Context Header -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-1">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Tablero Operativo General</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Monitoreo en tiempo real del personal operativo y cumplimiento de turnos matutinos.
+          </p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-lowest border border-outline-variant/70 rounded-lg p-1.5 shadow-sm">
+<button class="px-3 py-1.5 rounded font-label-sm text-label-sm font-semibold bg-surface-container-high text-primary">Hoy · 24 Oct 2024</button>
+<div class="text-on-surface-variant font-label-sm text-label-sm px-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">schedule</span>
+<span class="font-semibold text-on-surface">09:42:18 hrs</span>
+<span class="text-outline font-normal">(Hora Centro CDMX)</span>
+</div>
+</div>
+</div>
+<!-- 3. TOP ROW: 6 KPI CARDS (Bento / Grid Layout) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+<!-- KPI 1: Presentes ahora -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Presentes ahora</span>
+<span class="w-8 h-8 rounded-lg bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">group</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">84/96</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-xs font-semibold text-[#2E7D32]">
+<span>87.5% de quorum</span>
+<span>12 ausentes</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-1.5 overflow-hidden">
+<div class="bg-[#2E7D32] h-1.5 rounded-full" style="width: 87.5%"></div>
+</div>
+</div>
+</div>
+<!-- KPI 2: Puntualidad hoy -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Puntualidad hoy</span>
+<span class="w-8 h-8 rounded-lg bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">91 %</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="inline-flex items-center text-xs font-bold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +2.4%
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">vs ayer</span>
+</div>
+<p class="mt-1 text-[11px] text-outline">Tolerancia máxima 10 min</p>
+</div>
+</div>
+<!-- KPI 3: Ausentismo del mes -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Ausentismo mes</span>
+<span class="w-8 h-8 rounded-lg bg-[#E0F2F1] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">3.2 %</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="inline-flex items-center text-xs font-bold text-[#2E7D32] bg-[#E8F5E9] px-1.5 py-0.5 rounded">
+                Meta &lt; 4.0%
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Conforme</span>
+</div>
+<p class="mt-1 text-[11px] text-outline">Bajo promedio industrial</p>
+</div>
+</div>
+<!-- KPI 4: Horas extra semana -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Horas extra sem.</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">more_time</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">126 h</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="inline-flex items-center text-xs font-bold text-amber-800 bg-[#FFF8E1] px-1.5 py-0.5 rounded">
+                +14h periodo
+              </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Nómina Q2</span>
+</div>
+<p class="mt-1 text-[11px] text-outline">Límite semanal: 160h</p>
+</div>
+</div>
+<!-- KPI 5: Marcajes por revisar -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow ring-1 ring-amber-300/60">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Por revisar</span>
+<span class="w-8 h-8 rounded-lg bg-[#FFF8E1] text-[#B78103] flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-[#B78103]">7</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">incidentes</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="inline-flex items-center text-xs font-bold text-[#B78103] bg-[#FFF8E1] px-1.5 py-0.5 rounded">
+                Fuera de geocerca
+              </span>
+</div>
+<p class="mt-1 text-[11px] text-[#B78103] font-medium">Requieren validación</p>
+</div>
+</div>
+<!-- KPI 6: Altas pendientes -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Altas pendientes</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container-high text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+</span>
+</div>
+<div class="mt-3">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">3</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">empleados</span>
+</div>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="inline-flex items-center text-xs font-bold text-primary bg-secondary-container px-1.5 py-0.5 rounded">
+                Registro facial pend.
+              </span>
+</div>
+<p class="mt-1 text-[11px] text-outline">Sucursal Reforma</p>
+</div>
+</div>
+</div>
+<!-- 4. ANALYTICS & VISUALIZATION ROW (3 CARDS) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- CHART 1: Tendencia de Asistencia (Últimos 30 días) - 6 cols -->
+<div class="lg:col-span-6 bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-outline-variant/40">
+<div>
+<h2 class="font-title-md text-title-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">show_chart</span>
+                Tendencia de Asistencia (Últimos 30 días)
+              </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Porcentaje de asistencia efectiva vs. Meta 95%</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container p-1 rounded-lg">
+<button class="px-2.5 py-1 text-xs font-semibold rounded text-on-surface-variant hover:text-on-surface">Semana</button>
+<button class="px-2.5 py-1 text-xs font-semibold rounded text-on-surface-variant hover:text-on-surface">Quincena</button>
+<button class="px-2.5 py-1 text-xs font-semibold rounded bg-surface-container-lowest text-primary shadow-xs">Mes</button>
+</div>
+</div>
+<!-- SVG Smooth Curve Line Chart with Meta line -->
+<div class="relative w-full h-56 mt-4 flex items-end">
+<!-- Background Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-40">
+<div class="border-b border-dashed border-outline-variant w-full flex justify-end text-[10px] text-outline pr-1">100%</div>
+<div class="border-b border-dashed border-outline-variant w-full flex justify-end text-[10px] text-[#2E7D32] pr-1 font-semibold">95% Meta</div>
+<div class="border-b border-dashed border-outline-variant w-full flex justify-end text-[10px] text-outline pr-1">90%</div>
+<div class="border-b border-dashed border-outline-variant w-full flex justify-end text-[10px] text-outline pr-1">85%</div>
+<div class="border-b border-outline-variant w-full flex justify-end text-[10px] text-outline pr-1">80%</div>
+</div>
+<!-- Meta Threshold Line -->
+<div class="absolute w-full top-[25%] border-t-2 border-dashed border-[#2E7D32]/70 pointer-events-none z-10 flex items-center justify-end">
+<span class="bg-[#E8F5E9] text-[#2E7D32] font-label-sm text-[10px] px-1.5 py-0.5 rounded font-bold mr-4">Meta Estricta 95%</span>
+</div>
+<svg class="w-full h-full overflow-visible z-20" preserveaspectratio="none" viewbox="0 0 500 180">
+<defs>
+<lineargradient id="gradientAsistencia" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0F4C5C" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#0F4C5C" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Filled Area -->
+<path d="M 0,90 Q 50,70 100,50 T 200,60 T 300,35 T 400,45 T 500,28 L 500,180 L 0,180 Z" fill="url(#gradientAsistencia)"></path>
+<!-- Line -->
+<path d="M 0,90 Q 50,70 100,50 T 200,60 T 300,35 T 400,45 T 500,28" fill="none" stroke="#0F4C5C" stroke-linecap="round" stroke-width="3"></path>
+<!-- Key Data Points -->
+<circle cx="100" cy="50" fill="#0F4C5C" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="200" cy="60" fill="#0F4C5C" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="300" cy="35" fill="#2E7D32" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="400" cy="45" fill="#0F4C5C" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="500" cy="28" fill="#2E7D32" r="5" stroke="#FFFFFF" stroke-width="2"></circle>
+</svg>
+</div>
+<div class="flex justify-between items-center text-xs text-on-surface-variant pt-2 mt-1 border-t border-outline-variant/40">
+<span>Semana 39</span>
+<span>Semana 40</span>
+<span>Semana 41</span>
+<span>Semana 42</span>
+<span class="font-bold text-primary">Esta Semana (96.4%)</span>
+</div>
+</div>
+<!-- CHART 2: Mapa de Calor de Entradas (3 cols) -->
+<div class="lg:col-span-3 bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+<div class="pb-2 border-b border-outline-variant/40">
+<h2 class="font-title-md text-title-md font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-primary">grid_view</span>
+              Mapa de Calor: Entradas
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Densidad de marcajes por hora y día</p>
+</div>
+<!-- Heatmap Matrix: Hours (rows) x Days (cols) -->
+<div class="mt-3 space-y-1.5">
+<div class="grid grid-cols-7 gap-1 text-[10px] text-center font-bold text-on-surface-variant">
+<span>H</span><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span>
+</div>
+<!-- Row 06:00 -->
+<div class="grid grid-cols-7 gap-1 items-center">
+<span class="text-[10px] text-outline font-semibold">06:00</span>
+<div class="h-6 rounded bg-[#E0F2F1] text-[10px] flex items-center justify-center font-semibold text-primary" title="12 entradas">12</div>
+<div class="h-6 rounded bg-[#E0F2F1] text-[10px] flex items-center justify-center font-semibold text-primary">14</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">18</div>
+<div class="h-6 rounded bg-[#E0F2F1] text-[10px] flex items-center justify-center font-semibold text-primary">15</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">20</div>
+<div class="h-6 rounded bg-surface-container text-[10px] flex items-center justify-center text-outline">4</div>
+</div>
+<!-- Row 07:00 (Pico Operativo Turno 1) -->
+<div class="grid grid-cols-7 gap-1 items-center">
+<span class="text-[10px] text-outline font-semibold">07:00</span>
+<div class="h-6 rounded bg-[#0F4C5C] text-white text-[10px] flex items-center justify-center font-bold shadow-xs">48</div>
+<div class="h-6 rounded bg-[#0F4C5C] text-white text-[10px] flex items-center justify-center font-bold shadow-xs">52</div>
+<div class="h-6 rounded bg-[#0F4C5C] text-white text-[10px] flex items-center justify-center font-bold shadow-xs">49</div>
+<div class="h-6 rounded bg-[#0F4C5C] text-white text-[10px] flex items-center justify-center font-bold shadow-xs">54</div>
+<div class="h-6 rounded bg-[#0F4C5C] text-white text-[10px] flex items-center justify-center font-bold shadow-xs">58</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">28</div>
+</div>
+<!-- Row 08:00 (Oficinas y Tiendas) -->
+<div class="grid grid-cols-7 gap-1 items-center">
+<span class="text-[10px] text-outline font-semibold">08:00</span>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">26</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">24</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">29</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">31</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">28</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">15</div>
+</div>
+<!-- Row 09:00 (Administrativo) -->
+<div class="grid grid-cols-7 gap-1 items-center">
+<span class="text-[10px] text-outline font-semibold">09:00</span>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">14</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">15</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">13</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">14</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">12</div>
+<div class="h-6 rounded bg-surface-container text-[10px] flex items-center justify-center text-outline">2</div>
+</div>
+<!-- Row 14:00 (Turno Vespertino) -->
+<div class="grid grid-cols-7 gap-1 items-center">
+<span class="text-[10px] text-outline font-semibold">14:00</span>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">32</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">30</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">35</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">34</div>
+<div class="h-6 rounded bg-[#356572] text-white text-[10px] flex items-center justify-center font-semibold">38</div>
+<div class="h-6 rounded bg-[#b7e7f7] text-[10px] flex items-center justify-center font-semibold text-primary">19</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-[11px] text-outline pt-2 mt-1 border-t border-outline-variant/40">
+<span>Bajo tráfico</span>
+<div class="flex items-center gap-1">
+<div class="w-3 h-3 rounded-xs bg-[#E0F2F1]"></div>
+<div class="w-3 h-3 rounded-xs bg-[#b7e7f7]"></div>
+<div class="w-3 h-3 rounded-xs bg-[#356572]"></div>
+<div class="w-3 h-3 rounded-xs bg-[#0F4C5C]"></div>
+</div>
+<span class="font-bold text-primary">Pico &gt;50</span>
+</div>
+</div>
+<!-- CHART 3: Horas Extra por Sucursal (3 cols) -->
+<div class="lg:col-span-3 bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/80 shadow-sm flex flex-col justify-between">
+<div class="pb-2 border-b border-outline-variant/40">
+<h2 class="font-title-md text-title-md font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-primary">account_balance</span>
+              Horas Extra / Sucursal
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Semana actual vs Tope 60h</p>
+</div>
+<!-- Horizontal Bar Comparison -->
+<div class="mt-4 space-y-3.5">
+<!-- Matriz Centro: 52h -->
+<div>
+<div class="flex justify-between items-center text-xs font-semibold mb-1">
+<span class="text-on-surface">Matriz Centro</span>
+<span class="text-primary font-bold">52h <span class="text-outline font-normal">/ 60h</span></span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary-container h-2.5 rounded-full" style="width: 86.6%"></div>
+</div>
+</div>
+<!-- Reforma: 38h -->
+<div>
+<div class="flex justify-between items-center text-xs font-semibold mb-1">
+<span class="text-on-surface">Sucursal Reforma</span>
+<span class="text-primary font-bold">38h <span class="text-outline font-normal">/ 60h</span></span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-[#356572] h-2.5 rounded-full" style="width: 63.3%"></div>
+</div>
+</div>
+<!-- Insurgentes: 24h -->
+<div>
+<div class="flex justify-between items-center text-xs font-semibold mb-1">
+<span class="text-on-surface">Sucursal Insurgentes</span>
+<span class="text-primary font-bold">24h <span class="text-outline font-normal">/ 60h</span></span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-[#356572] h-2.5 rounded-full" style="width: 40%"></div>
+</div>
+</div>
+<!-- Norte: 12h -->
+<div>
+<div class="flex justify-between items-center text-xs font-semibold mb-1">
+<span class="text-on-surface">Sucursal Norte</span>
+<span class="text-primary font-bold">12h <span class="text-outline font-normal">/ 60h</span></span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-[#2E7D32] h-2.5 rounded-full" style="width: 20%"></div>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-high/60 mt-3 flex items-center gap-2 text-xs">
+<span class="material-symbols-outlined text-[18px] text-amber-700">info</span>
+<span class="text-on-surface-variant font-medium">Matriz Centro cerca del 90% del presupuesto semanal.</span>
+</div>
+</div>
+</div>
+<!-- 5. TABLA PRINCIPAL: 'Retardos de hoy' (Full operational interactive table) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/80 shadow-sm overflow-hidden">
+<!-- Table Header & Filters Toolbar -->
+<div class="p-4 sm:p-5 border-b border-outline-variant/70 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#FFEBEE] text-[#C62828] flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[22px]">alarm_on</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg font-bold text-primary">Retardos e Incidencias de Hoy</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Listado de colaboradores con marcajes posteriores al límite de tolerancia de 10 min.</p>
+</div>
+</div>
+<!-- Filter Controls and Actions -->
+<div class="flex flex-wrap items-center gap-2.5">
+<!-- Search bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[18px] text-outline">search</span>
+<input class="pl-9 pr-3 py-1.5 text-xs rounded-lg border border-outline-variant bg-surface-container-low focus:border-primary focus:ring-1 focus:ring-primary w-52 sm:w-60" placeholder="Buscar colaborador o ID..." type="text"/>
+</div>
+<!-- Dept Selector -->
+<select class="py-1.5 px-3 text-xs rounded-lg border border-outline-variant bg-surface-container-low text-on-surface font-medium focus:border-primary">
+<option value="todos">Todos los departamentos</option>
+<option value="produccion">Producción y Hornos</option>
+<option value="mostrador">Mostrador y Ventas</option>
+<option value="logistica">Reparto y Logística</option>
+<option value="admon">Administración</option>
+</select>
+<!-- Export Buttons -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold rounded-lg hover:bg-surface-container-high border border-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[16px] text-primary">download</span>
+<span>Descargar PDF/Excel</span>
+</button>
+</div>
+</div>
+<!-- Responsive Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant/80 font-label-md text-label-md">
+<th class="py-3 px-4 font-semibold">Colaborador</th>
+<th class="py-3 px-4 font-semibold">Sucursal / Área</th>
+<th class="py-3 px-4 font-semibold">Horario vs Real</th>
+<th class="py-3 px-4 font-semibold">Retardo</th>
+<th class="py-3 px-4 font-semibold">Método Marcaje</th>
+<th class="py-3 px-4 font-semibold">Estatus / Justificación</th>
+<th class="py-3 px-4 font-semibold text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/40 font-body-sm text-body-sm">
+<!-- Row 1: Carlos Eduardo Hernández Morales -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-[#f1a440]/20 text-[#462900] font-bold text-xs flex items-center justify-center ring-1 ring-amber-400">
+                      CH
+                    </div>
+<div>
+<span class="font-title-md text-sm font-semibold text-on-surface block leading-tight">Carlos Eduardo Hernández Morales</span>
+<span class="text-xs text-on-surface-variant">Panadero Maestro · Matrícula #EMP-1042</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-medium text-on-surface block">Matriz Centro</span>
+<span class="text-xs text-outline">Área: Producción y Masas</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="line-through text-outline text-xs">06:00</span>
+<span class="font-bold text-on-surface text-sm">06:34 hrs</span>
+</div>
+<span class="text-[11px] text-outline">Turno Matutino 1</span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-xs font-bold bg-[#FFEBEE] text-[#C62828]">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                    +34 min (Grave)
+                  </span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5 text-on-surface font-medium text-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">face</span>
+<span>Reconocimiento Facial</span>
+</div>
+<span class="text-[10px] text-outline">Kiosco Terminal Central</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="inline-flex items-center gap-1 text-xs font-semibold text-amber-800">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                      Sin justificar aún
+                    </span>
+<span class="text-[11px] text-outline">Notificado vía SMS</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1 bg-surface-container hover:bg-secondary-container text-primary font-semibold text-xs rounded transition-colors" title="Subir justificante médico o personal">
+                      Justificar
+                    </button>
+<button class="p-1 rounded hover:bg-surface-container text-[#25D366]" title="Enviar aviso WhatsApp">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-outline" title="Ver ficha">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Sofía Méndez Gómez -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-primary-fixed text-primary font-bold text-xs flex items-center justify-center ring-1 ring-primary/30">
+                      SM
+                    </div>
+<div>
+<span class="font-title-md text-sm font-semibold text-on-surface block leading-tight">Sofía Méndez Gómez</span>
+<span class="text-xs text-on-surface-variant">Cajera y Mostrador · Matrícula #EMP-1088</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-medium text-on-surface block">Matriz Centro</span>
+<span class="text-xs text-outline">Área: Ventas y Caja 02</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="line-through text-outline text-xs">07:00</span>
+<span class="font-bold text-on-surface text-sm">07:14 hrs</span>
+</div>
+<span class="text-[11px] text-outline">Turno Apertura</span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-xs font-semibold bg-[#FFF8E1] text-[#B78103]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                    +14 min (Leve)
+                  </span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5 text-on-surface font-medium text-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">qr_code_scanner</span>
+<span>QR Kiosco</span>
+</div>
+<span class="text-[10px] text-outline">Terminal Mostrador</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="inline-flex items-center gap-1 text-xs font-semibold text-[#0F4C5C]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#0F4C5C]"></span>
+                      Tolerancia rebasada
+                    </span>
+<span class="text-[11px] text-outline">Primer retardo quincena</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1 bg-surface-container hover:bg-secondary-container text-primary font-semibold text-xs rounded transition-colors">
+                      Justificar
+                    </button>
+<button class="p-1 rounded hover:bg-surface-container text-[#25D366]">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-outline">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Miguel Ángel Reyes Tovar -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed text-primary font-bold text-xs flex items-center justify-center ring-1 ring-secondary/30">
+                      MR
+                    </div>
+<div>
+<span class="font-title-md text-sm font-semibold text-on-surface block leading-tight">Miguel Ángel Reyes Tovar</span>
+<span class="text-xs text-on-surface-variant">Operador Hornos Giratorios · Matrícula #EMP-1019</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-medium text-on-surface block">Matriz Centro</span>
+<span class="text-xs text-outline">Área: Hornos y Cocción</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="line-through text-outline text-xs">06:00</span>
+<span class="font-bold text-on-surface text-sm">06:48 hrs</span>
+</div>
+<span class="text-[11px] text-outline">Turno Matutino 1</span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-xs font-bold bg-[#FFEBEE] text-[#C62828]">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                    +48 min (Grave)
+                  </span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5 text-on-surface font-medium text-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">smartphone</span>
+<span>App Móvil (Geolocalizado)</span>
+</div>
+<span class="text-[10px] text-outline">GPS: 19.4326° N, 99.1332° O</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="inline-flex items-center gap-1 text-xs font-semibold text-blue-700">
+<span class="material-symbols-outlined text-[12px]">medical_services</span>
+                      Pendiente justificante médico
+                    </span>
+<span class="text-[11px] text-outline">Aviso IMSS en revisión</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1 bg-surface-container hover:bg-secondary-container text-primary font-semibold text-xs rounded transition-colors">
+                      Revisar IMSS
+                    </button>
+<button class="p-1 rounded hover:bg-surface-container text-[#25D366]">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-outline">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Laura Beatriz Morales Salgado -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container text-on-surface font-bold text-xs flex items-center justify-center ring-1 ring-outline-variant">
+                      LM
+                    </div>
+<div>
+<span class="font-title-md text-sm font-semibold text-on-surface block leading-tight">Laura Beatriz Morales Salgado</span>
+<span class="text-xs text-on-surface-variant">Supervisora Calidad · Matrícula #EMP-1031</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-medium text-on-surface block">Sucursal Reforma</span>
+<span class="text-xs text-outline">Área: Control de Calidad</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="line-through text-outline text-xs">08:00</span>
+<span class="font-bold text-on-surface text-sm">08:18 hrs</span>
+</div>
+<span class="text-[11px] text-outline">Turno Administrativo</span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-xs font-semibold bg-[#FFF8E1] text-[#B78103]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                    +18 min (Tolerancia)
+                  </span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5 text-on-surface font-medium text-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">face</span>
+<span>Reconocimiento Facial</span>
+</div>
+<span class="text-[10px] text-outline">Kiosco Reforma #1</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="inline-flex items-center gap-1 text-xs font-semibold text-amber-800">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                      Retraso en Metro CDMX L1
+                    </span>
+<span class="text-[11px] text-outline">Justificación manual enviada</span>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1 bg-[#E8F5E9] hover:bg-emerald-200 text-[#2E7D32] font-semibold text-xs rounded transition-colors">
+                      Aprobar
+                    </button>
+<button class="p-1 rounded hover:bg-surface-container text-[#25D366]">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-outline">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination & Summary Footer -->
+<div class="p-4 bg-surface-container-low border-t border-outline-variant/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-on-surface-variant font-medium">
+<div class="flex items-center gap-2">
+<span>Mostrando <span class="font-bold text-on-surface">4</span> de <span class="font-bold text-on-surface">7</span> incidencias registradas hoy</span>
+<span class="text-outline">·</span>
+<span class="text-emerald-700 font-semibold">89 registros puntuales no mostrados</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded border border-outline-variant bg-surface-container-lowest text-outline disabled:opacity-50" disabled="">Anterior</button>
+<button class="px-3 py-1 rounded font-bold bg-primary text-on-primary">1</button>
+<button class="px-3 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-container text-on-surface">2</button>
+<button class="px-2.5 py-1 rounded border border-outline-variant bg-surface-container-lowest hover:bg-surface-container text-on-surface">Siguiente</button>
+</div>
+</div>
+</div>
+<!-- Quick Operational Alerts Footer Panel (LFT & NOM-035 Compliance Banner) -->
+<div class="rounded-xl p-4 bg-surface-container border border-outline-variant/70 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-primary-container text-on-primary">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg font-bold text-primary">Cumplimiento Legal y Laboral (LFT México)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Los registros de asistencia cumplen con la validez de firma electrónica y geolocalización requeridos para auditorías de la STPS y nómina CFDI 4.0.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-high text-on-surface">
+            Descargar Constancia STPS
+          </button>
+<button class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary text-on-primary hover:bg-primary/90">
+            Validar Corte Quincenal
+          </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

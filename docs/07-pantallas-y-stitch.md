@@ -96,6 +96,10 @@ revisa, se exporta (HTML/Figma) y se enlaza aquí en la columna «Stitch».
 - **C17** — Configuración general: periodicidad de pago, inicio de semana, días festivos (precargados LFT), zona horaria, aviso de privacidad, retención de datos, marca (logo/colores).
 - **C18** — Bitácora: tabla cronológica con actor, acción, entidad y diff antes/después expandible.
 
+### Ayuda dentro de la consola (chat de core-front)
+
+Desde el 2026-10-25 el panel de ayuda de lumen-view (burbuja «?», jc-core `help-assistant`) responde sobre el Checador: su manual de usuario tiene el capítulo **18 · Checador** (cómo checa el personal, puesta en marcha y cada pantalla de `/checador`) y lo ve quien tiene algún `attendance.*` o es admin de la cuenta. Ya podía llevar a las pantallas del Checador; ahora también explica cómo se usan. Si cambia una pantalla de la consola, actualiza ese capítulo (Notion › Manual de usuario › 18 · Checador y Obsidian `Manual de usuario/18 Checador.md`) y corre `npm run help-manual:sync` en jc-core. Cambio: jc-core PR #715.
+
 ## D. Reportes PDF (plantillas)
 
 D1 Hoja de horas individual con firma del empleado · D2 Lista de asistencia

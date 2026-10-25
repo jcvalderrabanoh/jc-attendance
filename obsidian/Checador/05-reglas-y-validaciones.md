@@ -102,3 +102,4 @@ Un usuario de jc-core que también checa se enlaza a su empleo y marca con
 - No está enlazado a **otro empleado activo** de la cuenta. Si lo está → 409 «ya está enlazado a {nombre}». Un empleado dado de baja libera a su usuario.
 - Si el enlace no cambia, no se revalida: que den de baja al usuario en jc-core no bloquea editar el resto de la ficha.
 - `coreUserId: null` desenlaza. En core-front, elegir «— Ninguno —» al editar manda `null`.
+- La base lo garantiza con el índice único parcial `IDX_employments_core_user` (`accountId`, `coreUserId`) `WHERE "coreUserId" IS NOT NULL AND status = 'active'` (migración `1792942161155-UniqueCoreUserLink`). Antes de crearlo, la migración limpia los enlaces repetidos: conserva el empleo editado más recientemente y desenlaza los demás, con un registro `unlink_core_user` (actor `system`) en la bitácora para revisarlos.

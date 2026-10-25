@@ -26,6 +26,12 @@ check "jc-core vía nginx" bash -c "code=\$(curl -sS --max-time 5 -o /dev/null -
 # Informativo (no falla): `log` = el código solo sale en el log del servidor.
 ATT_ENV="/home/${APP_USER}/jc-attendance/apps/api/.env"
 echo "INFO  OTP del empleado: $(grep -E '^OTP_PROVIDER=' "${ATT_ENV}" | cut -d= -f2)$(grep -qE '^TWILIO_PHONE_NUMBER=.+' "${ATT_ENV}" && echo ' (con respaldo SMS)' || echo ' (sin respaldo SMS)')"
+# Solo nombres de claves (nunca valores): qué falta para WhatsApp con plantilla.
+CORE_ENV_FILE="/home/${APP_USER}/jc-core/.env"
+for key in TWILIO_WHATSAPP_FROM TWILIO_SIGNUP_OTP_CONTENT_SID TWILIO_PHONE_NUMBER; do
+  in_core=$(grep -qE "^${key}=.+" "${CORE_ENV_FILE}" && echo sí || echo no)
+  echo "INFO  ${key}: jc-core=${in_core}"
+done
 check "nginx -t" nginx -t
 check "include en nginx" grep -c "lumen-attendance.conf" /etc/nginx/conf.d/lumenview.conf
 

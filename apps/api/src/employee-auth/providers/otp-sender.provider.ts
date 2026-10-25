@@ -40,11 +40,17 @@ export class TwilioVerifyOtpSender implements OtpSender {
   }
 
   /**
-   * WhatsApp en Verify exige ligar un remitente en la consola de Twilio; si
-   * aún no está (o el número no tiene WhatsApp), se reintenta por SMS para
-   * que el empleado no se quede sin código.
+   * WhatsApp en Verify exige ligar un remitente en la consola de Twilio. Sin
+   * eso Verify ACEPTA la petición pero no entrega (no hay error que dispare
+   * un reintento), así que solo se usa con `TWILIO_VERIFY_WHATSAPP=true`;
+   * si no, va directo por SMS. Con WhatsApp habilitado, un error explícito
+   * también cae a SMS.
    */
   async send(destination: string, channel: OtpChannelEnum): Promise<OtpChannelEnum> {
+    if (channel === OtpChannelEnum.Whatsapp && process.env.TWILIO_VERIFY_WHATSAPP !== 'true') {
+      await this.start(destination, OtpChannelEnum.Sms);
+      return OtpChannelEnum.Sms;
+    }
     try {
       await this.start(destination, channel);
       return channel;

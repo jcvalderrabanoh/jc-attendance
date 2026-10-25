@@ -115,8 +115,30 @@ calculadas) · `incidents` (retardos, faltas, permisos, vacaciones) · `approval
 
 ## 7. Infraestructura
 
-Mismo EC2/PM2 que jc-core en fase 1 (proceso aparte, puerto propio,
-`attendance-api` en `pm2-ecosystem`), dominio `checador.<dominio>` o
-`asistencia.lumen-view.com`. Deploy con GitHub Actions como jc-core
-(build → migraciones `attendance` → reload). Observabilidad: logs con
-`accountId`, PostHog para producto, alarmas de cola.
+Mismo EC2/PM2 que jc-core en fase 1 (proceso `jc-attendance-api`, puerto
+3100). Deploy con el workflow «Deploy Checador» de jc-core (build →
+migraciones `attendance` → reload, ver `deploy/README.md`). Observabilidad:
+logs con `accountId`, PostHog para producto, alarmas de cola.
+
+**Publicación (en producción desde oct-2026):**
+
+| URL | Qué |
+|---|---|
+| `https://core.lumen-view.com/attendance/…` | API del Checador (nginx → :3100) |
+| `https://core.lumen-view.com/asistencia/` | PWA del empleado y kiosco |
+| `https://asistencia.lumen-view.com/` | Dominio propio: se activa solo cuando su registro DNS A apunta al EC2 (`deploy/own-domain.sh` emite el certificado con certbot) |
+| `app.lumen-view.com/checador` | Consola del patrón (core-front) |
+
+- **Rutas reservadas:** `/attendance` y `/asistencia` de `core.lumen-view.com`
+  son del Checador; jc-core no puede declarar rutas ahí
+  (`src/references/reserved-routes.spec.ts` lo impide).
+- **Código del empleado (OTP):** `OTP_PROVIDER` lo elige el deploy
+  (`deploy/otp-setup.py`):
+  - `twilio-messaging`: plantilla WhatsApp AUTHENTICATION de jc-core
+    (`TWILIO_SIGNUP_OTP_CONTENT_SID`) con respaldo SMS. Es el preferido.
+  - `twilio`: Twilio Verify. Manda SMS salvo `TWILIO_VERIFY_WHATSAPP=true`,
+    porque Verify por WhatsApp sin remitente ligado acepta el pedido y no lo
+    entrega.
+  - `log`: el código solo sale en el log del servidor.
+  - Hoy: Verify por SMS. Para WhatsApp falta crear la plantilla en Twilio y
+    poner su `HX…` en el `.env` de jc-core.

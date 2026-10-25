@@ -1,7 +1,7 @@
 ---
 proyecto: Checador
 fuente: jc-attendance/docs/08-plan-de-accion.md
-sincronizado: 2026-10-21
+sincronizado: 2026-10-25
 tags: [checador, asistencia]
 ---
 

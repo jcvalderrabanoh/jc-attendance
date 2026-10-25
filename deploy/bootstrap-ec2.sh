@@ -11,6 +11,7 @@
 #   4. PWA: build con base /asistencia/ y copia a /var/www/asistencia.
 #   5. nginx: incluye deploy/nginx/attendance.conf en el server 443 de
 #      core.lumen-view.com, valida con `nginx -t` y recarga; si falla, revierte.
+#   6. Dominio propio (deploy/own-domain.sh), solo si su DNS apunta aquí.
 #
 # Lo lanza el workflow «Deploy Checador» (jc-core o este repo).
 set -euo pipefail
@@ -113,6 +114,9 @@ else
   exit 1
 fi
 rm -f "${NGINX_SNIPPET}.prev"
+
+# Dominio propio (asistencia.lumen-view.com): solo si su DNS ya apunta aquí.
+bash "${APP_DIR}/deploy/own-domain.sh" || true
 
 # --- Verificación --------------------------------------------------------
 sleep 2

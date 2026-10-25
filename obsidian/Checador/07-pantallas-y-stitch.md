@@ -1,7 +1,7 @@
 ---
 proyecto: Checador
 fuente: jc-attendance/docs/07-pantallas-y-stitch.md
-sincronizado: 2026-10-21
+sincronizado: 2026-10-25
 tags: [checador, asistencia]
 ---
 
@@ -102,6 +102,10 @@ revisa, se exporta (HTML/Figma) y se enlaza aquí en la columna «Stitch».
 - **C16** — Reglas de validación de alta con interruptores y configuración: CURP/RFC/NSS válidos, teléfono y CURP únicos, dominio de email permitido, edad mínima, documentos requeridos, detección de rostro duplicado; severidad Bloquear/Advertir.
 - **C17** — Configuración general: periodicidad de pago, inicio de semana, días festivos (precargados LFT), zona horaria, aviso de privacidad, retención de datos, marca (logo/colores).
 - **C18** — Bitácora: tabla cronológica con actor, acción, entidad y diff antes/después expandible.
+
+### Ayuda dentro de la consola (chat de core-front)
+
+Desde el 2026-10-25 el panel de ayuda de lumen-view (burbuja «?», jc-core `help-assistant`) responde sobre el Checador: su manual de usuario tiene el capítulo **18 · Checador** (cómo checa el personal, puesta en marcha y cada pantalla de `/checador`) y lo ve quien tiene algún `attendance.*` o es admin de la cuenta. Ya podía llevar a las pantallas del Checador; ahora también explica cómo se usan. Si cambia una pantalla de la consola, actualiza ese capítulo (Notion › Manual de usuario › 18 · Checador y Obsidian `Manual de usuario/18 Checador.md`) y corre `npm run help-manual:sync` en jc-core. Cambio: jc-core PR #715.
 
 ## D. Reportes PDF (plantillas)
 

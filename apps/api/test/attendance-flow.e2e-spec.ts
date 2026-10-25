@@ -309,6 +309,32 @@ describe('Checador de punta a punta', () => {
     expect(list.body.items.every((p: { hasPhoto: boolean }) => p.hasPhoto === false)).toBe(true);
   });
 
+  it('enlace con lumen-view: un usuario por empleado, solo activos de la cuenta, y se puede desenlazar', async () => {
+    const [rosa] = (await http.get(api('/core-users?search=rosa')).set('Authorization', admin).expect(200)).body;
+    const newEmployee = (coreUserId: string, phoneNumber: string) =>
+      http.post(api('/employees')).set('Authorization', admin).send({ identity: { firstName: 'Otro', lastName: 'Empleado', phone: phoneNumber }, coreUserId, customFields: { talla: 'M' } });
+
+    const dup = await newEmployee(rosa.id, '5566660001').expect(409);
+    expect(dup.body.message).toMatch(/ya está enlazado a/);
+
+    const other = await seedCoreAccount(ds, { name: 'Otra cuenta' });
+    const [inactive] = await ds.query(
+      `INSERT INTO public.users ("firstName","lastName",email,"accountId",status) VALUES ('Baja','Usuario','baja@espiga.mx',$1,'inactive') RETURNING id`,
+      [accountId],
+    );
+    for (const id of [other.userId, inactive.id, '11111111-1111-4111-8111-111111111111']) {
+      const res = await newEmployee(id, '5566660002').expect(404);
+      expect(res.body.message).toMatch(/no existe en la cuenta o está inactivo/);
+    }
+
+    // Editar otro dato con el mismo enlace no revalida; null lo desenlaza y libera al usuario.
+    await http.put(api(`/employees/${employmentId}`)).set('Authorization', admin).send({ coreUserId: rosa.id, employeeNumber: 'E-001' }).expect(200);
+    await http.put(api(`/employees/${employmentId}`)).set('Authorization', admin).send({ coreUserId: null }).expect(200);
+    expect((await http.get(api('/punches/self/status')).set('Authorization', admin).expect(200)).body.linked).toBe(false);
+    const freed = await newEmployee(rosa.id, '5566660003').expect(201);
+    expect(freed.body.coreUserId).toBe(rosa.id);
+  });
+
   it('un usuario de jc-core sin permisos del Checador recibe 403', async () => {
     const { coreToken } = await import('./helpers');
     const staff = `Bearer ${coreToken(accountId, '00000000-0000-0000-0000-000000000001', 'staff')}`;

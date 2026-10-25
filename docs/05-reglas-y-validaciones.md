@@ -86,3 +86,12 @@ Por cada definición se genera un JSON Schema. El checker valida `customFields` 
 - Una `key` no puede cambiar si ya tiene valores.
 - Borrar un campo es soft delete: los valores se conservan para el histórico.
 - El tipo `select` solo acepta opciones activas.
+
+## 5. Enlace con el usuario de lumen-view (`employments.coreUserId`)
+Un usuario de jc-core que también checa se enlaza a su empleo y marca con
+`POST /punches/self`, que encuentra el empleo **por ese usuario**. Por eso
+`EmployeeChecker.validateCoreUserLink` exige, al crear o editar:
+- El usuario existe en `public.users`, es de **esta cuenta** y está **activo**. Si no → 404 «no existe en la cuenta o está inactivo».
+- No está enlazado a **otro empleado activo** de la cuenta. Si lo está → 409 «ya está enlazado a {nombre}». Un empleado dado de baja libera a su usuario.
+- Si el enlace no cambia, no se revalida: que den de baja al usuario en jc-core no bloquea editar el resto de la ficha.
+- `coreUserId: null` desenlaza. En core-front, elegir «— Ninguno —» al editar manda `null`.

@@ -66,6 +66,16 @@ export class CoreAccountDao {
     );
   }
 
+  /** Usuario activo de la cuenta (para enlazarlo a un empleo); null si no existe, es de otra cuenta o está dado de baja. */
+  async findActiveUser(accountId: string, userId: string): Promise<CoreUser | null> {
+    const rows = await this.dataSource.query(
+      `SELECT "id", "firstName", "lastName", "email", "accountId" FROM public.users
+        WHERE "accountId" = $1 AND "id" = $2 AND "status" = 'active' LIMIT 1`,
+      [accountId, userId],
+    );
+    return rows[0] ?? null;
+  }
+
   async findUsers(accountId: string, userIds: string[]): Promise<CoreUser[]> {
     if (userIds.length === 0) return [];
     return this.dataSource.query(

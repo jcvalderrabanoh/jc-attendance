@@ -32,6 +32,13 @@ for key in TWILIO_WHATSAPP_FROM TWILIO_SIGNUP_OTP_CONTENT_SID TWILIO_PHONE_NUMBE
   in_core=$(grep -qE "^${key}=.+" "${CORE_ENV_FILE}" && echo sí || echo no)
   echo "INFO  ${key}: jc-core=${in_core}"
 done
+# Dominio propio: informativo hasta que su DNS apunte aquí (own-domain.sh).
+OWN_HOST="${ATTENDANCE_HOST:-asistencia.lumen-view.com}"
+if [ -f /etc/nginx/conf.d/attendance-domain.conf ] && grep -q "listen 443" /etc/nginx/conf.d/attendance-domain.conf; then
+  check "PWA en ${OWN_HOST}" curl -fsS --max-time 5 -o /dev/null -w "%{http_code} %{content_type}" --resolve "${OWN_HOST}:443:127.0.0.1" "https://${OWN_HOST}/asistencia/"
+else
+  echo "INFO  dominio ${OWN_HOST}: inactivo (falta DNS → IP pública del EC2)"
+fi
 check "nginx -t" nginx -t
 check "include en nginx" grep -c "lumen-attendance.conf" /etc/nginx/conf.d/lumenview.conf
 

@@ -8,6 +8,29 @@ Mismo EC2 que jc-core, proceso pm2 aparte (`jc-attendance-api`, puerto 3100).
   Ej.: `https://core.lumen-view.com/attendance/api/v1/...`, `.../attendance/health`.
 - **PWA:** `https://core.lumen-view.com/asistencia/` (estático en `/var/www/asistencia`).
 - Mismo dominio y certificado que jc-core: no hace falta DNS ni certbot nuevos.
+- Nginx manda al Checador todo lo que empiece por `/attendance/` o `/asistencia/`.
+  jc-core no puede tener rutas ahí: `src/references/reserved-routes.spec.ts` de jc-core falla si
+  aparece una.
+
+### Dominio propio (opcional): `asistencia.lumen-view.com`
+
+`deploy/own-domain.sh` corre en cada deploy y no hace nada mientras el DNS no apunte al EC2.
+Para activarlo:
+
+1. En el DNS de `lumen-view.com`, crear un registro **A** `asistencia` → la IP pública del EC2
+   (la misma a la que apunta `core.lumen-view.com` hoy). Sin AAAA, o Let's Encrypt podría
+   validar por IPv6 y fallar.
+2. Lanzar **Deploy Checador**. El script publica `:80` con el webroot de ACME, emite el
+   certificado con `certbot certonly --webroot` (se renueva solo con el `certbot renew` del
+   servidor) y publica `:443` con el mismo snippet: `https://asistencia.lumen-view.com/` →
+   `/asistencia/`, API en `/attendance/`.
+3. La verificación del deploy muestra `OK PWA en asistencia.lumen-view.com`.
+
+Archivo propio (`/etc/nginx/conf.d/attendance-domain.conf`): no toca `lumenview.conf` de
+jc-core. Cada paso valida con `nginx -t` y revierte si falla. `core.lumen-view.com/asistencia`
+sigue funcionando; los enlaces de invitación (`PUBLIC_APP_URL`) se cambian a mano en el `.env`
+cuando se quiera. Para otro dominio, cambiar el default de `ATTENDANCE_HOST` en
+`own-domain.sh` y `verify-ec2.sh`.
 
 ## Despliegue
 

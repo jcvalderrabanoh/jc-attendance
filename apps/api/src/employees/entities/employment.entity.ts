@@ -19,6 +19,8 @@ export enum PayTypeEnum {
 @Index('IDX_employments_custom_fields', { synchronize: false })
 @Index(['accountId', 'identityId'], { unique: true, where: "status != 'deleted'" })
 @Index(['accountId', 'employeeNumber'], { unique: true, where: "\"employeeNumber\" IS NOT NULL AND status != 'deleted'" })
+// Un usuario de lumen-view por empleado activo (POST /punches/self lo resuelve por él).
+@Index('IDX_employments_core_user', ['accountId', 'coreUserId'], { unique: true, where: "\"coreUserId\" IS NOT NULL AND status = 'active'" })
 export class Employment extends BaseTenantEntity {
   @Column({ type: 'uuid' })
   identityId: string;

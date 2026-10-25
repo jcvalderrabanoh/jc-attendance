@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CoreLinkService } from '../../core-link/services';
 import { DepartmentDao, PositionDao } from '../../organization/daos';
 import { LocationDao } from '../../locations/daos';
 import { PolicyDao, ScheduleDao } from '../../schedules/daos';
@@ -17,6 +18,7 @@ export class EmployeeChecker {
     private readonly locationDao: LocationDao,
     private readonly scheduleDao: ScheduleDao,
     private readonly policyDao: PolicyDao,
+    private readonly coreLink: CoreLinkService,
   ) {}
 
   async validateEmployment(accountId: string, dto: EmploymentDataDto, employmentId?: string): Promise<string[]> {
@@ -41,6 +43,24 @@ export class EmployeeChecker {
       if (locations.length !== new Set(dto.allowedLocationIds).size) errors.push('Alguna sucursal permitida no existe');
     }
     return errors;
+  }
+
+  /**
+   * Enlace con el usuario de jc-core (lumen-view): debe ser un usuario activo
+   * de esta cuenta y no estar enlazado a otro empleado activo, porque
+   * `POST /punches/self` resuelve el empleo por ese usuario. Si no cambia
+   * (`current`), no se revalida: así una baja en jc-core no bloquea editar lo demás.
+   */
+  async validateCoreUserLink(accountId: string, coreUserId: string | null | undefined, current?: { id: string; coreUserId?: string | null }): Promise<string[]> {
+    if (!coreUserId || coreUserId === current?.coreUserId) return [];
+    if (!(await this.coreLink.findActiveUser(accountId, coreUserId))) return ['El usuario de lumen-view no existe en la cuenta o está inactivo'];
+    const linked = await this.employmentDao.findByCoreUser(accountId, coreUserId);
+    if (linked && linked.id !== current?.id) {
+      const identity = await this.identityDao.findById(linked.identityId);
+      const name = identity ? `${identity.firstName} ${identity.lastName}`.trim() : 'otro empleado';
+      return [`Ese usuario de lumen-view ya está enlazado a ${name}`];
+    }
+    return [];
   }
 
   /** Teléfono/email/CURP ya registrados en esta cuenta para otra persona. */

@@ -38,8 +38,8 @@ export class PartialIdentityDataDto extends PartialType(IdentityDataDto) {}
 
 /** Datos laborales en la cuenta. */
 export class EmploymentDataDto {
-  /** Enlaza al usuario de jc-core (lumen-view/anestesia) para que cheque con su mismo login. */
-  @ApiPropertyOptional() @IsOptional() @IsUUID() coreUserId?: string;
+  /** Enlaza al usuario de jc-core (lumen-view/anestesia) para que cheque con su mismo login; `null` lo desenlaza. */
+  @ApiPropertyOptional({ nullable: true }) @IsOptional() @IsUUID() coreUserId?: string | null;
   @ApiPropertyOptional() @IsOptional() @IsString() @Length(1, 40) employeeNumber?: string;
   @ApiPropertyOptional() @IsOptional() @IsUUID() departmentId?: string;
   @ApiPropertyOptional() @IsOptional() @IsUUID() positionId?: string;

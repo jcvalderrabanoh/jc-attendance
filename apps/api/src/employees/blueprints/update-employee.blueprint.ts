@@ -38,6 +38,7 @@ export class UpdateEmployeeBluePrint implements BasicBluePrintInterface<UpdateEm
     const current = await this.employmentDao.findById(accountId, employmentId);
     if (!current) return fail('El empleado no existe');
     const errors = await this.checker.validateEmployment(accountId, dto, employmentId);
+    errors.push(...(await this.checker.validateCoreUserLink(accountId, dto.coreUserId, current)));
 
     let identityPatch: ReturnType<IdentityDataRule['normalize']>['value'] | null = null;
     if (dto.identity) {

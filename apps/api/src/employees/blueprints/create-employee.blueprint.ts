@@ -46,6 +46,7 @@ export class CreateEmployeeBluePrint implements BasicBluePrintInterface<CreateEm
     const identityData = normalized.value;
     const errors = input.identityRulesApplied ? normalized.errors.filter((e) => !/CURP|RFC|NSS/.test(e)) : normalized.errors;
     errors.push(...(await this.checker.validateEmployment(accountId, dto)));
+    errors.push(...(await this.checker.validateCoreUserLink(accountId, dto.coreUserId)));
     errors.push(...(await this.checker.validateIdentityInAccount(accountId, identityData)));
     let customFields = dto.customFields ?? {};
     if (!input.skipCustomFieldValidation) {

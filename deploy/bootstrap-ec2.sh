@@ -56,8 +56,7 @@ if [ ! -f "${ENV_FILE}" ]; then
     echo "PORT=3100"
     echo "PUBLIC_APP_URL=https://${PUBLIC_HOST}/asistencia"
     echo "CORS_ORIGINS=${FRONT_ORIGIN},https://${PUBLIC_HOST}"
-    # Hasta tener un servicio de Twilio Verify para el Checador, el OTP se
-    # registra en el log del servidor (soporte lo comparte a mano).
+    # twilio-verify-setup.py lo cambia a `twilio` si hay credenciales de Twilio.
     echo "OTP_PROVIDER=log"
   } > "${ENV_FILE}"
   chown "${APP_USER}:${APP_USER}" "${ENV_FILE}"
@@ -65,6 +64,10 @@ if [ ! -f "${ENV_FILE}" ]; then
 else
   log "${ENV_FILE} ya existe; no se toca"
 fi
+
+# OTP por Twilio Verify con las credenciales de Twilio de jc-core (idempotente,
+# no fatal: si no se puede, el código sigue saliendo en el log del servidor).
+python3 "${APP_DIR}/deploy/twilio-verify-setup.py" "${ENV_FILE}" || true
 
 # --- 3. API --------------------------------------------------------------
 log "desplegando el API"

@@ -42,20 +42,21 @@ export class RequestOtpProcess {
     if (recent >= OTP_MAX_PER_HOUR) return { success: false, error: 'Demasiados códigos; espera unos minutos' };
 
     const code = this.sender.managesCode ? undefined : randomDigits(6);
+    let sentChannel = resolvedChannel;
     try {
-      await this.sender.send(normalized.destination, resolvedChannel, code);
+      sentChannel = (await this.sender.send(normalized.destination, resolvedChannel, code)) ?? resolvedChannel;
     } catch (err) {
       this.logger.error(`No se pudo enviar el código a ${normalized.destination}: ${(err as Error).message}`);
       return { success: false, error: 'No pudimos enviar el código; intenta por otro medio' };
     }
     await this.otpDao.create({
       destination: normalized.destination,
-      channel: resolvedChannel,
+      channel: sentChannel,
       codeHash: code ? hashSecret(`${normalized.destination}:${code}`) : 'provider',
       expiresAt: new Date(Date.now() + OTP_TTL_MS),
       ip,
     });
-    return { success: true, data: { destination: normalized.destination, channel: resolvedChannel, expiresInSeconds: OTP_TTL_MS / 1000 } };
+    return { success: true, data: { destination: normalized.destination, channel: sentChannel, expiresInSeconds: OTP_TTL_MS / 1000 } };
   }
 }
 

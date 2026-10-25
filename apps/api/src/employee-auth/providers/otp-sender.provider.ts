@@ -9,7 +9,8 @@ export const OTP_SENDER = 'OTP_SENDER';
  */
 export interface OtpSender {
   readonly managesCode: boolean;
-  send(destination: string, channel: OtpChannelEnum, code?: string): Promise<void>;
+  /** Devuelve el canal por el que salió de verdad (puede caer de WhatsApp a SMS). */
+  send(destination: string, channel: OtpChannelEnum, code?: string): Promise<OtpChannelEnum | void>;
   check?(destination: string, code: string): Promise<boolean>;
 }
 
@@ -28,6 +29,7 @@ export class LogOtpSender implements OtpSender {
 @Injectable()
 export class TwilioVerifyOtpSender implements OtpSender {
   readonly managesCode = true;
+  private readonly logger = new Logger('OTP');
 
   private get auth(): string {
     return Buffer.from(`${process.env.TWILIO_ACCOUNT_SID}:${process.env.TWILIO_AUTH_TOKEN}`).toString('base64');
@@ -37,7 +39,24 @@ export class TwilioVerifyOtpSender implements OtpSender {
     return `https://verify.twilio.com/v2/Services/${process.env.TWILIO_VERIFY_SERVICE_SID}/${path}`;
   }
 
-  async send(destination: string, channel: OtpChannelEnum): Promise<void> {
+  /**
+   * WhatsApp en Verify exige ligar un remitente en la consola de Twilio; si
+   * aún no está (o el número no tiene WhatsApp), se reintenta por SMS para
+   * que el empleado no se quede sin código.
+   */
+  async send(destination: string, channel: OtpChannelEnum): Promise<OtpChannelEnum> {
+    try {
+      await this.start(destination, channel);
+      return channel;
+    } catch (err) {
+      if (channel !== OtpChannelEnum.Whatsapp) throw err;
+      this.logger.warn(`WhatsApp no disponible (${(err as Error).message}); se envía por SMS`);
+      await this.start(destination, OtpChannelEnum.Sms);
+      return OtpChannelEnum.Sms;
+    }
+  }
+
+  private async start(destination: string, channel: OtpChannelEnum): Promise<void> {
     const res = await fetch(this.url('Verifications'), {
       method: 'POST',
       headers: { authorization: `Basic ${this.auth}`, 'content-type': 'application/x-www-form-urlencoded' },

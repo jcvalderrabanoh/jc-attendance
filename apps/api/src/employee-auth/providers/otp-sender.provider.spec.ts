@@ -29,11 +29,20 @@ describe('TwilioVerifyOtpSender', () => {
     expect(Object.fromEntries(body(0))).toEqual({ To: '+525512345678', Channel: 'sms', Locale: 'es' });
   });
 
-  it('si WhatsApp falla, reintenta por SMS y lo informa', async () => {
+  it('sin remitente de WhatsApp ligado (por defecto) va directo por SMS', async () => {
+    fetchMock.mockResolvedValue(ok());
+    await expect(new TwilioVerifyOtpSender().send('+525512345678', OtpChannelEnum.Whatsapp)).resolves.toBe(OtpChannelEnum.Sms);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(body(0).get('Channel')).toBe('sms');
+  });
+
+  it('con TWILIO_VERIFY_WHATSAPP=true, si WhatsApp falla reintenta por SMS y lo informa', async () => {
+    process.env.TWILIO_VERIFY_WHATSAPP = 'true';
     fetchMock.mockResolvedValueOnce(fail(400, 'channel disabled')).mockResolvedValueOnce(ok());
     await expect(new TwilioVerifyOtpSender().send('+525512345678', OtpChannelEnum.Whatsapp)).resolves.toBe(OtpChannelEnum.Sms);
     expect(body(0).get('Channel')).toBe('whatsapp');
     expect(body(1).get('Channel')).toBe('sms');
+    delete process.env.TWILIO_VERIFY_WHATSAPP;
   });
 
   it('SMS o email fallidos no se reintentan', async () => {

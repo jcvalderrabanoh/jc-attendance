@@ -7,7 +7,7 @@ fuente: Notion › Manual de usuario › 18 · Checador (copiar a la bóveda en 
 > El **Checador** registra las entradas y salidas de tu personal y calcula horas, retardos, faltas y horas extra según la Ley Federal del Trabajo (LFT). Está en el menú **Checador**. Se contrata aparte: si tu cuenta no lo tiene verás *«La cuenta no tiene contratado el Checador»* en cada pantalla. Para ver el menú necesitas el permiso `attendance.read` (el administrador de la cuenta lo ve siempre).
 
 ## Quién puede hacer qué
-**RH** (`attendance.manage`) configura todo y cierra periodos; **Supervisor** (`attendance.supervise`) revisa y aprueba; `attendance.read` o `attendance.inspect` solo consultan. Si tu rol no alcanza verás *«Tu rol no permite esta acción»*; los permisos los da un administrador en **Seguridad › Usuarios**.
+**RH** (`attendance.manage`) configura todo y cierra periodos; **Supervisor** (`attendance.supervise`) revisa y aprueba; `attendance.read` o `attendance.inspect` solo consultan. Si tu rol no alcanza verás *«Tu rol no permite esta acción»*; los permisos los da un administrador en **Configuraciones › Usuarios y permisos**.
 
 ## Cómo checa el personal
 Hay tres formas, y todas terminan en **Marcajes**:
@@ -26,6 +26,7 @@ Indicadores de hoy (**Presentes ahora**, **Puntualidad hoy**, **Ausentismo del m
 
 ## Empleados
 - **Agregar empleado**: datos personales y laborales (número de empleado, teléfono, CURP, RFC, NSS, sucursal, horario…) y, opcional, su **Usuario de lumen-view** para que cheque con su mismo login. Marca **Es menor de edad** si aplica (sin horas extra).
+- **Usuario de lumen-view**: cada usuario se enlaza a **un solo empleado activo**. Si ya está enlazado a otro verás *«Ese usuario de lumen-view ya está enlazado a…»* con el nombre; si el usuario no es de la cuenta o está inactivo, *«El usuario de lumen-view no existe en la cuenta o está inactivo»*. Para quitar el enlace, en **Editar** elige **— Ninguno —**. Al dar de baja a un empleado su usuario queda libre.
 - **Invitar por liga**: te lleva a **Ligas de alta**.
 - Filtra por **Buscar**, **Departamento**, **Sucursal**, **Estado** o tus campos personalizados; **Limpiar** quita los filtros.
 - En el menú de cada fila (⋮): **Ver ficha**, **Editar**, **PIN de kiosco** (de 4 a 6 dígitos) y **Dar de baja**. Al dar de baja, sus registros se conservan el tiempo que marca la retención de datos.

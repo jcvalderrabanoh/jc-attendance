@@ -24,7 +24,8 @@ check "jc-core FHIR (/fhir/metadata)" bash -c "curl -fsS --max-time 10 'http://1
 # Vía nginx basta con que jc-core conteste (401/404 incluidos): 502/503/504 = caído.
 check "jc-core vía nginx" bash -c "code=\$(curl -sS --max-time 5 -o /dev/null -w '%{http_code}' --resolve '${PUBLIC_HOST}:443:127.0.0.1' 'https://${PUBLIC_HOST}/public-viewer'); echo \$code; case \$code in 000|502|503|504) exit 1;; esac"
 # Informativo (no falla): `log` = el código solo sale en el log del servidor.
-echo "INFO  OTP del empleado: $(grep -E '^OTP_PROVIDER=' "/home/${APP_USER}/jc-attendance/apps/api/.env" | cut -d= -f2)"
+ATT_ENV="/home/${APP_USER}/jc-attendance/apps/api/.env"
+echo "INFO  OTP del empleado: $(grep -E '^OTP_PROVIDER=' "${ATT_ENV}" | cut -d= -f2)$(grep -qE '^TWILIO_PHONE_NUMBER=.+' "${ATT_ENV}" && echo ' (con respaldo SMS)' || echo ' (sin respaldo SMS)')"
 check "nginx -t" nginx -t
 check "include en nginx" grep -c "lumen-attendance.conf" /etc/nginx/conf.d/lumenview.conf
 

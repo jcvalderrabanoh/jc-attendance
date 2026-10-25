@@ -77,7 +77,76 @@ export class TwilioVerifyOtpSender implements OtpSender {
   }
 }
 
+/**
+ * Producción: la misma plantilla de WhatsApp AUTHENTICATION aprobada en Meta
+ * que usa jc-core para su código de alta (`TWILIO_SIGNUP_OTP_CONTENT_SID`,
+ * remitente `TWILIO_WHATSAPP_FROM`). El código lo genera y valida el
+ * Checador. Si WhatsApp falla, cae a SMS por la API de mensajes
+ * (`TWILIO_PHONE_NUMBER`). Nunca manda WhatsApp en texto libre: Meta lo
+ * bloquea fuera de la ventana de 24 h (63016).
+ */
+@Injectable()
+export class TwilioMessagingOtpSender implements OtpSender {
+  readonly managesCode = false;
+  private readonly logger = new Logger('OTP');
+
+  async send(destination: string, channel: OtpChannelEnum, code?: string): Promise<OtpChannelEnum> {
+    if (!code) throw new Error('Falta el código a enviar');
+    if (channel === OtpChannelEnum.Email) throw new Error('El envío por email no está habilitado');
+    if (channel === OtpChannelEnum.Whatsapp) {
+      try {
+        await this.whatsapp(destination, code);
+        return OtpChannelEnum.Whatsapp;
+      } catch (err) {
+        if (!process.env.TWILIO_PHONE_NUMBER) throw err;
+        this.logger.warn(`WhatsApp falló (${(err as Error).message}); se envía por SMS`);
+      }
+    }
+    await this.sms(destination, code);
+    return OtpChannelEnum.Sms;
+  }
+
+  private async whatsapp(destination: string, code: string): Promise<void> {
+    const contentSid = process.env.TWILIO_SIGNUP_OTP_CONTENT_SID;
+    const from = process.env.TWILIO_WHATSAPP_FROM;
+    if (!contentSid || !from) throw new Error('Falta la plantilla o el remitente de WhatsApp');
+    await this.message({
+      From: from.startsWith('whatsapp:') ? from : `whatsapp:${from}`,
+      To: `whatsapp:${destination}`,
+      ContentSid: contentSid,
+      ContentVariables: JSON.stringify({ '1': code }),
+    });
+  }
+
+  private async sms(destination: string, code: string): Promise<void> {
+    const from = process.env.TWILIO_PHONE_NUMBER;
+    if (!from) throw new Error('No hay número de SMS configurado');
+    await this.message({
+      From: from,
+      To: destination,
+      Body: `Tu código del Checador es ${code}. Caduca en 10 minutos. No lo compartas.`,
+    });
+  }
+
+  private async message(params: Record<string, string>): Promise<void> {
+    const sid = process.env.TWILIO_ACCOUNT_SID;
+    const auth = Buffer.from(`${sid}:${process.env.TWILIO_AUTH_TOKEN}`).toString('base64');
+    const res = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${sid}/Messages.json`, {
+      method: 'POST',
+      headers: { authorization: `Basic ${auth}`, 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(params),
+    });
+    if (!res.ok) throw new Error(`Twilio ${res.status}: ${await res.text()}`);
+  }
+}
+
+export function createOtpSender(provider = process.env.OTP_PROVIDER): OtpSender {
+  if (provider === 'twilio-messaging') return new TwilioMessagingOtpSender();
+  if (provider === 'twilio') return new TwilioVerifyOtpSender();
+  return new LogOtpSender();
+}
+
 export const otpSenderProvider = {
   provide: OTP_SENDER,
-  useFactory: (): OtpSender => (process.env.OTP_PROVIDER === 'twilio' ? new TwilioVerifyOtpSender() : new LogOtpSender()),
+  useFactory: (): OtpSender => createOtpSender(),
 };

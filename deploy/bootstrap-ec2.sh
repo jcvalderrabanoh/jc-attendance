@@ -56,7 +56,7 @@ if [ ! -f "${ENV_FILE}" ]; then
     echo "PORT=3100"
     echo "PUBLIC_APP_URL=https://${PUBLIC_HOST}/asistencia"
     echo "CORS_ORIGINS=${FRONT_ORIGIN},https://${PUBLIC_HOST}"
-    # twilio-verify-setup.py lo cambia a `twilio` si hay credenciales de Twilio.
+    # otp-setup.py lo cambia a `twilio-messaging` o `twilio` si hay Twilio.
     echo "OTP_PROVIDER=log"
   } > "${ENV_FILE}"
   chown "${APP_USER}:${APP_USER}" "${ENV_FILE}"
@@ -65,9 +65,9 @@ else
   log "${ENV_FILE} ya existe; no se toca"
 fi
 
-# OTP por Twilio Verify con las credenciales de Twilio de jc-core (idempotente,
-# no fatal: si no se puede, el código sigue saliendo en el log del servidor).
-python3 "${APP_DIR}/deploy/twilio-verify-setup.py" "${ENV_FILE}" || true
+# Código de acceso del empleado: plantilla de WhatsApp de jc-core o Twilio
+# Verify (idempotente, no fatal: si no se puede, sale en el log del servidor).
+python3 "${APP_DIR}/deploy/otp-setup.py" "${ENV_FILE}" "${CORE_ENV}" || true
 
 # --- 3. API --------------------------------------------------------------
 log "desplegando el API"

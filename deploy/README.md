@@ -33,10 +33,14 @@ Mismo EC2 que jc-core, proceso pm2 aparte (`jc-attendance-api`, puerto 3100).
 
 - **Rol de BD propio:** hoy el `.env` usa el usuario de jc-core. Pasar a `attendance_app` con
   `apps/api/db/provision.sql` (solo escribe en `attendance`, solo lee 3 tablas de `public`).
-- **OTP por WhatsApp/SMS:** cada deploy corre `deploy/twilio-verify-setup.py`, que con las
-  credenciales de Twilio de jc-core reutiliza o crea el servicio Verify «Checador» y deja
-  `OTP_PROVIDER=twilio`. Sin credenciales o si Twilio falla, sigue en `log`; la verificación del
-  deploy dice cuál quedó. WhatsApp en Verify requiere ligar un remitente en la consola de Twilio;
-  mientras no esté, el API cae a SMS.
+- **OTP por WhatsApp/SMS:** cada deploy corre `deploy/otp-setup.py`, que copia del `.env` de
+  jc-core las claves de Twilio que falten y elige el proveedor:
+  - `twilio-messaging` (preferido): la plantilla de WhatsApp AUTHENTICATION aprobada que usa
+    jc-core para su código de alta (`TWILIO_SIGNUP_OTP_CONTENT_SID`, remitente
+    `TWILIO_WHATSAPP_FROM`); si WhatsApp falla, SMS por `TWILIO_PHONE_NUMBER`.
+  - `twilio`: Twilio Verify (crea/reutiliza el servicio «Checador»). Por WhatsApp no entrega
+    hasta ligar un remitente en la consola de Twilio.
+  - `log`: sin credenciales; el código sale en el log del servidor.
+  La verificación del deploy dice cuál quedó.
 - **Contratar el Checador a cuentas de clientes:**
   `INSERT INTO account_apps ("accountId", app) VALUES ('<cuenta>', 'attendance');`
